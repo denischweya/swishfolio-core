@@ -29,6 +29,40 @@ Core functionality plugin for the Swishfolio WordPress theme. Adds custom Gutenb
 
 - WordPress 6.4+
 - PHP 7.4+
+- Node.js 18+
+
+## Installation
+
+1. Clone the repository into your WordPress plugins directory:
+   ```bash
+   cd wp-content/plugins
+   git clone https://github.com/denischweya/swishfolio-core.git
+   ```
+
+2. Install dependencies:
+   ```bash
+   cd swishfolio-core
+   npm install
+   ```
+
+3. Build the assets:
+   ```bash
+   npm run build
+   ```
+
+4. Activate the plugin in WordPress admin.
+
+## Development
+
+Start the development server with hot reloading:
+```bash
+npm run start
+```
+
+Build for production:
+```bash
+npm run build
+```
 
 ## Third-Party Code
 
