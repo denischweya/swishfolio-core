@@ -25,6 +25,9 @@ Core functionality plugin for the Swishfolio WordPress theme. Adds custom Gutenb
 - Project Categories
 - Project Types
 
+### Additional Features
+- SVG upload support with sanitization
+
 ## Requirements
 
 - WordPress 6.4+

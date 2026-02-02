@@ -25,6 +25,7 @@ use SwishfolioCore\Admin\AdminMenu;
 use SwishfolioCore\Forms\FormProcessor;
 use SwishfolioCore\Email\EmailService;
 use SwishfolioCore\Email\EspManager;
+use SwishfolioCore\Services\SvgSupport;
 
 /**
  * Plugin orchestrator - boots and wires all components.
@@ -80,6 +81,13 @@ class Plugin {
 	private ?EspManager $espManager = null;
 
 	/**
+	 * SVG support instance.
+	 *
+	 * @var SvgSupport|null
+	 */
+	private ?SvgSupport $svgSupport = null;
+
+	/**
 	 * Constructor.
 	 */
 	public function __construct() {
@@ -100,6 +108,9 @@ class Plugin {
 
 		// Initialize ESP manager.
 		$this->espManager = new EspManager();
+
+		// Initialize SVG support.
+		$this->svgSupport = new SvgSupport();
 	}
 
 	/**
