@@ -179,6 +179,7 @@ class FormProcessor {
 		$attributes = $this->getBlockAttributes( $formId );
 		$recipientEmail = $attributes['recipientEmail'] ?? '';
 		$emailSubject = $attributes['emailSubject'] ?? __( 'New Form Submission', 'swishfolio-core' );
+		$fieldDefinitions = $attributes['fields'] ?? [];
 
 		// Use default from settings if not set.
 		if ( empty( $recipientEmail ) ) {
@@ -186,8 +187,8 @@ class FormProcessor {
 			$recipientEmail = $settings['from_email'] ?? get_option( 'admin_email' );
 		}
 
-		// Dispatch email (will be handled by EmailService in Phase 5).
-		do_action( 'swish_forms_contact_submitted', $entryId, $recipientEmail, $emailSubject, $fields, $email );
+		// Dispatch email (will be handled by EmailService).
+		do_action( 'swish_forms_contact_submitted', $entryId, $recipientEmail, $emailSubject, $fields, $email, $fieldDefinitions );
 	}
 
 	/**

@@ -34,7 +34,7 @@ class EmailService {
 		$this->settings = get_option( 'swish_forms_email_settings', [] );
 
 		// Hook into contact form submission.
-		add_action( 'swish_forms_contact_submitted', [ $this, 'sendContactEmail' ], 10, 5 );
+		add_action( 'swish_forms_contact_submitted', [ $this, 'sendContactEmail' ], 10, 6 );
 
 		// Configure SMTP if enabled.
 		if ( ! empty( $this->settings['smtp_enabled'] ) ) {
@@ -48,14 +48,15 @@ class EmailService {
 	/**
 	 * Send contact form email.
 	 *
-	 * @param int    $entryId        Entry ID.
-	 * @param string $recipientEmail Recipient email.
-	 * @param string $subject        Email subject.
-	 * @param array  $fields         Form fields.
-	 * @param string $senderEmail    Submitter email.
+	 * @param int    $entryId          Entry ID.
+	 * @param string $recipientEmail   Recipient email.
+	 * @param string $subject          Email subject.
+	 * @param array  $fields           Form field values.
+	 * @param string $senderEmail      Submitter email.
+	 * @param array  $fieldDefinitions Field definitions with labels.
 	 * @return bool
 	 */
-	public function sendContactEmail( int $entryId, string $recipientEmail, string $subject, array $fields, string $senderEmail ): bool {
+	public function sendContactEmail( int $entryId, string $recipientEmail, string $subject, array $fields, string $senderEmail, array $fieldDefinitions = [] ): bool {
 		if ( empty( $recipientEmail ) || ! is_email( $recipientEmail ) ) {
 			return false;
 		}
@@ -64,7 +65,7 @@ class EmailService {
 		$fromName = $this->settings['from_name'] ?? get_option( 'blogname' );
 
 		// Build email content.
-		$message = $this->buildEmailContent( $fields, $senderEmail, $entryId );
+		$message = $this->buildEmailContent( $fields, $senderEmail, $entryId, $fieldDefinitions );
 
 		// Set headers.
 		$headers = [
@@ -83,14 +84,23 @@ class EmailService {
 	/**
 	 * Build email content from form fields.
 	 *
-	 * @param array  $fields      Form fields.
-	 * @param string $senderEmail Submitter email.
-	 * @param int    $entryId     Entry ID.
+	 * @param array  $fields           Form field values.
+	 * @param string $senderEmail      Submitter email.
+	 * @param int    $entryId          Entry ID.
+	 * @param array  $fieldDefinitions Field definitions with labels.
 	 * @return string
 	 */
-	private function buildEmailContent( array $fields, string $senderEmail, int $entryId ): string {
+	private function buildEmailContent( array $fields, string $senderEmail, int $entryId, array $fieldDefinitions = [] ): string {
 		$siteName = get_bloginfo( 'name' );
 		$siteUrl = home_url();
+
+		// Build a map of field IDs to labels.
+		$fieldLabels = [];
+		foreach ( $fieldDefinitions as $fieldDef ) {
+			if ( isset( $fieldDef['id'] ) && isset( $fieldDef['label'] ) ) {
+				$fieldLabels[ $fieldDef['id'] ] = $fieldDef['label'];
+			}
+		}
 
 		ob_start();
 		?>
@@ -166,10 +176,14 @@ class EmailService {
 					<h1><?php esc_html_e( 'New Contact Form Submission', 'swishfolio-core' ); ?></h1>
 				</div>
 				<div class="content">
-					<?php foreach ( $fields as $key => $value ) : ?>
-						<?php if ( ! empty( $value ) ) : ?>
+					<?php foreach ( $fields as $fieldId => $value ) : ?>
+						<?php if ( ! empty( $value ) || $value === '0' ) : ?>
+							<?php
+							// Get the human-readable label, fallback to formatted field ID.
+							$label = isset( $fieldLabels[ $fieldId ] ) ? $fieldLabels[ $fieldId ] : ucfirst( str_replace( [ '_', '-' ], ' ', $fieldId ) );
+							?>
 							<div class="field">
-								<div class="field-label"><?php echo esc_html( ucfirst( str_replace( '_', ' ', $key ) ) ); ?></div>
+								<div class="field-label"><?php echo esc_html( $label ); ?></div>
 								<div class="field-value"><?php echo esc_html( is_array( $value ) ? implode( ', ', $value ) : $value ); ?></div>
 							</div>
 						<?php endif; ?>
