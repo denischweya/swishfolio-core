@@ -1,0 +1,81 @@
+/**
+ * Columns Extension - Frontend Styles
+ *
+ * Vertical alignment styles for core/columns and core/column blocks.
+ */
+
+/* Columns container vertical alignment */
+.wp-block-columns.sfcore-vertical-align-top {
+	align-items: flex-start;
+}
+
+.wp-block-columns.sfcore-vertical-align-center {
+	align-items: center;
+}
+
+.wp-block-columns.sfcore-vertical-align-bottom {
+	align-items: flex-end;
+}
+
+.wp-block-columns.sfcore-vertical-align-stretch {
+	align-items: stretch;
+}
+
+.wp-block-columns.sfcore-vertical-align-space-between {
+	align-items: stretch;
+}
+
+.wp-block-columns.sfcore-vertical-align-space-around {
+	align-items: stretch;
+}
+
+.wp-block-columns.sfcore-vertical-align-space-evenly {
+	align-items: stretch;
+}
+
+/* Individual column content alignment */
+.wp-block-column.sfcore-vertical-align-top {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+
+.wp-block-column.sfcore-vertical-align-center {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.wp-block-column.sfcore-vertical-align-bottom {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+}
+
+.wp-block-column.sfcore-vertical-align-space-between {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.wp-block-column.sfcore-vertical-align-space-around {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+.wp-block-column.sfcore-vertical-align-space-evenly {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+.wp-block-column.sfcore-vertical-align-stretch {
+	display: flex;
+	flex-direction: column;
+	justify-content: stretch;
+}
+
+.wp-block-column.sfcore-vertical-align-stretch > * {
+	flex-grow: 1;
+}

@@ -26,6 +26,7 @@ use SwishfolioCore\Forms\FormProcessor;
 use SwishfolioCore\Email\EmailService;
 use SwishfolioCore\Email\EspManager;
 use SwishfolioCore\Services\SvgSupport;
+use SwishfolioCore\Extensions\ColumnsExtension;
 
 /**
  * Plugin orchestrator - boots and wires all components.
@@ -88,6 +89,13 @@ class Plugin {
 	private ?SvgSupport $svgSupport = null;
 
 	/**
+	 * Columns extension instance.
+	 *
+	 * @var ColumnsExtension|null
+	 */
+	private ?ColumnsExtension $columnsExtension = null;
+
+	/**
 	 * Constructor.
 	 */
 	public function __construct() {
@@ -111,6 +119,9 @@ class Plugin {
 
 		// Initialize SVG support.
 		$this->svgSupport = new SvgSupport();
+
+		// Initialize columns extension.
+		$this->columnsExtension = new ColumnsExtension();
 	}
 
 	/**

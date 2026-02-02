@@ -1,0 +1,76 @@
+/**
+ * Columns Extension - Editor Styles
+ *
+ * Vertical alignment styles for the block editor.
+ */
+
+/* Columns container vertical alignment in editor */
+.wp-block-columns.sfcore-vertical-align-top {
+	align-items: flex-start;
+}
+
+.wp-block-columns.sfcore-vertical-align-center {
+	align-items: center;
+}
+
+.wp-block-columns.sfcore-vertical-align-bottom {
+	align-items: flex-end;
+}
+
+.wp-block-columns.sfcore-vertical-align-stretch {
+	align-items: stretch;
+}
+
+/* Individual column content alignment in editor */
+.wp-block-column.sfcore-vertical-align-top {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+
+.wp-block-column.sfcore-vertical-align-center {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.wp-block-column.sfcore-vertical-align-bottom {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+}
+
+.wp-block-column.sfcore-vertical-align-space-between {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.wp-block-column.sfcore-vertical-align-space-around {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+.wp-block-column.sfcore-vertical-align-space-evenly {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+.wp-block-column.sfcore-vertical-align-stretch {
+	display: flex;
+	flex-direction: column;
+}
+
+.wp-block-column.sfcore-vertical-align-stretch > .block-editor-inner-blocks {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+.wp-block-column.sfcore-vertical-align-stretch > .block-editor-inner-blocks > .block-editor-block-list__layout {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+}
