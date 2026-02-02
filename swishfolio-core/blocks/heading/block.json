@@ -1,0 +1,207 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "swishfolio-core/heading",
+	"version": "1.0.0",
+	"title": "Custom Heading",
+	"category": "swishfolio",
+	"description": "A neo-brutalist heading block with pre-heading, heading, and sub-heading elements, each with full styling control.",
+	"keywords": [ "heading", "title", "text", "brutalist", "badge" ],
+	"textdomain": "swishfolio-core",
+	"attributes": {
+		"preHeading": {
+			"type": "string",
+			"default": ""
+		},
+		"preHeadingBackgroundColor": {
+			"type": "string",
+			"default": "#FFD93D"
+		},
+		"preHeadingTextColor": {
+			"type": "string",
+			"default": "#000000"
+		},
+		"preHeadingRotation": {
+			"type": "number",
+			"default": 0
+		},
+		"preHeadingBorderStyle": {
+			"type": "string",
+			"default": "solid"
+		},
+		"preHeadingBorderWidth": {
+			"type": "number",
+			"default": 4
+		},
+		"preHeadingBorderColor": {
+			"type": "string",
+			"default": "#000000"
+		},
+		"preHeadingShadowSize": {
+			"type": "string",
+			"default": "small"
+		},
+		"showPreHeading": {
+			"type": "boolean",
+			"default": true
+		},
+
+		"heading": {
+			"type": "string",
+			"default": ""
+		},
+		"headingTag": {
+			"type": "string",
+			"default": "h2"
+		},
+		"headingBackgroundColor": {
+			"type": "string",
+			"default": ""
+		},
+		"headingTextColor": {
+			"type": "string",
+			"default": "#000000"
+		},
+		"headingRotation": {
+			"type": "number",
+			"default": 0
+		},
+		"headingBorderStyle": {
+			"type": "string",
+			"default": "none"
+		},
+		"headingBorderWidth": {
+			"type": "number",
+			"default": 4
+		},
+		"headingBorderColor": {
+			"type": "string",
+			"default": "#000000"
+		},
+		"headingShadowSize": {
+			"type": "string",
+			"default": "none"
+		},
+		"headingSize": {
+			"type": "string",
+			"default": "large"
+		},
+		"headingStyle": {
+			"type": "string",
+			"default": "normal"
+		},
+		"showHeading": {
+			"type": "boolean",
+			"default": true
+		},
+
+		"subHeading": {
+			"type": "string",
+			"default": ""
+		},
+		"subHeadingBackgroundColor": {
+			"type": "string",
+			"default": ""
+		},
+		"subHeadingTextColor": {
+			"type": "string",
+			"default": "#000000"
+		},
+		"subHeadingRotation": {
+			"type": "number",
+			"default": 0
+		},
+		"subHeadingBorderStyle": {
+			"type": "string",
+			"default": "none"
+		},
+		"subHeadingBorderWidth": {
+			"type": "number",
+			"default": 4
+		},
+		"subHeadingBorderColor": {
+			"type": "string",
+			"default": "#000000"
+		},
+		"subHeadingShadowSize": {
+			"type": "string",
+			"default": "none"
+		},
+		"subHeadingFontSize": {
+			"type": "string",
+			"default": "medium"
+		},
+		"showSubHeading": {
+			"type": "boolean",
+			"default": true
+		},
+
+		"leftIcon": {
+			"type": "object",
+			"default": {
+				"type": "none",
+				"value": ""
+			}
+		},
+		"leftIconColor": {
+			"type": "string",
+			"default": "#000000"
+		},
+		"leftIconBackgroundColor": {
+			"type": "string",
+			"default": ""
+		},
+		"leftIconSize": {
+			"type": "string",
+			"default": "medium"
+		},
+
+		"rightIcon": {
+			"type": "object",
+			"default": {
+				"type": "none",
+				"value": ""
+			}
+		},
+		"rightIconColor": {
+			"type": "string",
+			"default": "#000000"
+		},
+		"rightIconBackgroundColor": {
+			"type": "string",
+			"default": ""
+		},
+		"rightIconSize": {
+			"type": "string",
+			"default": "medium"
+		},
+
+		"contentAlign": {
+			"type": "string",
+			"default": "center"
+		},
+		"blockBackgroundColor": {
+			"type": "string",
+			"default": ""
+		},
+		"showBackgroundPattern": {
+			"type": "boolean",
+			"default": false
+		},
+		"backgroundPattern": {
+			"type": "string",
+			"default": "dots"
+		}
+	},
+	"supports": {
+		"align": [ "wide", "full" ],
+		"html": false,
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}

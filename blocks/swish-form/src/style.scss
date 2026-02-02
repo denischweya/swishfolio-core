@@ -1,0 +1,307 @@
+/**
+ * Swish Form Block - Frontend Styles
+ *
+ * @package SwishfolioCore
+ */
+
+.sfcore-swish-form {
+	// Ensure proper box-sizing for all form elements
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+	// Honeypot field (hidden from users)
+	&__honeypot {
+		position: absolute;
+		left: -9999px;
+		opacity: 0;
+		pointer-events: none;
+		height: 0;
+		width: 0;
+		overflow: hidden;
+	}
+
+	// Form wrapper
+	&__form {
+		background: #FFFDF5;
+		border: 4px solid #000;
+		box-shadow: 6px 6px 0 0 #000;
+		padding: 32px;
+		max-width: 100%;
+		overflow: hidden;
+
+		@media (max-width: 600px) {
+			padding: 20px;
+			box-shadow: 4px 4px 0 0 #000;
+		}
+	}
+
+	// Fields container
+	&__fields {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 24px;
+		margin-bottom: 24px;
+
+		@media (max-width: 600px) {
+			gap: 16px;
+			margin-bottom: 16px;
+		}
+	}
+
+	// Individual field
+	&__field {
+		&--full {
+			width: 100%;
+		}
+
+		&--half {
+			width: calc(50% - 12px);
+
+			@media (max-width: 600px) {
+				width: 100%;
+			}
+		}
+	}
+
+	// Field label
+	&__label {
+		display: block;
+		font-weight: 700;
+		margin-bottom: 8px;
+		font-size: 14px;
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+		color: #000;
+	}
+
+	// Required indicator
+	&__required {
+		color: #FF6B6B;
+		margin-left: 4px;
+	}
+
+	// Input, textarea, select base styles
+	&__input,
+	&__textarea,
+	&__select {
+		width: 100%;
+		max-width: 100%;
+		padding: 14px 18px;
+		border: 4px solid #000;
+		background: #fff;
+		font-family: inherit;
+		font-size: 16px;
+		box-shadow: 4px 4px 0 0 #000;
+		transition: all 0.1s ease-out;
+
+		&:focus {
+			outline: none;
+			border-color: #000;
+			box-shadow: 6px 6px 0 0 #000;
+			transform: translate(-2px, -2px);
+		}
+
+		&::placeholder {
+			color: #999;
+		}
+
+		&:invalid:not(:placeholder-shown) {
+			border-color: #FF6B6B;
+		}
+
+		@media (max-width: 600px) {
+			padding: 12px 14px;
+			border-width: 3px;
+			box-shadow: 3px 3px 0 0 #000;
+			font-size: 16px; // Prevent zoom on iOS
+
+			&:focus {
+				box-shadow: 4px 4px 0 0 #000;
+				transform: translate(-1px, -1px);
+			}
+		}
+	}
+
+	&__textarea {
+		min-height: 150px;
+		resize: vertical;
+	}
+
+	&__select {
+		cursor: pointer;
+		appearance: none;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23000' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: right 18px center;
+		padding-right: 48px;
+
+		@media (max-width: 600px) {
+			background-position: right 14px center;
+			padding-right: 40px;
+		}
+	}
+
+	// Checkbox
+	&__checkbox {
+		width: 24px;
+		height: 24px;
+		border: 4px solid #000;
+		appearance: none;
+		cursor: pointer;
+		background: #fff;
+		vertical-align: middle;
+		margin: 0;
+		flex-shrink: 0;
+		box-shadow: 2px 2px 0 0 #000;
+		transition: all 0.1s ease-out;
+
+		&:checked {
+			background: #FFD93D;
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='%23000'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+
+		&:focus {
+			outline: none;
+			box-shadow: 3px 3px 0 0 #000;
+			transform: translate(-1px, -1px);
+		}
+	}
+
+	&__checkbox-label {
+		display: flex;
+		align-items: flex-start;
+		gap: 12px;
+		cursor: pointer;
+		font-size: 14px;
+		line-height: 1.5;
+	}
+
+	&__checkbox-text {
+		padding-top: 2px;
+	}
+
+	// Field error message
+	&__field-error {
+		color: #FF6B6B;
+		font-size: 12px;
+		font-weight: 600;
+		margin-top: 8px;
+		min-height: 18px;
+	}
+
+	// Submit button area
+	&__submit {
+		margin-top: 8px;
+	}
+
+	// Submit button
+	&__button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 18px 36px;
+		background: #FF6B6B;
+		color: #000;
+		border: 4px solid #000;
+		font-weight: 700;
+		font-size: 16px;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		cursor: pointer;
+		box-shadow: 4px 4px 0 0 #000;
+		transition: all 0.1s ease-out;
+		min-width: 180px;
+
+		&:hover:not(:disabled) {
+			background: #ff8585;
+			box-shadow: 6px 6px 0 0 #000;
+			transform: translate(-2px, -2px);
+		}
+
+		&:active:not(:disabled) {
+			box-shadow: none;
+			transform: translate(2px, 2px);
+		}
+
+		&:disabled {
+			cursor: wait;
+			opacity: 0.8;
+		}
+
+		@media (max-width: 600px) {
+			width: 100%;
+			padding: 16px 24px;
+			border-width: 3px;
+			box-shadow: 3px 3px 0 0 #000;
+			min-width: unset;
+
+			&:hover:not(:disabled) {
+				box-shadow: 4px 4px 0 0 #000;
+				transform: translate(-1px, -1px);
+			}
+		}
+	}
+
+	&__button-loading {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+
+		&::after {
+			content: '';
+			width: 16px;
+			height: 16px;
+			border: 3px solid #000;
+			border-top-color: transparent;
+			border-radius: 50%;
+			animation: swish-form-spin 0.8s linear infinite;
+		}
+	}
+
+	// Messages area
+	&__messages {
+		margin-top: 16px;
+		font-weight: 600;
+		font-size: 14px;
+
+		&--success {
+			color: #22c55e;
+			padding: 16px;
+			background: #dcfce7;
+			border: 4px solid #22c55e;
+		}
+
+		&--error {
+			color: #FF6B6B;
+			padding: 16px;
+			background: #fef2f2;
+			border: 4px solid #FF6B6B;
+		}
+	}
+}
+
+// Subscription form variant
+.sfcore-swish-form--subscription {
+	.sfcore-swish-form__form {
+		background: #f5f3ff;
+	}
+
+	.sfcore-swish-form__button {
+		background: #C4B5FD;
+
+		&:hover:not(:disabled) {
+			background: #d4c8fd;
+		}
+	}
+}
+
+// Loading animation
+@keyframes swish-form-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}

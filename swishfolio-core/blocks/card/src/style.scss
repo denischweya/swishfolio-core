@@ -1,0 +1,376 @@
+/**
+ * Card Block - Frontend Styles
+ *
+ * Bauhaus-inspired design with hard shadows, thick borders, and primary colors.
+ */
+
+// Variables
+$bauhaus-red: #D02020;
+$bauhaus-blue: #1040C0;
+$bauhaus-yellow: #F0C020;
+$bauhaus-black: #121212;
+$bauhaus-white: #F0F0F0;
+
+$border-width: 3px;
+$shadow-offset: 6px;
+$shadow-offset-hover: 8px;
+
+// Card Base
+.wp-block-swishfolio-core-card {
+	--card-border-color: #{$bauhaus-black};
+	--card-shadow-color: #{$bauhaus-black};
+
+	position: relative;
+	background: $bauhaus-white;
+	border: $border-width solid var(--card-border-color);
+	box-shadow: $shadow-offset $shadow-offset 0 var(--card-shadow-color);
+	padding: 2rem;
+	transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+	&:hover {
+		box-shadow: $shadow-offset-hover $shadow-offset-hover 0 var(--card-shadow-color);
+		transform: translate(-2px, -2px);
+	}
+}
+
+// Border Style Variants
+.sfcore-card--border-solid {
+	border-style: solid;
+}
+
+.sfcore-card--border-dashed {
+	border-style: dashed;
+}
+
+.sfcore-card--border-none {
+	border: none;
+	box-shadow: $shadow-offset $shadow-offset 0 var(--card-shadow-color);
+}
+
+// Card Inner Layout
+.sfcore-card__inner {
+	display: flex;
+	gap: 1.5rem;
+	position: relative;
+	z-index: 1;
+}
+
+// Icon Position Variants
+.sfcore-card--icon-top {
+	.sfcore-card__inner {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+}
+
+.sfcore-card--icon-left {
+	.sfcore-card__inner {
+		flex-direction: row;
+		align-items: flex-start;
+	}
+}
+
+.sfcore-card--icon-right {
+	.sfcore-card__inner {
+		flex-direction: row-reverse;
+		align-items: flex-start;
+	}
+}
+
+// Icon Styles
+.sfcore-card__icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	color: $bauhaus-red;
+	background: $bauhaus-yellow;
+	border: $border-width solid var(--card-border-color);
+
+	svg {
+		display: block;
+		fill: currentColor;
+	}
+}
+
+// Icon Shape Variants
+.sfcore-card--icon-shape-square {
+	.sfcore-card__icon {
+		border-radius: 0;
+	}
+}
+
+.sfcore-card--icon-shape-rounded {
+	.sfcore-card__icon {
+		border-radius: 8px;
+	}
+}
+
+.sfcore-card--icon-shape-circle {
+	.sfcore-card__icon {
+		border-radius: 50%;
+	}
+}
+
+// Icon Size Variants
+.sfcore-card--icon-small {
+	.sfcore-card__icon {
+		width: 48px;
+		height: 48px;
+		padding: 10px;
+
+		svg {
+			width: 24px;
+			height: 24px;
+		}
+	}
+}
+
+.sfcore-card--icon-medium {
+	.sfcore-card__icon {
+		width: 64px;
+		height: 64px;
+		padding: 14px;
+
+		svg {
+			width: 32px;
+			height: 32px;
+		}
+	}
+}
+
+.sfcore-card--icon-large {
+	.sfcore-card__icon {
+		width: 80px;
+		height: 80px;
+		padding: 18px;
+
+		svg {
+			width: 40px;
+			height: 40px;
+		}
+	}
+}
+
+// Custom Icon (image)
+.sfcore-card__icon--custom {
+	padding: 0;
+	background: transparent;
+	border: none;
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+	}
+}
+
+// Content
+.sfcore-card__content {
+	flex: 1;
+	min-width: 0;
+}
+
+.sfcore-card__title {
+	margin: 0 0 0.75rem;
+	font-size: 1.5rem;
+	font-weight: 700;
+	line-height: 1.2;
+	color: $bauhaus-black;
+	text-transform: uppercase;
+	letter-spacing: 0.02em;
+}
+
+.sfcore-card__description {
+	margin: 0;
+	font-size: 1rem;
+	line-height: 1.6;
+	color: rgba($bauhaus-black, 0.8);
+}
+
+// Link
+.sfcore-card__link-wrapper {
+	margin-top: 1.25rem;
+}
+
+.sfcore-card__link {
+	display: inline-block;
+	font-weight: 600;
+	text-decoration: none;
+	transition: all 0.2s ease;
+}
+
+.sfcore-card__link--text {
+	color: $bauhaus-blue;
+	position: relative;
+
+	&::after {
+		content: '';
+		position: absolute;
+		bottom: -2px;
+		left: 0;
+		width: 100%;
+		height: 2px;
+		background: currentColor;
+		transform: scaleX(0);
+		transform-origin: right;
+		transition: transform 0.2s ease;
+	}
+
+	&:hover::after {
+		transform: scaleX(1);
+		transform-origin: left;
+	}
+}
+
+.sfcore-card__link--button {
+	padding: 0.75rem 1.5rem;
+	background: $bauhaus-red;
+	color: $bauhaus-white;
+	border: $border-width solid var(--card-border-color);
+	box-shadow: 3px 3px 0 var(--card-shadow-color);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+
+	&:hover {
+		background: darken($bauhaus-red, 8%);
+		box-shadow: 4px 4px 0 var(--card-shadow-color);
+		transform: translate(-1px, -1px);
+	}
+}
+
+// Wrapper link (when entire card is clickable)
+.sfcore-card__wrapper-link {
+	display: block;
+	text-decoration: none;
+	color: inherit;
+}
+
+// Decorative Shapes
+.sfcore-card__shape {
+	position: absolute;
+	z-index: 0;
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+.sfcore-card__shape--circle {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	top: -20px;
+	right: -20px;
+}
+
+.sfcore-card__shape--square {
+	width: 50px;
+	height: 50px;
+	bottom: -15px;
+	left: -15px;
+	transform: rotate(15deg);
+}
+
+.sfcore-card__shape--triangle {
+	width: 0;
+	height: 0;
+	border-left: 30px solid transparent;
+	border-right: 30px solid transparent;
+	border-bottom: 52px solid;
+	border-bottom-color: inherit;
+	background: transparent !important;
+	top: -25px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+// Wide/Full alignment adjustments
+.wp-block-swishfolio-core-card {
+	&.alignwide,
+	&.alignfull {
+		.sfcore-card__inner {
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+	}
+}
+
+// Responsive - Tablet
+@media (max-width: 782px) {
+	.wp-block-swishfolio-core-card {
+		padding: 1.75rem;
+	}
+
+	.sfcore-card__title {
+		font-size: 1.35rem;
+	}
+
+	.sfcore-card--icon-large {
+		.sfcore-card__icon {
+			width: 70px;
+			height: 70px;
+			padding: 16px;
+
+			svg {
+				width: 36px;
+				height: 36px;
+			}
+		}
+	}
+}
+
+// Responsive - Mobile
+@media (max-width: 600px) {
+	.sfcore-card--icon-left,
+	.sfcore-card--icon-right {
+		.sfcore-card__inner {
+			flex-direction: column;
+		}
+	}
+
+	.sfcore-card__title {
+		font-size: 1.25rem;
+	}
+
+	.sfcore-card__description {
+		font-size: 0.9375rem;
+	}
+
+	.wp-block-swishfolio-core-card {
+		padding: 1.5rem;
+	}
+
+	.sfcore-card__inner {
+		gap: 1rem;
+	}
+
+	.sfcore-card--icon-medium {
+		.sfcore-card__icon {
+			width: 56px;
+			height: 56px;
+			padding: 12px;
+
+			svg {
+				width: 28px;
+				height: 28px;
+			}
+		}
+	}
+
+	.sfcore-card--icon-large {
+		.sfcore-card__icon {
+			width: 64px;
+			height: 64px;
+			padding: 14px;
+
+			svg {
+				width: 32px;
+				height: 32px;
+			}
+		}
+	}
+
+	.sfcore-card__link--button {
+		padding: 0.625rem 1.25rem;
+		font-size: 0.875rem;
+	}
+}

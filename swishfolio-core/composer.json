@@ -1,0 +1,17 @@
+{
+	"name": "swishfolio/swishfolio-core",
+	"description": "Core functionality for Swishfolio theme - custom blocks, post types, and taxonomies",
+	"type": "wordpress-plugin",
+	"license": "GPL-2.0-or-later",
+	"autoload": {
+		"psr-4": {
+			"SwishfolioCore\\": "src/"
+		}
+	},
+	"require": {
+		"php": ">=7.4"
+	},
+	"config": {
+		"optimize-autoloader": true
+	}
+}

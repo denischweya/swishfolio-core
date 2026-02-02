@@ -1,0 +1,734 @@
+/**
+ * Portfolio Block - Neo-Brutalism Styles
+ *
+ * Design System: Neo-brutalism
+ * - Hard black borders (4px)
+ * - Sharp corners
+ * - Hard shadows (offset, no blur)
+ * - High-saturation colors
+ * - Bold typography
+ */
+
+// Neo-brutalism Design Tokens
+$neo-background: #FFFDF5;
+$neo-foreground: #000000;
+$neo-accent: #FF6B6B;
+$neo-secondary: #FFD93D;
+$neo-muted: #C4B5FD;
+$neo-white: #FFFFFF;
+
+// Border & Shadow
+$border-width: 4px;
+$shadow-small: 4px 4px 0 0 $neo-foreground;
+$shadow-medium: 8px 8px 0 0 $neo-foreground;
+$shadow-large: 12px 12px 0 0 $neo-foreground;
+
+// Status colors
+$status-completed: #22C55E;
+$status-in-progress: $neo-secondary;
+$status-planned: $neo-muted;
+$status-on-hold: #F97316;
+
+// ==============================
+// Portfolio Container
+// ==============================
+.wp-block-swishfolio-core-portfolio {
+	--portfolio-gap: 24px;
+	--portfolio-columns: 3;
+
+	width: 100%;
+	font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+// ==============================
+// Filter Buttons
+// ==============================
+.sfcore-portfolio__filters {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin-bottom: 32px;
+	justify-content: center;
+}
+
+.sfcore-portfolio__filter {
+	padding: 12px 24px;
+	font-size: 0.875rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	background: $neo-white;
+	color: $neo-foreground;
+	border: $border-width solid $neo-foreground;
+	box-shadow: $shadow-small;
+	cursor: pointer;
+	transition: all 0.1s ease-out;
+
+	&:hover {
+		background: $neo-secondary;
+		transform: translate(-2px, -2px);
+		box-shadow: 6px 6px 0 0 $neo-foreground;
+	}
+
+	&:active {
+		transform: translate(2px, 2px);
+		box-shadow: none;
+	}
+
+	&.is-active {
+		background: $neo-foreground;
+		color: $neo-white;
+		box-shadow: none;
+		transform: translate(2px, 2px);
+	}
+}
+
+// ==============================
+// Grid Layouts
+// ==============================
+.sfcore-portfolio__grid {
+	display: grid;
+	gap: var(--portfolio-gap);
+}
+
+// Grid layout
+.sfcore-portfolio--layout-grid {
+	.sfcore-portfolio__grid {
+		grid-template-columns: repeat(var(--portfolio-columns), 1fr);
+	}
+}
+
+// Masonry layout
+.sfcore-portfolio--layout-masonry {
+	.sfcore-portfolio__grid {
+		display: block;
+		column-count: var(--portfolio-columns);
+		column-gap: var(--portfolio-gap);
+	}
+
+	.sfcore-portfolio__item {
+		break-inside: avoid;
+		margin-bottom: var(--portfolio-gap);
+	}
+}
+
+// List layout
+.sfcore-portfolio--layout-list {
+	.sfcore-portfolio__grid {
+		grid-template-columns: 1fr;
+	}
+
+	.sfcore-portfolio__card {
+		display: grid;
+		grid-template-columns: 300px 1fr;
+		gap: 0;
+	}
+
+	.sfcore-portfolio__image {
+		aspect-ratio: 4 / 3 !important;
+	}
+
+	.sfcore-portfolio__content {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+}
+
+// Column variations
+@for $i from 1 through 4 {
+	.sfcore-portfolio--cols-#{$i} {
+		--portfolio-columns: #{$i};
+	}
+}
+
+// ==============================
+// Card Base
+// ==============================
+.sfcore-portfolio__item {
+	position: relative;
+
+	&.is-hidden {
+		display: none;
+	}
+}
+
+.sfcore-portfolio__card {
+	height: 100%;
+	background: $neo-white;
+	border: $border-width solid $neo-foreground;
+	box-shadow: $shadow-medium;
+	overflow: hidden;
+	transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+// ==============================
+// Card Styles
+// ==============================
+
+// Default style
+.sfcore-portfolio--style-default {
+	.sfcore-portfolio__card {
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+// Minimal style (no image)
+.sfcore-portfolio--style-minimal {
+	.sfcore-portfolio__card {
+		padding: 24px;
+	}
+
+	.sfcore-portfolio__content {
+		padding: 0;
+	}
+}
+
+// Overlay style
+.sfcore-portfolio--style-overlay {
+	.sfcore-portfolio__card {
+		position: relative;
+	}
+
+	.sfcore-portfolio__image {
+		height: 100%;
+		min-height: 300px;
+	}
+
+	.sfcore-portfolio__overlay {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: flex-end;
+		background: linear-gradient(to top, rgba($neo-foreground, 0.95) 0%, rgba($neo-foreground, 0.6) 40%, transparent 100%);
+		opacity: 0;
+		transition: opacity 0.2s ease-out;
+	}
+
+	.sfcore-portfolio__overlay-content {
+		padding: 24px;
+		width: 100%;
+	}
+
+	.sfcore-portfolio__overlay .sfcore-portfolio__title {
+		color: $neo-white;
+		margin-bottom: 16px;
+	}
+
+	.sfcore-portfolio__overlay .sfcore-portfolio__btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 12px 20px;
+		background: $neo-accent;
+		color: $neo-foreground;
+		border: $border-width solid $neo-foreground;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		font-size: 0.875rem;
+	}
+
+	&:hover .sfcore-portfolio__overlay,
+	.sfcore-portfolio__card:hover .sfcore-portfolio__overlay {
+		opacity: 1;
+	}
+}
+
+// Stacked style (rotated badge effect)
+.sfcore-portfolio--style-stacked {
+	.sfcore-portfolio__card {
+		position: relative;
+
+		&::before {
+			content: '';
+			position: absolute;
+			inset: -8px;
+			background: $neo-secondary;
+			border: $border-width solid $neo-foreground;
+			z-index: -1;
+			transform: rotate(-2deg);
+		}
+
+		&::after {
+			content: '';
+			position: absolute;
+			inset: -16px;
+			background: $neo-muted;
+			border: $border-width solid $neo-foreground;
+			z-index: -2;
+			transform: rotate(1deg);
+		}
+	}
+
+	.sfcore-portfolio__item {
+		padding: 20px;
+	}
+}
+
+// ==============================
+// Hover Effects
+// ==============================
+.sfcore-portfolio--hover-lift {
+	.sfcore-portfolio__card:hover {
+		transform: translate(-4px, -4px);
+		box-shadow: $shadow-large;
+	}
+}
+
+.sfcore-portfolio--hover-zoom {
+	.sfcore-portfolio__image img {
+		transition: transform 0.3s ease-out;
+	}
+
+	.sfcore-portfolio__card:hover .sfcore-portfolio__image img {
+		transform: scale(1.08);
+	}
+}
+
+.sfcore-portfolio--hover-reveal {
+	.sfcore-portfolio__content {
+		transform: translateY(20px);
+		opacity: 0.9;
+		transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+	}
+
+	.sfcore-portfolio__card:hover .sfcore-portfolio__content {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+// ==============================
+// Image
+// ==============================
+.sfcore-portfolio__image {
+	position: relative;
+	overflow: hidden;
+	border-bottom: $border-width solid $neo-foreground;
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+}
+
+.sfcore-portfolio__image-link {
+	display: block;
+	height: 100%;
+}
+
+// Aspect ratios
+.sfcore-portfolio__image--square {
+	aspect-ratio: 1 / 1;
+}
+
+.sfcore-portfolio__image--landscape {
+	aspect-ratio: 4 / 3;
+}
+
+.sfcore-portfolio__image--wide {
+	aspect-ratio: 16 / 9;
+}
+
+.sfcore-portfolio__image--portrait {
+	aspect-ratio: 3 / 4;
+}
+
+// Placeholder
+.sfcore-portfolio__placeholder {
+	width: 100%;
+	height: 100%;
+	min-height: 200px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: linear-gradient(135deg, $neo-secondary 0%, $neo-accent 100%);
+
+	svg {
+		width: 64px;
+		height: 64px;
+		color: $neo-foreground;
+		opacity: 0.5;
+	}
+}
+
+// ==============================
+// Status Badge
+// ==============================
+.sfcore-portfolio__status {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	padding: 6px 12px;
+	font-size: 0.75rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	border: 3px solid $neo-foreground;
+	box-shadow: 3px 3px 0 0 $neo-foreground;
+	transform: rotate(2deg);
+	z-index: 10;
+
+	&--completed {
+		background: $status-completed;
+		color: $neo-foreground;
+	}
+
+	&--in-progress {
+		background: $status-in-progress;
+		color: $neo-foreground;
+	}
+
+	&--planned {
+		background: $status-planned;
+		color: $neo-foreground;
+	}
+
+	&--on-hold {
+		background: $status-on-hold;
+		color: $neo-white;
+	}
+}
+
+// ==============================
+// Content
+// ==============================
+.sfcore-portfolio__content {
+	padding: 24px;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+// Taxonomies
+.sfcore-portfolio__taxonomies {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-bottom: 12px;
+}
+
+.sfcore-portfolio__badge {
+	display: inline-block;
+	padding: 4px 12px;
+	font-size: 0.75rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	border: 3px solid $neo-foreground;
+
+	&--category {
+		background: $neo-secondary;
+		color: $neo-foreground;
+	}
+
+	&--type {
+		background: $neo-muted;
+		color: $neo-foreground;
+	}
+}
+
+// Title
+.sfcore-portfolio__title {
+	margin: 0 0 12px;
+	font-size: 1.375rem;
+	font-weight: 900;
+	text-transform: uppercase;
+	letter-spacing: -0.02em;
+	line-height: 1.2;
+	color: $neo-foreground;
+
+	a {
+		color: inherit;
+		text-decoration: none;
+		transition: color 0.1s ease-out;
+
+		&:hover {
+			color: $neo-accent;
+		}
+	}
+}
+
+// Excerpt
+.sfcore-portfolio__excerpt {
+	margin: 0 0 16px;
+	font-size: 0.9375rem;
+	font-weight: 500;
+	line-height: 1.6;
+	color: rgba($neo-foreground, 0.7);
+	flex: 1;
+}
+
+// Meta items
+.sfcore-portfolio__meta-item {
+	display: flex;
+	gap: 8px;
+	margin-bottom: 8px;
+	font-size: 0.875rem;
+}
+
+.sfcore-portfolio__meta-label {
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: rgba($neo-foreground, 0.5);
+
+	&::after {
+		content: ':';
+	}
+}
+
+.sfcore-portfolio__meta-value {
+	font-weight: 600;
+	color: $neo-foreground;
+}
+
+// Skills
+.sfcore-portfolio__skills {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin: 12px 0 16px;
+}
+
+.sfcore-portfolio__skill {
+	padding: 4px 10px;
+	font-size: 0.75rem;
+	font-weight: 700;
+	background: $neo-foreground;
+	color: $neo-white;
+	border: 2px solid $neo-foreground;
+}
+
+// ==============================
+// Actions / Buttons
+// ==============================
+.sfcore-portfolio__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin-top: auto;
+	padding-top: 16px;
+}
+
+.sfcore-portfolio__btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 12px 20px;
+	font-size: 0.875rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	text-decoration: none;
+	border: $border-width solid $neo-foreground;
+	box-shadow: $shadow-small;
+	cursor: pointer;
+	transition: all 0.1s ease-out;
+
+	svg {
+		flex-shrink: 0;
+	}
+
+	&:hover {
+		transform: translate(-2px, -2px);
+		box-shadow: 6px 6px 0 0 $neo-foreground;
+	}
+
+	&:active {
+		transform: translate(2px, 2px);
+		box-shadow: none;
+	}
+
+	&--primary {
+		background: $neo-accent;
+		color: $neo-foreground;
+	}
+
+	&--secondary {
+		background: $neo-white;
+		color: $neo-foreground;
+
+		&:hover {
+			background: $neo-secondary;
+		}
+	}
+}
+
+// ==============================
+// No Results
+// ==============================
+.sfcore-portfolio__no-results {
+	grid-column: 1 / -1;
+	text-align: center;
+	padding: 48px 24px;
+	font-size: 1.125rem;
+	font-weight: 700;
+	color: rgba($neo-foreground, 0.5);
+	background: $neo-white;
+	border: $border-width solid $neo-foreground;
+	box-shadow: $shadow-medium;
+}
+
+// Loading State
+.sfcore-portfolio__loading,
+.sfcore-portfolio__empty {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 200px;
+	padding: 48px;
+	background: $neo-white;
+	border: $border-width solid $neo-foreground;
+	box-shadow: $shadow-medium;
+
+	p {
+		font-weight: 700;
+		color: rgba($neo-foreground, 0.5);
+	}
+}
+
+// ==============================
+// Responsive - Tablet
+// ==============================
+@media (max-width: 782px) {
+	.sfcore-portfolio--cols-4,
+	.sfcore-portfolio--cols-3 {
+		--portfolio-columns: 2;
+	}
+
+	.sfcore-portfolio--layout-masonry.sfcore-portfolio--cols-4,
+	.sfcore-portfolio--layout-masonry.sfcore-portfolio--cols-3 {
+		.sfcore-portfolio__grid {
+			column-count: 2;
+		}
+	}
+
+	.sfcore-portfolio--layout-list {
+		.sfcore-portfolio__card {
+			grid-template-columns: 200px 1fr;
+		}
+	}
+
+	.sfcore-portfolio__card {
+		box-shadow: 6px 6px 0 0 $neo-foreground;
+	}
+
+	.sfcore-portfolio__content {
+		padding: 20px;
+	}
+
+	.sfcore-portfolio__title {
+		font-size: 1.25rem;
+	}
+}
+
+// ==============================
+// Responsive - Mobile
+// ==============================
+@media (max-width: 600px) {
+	.sfcore-portfolio--cols-4,
+	.sfcore-portfolio--cols-3,
+	.sfcore-portfolio--cols-2 {
+		--portfolio-columns: 1;
+	}
+
+	.sfcore-portfolio--layout-masonry {
+		.sfcore-portfolio__grid {
+			column-count: 1;
+		}
+	}
+
+	.sfcore-portfolio--layout-list {
+		.sfcore-portfolio__card {
+			grid-template-columns: 1fr;
+		}
+
+		.sfcore-portfolio__image {
+			border-bottom: $border-width solid $neo-foreground;
+			border-right: none;
+		}
+	}
+
+	.sfcore-portfolio__filters {
+		gap: 8px;
+	}
+
+	.sfcore-portfolio__filter {
+		padding: 10px 16px;
+		font-size: 0.8125rem;
+		box-shadow: 3px 3px 0 0 $neo-foreground;
+	}
+
+	.sfcore-portfolio__card {
+		box-shadow: $shadow-small;
+	}
+
+	.sfcore-portfolio--hover-lift {
+		.sfcore-portfolio__card:hover {
+			transform: translate(-2px, -2px);
+			box-shadow: 6px 6px 0 0 $neo-foreground;
+		}
+	}
+
+	.sfcore-portfolio__content {
+		padding: 16px;
+	}
+
+	.sfcore-portfolio__title {
+		font-size: 1.125rem;
+	}
+
+	.sfcore-portfolio__excerpt {
+		font-size: 0.875rem;
+	}
+
+	.sfcore-portfolio__btn {
+		padding: 10px 16px;
+		font-size: 0.8125rem;
+		width: 100%;
+		justify-content: center;
+	}
+
+	.sfcore-portfolio__actions {
+		flex-direction: column;
+	}
+
+	// Stacked style adjustments
+	.sfcore-portfolio--style-stacked {
+		.sfcore-portfolio__card {
+			&::before {
+				inset: -6px;
+			}
+
+			&::after {
+				inset: -12px;
+			}
+		}
+
+		.sfcore-portfolio__item {
+			padding: 16px;
+		}
+	}
+}
+
+// ==============================
+// Filter Animation
+// ==============================
+.sfcore-portfolio__item {
+	transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+
+	&.is-filtering-out {
+		opacity: 0;
+		transform: scale(0.9);
+	}
+
+	&.is-filtering-in {
+		opacity: 1;
+		transform: scale(1);
+	}
+}

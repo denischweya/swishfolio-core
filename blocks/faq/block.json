@@ -1,0 +1,45 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "swishfolio-core/faq",
+	"version": "1.0.0",
+	"title": "FAQ",
+	"category": "swishfolio",
+	"description": "An accordion-style FAQ section.",
+	"keywords": [ "faq", "accordion", "questions", "answers" ],
+	"textdomain": "swishfolio-core",
+	"attributes": {
+		"allowMultipleOpen": {
+			"type": "boolean",
+			"default": false
+		},
+		"defaultOpenFirst": {
+			"type": "boolean",
+			"default": true
+		},
+		"iconStyle": {
+			"type": "string",
+			"default": "plus"
+		},
+		"iconPosition": {
+			"type": "string",
+			"default": "right"
+		},
+		"items": {
+			"type": "array",
+			"default": []
+		}
+	},
+	"supports": {
+		"align": [ "wide", "full" ],
+		"html": false,
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css",
+	"viewScript": "file:./build/view.js"
+}

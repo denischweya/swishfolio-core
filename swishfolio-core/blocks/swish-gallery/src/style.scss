@@ -1,0 +1,459 @@
+/**
+ * Swish Gallery Block - Frontend Styles
+ */
+
+.sfcore-swish-gallery {
+	--gallery-gap: 16px;
+	--gallery-columns: 3;
+	--image-border-radius: 0px;
+
+	position: relative;
+	width: 100%;
+}
+
+// Container
+.sfcore-swish-gallery__container {
+	display: grid;
+	grid-template-columns: repeat(var(--gallery-columns), 1fr);
+	gap: var(--gallery-gap);
+}
+
+// Grid layout
+.sfcore-swish-gallery--layout-grid {
+	.sfcore-swish-gallery__container {
+		display: grid;
+	}
+}
+
+// Masonry layout
+.sfcore-swish-gallery--layout-masonry {
+	.sfcore-swish-gallery__container {
+		display: block;
+		column-count: var(--gallery-columns);
+		column-gap: var(--gallery-gap);
+	}
+
+	.sfcore-swish-gallery__item {
+		break-inside: avoid;
+		margin-bottom: var(--gallery-gap);
+	}
+}
+
+// Carousel layout
+.sfcore-swish-gallery--layout-carousel {
+	overflow: hidden;
+
+	.sfcore-swish-gallery__container {
+		display: flex;
+		transition: transform 0.4s ease-in-out;
+	}
+
+	.sfcore-swish-gallery__item {
+		flex: 0 0 100%;
+		min-width: 100%;
+	}
+}
+
+// Gallery item
+.sfcore-swish-gallery__item {
+	margin: 0;
+	position: relative;
+}
+
+.sfcore-swish-gallery__image-wrapper {
+	position: relative;
+	overflow: hidden;
+	border-radius: var(--image-border-radius);
+}
+
+.sfcore-swish-gallery__image {
+	display: block;
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+	transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+// Aspect ratios
+.sfcore-swish-gallery--aspect-square {
+	.sfcore-swish-gallery__image-wrapper {
+		aspect-ratio: 1 / 1;
+	}
+
+	.sfcore-swish-gallery__image {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+	}
+}
+
+.sfcore-swish-gallery--aspect-landscape {
+	.sfcore-swish-gallery__image-wrapper {
+		aspect-ratio: 4 / 3;
+	}
+
+	.sfcore-swish-gallery__image {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+	}
+}
+
+.sfcore-swish-gallery--aspect-portrait {
+	.sfcore-swish-gallery__image-wrapper {
+		aspect-ratio: 3 / 4;
+	}
+
+	.sfcore-swish-gallery__image {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+	}
+}
+
+// Hover effects
+.sfcore-swish-gallery--hover-zoom {
+	.sfcore-swish-gallery__image-wrapper:hover .sfcore-swish-gallery__image {
+		transform: scale(1.1);
+	}
+}
+
+.sfcore-swish-gallery--hover-fade {
+	.sfcore-swish-gallery__image-wrapper:hover .sfcore-swish-gallery__image {
+		opacity: 0.8;
+	}
+}
+
+.sfcore-swish-gallery--hover-lift {
+	.sfcore-swish-gallery__item {
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	.sfcore-swish-gallery__item:hover {
+		transform: translateY(-8px);
+		box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+	}
+}
+
+// Shadows
+.sfcore-swish-gallery--shadow-small {
+	.sfcore-swish-gallery__image-wrapper {
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	}
+}
+
+.sfcore-swish-gallery--shadow-medium {
+	.sfcore-swish-gallery__image-wrapper {
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+	}
+}
+
+.sfcore-swish-gallery--shadow-large {
+	.sfcore-swish-gallery__image-wrapper {
+		box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+	}
+}
+
+// Lightbox trigger
+.sfcore-swish-gallery__lightbox-trigger {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0, 0, 0, 0);
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	padding: 0;
+
+	&:hover,
+	&:focus {
+		background: rgba(0, 0, 0, 0.4);
+
+		.sfcore-swish-gallery__zoom-icon {
+			opacity: 1;
+			transform: scale(1);
+		}
+	}
+
+	&:focus {
+		outline: 2px solid #fff;
+		outline-offset: -4px;
+	}
+}
+
+.sfcore-swish-gallery__zoom-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 48px;
+	height: 48px;
+	background: rgba(255, 255, 255, 0.9);
+	border-radius: 50%;
+	opacity: 0;
+	transform: scale(0.8);
+	transition: opacity 0.3s ease, transform 0.3s ease;
+
+	svg {
+		fill: #121212;
+	}
+}
+
+// Caption
+.sfcore-swish-gallery__caption {
+	margin-top: 8px;
+	font-size: 0.875rem;
+	color: #666;
+	text-align: center;
+}
+
+// Carousel navigation
+.sfcore-swish-gallery__nav {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: space-between;
+	transform: translateY(-50%);
+	padding: 0 16px;
+	pointer-events: none;
+}
+
+.sfcore-swish-gallery__prev,
+.sfcore-swish-gallery__next {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 48px;
+	height: 48px;
+	background: rgba(255, 255, 255, 0.9);
+	border: none;
+	border-radius: 50%;
+	cursor: pointer;
+	pointer-events: all;
+	font-size: 1.5rem;
+	transition: background-color 0.2s ease, transform 0.2s ease;
+
+	&:hover {
+		background: #fff;
+		transform: scale(1.1);
+	}
+
+	&:focus {
+		outline: 2px solid #1040C0;
+		outline-offset: 2px;
+	}
+}
+
+// Carousel dots
+.sfcore-swish-gallery__dots {
+	display: flex;
+	justify-content: center;
+	gap: 8px;
+	margin-top: 16px;
+}
+
+.sfcore-swish-gallery__dot {
+	width: 12px;
+	height: 12px;
+	background: #ccc;
+	border: none;
+	border-radius: 50%;
+	cursor: pointer;
+	padding: 0;
+	transition: background-color 0.2s ease, transform 0.2s ease;
+
+	&:hover {
+		background: #999;
+	}
+
+	&.is-active {
+		background: #1040C0;
+		transform: scale(1.2);
+	}
+
+	&:focus {
+		outline: 2px solid #1040C0;
+		outline-offset: 2px;
+	}
+}
+
+// Lightbox
+.sfcore-lightbox {
+	position: fixed;
+	inset: 0;
+	z-index: 999999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0, 0, 0, 0.95);
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.3s ease, visibility 0.3s ease;
+
+	&.is-open {
+		opacity: 1;
+		visibility: visible;
+	}
+}
+
+.sfcore-lightbox__content {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	padding: 60px;
+}
+
+.sfcore-lightbox__close {
+	position: absolute;
+	top: 16px;
+	right: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 48px;
+	height: 48px;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	z-index: 10;
+
+	svg {
+		fill: #fff;
+	}
+
+	&:hover svg {
+		fill: #ccc;
+	}
+
+	&:focus {
+		outline: 2px solid #fff;
+		outline-offset: 2px;
+	}
+}
+
+.sfcore-lightbox__prev,
+.sfcore-lightbox__next {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 56px;
+	height: 56px;
+	background: rgba(255, 255, 255, 0.1);
+	border: none;
+	border-radius: 50%;
+	cursor: pointer;
+	z-index: 10;
+	transition: background-color 0.2s ease;
+
+	svg {
+		fill: #fff;
+	}
+
+	&:hover {
+		background: rgba(255, 255, 255, 0.2);
+	}
+
+	&:focus {
+		outline: 2px solid #fff;
+		outline-offset: 2px;
+	}
+}
+
+.sfcore-lightbox__prev {
+	left: 16px;
+}
+
+.sfcore-lightbox__next {
+	right: 16px;
+}
+
+.sfcore-lightbox__image-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	max-width: calc(100% - 120px);
+	max-height: calc(100% - 120px);
+}
+
+.sfcore-lightbox__image {
+	max-width: 100%;
+	max-height: 80vh;
+	object-fit: contain;
+
+	&:focus {
+		outline: none;
+	}
+}
+
+.sfcore-lightbox__footer {
+	position: absolute;
+	bottom: 16px;
+	left: 50%;
+	transform: translateX(-50%);
+	text-align: center;
+	color: #fff;
+}
+
+.sfcore-lightbox__counter {
+	font-size: 0.875rem;
+	opacity: 0.7;
+}
+
+.sfcore-lightbox__caption {
+	margin-top: 8px;
+	font-size: 1rem;
+	max-width: 600px;
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+	.sfcore-swish-gallery--cols-4,
+	.sfcore-swish-gallery--cols-5,
+	.sfcore-swish-gallery--cols-6 {
+		--gallery-columns: 2;
+	}
+
+	.sfcore-swish-gallery--layout-masonry.sfcore-swish-gallery--cols-4,
+	.sfcore-swish-gallery--layout-masonry.sfcore-swish-gallery--cols-5,
+	.sfcore-swish-gallery--layout-masonry.sfcore-swish-gallery--cols-6 {
+		column-count: 2;
+	}
+
+	.sfcore-lightbox__content {
+		padding: 48px 16px;
+	}
+
+	.sfcore-lightbox__prev,
+	.sfcore-lightbox__next {
+		width: 40px;
+		height: 40px;
+	}
+}
+
+@media (max-width: 480px) {
+	.sfcore-swish-gallery--cols-3,
+	.sfcore-swish-gallery--cols-4,
+	.sfcore-swish-gallery--cols-5,
+	.sfcore-swish-gallery--cols-6 {
+		--gallery-columns: 1;
+	}
+
+	.sfcore-swish-gallery--layout-masonry.sfcore-swish-gallery--cols-3,
+	.sfcore-swish-gallery--layout-masonry.sfcore-swish-gallery--cols-4,
+	.sfcore-swish-gallery--layout-masonry.sfcore-swish-gallery--cols-5,
+	.sfcore-swish-gallery--layout-masonry.sfcore-swish-gallery--cols-6 {
+		column-count: 1;
+	}
+}

@@ -1,0 +1,60 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "swishfolio-core/latest-posts",
+	"version": "1.0.0",
+	"title": "Latest Posts",
+	"category": "swishfolio",
+	"description": "Display recent blog posts in a stylish grid.",
+	"keywords": [ "posts", "blog", "news", "articles" ],
+	"textdomain": "swishfolio-core",
+	"attributes": {
+		"columns": {
+			"type": "number",
+			"default": 3
+		},
+		"postsPerPage": {
+			"type": "number",
+			"default": 3
+		},
+		"categories": {
+			"type": "array",
+			"default": []
+		},
+		"showDate": {
+			"type": "boolean",
+			"default": true
+		},
+		"showAuthor": {
+			"type": "boolean",
+			"default": false
+		},
+		"showExcerpt": {
+			"type": "boolean",
+			"default": true
+		},
+		"excerptLength": {
+			"type": "number",
+			"default": 20
+		},
+		"showFeaturedImage": {
+			"type": "boolean",
+			"default": true
+		},
+		"imageAspectRatio": {
+			"type": "string",
+			"default": "landscape"
+		}
+	},
+	"supports": {
+		"align": [ "wide", "full" ],
+		"html": false,
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}

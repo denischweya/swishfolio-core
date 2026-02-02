@@ -1,0 +1,18 @@
+/**
+ * Testimonials Block - Editor Styles
+ */
+
+.wp-block-swishfolio-core-testimonials {
+	.sfcore-testimonials__empty {
+		text-align: center;
+		padding: 3rem 2rem;
+		background: #f0f0f0;
+		border: 2px dashed #ccc;
+		border-radius: 4px;
+
+		p {
+			margin: 0;
+			color: #666;
+		}
+	}
+}

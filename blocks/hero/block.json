@@ -1,0 +1,164 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "swishfolio-core/hero",
+	"version": "1.1.0",
+	"title": "Hero",
+	"category": "swishfolio",
+	"description": "A full-width hero section with background, heading, subheading, and call-to-action.",
+	"keywords": [ "hero", "banner", "header", "cta" ],
+	"textdomain": "swishfolio-core",
+	"attributes": {
+		"layout": {
+			"type": "string",
+			"default": "full"
+		},
+		"heading": {
+			"type": "string",
+			"default": ""
+		},
+		"subheading": {
+			"type": "string",
+			"default": ""
+		},
+		"headingStyle": {
+			"type": "string",
+			"default": "normal"
+		},
+		"headingSize": {
+			"type": "string",
+			"default": "large"
+		},
+		"headingTransform": {
+			"type": "string",
+			"default": "none"
+		},
+		"backgroundType": {
+			"type": "string",
+			"default": "color"
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "#1040C0"
+		},
+		"backgroundImage": {
+			"type": "object",
+			"default": {}
+		},
+		"overlayColor": {
+			"type": "string",
+			"default": "#121212"
+		},
+		"overlayOpacity": {
+			"type": "number",
+			"default": 50
+		},
+		"heroImage": {
+			"type": "object",
+			"default": {}
+		},
+		"imageBorderWidth": {
+			"type": "number",
+			"default": 4
+		},
+		"imageBorderColor": {
+			"type": "string",
+			"default": "#121212"
+		},
+		"imageShadowSize": {
+			"type": "string",
+			"default": "large"
+		},
+		"imageRotation": {
+			"type": "number",
+			"default": 2
+		},
+		"showImageDecoShapes": {
+			"type": "boolean",
+			"default": true
+		},
+		"decoShape1": {
+			"type": "string",
+			"default": "circle"
+		},
+		"decoShape1Color": {
+			"type": "string",
+			"default": "#F0C020"
+		},
+		"decoShape2": {
+			"type": "string",
+			"default": "square"
+		},
+		"decoShape2Color": {
+			"type": "string",
+			"default": "#D02020"
+		},
+		"ctaText": {
+			"type": "string",
+			"default": ""
+		},
+		"ctaUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"ctaStyle": {
+			"type": "string",
+			"default": "primary"
+		},
+		"secondaryCtaText": {
+			"type": "string",
+			"default": ""
+		},
+		"secondaryCtaUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"minHeight": {
+			"type": "number",
+			"default": 600
+		},
+		"contentAlign": {
+			"type": "string",
+			"default": "center"
+		},
+		"verticalAlign": {
+			"type": "string",
+			"default": "center"
+		},
+		"textColor": {
+			"type": "string",
+			"default": "#F0F0F0"
+		},
+		"decorativeShape": {
+			"type": "string",
+			"default": "none"
+		},
+		"decorativeColor": {
+			"type": "string",
+			"default": "#F0C020"
+		},
+		"socialLinks": {
+			"type": "array",
+			"default": []
+		},
+		"headingFullWidth": {
+			"type": "boolean",
+			"default": false
+		},
+		"headingOverlayImage": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"supports": {
+		"align": [ "wide", "full" ],
+		"html": false,
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}
