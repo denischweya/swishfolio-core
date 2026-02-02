@@ -7,6 +7,9 @@ node_modules/
 # Build artifacts
 *.zip
 
+# Nested duplicate folder
+swishfolio-core/
+
 # OS files
 .DS_Store
 Thumbs.db
