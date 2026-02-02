@@ -37,6 +37,8 @@ $status-on-hold: #F97316;
 	--portfolio-columns: 3;
 
 	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
 	font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
@@ -89,6 +91,7 @@ $status-on-hold: #F97316;
 .sfcore-portfolio__grid {
 	display: grid;
 	gap: var(--portfolio-gap);
+	max-width: 100%;
 }
 
 // Grid layout
@@ -663,6 +666,15 @@ $status-on-hold: #F97316;
 	.wp-block-swishfolio-core-portfolio {
 		--portfolio-gap: 16px;
 		--portfolio-columns: 1;
+		// Prevent horizontal scroll from shadows/pseudo-elements
+		overflow: hidden;
+		// Add right padding to account for shadow (4px shadow on mobile)
+		padding-right: 4px;
+	}
+
+	.sfcore-portfolio__grid {
+		// Ensure grid doesn't cause overflow
+		overflow: hidden;
 	}
 
 	// Force single column for all column variations
@@ -810,20 +822,24 @@ $status-on-hold: #F97316;
 		flex-wrap: wrap;
 	}
 
-	// Stacked style adjustments
+	// Stacked style adjustments - contained within parent padding
 	.sfcore-portfolio--style-stacked {
+		overflow: visible;
+		// Extra padding to contain pseudo-elements
+		padding-right: 12px;
+
 		.sfcore-portfolio__card {
 			&::before {
-				inset: -6px;
+				inset: -4px;
 			}
 
 			&::after {
-				inset: -12px;
+				inset: -8px;
 			}
 		}
 
 		.sfcore-portfolio__item {
-			padding: 16px;
+			padding: 12px;
 		}
 	}
 
@@ -903,18 +919,20 @@ $status-on-hold: #F97316;
 	}
 
 	.sfcore-portfolio--style-stacked {
+		padding-right: 8px;
+
 		.sfcore-portfolio__card {
 			&::before {
-				inset: -4px;
+				inset: -3px;
 			}
 
 			&::after {
-				inset: -8px;
+				inset: -6px;
 			}
 		}
 
 		.sfcore-portfolio__item {
-			padding: 12px;
+			padding: 8px;
 		}
 	}
 
