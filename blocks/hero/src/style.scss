@@ -725,6 +725,7 @@ $border-width-thick: 4px;
 		padding: 0.875rem 1.25rem;
 		font-size: 0.875rem;
 		text-align: center;
+		max-width: 100%;
 		width: 100%;
 		// Reduce shadow on mobile for better containment
 		box-shadow: 3px 3px 0 $bauhaus-black;
