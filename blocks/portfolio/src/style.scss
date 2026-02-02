@@ -593,18 +593,9 @@ $status-on-hold: #F97316;
 }
 
 // ==============================
-// Responsive - Tablet (768px - 1024px)
+// Responsive - Tablet (768px - 1024px) - 2 Columns
 // ==============================
 @media (max-width: 1024px) {
-	.sfcore-portfolio--cols-4 {
-		--portfolio-columns: 3;
-	}
-}
-
-// ==============================
-// Responsive - Small Tablet (600px - 768px)
-// ==============================
-@media (max-width: 768px) {
 	.wp-block-swishfolio-core-portfolio {
 		--portfolio-gap: 20px;
 	}
@@ -666,9 +657,9 @@ $status-on-hold: #F97316;
 }
 
 // ==============================
-// Responsive - Mobile (< 600px) - Single Column
+// Responsive - Mobile (< 768px) - Single Column
 // ==============================
-@media (max-width: 600px) {
+@media (max-width: 767px) {
 	.wp-block-swishfolio-core-portfolio {
 		--portfolio-gap: 16px;
 		--portfolio-columns: 1;
@@ -693,6 +684,18 @@ $status-on-hold: #F97316;
 	.sfcore-portfolio--layout-masonry {
 		.sfcore-portfolio__grid {
 			column-count: 1 !important;
+		}
+	}
+
+	.sfcore-portfolio--layout-list {
+		.sfcore-portfolio__card {
+			grid-template-columns: 1fr;
+		}
+
+		.sfcore-portfolio__image {
+			border-bottom: $border-width solid $neo-foreground;
+			border-right: none;
+			aspect-ratio: 16 / 9 !important;
 		}
 	}
 
@@ -860,6 +863,10 @@ $status-on-hold: #F97316;
 		box-shadow: $shadow-small;
 	}
 }
+
+// ==============================
+// Responsive - Extra Small (< 380px)
+// ==============================
 
 // ==============================
 // Responsive - Extra Small (320px)
