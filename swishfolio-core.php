@@ -3,7 +3,7 @@
  * Plugin Name: Swishfolio Core
  * Plugin URI: https://swishfolio.com
  * Description: Core functionality for Swishfolio theme - custom blocks, post types, and taxonomies for building stunning portfolios.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Swishfolio
  * Author URI: https://swishfolio.com
  * License: GPL-2.0-or-later
