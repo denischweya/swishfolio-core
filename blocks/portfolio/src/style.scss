@@ -607,7 +607,9 @@ $status-on-hold: #F97316;
 	.sfcore-portfolio--cols-3 {
 		--portfolio-columns: 2;
 	}
-
+	.sfcore-portfolio--layout-grid .sfcore-portfolio__grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
 	.sfcore-portfolio--layout-masonry.sfcore-portfolio--cols-4,
 	.sfcore-portfolio--layout-masonry.sfcore-portfolio--cols-3 {
 		.sfcore-portfolio__grid {
@@ -673,6 +675,7 @@ $status-on-hold: #F97316;
 	}
 
 	.sfcore-portfolio__grid {
+		grid-template-columns: repeat(1, 1fr);
 		// Ensure grid doesn't cause overflow
 		overflow: hidden;
 	}
