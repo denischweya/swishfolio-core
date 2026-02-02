@@ -593,9 +593,18 @@ $status-on-hold: #F97316;
 }
 
 // ==============================
-// Responsive - Tablet
+// Responsive - Tablet (768px - 1024px)
 // ==============================
-@media (max-width: 782px) {
+@media (max-width: 1024px) {
+	.sfcore-portfolio--cols-4 {
+		--portfolio-columns: 3;
+	}
+}
+
+// ==============================
+// Responsive - Small Tablet (600px - 768px)
+// ==============================
+@media (max-width: 768px) {
 	.wp-block-swishfolio-core-portfolio {
 		--portfolio-gap: 20px;
 	}
@@ -657,22 +666,33 @@ $status-on-hold: #F97316;
 }
 
 // ==============================
-// Responsive - Mobile
+// Responsive - Mobile (< 600px) - Single Column
 // ==============================
 @media (max-width: 600px) {
 	.wp-block-swishfolio-core-portfolio {
 		--portfolio-gap: 16px;
-	}
-
-	.sfcore-portfolio--cols-4,
-	.sfcore-portfolio--cols-3,
-	.sfcore-portfolio--cols-2 {
 		--portfolio-columns: 1;
 	}
 
+	// Force single column for all column variations
+	.sfcore-portfolio--cols-4,
+	.sfcore-portfolio--cols-3,
+	.sfcore-portfolio--cols-2,
+	.sfcore-portfolio--cols-1 {
+		--portfolio-columns: 1 !important;
+	}
+
+	// Force single column for grid layout
+	.sfcore-portfolio--layout-grid {
+		.sfcore-portfolio__grid {
+			grid-template-columns: 1fr !important;
+		}
+	}
+
+	// Force single column for masonry layout
 	.sfcore-portfolio--layout-masonry {
 		.sfcore-portfolio__grid {
-			column-count: 1;
+			column-count: 1 !important;
 		}
 	}
 
