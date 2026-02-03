@@ -37,3 +37,96 @@
 		}
 	}
 }
+
+// CTA Icon Picker Grid
+.sfcore-icon-picker {
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	gap: 4px;
+	margin-bottom: 12px;
+	padding: 4px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	background: #fff;
+	max-height: 200px;
+	overflow-y: auto;
+}
+
+.sfcore-icon-picker__item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	padding: 0;
+	border: 2px solid transparent;
+	border-radius: 4px;
+	background: transparent;
+	cursor: pointer;
+	transition: all 0.15s ease;
+
+	&:hover {
+		background: #f0f0f0;
+		border-color: #ccc;
+	}
+
+	&.is-selected {
+		background: #1040C0;
+		border-color: #1040C0;
+		color: #fff;
+	}
+
+	svg {
+		width: 20px;
+		height: 20px;
+		fill: currentColor;
+	}
+}
+
+// Blob Picker Grid
+.sfcore-blob-picker {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 6px;
+	margin-bottom: 12px;
+	padding: 6px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	background: #fff;
+}
+
+.sfcore-blob-picker__item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 48px;
+	height: 48px;
+	padding: 4px;
+	border: 2px solid transparent;
+	border-radius: 4px;
+	background: transparent;
+	cursor: pointer;
+	transition: all 0.15s ease;
+
+	&:hover {
+		background: #f0f0f0;
+		border-color: #ccc;
+	}
+
+	&.is-selected {
+		border-color: #1040C0;
+		background: #e8eef8;
+	}
+
+	svg {
+		width: 36px;
+		height: 36px;
+	}
+}
+
+// Custom icon preview in inspector
+.sfcore-custom-icon-preview {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}

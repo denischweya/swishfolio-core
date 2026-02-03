@@ -2,7 +2,7 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "swishfolio-core/hero",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"title": "Hero",
 	"category": "swishfolio",
 	"description": "A full-width hero section with background, heading, subheading, and call-to-action.",
@@ -148,6 +148,150 @@
 		"headingOverlayImage": {
 			"type": "boolean",
 			"default": false
+		},
+
+		"bgShape1Type": {
+			"type": "string",
+			"default": "none"
+		},
+		"bgShape1CustomSvg": {
+			"type": "object",
+			"default": {}
+		},
+		"bgShape1Color": {
+			"type": "string",
+			"default": "#F0C020"
+		},
+		"bgShape1GradientSide": {
+			"type": "string",
+			"default": "none"
+		},
+		"bgShape1Size": {
+			"type": "string",
+			"default": "medium"
+		},
+		"bgShape1Position": {
+			"type": "string",
+			"default": "top-right"
+		},
+		"bgShape1Opacity": {
+			"type": "number",
+			"default": 30
+		},
+
+		"bgShape2Type": {
+			"type": "string",
+			"default": "none"
+		},
+		"bgShape2CustomSvg": {
+			"type": "object",
+			"default": {}
+		},
+		"bgShape2Color": {
+			"type": "string",
+			"default": "#D02020"
+		},
+		"bgShape2GradientSide": {
+			"type": "string",
+			"default": "none"
+		},
+		"bgShape2Size": {
+			"type": "string",
+			"default": "medium"
+		},
+		"bgShape2Position": {
+			"type": "string",
+			"default": "bottom-left"
+		},
+		"bgShape2Opacity": {
+			"type": "number",
+			"default": 30
+		},
+
+		"bgShape3Type": {
+			"type": "string",
+			"default": "none"
+		},
+		"bgShape3CustomSvg": {
+			"type": "object",
+			"default": {}
+		},
+		"bgShape3Color": {
+			"type": "string",
+			"default": "#1040C0"
+		},
+		"bgShape3GradientSide": {
+			"type": "string",
+			"default": "none"
+		},
+		"bgShape3Size": {
+			"type": "string",
+			"default": "small"
+		},
+		"bgShape3Position": {
+			"type": "string",
+			"default": "center-left"
+		},
+		"bgShape3Opacity": {
+			"type": "number",
+			"default": 30
+		},
+
+		"imageBlob1Shape": {
+			"type": "string",
+			"default": "blob1"
+		},
+		"imageBlob1Color": {
+			"type": "string",
+			"default": "#F0C020"
+		},
+		"imageBlob1Size": {
+			"type": "string",
+			"default": "medium"
+		},
+		"imageBlob1Rotation": {
+			"type": "number",
+			"default": 0
+		},
+
+		"imageBlob2Shape": {
+			"type": "string",
+			"default": "blob2"
+		},
+		"imageBlob2Color": {
+			"type": "string",
+			"default": "#D02020"
+		},
+		"imageBlob2Size": {
+			"type": "string",
+			"default": "medium"
+		},
+		"imageBlob2Rotation": {
+			"type": "number",
+			"default": 0
+		},
+
+		"ctaIcon": {
+			"type": "object",
+			"default": {
+				"type": "auto",
+				"value": ""
+			}
+		},
+		"ctaIconPosition": {
+			"type": "string",
+			"default": "right"
+		},
+		"secondaryCtaIcon": {
+			"type": "object",
+			"default": {
+				"type": "auto",
+				"value": ""
+			}
+		},
+		"secondaryCtaIconPosition": {
+			"type": "string",
+			"default": "right"
 		}
 	},
 	"supports": {

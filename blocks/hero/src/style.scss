@@ -475,7 +475,162 @@ $border-width-thick: 4px;
 }
 
 // =====================
-// Background Decorative Shapes
+// Background Shapes (new v1.2)
+// =====================
+
+.sfcore-hero__bg-shape {
+	position: absolute;
+	z-index: 1;
+	pointer-events: none;
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+	}
+}
+
+// Background shape sizes
+.sfcore-hero__bg-shape--small {
+	width: 150px;
+	height: 150px;
+}
+
+.sfcore-hero__bg-shape--medium {
+	width: 250px;
+	height: 250px;
+}
+
+.sfcore-hero__bg-shape--large {
+	width: 400px;
+	height: 400px;
+}
+
+// Background shape positions
+.sfcore-hero__bg-shape--top-left {
+	top: -30px;
+	left: -30px;
+}
+
+.sfcore-hero__bg-shape--top-right {
+	top: -30px;
+	right: -30px;
+}
+
+.sfcore-hero__bg-shape--bottom-left {
+	bottom: -30px;
+	left: -30px;
+}
+
+.sfcore-hero__bg-shape--bottom-right {
+	bottom: -30px;
+	right: -30px;
+}
+
+.sfcore-hero__bg-shape--center-left {
+	top: 50%;
+	left: -30px;
+	transform: translateY(-50%);
+}
+
+.sfcore-hero__bg-shape--center-right {
+	top: 50%;
+	right: -30px;
+	transform: translateY(-50%);
+}
+
+// Background shape types
+.sfcore-hero__bg-shape--circle {
+	border-radius: 50%;
+}
+
+.sfcore-hero__bg-shape--square {
+	border-radius: 0;
+}
+
+.sfcore-hero__bg-shape--triangle {
+	width: 0 !important;
+	height: 0 !important;
+	background: transparent !important;
+	border-left: 75px solid transparent;
+	border-right: 75px solid transparent;
+	border-bottom: 130px solid;
+	border-bottom-color: inherit;
+}
+
+.sfcore-hero__bg-shape--small.sfcore-hero__bg-shape--triangle {
+	border-left-width: 55px;
+	border-right-width: 55px;
+	border-bottom-width: 95px;
+}
+
+.sfcore-hero__bg-shape--medium.sfcore-hero__bg-shape--triangle {
+	border-left-width: 90px;
+	border-right-width: 90px;
+	border-bottom-width: 155px;
+}
+
+.sfcore-hero__bg-shape--large.sfcore-hero__bg-shape--triangle {
+	border-left-width: 145px;
+	border-right-width: 145px;
+	border-bottom-width: 250px;
+}
+
+// =====================
+// Image Blobs (new v1.2)
+// =====================
+
+.sfcore-hero__blob {
+	position: absolute;
+	z-index: 1;
+	pointer-events: none;
+
+	svg {
+		display: block;
+	}
+}
+
+.sfcore-hero__blob--1 {
+	top: -30px;
+	left: -40px;
+}
+
+.sfcore-hero__blob--2 {
+	bottom: -30px;
+	right: -40px;
+}
+
+// =====================
+// CTA Button Icons (new v1.2)
+// =====================
+
+.sfcore-hero__cta--has-icon {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.sfcore-hero__cta-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+
+	svg {
+		width: 16px;
+		height: 16px;
+		fill: currentColor;
+	}
+}
+
+.sfcore-hero__cta-icon-img {
+	width: 16px;
+	height: 16px;
+	object-fit: contain;
+}
+
+// =====================
+// Background Decorative Shapes (legacy)
 // =====================
 
 .sfcore-hero__shape {
@@ -623,6 +778,28 @@ $border-width-thick: 4px;
 		height: 150px;
 	}
 
+	// Shrink background shapes on tablet
+	.sfcore-hero__bg-shape--small {
+		width: 100px;
+		height: 100px;
+	}
+
+	.sfcore-hero__bg-shape--medium {
+		width: 170px;
+		height: 170px;
+	}
+
+	.sfcore-hero__bg-shape--large {
+		width: 280px;
+		height: 280px;
+	}
+
+	// Shrink blobs on tablet
+	.sfcore-hero__blob svg {
+		width: 80% !important;
+		height: 80% !important;
+	}
+
 	// Adjust deco shapes
 	.sfcore-hero__deco-shape--1 {
 		width: 90px;
@@ -748,6 +925,27 @@ $border-width-thick: 4px;
 	// Hide background decorative shapes on mobile
 	.sfcore-hero__shape {
 		display: none;
+	}
+
+	// Hide background shapes on mobile
+	.sfcore-hero__bg-shape {
+		display: none;
+	}
+
+	// Shrink blobs on mobile
+	.sfcore-hero__blob svg {
+		width: 60% !important;
+		height: 60% !important;
+	}
+
+	.sfcore-hero__blob--1 {
+		top: -15px;
+		left: -20px;
+	}
+
+	.sfcore-hero__blob--2 {
+		bottom: -15px;
+		right: -20px;
 	}
 
 	// Image container on mobile
