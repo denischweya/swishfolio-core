@@ -1,0 +1,72 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "swishfolio-core/swish-socials",
+	"version": "1.0.0",
+	"title": "Swish Socials",
+	"category": "swishfolio",
+	"description": "A customizable social media icon links block with extensive styling options.",
+	"keywords": [ "social", "links", "icons", "media" ],
+	"textdomain": "swishfolio-core",
+	"attributes": {
+		"socialLinks": {
+			"type": "array",
+			"default": []
+		},
+		"iconShape": {
+			"type": "string",
+			"default": "square"
+		},
+		"iconSize": {
+			"type": "string",
+			"default": "medium"
+		},
+		"borderWidth": {
+			"type": "number",
+			"default": 3
+		},
+		"borderColor": {
+			"type": "string",
+			"default": "#121212"
+		},
+		"iconColor": {
+			"type": "string",
+			"default": "#121212"
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "transparent"
+		},
+		"shadowSize": {
+			"type": "string",
+			"default": "small"
+		},
+		"hoverEffect": {
+			"type": "string",
+			"default": "lift"
+		},
+		"useBrandColors": {
+			"type": "boolean",
+			"default": false
+		},
+		"alignment": {
+			"type": "string",
+			"default": "center"
+		},
+		"gapSize": {
+			"type": "string",
+			"default": "medium"
+		}
+	},
+	"supports": {
+		"align": [ "wide", "full" ],
+		"html": false,
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}

@@ -16,6 +16,7 @@ use SwishfolioCore\Blocks\TestimonialsBlock;
 use SwishfolioCore\Blocks\FaqBlock;
 use SwishfolioCore\Blocks\SwishGalleryBlock;
 use SwishfolioCore\Blocks\SwishFormBlock;
+use SwishfolioCore\Blocks\SwishSocialsBlock;
 use SwishfolioCore\PostTypes\ProjectPostType;
 use SwishfolioCore\PostTypes\TestimonialPostType;
 use SwishfolioCore\Forms\FormEntryPostType;
@@ -165,6 +166,7 @@ class Plugin {
 			new FaqBlock(),
 			new SwishGalleryBlock(),
 			new SwishFormBlock(),
+			new SwishSocialsBlock(),
 		];
 	}
 
