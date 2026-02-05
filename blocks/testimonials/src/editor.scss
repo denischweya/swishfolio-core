@@ -15,4 +15,9 @@
 			color: #666;
 		}
 	}
+
+	// Bubble triangle needs breathing room in editor preview
+	.sfcore-testimonials--style-bubble .sfcore-testimonials__item {
+		margin-bottom: 1rem;
+	}
 }
