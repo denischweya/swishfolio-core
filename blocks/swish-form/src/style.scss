@@ -1,8 +1,11 @@
 /**
  * Swish Form Block - Frontend Styles
+ * Style-aware design that adapts to theme variations
  *
  * @package SwishfolioCore
  */
+
+@import '../../_shared/variables';
 
 .sfcore-swish-form {
 	// Ensure proper box-sizing for all form elements
@@ -11,6 +14,7 @@
 	*::after {
 		box-sizing: border-box;
 	}
+
 	// Honeypot field (hidden from users)
 	&__honeypot {
 		position: absolute;
@@ -24,16 +28,16 @@
 
 	// Form wrapper
 	&__form {
-		background: #FFFDF5;
-		border: 4px solid #000;
-		box-shadow: 6px 6px 0 0 #000;
+		background: #{$color-surface};
+		border: var(--sf-border);
+		box-shadow: #{$shadow-lg};
 		padding: 32px;
 		max-width: 100%;
 		overflow: hidden;
 
-		@media (max-width: 600px) {
+		@media (max-width: $breakpoint-mobile) {
 			padding: 20px;
-			box-shadow: 4px 4px 0 0 #000;
+			box-shadow: #{$shadow-md};
 		}
 	}
 
@@ -44,7 +48,7 @@
 		gap: 24px;
 		margin-bottom: 24px;
 
-		@media (max-width: 600px) {
+		@media (max-width: $breakpoint-mobile) {
 			gap: 16px;
 			margin-bottom: 16px;
 		}
@@ -59,7 +63,7 @@
 		&--half {
 			width: calc(50% - 12px);
 
-			@media (max-width: 600px) {
+			@media (max-width: $breakpoint-mobile) {
 				width: 100%;
 			}
 		}
@@ -73,12 +77,12 @@
 		font-size: 14px;
 		text-transform: uppercase;
 		letter-spacing: 0.02em;
-		color: #000;
+		color: #{$color-contrast};
 	}
 
 	// Required indicator
 	&__required {
-		color: #FF6B6B;
+		color: #{$color-accent-1};
 		margin-left: 4px;
 	}
 
@@ -89,37 +93,36 @@
 		width: 100%;
 		max-width: 100%;
 		padding: 14px 18px;
-		border: 4px solid #000;
-		background: #fff;
+		border: var(--sf-border);
+		background: #{$color-base};
+		color: #{$color-contrast};
 		font-family: inherit;
 		font-size: 16px;
-		box-shadow: 4px 4px 0 0 #000;
-		transition: all 0.1s ease-out;
+		box-shadow: #{$shadow-md};
+		transition: all $transition-fast;
 
 		&:focus {
 			outline: none;
-			border-color: #000;
-			box-shadow: 6px 6px 0 0 #000;
-			transform: translate(-2px, -2px);
+			border-color: #{$color-accent-4};
+			box-shadow: #{$shadow-lg};
+			transform: var(--sf-hover-transform);
 		}
 
 		&::placeholder {
-			color: #999;
+			color: #{$color-muted};
 		}
 
 		&:invalid:not(:placeholder-shown) {
-			border-color: #FF6B6B;
+			border-color: #{$color-accent-1};
 		}
 
-		@media (max-width: 600px) {
+		@media (max-width: $breakpoint-mobile) {
 			padding: 12px 14px;
-			border-width: 3px;
-			box-shadow: 3px 3px 0 0 #000;
+			box-shadow: #{$shadow-sm};
 			font-size: 16px; // Prevent zoom on iOS
 
 			&:focus {
-				box-shadow: 4px 4px 0 0 #000;
-				transform: translate(-1px, -1px);
+				box-shadow: #{$shadow-md};
 			}
 		}
 	}
@@ -132,12 +135,12 @@
 	&__select {
 		cursor: pointer;
 		appearance: none;
-		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23000' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='currentColor' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
 		background-repeat: no-repeat;
 		background-position: right 18px center;
 		padding-right: 48px;
 
-		@media (max-width: 600px) {
+		@media (max-width: $breakpoint-mobile) {
 			background-position: right 14px center;
 			padding-right: 40px;
 		}
@@ -147,18 +150,18 @@
 	&__checkbox {
 		width: 24px;
 		height: 24px;
-		border: 4px solid #000;
+		border: var(--sf-border);
 		appearance: none;
 		cursor: pointer;
-		background: #fff;
+		background: #{$color-base};
 		vertical-align: middle;
 		margin: 0;
 		flex-shrink: 0;
-		box-shadow: 2px 2px 0 0 #000;
-		transition: all 0.1s ease-out;
+		box-shadow: #{$shadow-sm};
+		transition: all $transition-fast;
 
 		&:checked {
-			background: #FFD93D;
+			background: #{$color-accent-2};
 			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='%23000'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
 			background-repeat: no-repeat;
 			background-position: center;
@@ -166,8 +169,8 @@
 
 		&:focus {
 			outline: none;
-			box-shadow: 3px 3px 0 0 #000;
-			transform: translate(-1px, -1px);
+			box-shadow: #{$shadow-md};
+			transform: var(--sf-hover-transform);
 		}
 	}
 
@@ -178,6 +181,7 @@
 		cursor: pointer;
 		font-size: 14px;
 		line-height: 1.5;
+		color: #{$color-contrast};
 	}
 
 	&__checkbox-text {
@@ -186,7 +190,7 @@
 
 	// Field error message
 	&__field-error {
-		color: #FF6B6B;
+		color: #{$color-accent-1};
 		font-size: 12px;
 		font-weight: 600;
 		margin-top: 8px;
@@ -200,31 +204,19 @@
 
 	// Submit button
 	&__button {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		padding: 18px 36px;
-		background: #FF6B6B;
-		color: #000;
-		border: 4px solid #000;
-		font-weight: 700;
-		font-size: 16px;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		cursor: pointer;
-		box-shadow: 4px 4px 0 0 #000;
-		transition: all 0.1s ease-out;
+		@include button-base;
+		background: #{$color-accent-1};
+		color: #{$color-accent-5};
 		min-width: 180px;
 
 		&:hover:not(:disabled) {
-			background: #ff8585;
-			box-shadow: 6px 6px 0 0 #000;
-			transform: translate(-2px, -2px);
+			box-shadow: #{$shadow-lg};
+			transform: var(--sf-hover-transform);
 		}
 
 		&:active:not(:disabled) {
 			box-shadow: none;
-			transform: translate(2px, 2px);
+			transform: var(--sf-active-transform);
 		}
 
 		&:disabled {
@@ -232,17 +224,10 @@
 			opacity: 0.8;
 		}
 
-		@media (max-width: 600px) {
+		@media (max-width: $breakpoint-mobile) {
 			width: 100%;
 			padding: 16px 24px;
-			border-width: 3px;
-			box-shadow: 3px 3px 0 0 #000;
 			min-width: unset;
-
-			&:hover:not(:disabled) {
-				box-shadow: 4px 4px 0 0 #000;
-				transform: translate(-1px, -1px);
-			}
 		}
 	}
 
@@ -255,9 +240,9 @@
 			content: '';
 			width: 16px;
 			height: 16px;
-			border: 3px solid #000;
+			border: 3px solid #{$color-contrast};
 			border-top-color: transparent;
-			border-radius: 50%;
+			border-radius: #{$radius-full};
 			animation: swish-form-spin 0.8s linear infinite;
 		}
 	}
@@ -272,14 +257,16 @@
 			color: #22c55e;
 			padding: 16px;
 			background: #dcfce7;
-			border: 4px solid #22c55e;
+			border: var(--sf-border);
+			border-color: #22c55e;
 		}
 
 		&--error {
-			color: #FF6B6B;
+			color: #{$color-accent-1};
 			padding: 16px;
-			background: #fef2f2;
-			border: 4px solid #FF6B6B;
+			background: color-mix(in srgb, #{$color-accent-1} 10%, #{$color-base});
+			border: var(--sf-border);
+			border-color: #{$color-accent-1};
 		}
 	}
 }
@@ -287,14 +274,14 @@
 // Subscription form variant
 .sfcore-swish-form--subscription {
 	.sfcore-swish-form__form {
-		background: #f5f3ff;
+		background: color-mix(in srgb, #{$color-accent-3} 20%, #{$color-surface});
 	}
 
 	.sfcore-swish-form__button {
-		background: #C4B5FD;
+		background: #{$color-accent-3};
 
 		&:hover:not(:disabled) {
-			background: #d4c8fd;
+			background: color-mix(in srgb, #{$color-accent-3} 80%, #{$color-base});
 		}
 	}
 }

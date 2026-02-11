@@ -1,36 +1,24 @@
 /**
  * Card Block - Frontend Styles
  *
- * Bauhaus-inspired design with hard shadows, thick borders, and primary colors.
+ * Style-aware design that adapts to theme variations (Neo-Brutalism, Terminal, etc.)
  */
 
-// Variables
-$bauhaus-red: #D02020;
-$bauhaus-blue: #1040C0;
-$bauhaus-yellow: #F0C020;
-$bauhaus-black: #121212;
-$bauhaus-white: #F0F0F0;
-
-$border-width: 3px;
-$shadow-offset: 6px;
-$shadow-offset-hover: 8px;
+@import '../../_shared/variables';
 
 // Card Base
 .wp-block-swishfolio-core-card {
-	--card-border-color: #{$bauhaus-black};
-	--card-shadow-color: #{$bauhaus-black};
+	--card-border-color: #{$color-contrast};
+	--card-shadow-color: #{$color-contrast};
 
 	position: relative;
-	background: $bauhaus-white;
-	border: $border-width solid var(--card-border-color);
-	box-shadow: $shadow-offset $shadow-offset 0 var(--card-shadow-color);
+	background: #{$color-surface};
+	border: var(--sf-border);
+	box-shadow: #{$shadow-md};
 	padding: 2rem;
-	transition: box-shadow 0.2s ease, transform 0.2s ease;
+	transition: box-shadow $transition-default, transform $transition-default;
 
-	&:hover {
-		box-shadow: $shadow-offset-hover $shadow-offset-hover 0 var(--card-shadow-color);
-		transform: translate(-2px, -2px);
-	}
+	@include hover-lift;
 }
 
 // Border Style Variants
@@ -44,7 +32,7 @@ $shadow-offset-hover: 8px;
 
 .sfcore-card--border-none {
 	border: none;
-	box-shadow: $shadow-offset $shadow-offset 0 var(--card-shadow-color);
+	box-shadow: #{$shadow-md};
 }
 
 // Card Inner Layout
@@ -83,9 +71,9 @@ $shadow-offset-hover: 8px;
 	align-items: center;
 	justify-content: center;
 	flex-shrink: 0;
-	color: $bauhaus-red;
-	background: $bauhaus-yellow;
-	border: $border-width solid var(--card-border-color);
+	color: #{$color-accent-1};
+	background: #{$color-accent-2};
+	border: var(--sf-border);
 
 	svg {
 		display: block;
@@ -96,19 +84,19 @@ $shadow-offset-hover: 8px;
 // Icon Shape Variants
 .sfcore-card--icon-shape-square {
 	.sfcore-card__icon {
-		border-radius: 0;
+		border-radius: #{$radius-none};
 	}
 }
 
 .sfcore-card--icon-shape-rounded {
 	.sfcore-card__icon {
-		border-radius: 8px;
+		border-radius: #{$radius-sm};
 	}
 }
 
 .sfcore-card--icon-shape-circle {
 	.sfcore-card__icon {
-		border-radius: 50%;
+		border-radius: #{$radius-full};
 	}
 }
 
@@ -176,16 +164,18 @@ $shadow-offset-hover: 8px;
 	font-size: 1.5rem;
 	font-weight: 700;
 	line-height: 1.2;
-	color: $bauhaus-black;
+	color: #{$color-contrast};
 	text-transform: uppercase;
 	letter-spacing: 0.02em;
+	text-shadow: #{$text-glow};
 }
 
 .sfcore-card__description {
 	margin: 0;
 	font-size: 1rem;
 	line-height: 1.6;
-	color: rgba($bauhaus-black, 0.8);
+	color: #{$color-contrast};
+	opacity: 0.8;
 }
 
 // Link
@@ -197,11 +187,11 @@ $shadow-offset-hover: 8px;
 	display: inline-block;
 	font-weight: 600;
 	text-decoration: none;
-	transition: all 0.2s ease;
+	transition: all $transition-default;
 }
 
 .sfcore-card__link--text {
-	color: $bauhaus-blue;
+	color: #{$color-accent-4};
 	position: relative;
 
 	&::after {
@@ -214,7 +204,7 @@ $shadow-offset-hover: 8px;
 		background: currentColor;
 		transform: scaleX(0);
 		transform-origin: right;
-		transition: transform 0.2s ease;
+		transition: transform $transition-default;
 	}
 
 	&:hover::after {
@@ -224,18 +214,18 @@ $shadow-offset-hover: 8px;
 }
 
 .sfcore-card__link--button {
-	padding: 0.75rem 1.5rem;
-	background: $bauhaus-red;
-	color: $bauhaus-white;
-	border: $border-width solid var(--card-border-color);
-	box-shadow: 3px 3px 0 var(--card-shadow-color);
-	text-transform: uppercase;
-	letter-spacing: 0.05em;
+	@include button-base;
+	background: #{$color-accent-1};
+	color: #{$color-accent-5};
 
 	&:hover {
-		background: darken($bauhaus-red, 8%);
-		box-shadow: 4px 4px 0 var(--card-shadow-color);
-		transform: translate(-1px, -1px);
+		box-shadow: #{$shadow-lg};
+		transform: var(--sf-hover-transform);
+	}
+
+	&:active {
+		box-shadow: none;
+		transform: var(--sf-active-transform);
 	}
 }
 
@@ -295,7 +285,7 @@ $shadow-offset-hover: 8px;
 }
 
 // Responsive - Tablet
-@media (max-width: 782px) {
+@media (max-width: $breakpoint-tablet) {
 	.wp-block-swishfolio-core-card {
 		padding: 1.75rem;
 	}
@@ -319,7 +309,7 @@ $shadow-offset-hover: 8px;
 }
 
 // Responsive - Mobile
-@media (max-width: 600px) {
+@media (max-width: $breakpoint-mobile) {
 	.sfcore-card--icon-left,
 	.sfcore-card--icon-right {
 		.sfcore-card__inner {

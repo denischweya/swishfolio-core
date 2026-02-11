@@ -1,15 +1,9 @@
 /**
  * FAQ Block - Frontend Styles
+ * Style-aware design that adapts to theme variations
  */
 
-// Variables
-$bauhaus-red: #D02020;
-$bauhaus-blue: #1040C0;
-$bauhaus-yellow: #F0C020;
-$bauhaus-black: #121212;
-$bauhaus-white: #F0F0F0;
-
-$border-width: 3px;
+@import '../../_shared/variables';
 
 // Container
 .wp-block-swishfolio-core-faq {
@@ -18,18 +12,18 @@ $border-width: 3px;
 
 // FAQ Item
 .sfcore-faq__item {
-	background: $bauhaus-white;
-	border: $border-width solid $bauhaus-black;
+	background: #{$color-surface};
+	border: var(--sf-border);
 	margin-bottom: 1rem;
-	box-shadow: 4px 4px 0 $bauhaus-black;
-	transition: all 0.2s ease;
+	box-shadow: #{$shadow-sm};
+	transition: all $transition-default;
 
 	&:last-child {
 		margin-bottom: 0;
 	}
 
 	&.is-open {
-		box-shadow: 6px 6px 0 $bauhaus-black;
+		box-shadow: #{$shadow-md};
 	}
 }
 
@@ -45,24 +39,25 @@ $border-width: 3px;
 	background: transparent;
 	border: none;
 	cursor: pointer;
-	transition: background-color 0.2s ease;
+	transition: background-color $transition-default;
 	gap: 1rem;
 
 	&:hover {
-		background: rgba($bauhaus-yellow, 0.1);
+		background: color-mix(in srgb, #{$color-accent-2} 10%, transparent);
 	}
 
 	&:focus {
-		outline: 2px solid $bauhaus-blue;
+		outline: 2px solid #{$color-accent-4};
 		outline-offset: -2px;
 	}
 }
 
 .sfcore-faq__question {
 	flex: 1;
-	color: $bauhaus-black;
+	color: #{$color-contrast};
 	text-transform: uppercase;
 	letter-spacing: 0.02em;
+	text-shadow: #{$text-glow};
 }
 
 // Icon
@@ -75,15 +70,15 @@ $border-width: 3px;
 	justify-content: center;
 	font-size: 1.25rem;
 	font-weight: 700;
-	background: $bauhaus-yellow;
-	color: $bauhaus-black;
-	border: 2px solid $bauhaus-black;
-	transition: all 0.2s ease;
+	background: #{$color-accent-2};
+	color: #{$color-contrast};
+	border: var(--sf-border-thin);
+	transition: all $transition-default;
 }
 
 .sfcore-faq__icon--chevron,
 .sfcore-faq__icon--arrow {
-	transition: transform 0.3s ease;
+	transition: transform $transition-slow;
 }
 
 .sfcore-faq__item.is-open {
@@ -106,8 +101,8 @@ $border-width: 3px;
 .sfcore-faq__content {
 	display: none;
 	padding: 0 1.5rem 1.5rem;
-	border-top: 2px solid rgba($bauhaus-black, 0.1);
-	animation: slideDown 0.3s ease;
+	border-top: var(--sf-border-thin);
+	animation: slideDown $transition-slow;
 }
 
 .sfcore-faq__item.is-open .sfcore-faq__content {
@@ -128,7 +123,8 @@ $border-width: 3px;
 .sfcore-faq__answer {
 	font-size: 1rem;
 	line-height: 1.7;
-	color: rgba($bauhaus-black, 0.8);
+	color: #{$color-contrast};
+	opacity: 0.8;
 	padding-top: 1.25rem;
 
 	p {
@@ -140,11 +136,11 @@ $border-width: 3px;
 	}
 
 	a {
-		color: $bauhaus-blue;
+		color: #{$color-accent-4};
 		text-decoration: underline;
 
 		&:hover {
-			color: $bauhaus-red;
+			color: #{$color-accent-1};
 		}
 	}
 }
@@ -164,7 +160,7 @@ $border-width: 3px;
 }
 
 // Responsive - Tablet
-@media (max-width: 782px) {
+@media (max-width: $breakpoint-tablet) {
 	.sfcore-faq__header {
 		padding: 1rem 1.25rem;
 		font-size: 1rem;
@@ -182,13 +178,13 @@ $border-width: 3px;
 }
 
 // Responsive - Mobile
-@media (max-width: 600px) {
+@media (max-width: $breakpoint-mobile) {
 	.sfcore-faq__item {
-		box-shadow: 3px 3px 0 $bauhaus-black;
+		box-shadow: #{$shadow-sm};
 		margin-bottom: 0.75rem;
 
 		&.is-open {
-			box-shadow: 4px 4px 0 $bauhaus-black;
+			box-shadow: #{$shadow-md};
 		}
 	}
 

@@ -1,33 +1,10 @@
 /**
- * Portfolio Block - Neo-Brutalism Styles
+ * Portfolio Block - Style-Aware Design
  *
- * Design System: Neo-brutalism
- * - Hard black borders (4px)
- * - Sharp corners
- * - Hard shadows (offset, no blur)
- * - High-saturation colors
- * - Bold typography
+ * Adapts to theme variations (Neo-Brutalism, Terminal, etc.)
  */
 
-// Neo-brutalism Design Tokens
-$neo-background: #FFFDF5;
-$neo-foreground: #000000;
-$neo-accent: #FF6B6B;
-$neo-secondary: #FFD93D;
-$neo-muted: #C4B5FD;
-$neo-white: #FFFFFF;
-
-// Border & Shadow
-$border-width: 4px;
-$shadow-small: 4px 4px 0 0 $neo-foreground;
-$shadow-medium: 8px 8px 0 0 $neo-foreground;
-$shadow-large: 12px 12px 0 0 $neo-foreground;
-
-// Status colors
-$status-completed: #22C55E;
-$status-in-progress: $neo-secondary;
-$status-planned: $neo-muted;
-$status-on-hold: #F97316;
+@import '../../_shared/variables';
 
 // ==============================
 // Portfolio Container
@@ -39,7 +16,6 @@ $status-on-hold: #F97316;
 	width: 100%;
 	max-width: 100%;
 	box-sizing: border-box;
-	font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 // ==============================
@@ -54,34 +30,28 @@ $status-on-hold: #F97316;
 }
 
 .sfcore-portfolio__filter {
+	@include button-base;
 	padding: 12px 24px;
 	font-size: 0.875rem;
-	font-weight: 700;
-	text-transform: uppercase;
-	letter-spacing: 0.1em;
-	background: $neo-white;
-	color: $neo-foreground;
-	border: $border-width solid $neo-foreground;
-	box-shadow: $shadow-small;
-	cursor: pointer;
-	transition: all 0.1s ease-out;
+	background: #{$color-accent-5};
+	color: #{$color-contrast};
 
 	&:hover {
-		background: $neo-secondary;
-		transform: translate(-2px, -2px);
-		box-shadow: 6px 6px 0 0 $neo-foreground;
+		background: #{$color-accent-2};
+		transform: var(--sf-hover-transform);
+		box-shadow: #{$shadow-md};
 	}
 
 	&:active {
-		transform: translate(2px, 2px);
+		transform: var(--sf-active-transform);
 		box-shadow: none;
 	}
 
 	&.is-active {
-		background: $neo-foreground;
-		color: $neo-white;
+		background: #{$color-contrast};
+		color: #{$color-accent-5};
 		box-shadow: none;
-		transform: translate(2px, 2px);
+		transform: var(--sf-active-transform);
 	}
 }
 
@@ -158,11 +128,11 @@ $status-on-hold: #F97316;
 
 .sfcore-portfolio__card {
 	height: 100%;
-	background: $neo-white;
-	border: $border-width solid $neo-foreground;
-	box-shadow: $shadow-medium;
+	background: #{$color-accent-5};
+	border: var(--sf-border);
+	box-shadow: #{$shadow-md};
 	overflow: hidden;
-	transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+	transition: transform $transition-default, box-shadow $transition-default;
 }
 
 // ==============================
@@ -204,9 +174,9 @@ $status-on-hold: #F97316;
 		inset: 0;
 		display: flex;
 		align-items: flex-end;
-		background: linear-gradient(to top, rgba($neo-foreground, 0.95) 0%, rgba($neo-foreground, 0.6) 40%, transparent 100%);
+		background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.6) 40%, transparent 100%);
 		opacity: 0;
-		transition: opacity 0.2s ease-out;
+		transition: opacity $transition-default;
 	}
 
 	.sfcore-portfolio__overlay-content {
@@ -215,21 +185,15 @@ $status-on-hold: #F97316;
 	}
 
 	.sfcore-portfolio__overlay .sfcore-portfolio__title {
-		color: $neo-white;
+		color: #{$color-accent-5};
 		margin-bottom: 16px;
 	}
 
 	.sfcore-portfolio__overlay .sfcore-portfolio__btn {
-		display: inline-flex;
-		align-items: center;
-		gap: 8px;
+		@include button-base;
 		padding: 12px 20px;
-		background: $neo-accent;
-		color: $neo-foreground;
-		border: $border-width solid $neo-foreground;
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
+		background: #{$color-accent-1};
+		color: #{$color-contrast};
 		font-size: 0.875rem;
 	}
 
@@ -248,8 +212,8 @@ $status-on-hold: #F97316;
 			content: '';
 			position: absolute;
 			inset: -8px;
-			background: $neo-secondary;
-			border: $border-width solid $neo-foreground;
+			background: #{$color-accent-2};
+			border: var(--sf-border);
 			z-index: -1;
 			transform: rotate(-2deg);
 		}
@@ -258,8 +222,8 @@ $status-on-hold: #F97316;
 			content: '';
 			position: absolute;
 			inset: -16px;
-			background: $neo-muted;
-			border: $border-width solid $neo-foreground;
+			background: #{$color-accent-3};
+			border: var(--sf-border);
 			z-index: -2;
 			transform: rotate(1deg);
 		}
@@ -275,8 +239,8 @@ $status-on-hold: #F97316;
 // ==============================
 .sfcore-portfolio--hover-lift {
 	.sfcore-portfolio__card:hover {
-		transform: translate(-4px, -4px);
-		box-shadow: $shadow-large;
+		transform: var(--sf-hover-transform);
+		box-shadow: #{$shadow-lg};
 	}
 }
 
@@ -294,7 +258,7 @@ $status-on-hold: #F97316;
 	.sfcore-portfolio__content {
 		transform: translateY(20px);
 		opacity: 0.9;
-		transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+		transition: transform $transition-default, opacity $transition-default;
 	}
 
 	.sfcore-portfolio__card:hover .sfcore-portfolio__content {
@@ -309,7 +273,7 @@ $status-on-hold: #F97316;
 .sfcore-portfolio__image {
 	position: relative;
 	overflow: hidden;
-	border-bottom: $border-width solid $neo-foreground;
+	border-bottom: var(--sf-border);
 
 	img {
 		width: 100%;
@@ -349,12 +313,12 @@ $status-on-hold: #F97316;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: linear-gradient(135deg, $neo-secondary 0%, $neo-accent 100%);
+	background: linear-gradient(135deg, #{$color-accent-2} 0%, #{$color-accent-1} 100%);
 
 	svg {
 		width: 64px;
 		height: 64px;
-		color: $neo-foreground;
+		color: #{$color-contrast};
 		opacity: 0.5;
 	}
 }
@@ -371,29 +335,29 @@ $status-on-hold: #F97316;
 	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
-	border: 3px solid $neo-foreground;
-	box-shadow: 3px 3px 0 0 $neo-foreground;
+	border: var(--sf-border-thin);
+	box-shadow: #{$shadow-sm};
 	transform: rotate(2deg);
 	z-index: 10;
 
 	&--completed {
-		background: $status-completed;
-		color: $neo-foreground;
+		background: #22C55E;
+		color: #{$color-contrast};
 	}
 
 	&--in-progress {
-		background: $status-in-progress;
-		color: $neo-foreground;
+		background: #{$color-accent-2};
+		color: #{$color-contrast};
 	}
 
 	&--planned {
-		background: $status-planned;
-		color: $neo-foreground;
+		background: #{$color-accent-3};
+		color: #{$color-contrast};
 	}
 
 	&--on-hold {
-		background: $status-on-hold;
-		color: $neo-white;
+		background: #F97316;
+		color: #{$color-accent-5};
 	}
 }
 
@@ -422,16 +386,16 @@ $status-on-hold: #F97316;
 	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
-	border: 3px solid $neo-foreground;
+	border: var(--sf-border-thin);
 
 	&--category {
-		background: $neo-secondary;
-		color: $neo-foreground;
+		background: #{$color-accent-2};
+		color: #{$color-contrast};
 	}
 
 	&--type {
-		background: $neo-muted;
-		color: $neo-foreground;
+		background: #{$color-accent-3};
+		color: #{$color-contrast};
 	}
 }
 
@@ -443,15 +407,16 @@ $status-on-hold: #F97316;
 	text-transform: uppercase;
 	letter-spacing: -0.02em;
 	line-height: 1.2;
-	color: $neo-foreground;
+	color: #{$color-contrast};
+	text-shadow: #{$text-glow};
 
 	a {
 		color: inherit;
 		text-decoration: none;
-		transition: color 0.1s ease-out;
+		transition: color $transition-fast;
 
 		&:hover {
-			color: $neo-accent;
+			color: #{$color-accent-1};
 		}
 	}
 }
@@ -462,7 +427,8 @@ $status-on-hold: #F97316;
 	font-size: 0.9375rem;
 	font-weight: 500;
 	line-height: 1.6;
-	color: rgba($neo-foreground, 0.7);
+	color: #{$color-contrast};
+	opacity: 0.7;
 	flex: 1;
 }
 
@@ -478,7 +444,8 @@ $status-on-hold: #F97316;
 	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
-	color: rgba($neo-foreground, 0.5);
+	color: #{$color-contrast};
+	opacity: 0.5;
 
 	&::after {
 		content: ':';
@@ -487,7 +454,7 @@ $status-on-hold: #F97316;
 
 .sfcore-portfolio__meta-value {
 	font-weight: 600;
-	color: $neo-foreground;
+	color: #{$color-contrast};
 }
 
 // Skills
@@ -502,9 +469,9 @@ $status-on-hold: #F97316;
 	padding: 4px 10px;
 	font-size: 0.75rem;
 	font-weight: 700;
-	background: $neo-foreground;
-	color: $neo-white;
-	border: 2px solid $neo-foreground;
+	background: #{$color-contrast};
+	color: #{$color-accent-5};
+	border: var(--sf-border-thin);
 }
 
 // ==============================
@@ -519,45 +486,25 @@ $status-on-hold: #F97316;
 }
 
 .sfcore-portfolio__btn {
-	display: inline-flex;
-	align-items: center;
-	gap: 8px;
+	@include button-base;
 	padding: 12px 20px;
 	font-size: 0.875rem;
-	font-weight: 700;
-	text-transform: uppercase;
-	letter-spacing: 0.05em;
-	text-decoration: none;
-	border: $border-width solid $neo-foreground;
-	box-shadow: $shadow-small;
-	cursor: pointer;
-	transition: all 0.1s ease-out;
 
 	svg {
 		flex-shrink: 0;
 	}
 
-	&:hover {
-		transform: translate(-2px, -2px);
-		box-shadow: 6px 6px 0 0 $neo-foreground;
-	}
-
-	&:active {
-		transform: translate(2px, 2px);
-		box-shadow: none;
-	}
-
 	&--primary {
-		background: $neo-accent;
-		color: $neo-foreground;
+		background: #{$color-accent-1};
+		color: #{$color-contrast};
 	}
 
 	&--secondary {
-		background: $neo-white;
-		color: $neo-foreground;
+		background: #{$color-accent-5};
+		color: #{$color-contrast};
 
 		&:hover {
-			background: $neo-secondary;
+			background: #{$color-accent-2};
 		}
 	}
 }
@@ -571,10 +518,11 @@ $status-on-hold: #F97316;
 	padding: 48px 24px;
 	font-size: 1.125rem;
 	font-weight: 700;
-	color: rgba($neo-foreground, 0.5);
-	background: $neo-white;
-	border: $border-width solid $neo-foreground;
-	box-shadow: $shadow-medium;
+	color: #{$color-contrast};
+	opacity: 0.5;
+	background: #{$color-accent-5};
+	border: var(--sf-border);
+	box-shadow: #{$shadow-md};
 }
 
 // Loading State
@@ -585,20 +533,21 @@ $status-on-hold: #F97316;
 	align-items: center;
 	min-height: 200px;
 	padding: 48px;
-	background: $neo-white;
-	border: $border-width solid $neo-foreground;
-	box-shadow: $shadow-medium;
+	background: #{$color-accent-5};
+	border: var(--sf-border);
+	box-shadow: #{$shadow-md};
 
 	p {
 		font-weight: 700;
-		color: rgba($neo-foreground, 0.5);
+		color: #{$color-contrast};
+		opacity: 0.5;
 	}
 }
 
 // ==============================
 // Responsive - Tablet (768px - 1024px) - 2 Columns
 // ==============================
-@media (max-width: 1024px) {
+@media (max-width: $breakpoint-desktop) {
 	.wp-block-swishfolio-core-portfolio {
 		--portfolio-gap: 20px;
 	}
@@ -628,7 +577,7 @@ $status-on-hold: #F97316;
 	}
 
 	.sfcore-portfolio__card {
-		box-shadow: 6px 6px 0 0 $neo-foreground;
+		box-shadow: #{$shadow-md};
 	}
 
 	.sfcore-portfolio__content {
@@ -642,21 +591,19 @@ $status-on-hold: #F97316;
 	.sfcore-portfolio__status {
 		padding: 5px 10px;
 		font-size: 0.6875rem;
-		border-width: 2px;
-		box-shadow: 2px 2px 0 0 $neo-foreground;
+		box-shadow: #{$shadow-sm};
 	}
 
 	.sfcore-portfolio__badge {
 		padding: 3px 10px;
 		font-size: 0.6875rem;
-		border-width: 2px;
 	}
 
 	// Overlay style - show on touch devices
 	.sfcore-portfolio--style-overlay {
 		.sfcore-portfolio__overlay {
 			opacity: 1;
-			background: linear-gradient(to top, rgba($neo-foreground, 0.9) 0%, rgba($neo-foreground, 0.4) 50%, transparent 100%);
+			background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
 		}
 	}
 }
@@ -670,7 +617,7 @@ $status-on-hold: #F97316;
 		--portfolio-columns: 1;
 		// Prevent horizontal scroll from shadows/pseudo-elements
 		overflow: hidden;
-		// Add right padding to account for shadow (4px shadow on mobile)
+		// Add right padding to account for shadow
 		padding-right: 4px;
 	}
 
@@ -708,19 +655,7 @@ $status-on-hold: #F97316;
 		}
 
 		.sfcore-portfolio__image {
-			border-bottom: $border-width solid $neo-foreground;
-			border-right: none;
-			aspect-ratio: 16 / 9 !important;
-		}
-	}
-
-	.sfcore-portfolio--layout-list {
-		.sfcore-portfolio__card {
-			grid-template-columns: 1fr;
-		}
-
-		.sfcore-portfolio__image {
-			border-bottom: $border-width solid $neo-foreground;
+			border-bottom: var(--sf-border);
 			border-right: none;
 			aspect-ratio: 16 / 9 !important;
 		}
@@ -742,18 +677,18 @@ $status-on-hold: #F97316;
 	.sfcore-portfolio__filter {
 		padding: 10px 16px;
 		font-size: 0.8125rem;
-		box-shadow: 3px 3px 0 0 $neo-foreground;
+		box-shadow: #{$shadow-sm};
 		flex-shrink: 0;
 	}
 
 	.sfcore-portfolio__card {
-		box-shadow: $shadow-small;
+		box-shadow: #{$shadow-sm};
 	}
 
 	.sfcore-portfolio--hover-lift {
 		.sfcore-portfolio__card:hover {
-			transform: translate(-2px, -2px);
-			box-shadow: 6px 6px 0 0 $neo-foreground;
+			transform: var(--sf-hover-transform);
+			box-shadow: #{$shadow-md};
 		}
 	}
 
@@ -775,12 +710,11 @@ $status-on-hold: #F97316;
 		font-size: 0.8125rem;
 		max-width: 100%;
 		justify-content: center;
-		box-shadow: 3px 3px 0 0 $neo-foreground;
-		border-width: 3px;
+		box-shadow: #{$shadow-sm};
 
 		&:hover {
-			box-shadow: 4px 4px 0 0 $neo-foreground;
-			transform: translate(-1px, -1px);
+			box-shadow: #{$shadow-md};
+			transform: var(--sf-hover-transform);
 		}
 	}
 
@@ -794,8 +728,7 @@ $status-on-hold: #F97316;
 		right: 8px;
 		padding: 4px 8px;
 		font-size: 0.625rem;
-		border-width: 2px;
-		box-shadow: 2px 2px 0 0 $neo-foreground;
+		box-shadow: #{$shadow-sm};
 	}
 
 	.sfcore-portfolio__taxonomies {
@@ -806,7 +739,6 @@ $status-on-hold: #F97316;
 	.sfcore-portfolio__badge {
 		padding: 2px 8px;
 		font-size: 0.625rem;
-		border-width: 2px;
 	}
 
 	.sfcore-portfolio__skills {
@@ -817,7 +749,6 @@ $status-on-hold: #F97316;
 	.sfcore-portfolio__skill {
 		padding: 3px 8px;
 		font-size: 0.6875rem;
-		border-width: 2px;
 	}
 
 	.sfcore-portfolio__meta-item {
@@ -854,7 +785,7 @@ $status-on-hold: #F97316;
 
 		.sfcore-portfolio__overlay {
 			opacity: 1;
-			background: linear-gradient(to top, rgba($neo-foreground, 0.95) 0%, rgba($neo-foreground, 0.5) 60%, transparent 100%);
+			background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.5) 60%, transparent 100%);
 		}
 
 		.sfcore-portfolio__overlay-content {
@@ -869,7 +800,6 @@ $status-on-hold: #F97316;
 		.sfcore-portfolio__overlay .sfcore-portfolio__btn {
 			padding: 10px 16px;
 			font-size: 0.75rem;
-			border-width: 3px;
 		}
 	}
 
@@ -879,16 +809,12 @@ $status-on-hold: #F97316;
 	.sfcore-portfolio__empty {
 		padding: 32px 16px;
 		font-size: 1rem;
-		box-shadow: $shadow-small;
+		box-shadow: #{$shadow-sm};
 	}
 }
 
 // ==============================
 // Responsive - Extra Small (< 380px)
-// ==============================
-
-// ==============================
-// Responsive - Extra Small (320px)
 // ==============================
 @media (max-width: 380px) {
 	.wp-block-swishfolio-core-portfolio {
@@ -971,28 +897,28 @@ $status-on-hold: #F97316;
 	.sfcore-portfolio--hover-lift {
 		.sfcore-portfolio__card:hover {
 			transform: none;
-			box-shadow: $shadow-medium;
+			box-shadow: #{$shadow-md};
 		}
 	}
 
 	.sfcore-portfolio__filter:hover {
 		transform: none;
-		box-shadow: $shadow-small;
+		box-shadow: #{$shadow-sm};
 	}
 
 	.sfcore-portfolio__btn:hover {
 		transform: none;
-		box-shadow: $shadow-small;
+		box-shadow: #{$shadow-sm};
 	}
 
 	// Active states for touch
 	.sfcore-portfolio__filter:active {
-		transform: translate(2px, 2px);
+		transform: var(--sf-active-transform);
 		box-shadow: none;
 	}
 
 	.sfcore-portfolio__btn:active {
-		transform: translate(2px, 2px);
+		transform: var(--sf-active-transform);
 		box-shadow: none;
 	}
 }

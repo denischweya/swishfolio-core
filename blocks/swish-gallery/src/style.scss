@@ -1,6 +1,9 @@
 /**
  * Swish Gallery Block - Frontend Styles
+ * Style-aware design that adapts to theme variations
  */
+
+@import '../../_shared/variables';
 
 .sfcore-swish-gallery {
 	--gallery-gap: 16px;
@@ -45,7 +48,7 @@
 
 	.sfcore-swish-gallery__container {
 		display: flex;
-		transition: transform 0.4s ease-in-out;
+		transition: transform $transition-slow;
 	}
 
 	.sfcore-swish-gallery__item {
@@ -64,6 +67,7 @@
 	position: relative;
 	overflow: hidden;
 	border-radius: var(--image-border-radius);
+	border: var(--sf-border-thin);
 }
 
 .sfcore-swish-gallery__image {
@@ -71,7 +75,7 @@
 	width: 100%;
 	height: auto;
 	object-fit: cover;
-	transition: transform 0.3s ease, opacity 0.3s ease;
+	transition: transform $transition-default, opacity $transition-default;
 }
 
 // Aspect ratios
@@ -129,31 +133,31 @@
 
 .sfcore-swish-gallery--hover-lift {
 	.sfcore-swish-gallery__item {
-		transition: transform 0.3s ease, box-shadow 0.3s ease;
+		transition: transform $transition-default, box-shadow $transition-default;
 	}
 
 	.sfcore-swish-gallery__item:hover {
-		transform: translateY(-8px);
-		box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+		transform: var(--sf-hover-transform);
+		box-shadow: #{$shadow-lg};
 	}
 }
 
 // Shadows
 .sfcore-swish-gallery--shadow-small {
 	.sfcore-swish-gallery__image-wrapper {
-		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		box-shadow: #{$shadow-sm};
 	}
 }
 
 .sfcore-swish-gallery--shadow-medium {
 	.sfcore-swish-gallery__image-wrapper {
-		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+		box-shadow: #{$shadow-md};
 	}
 }
 
 .sfcore-swish-gallery--shadow-large {
 	.sfcore-swish-gallery__image-wrapper {
-		box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+		box-shadow: #{$shadow-lg};
 	}
 }
 
@@ -167,12 +171,12 @@
 	background: rgba(0, 0, 0, 0);
 	border: none;
 	cursor: pointer;
-	transition: background-color 0.3s ease;
+	transition: background-color $transition-default;
 	padding: 0;
 
 	&:hover,
 	&:focus {
-		background: rgba(0, 0, 0, 0.4);
+		background: color-mix(in srgb, #{$color-contrast} 40%, transparent);
 
 		.sfcore-swish-gallery__zoom-icon {
 			opacity: 1;
@@ -181,7 +185,7 @@
 	}
 
 	&:focus {
-		outline: 2px solid #fff;
+		outline: 2px solid #{$color-base};
 		outline-offset: -4px;
 	}
 }
@@ -192,14 +196,14 @@
 	justify-content: center;
 	width: 48px;
 	height: 48px;
-	background: rgba(255, 255, 255, 0.9);
-	border-radius: 50%;
+	background: #{$color-surface};
+	border-radius: #{$radius-full};
 	opacity: 0;
 	transform: scale(0.8);
-	transition: opacity 0.3s ease, transform 0.3s ease;
+	transition: opacity $transition-default, transform $transition-default;
 
 	svg {
-		fill: #121212;
+		fill: #{$color-contrast};
 	}
 }
 
@@ -207,7 +211,7 @@
 .sfcore-swish-gallery__caption {
 	margin-top: 8px;
 	font-size: 0.875rem;
-	color: #666;
+	color: #{$color-muted};
 	text-align: center;
 }
 
@@ -226,26 +230,23 @@
 
 .sfcore-swish-gallery__prev,
 .sfcore-swish-gallery__next {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	@include button-base;
 	width: 48px;
 	height: 48px;
-	background: rgba(255, 255, 255, 0.9);
-	border: none;
-	border-radius: 50%;
-	cursor: pointer;
+	padding: 0;
+	background: #{$color-surface};
+	color: #{$color-contrast};
 	pointer-events: all;
 	font-size: 1.5rem;
-	transition: background-color 0.2s ease, transform 0.2s ease;
 
 	&:hover {
-		background: #fff;
-		transform: scale(1.1);
+		background: #{$color-accent-2};
+		transform: var(--sf-hover-transform);
+		box-shadow: #{$shadow-md};
 	}
 
 	&:focus {
-		outline: 2px solid #1040C0;
+		outline: 2px solid #{$color-accent-4};
 		outline-offset: 2px;
 	}
 }
@@ -261,24 +262,24 @@
 .sfcore-swish-gallery__dot {
 	width: 12px;
 	height: 12px;
-	background: #ccc;
-	border: none;
-	border-radius: 50%;
+	background: #{$color-muted};
+	border: var(--sf-border-thin);
+	border-radius: #{$radius-full};
 	cursor: pointer;
 	padding: 0;
-	transition: background-color 0.2s ease, transform 0.2s ease;
+	transition: background-color $transition-default, transform $transition-default;
 
 	&:hover {
-		background: #999;
+		background: #{$color-contrast};
 	}
 
 	&.is-active {
-		background: #1040C0;
+		background: #{$color-accent-1};
 		transform: scale(1.2);
 	}
 
 	&:focus {
-		outline: 2px solid #1040C0;
+		outline: 2px solid #{$color-accent-4};
 		outline-offset: 2px;
 	}
 }
@@ -291,10 +292,10 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: rgba(0, 0, 0, 0.95);
+	background: color-mix(in srgb, #{$color-contrast} 95%, transparent);
 	opacity: 0;
 	visibility: hidden;
-	transition: opacity 0.3s ease, visibility 0.3s ease;
+	transition: opacity $transition-default, visibility $transition-default;
 
 	&.is-open {
 		opacity: 1;
@@ -327,15 +328,15 @@
 	z-index: 10;
 
 	svg {
-		fill: #fff;
+		fill: #{$color-base};
 	}
 
 	&:hover svg {
-		fill: #ccc;
+		fill: #{$color-muted};
 	}
 
 	&:focus {
-		outline: 2px solid #fff;
+		outline: 2px solid #{$color-base};
 		outline-offset: 2px;
 	}
 }
@@ -350,23 +351,23 @@
 	justify-content: center;
 	width: 56px;
 	height: 56px;
-	background: rgba(255, 255, 255, 0.1);
+	background: color-mix(in srgb, #{$color-base} 10%, transparent);
 	border: none;
-	border-radius: 50%;
+	border-radius: #{$radius-full};
 	cursor: pointer;
 	z-index: 10;
-	transition: background-color 0.2s ease;
+	transition: background-color $transition-default;
 
 	svg {
-		fill: #fff;
+		fill: #{$color-base};
 	}
 
 	&:hover {
-		background: rgba(255, 255, 255, 0.2);
+		background: color-mix(in srgb, #{$color-base} 20%, transparent);
 	}
 
 	&:focus {
-		outline: 2px solid #fff;
+		outline: 2px solid #{$color-base};
 		outline-offset: 2px;
 	}
 }
@@ -403,7 +404,7 @@
 	left: 50%;
 	transform: translateX(-50%);
 	text-align: center;
-	color: #fff;
+	color: #{$color-base};
 }
 
 .sfcore-lightbox__counter {
@@ -418,7 +419,7 @@
 }
 
 // Responsive adjustments
-@media (max-width: 768px) {
+@media (max-width: $breakpoint-tablet) {
 	.sfcore-swish-gallery--cols-4,
 	.sfcore-swish-gallery--cols-5,
 	.sfcore-swish-gallery--cols-6 {
@@ -442,7 +443,7 @@
 	}
 }
 
-@media (max-width: 480px) {
+@media (max-width: $breakpoint-mobile) {
 	.sfcore-swish-gallery--cols-3,
 	.sfcore-swish-gallery--cols-4,
 	.sfcore-swish-gallery--cols-5,
@@ -455,5 +456,12 @@
 	.sfcore-swish-gallery--layout-masonry.sfcore-swish-gallery--cols-5,
 	.sfcore-swish-gallery--layout-masonry.sfcore-swish-gallery--cols-6 {
 		column-count: 1;
+	}
+
+	.sfcore-swish-gallery__prev,
+	.sfcore-swish-gallery__next {
+		width: 40px;
+		height: 40px;
+		font-size: 1rem;
 	}
 }

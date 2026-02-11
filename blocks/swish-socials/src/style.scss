@@ -1,6 +1,9 @@
 /**
  * Swish Socials Block - Frontend Styles
+ * Style-aware design that adapts to theme variations
  */
+
+@import '../../_shared/variables';
 
 // Base container
 .sfcore-socials {
@@ -40,8 +43,11 @@
 	align-items: center;
 	justify-content: center;
 	text-decoration: none;
-	transition: transform 0.2s ease, box-shadow 0.2s ease;
+	transition: transform $transition-default, box-shadow $transition-default;
 	box-sizing: border-box;
+	border: var(--sf-border);
+	background: #{$color-surface};
+	color: #{$color-contrast};
 
 	// Sizes
 	&--small {
@@ -90,32 +96,32 @@
 
 	// Shapes
 	&--square {
-		border-radius: 0;
+		border-radius: #{$radius-none};
 	}
 
 	&--rounded {
-		border-radius: 8px;
+		border-radius: #{$radius-sm};
 	}
 
 	&--circle {
-		border-radius: 50%;
+		border-radius: #{$radius-full};
 	}
 
-	// Shadows (neo-brutalist, no blur)
+	// Shadows
 	&--shadow-none {
 		box-shadow: none;
 	}
 
 	&--shadow-small {
-		box-shadow: 2px 2px 0 #121212;
+		box-shadow: #{$shadow-sm};
 	}
 
 	&--shadow-medium {
-		box-shadow: 4px 4px 0 #121212;
+		box-shadow: #{$shadow-md};
 	}
 
 	&--shadow-large {
-		box-shadow: 6px 6px 0 #121212;
+		box-shadow: #{$shadow-lg};
 	}
 
 	// Hover effects
@@ -123,19 +129,19 @@
 		transform: translateY(-3px);
 
 		&.sfcore-socials__link--shadow-none {
-			box-shadow: 0 3px 0 #121212;
+			box-shadow: #{$shadow-sm};
 		}
 
 		&.sfcore-socials__link--shadow-small {
-			box-shadow: 2px 5px 0 #121212;
+			box-shadow: #{$shadow-md};
 		}
 
 		&.sfcore-socials__link--shadow-medium {
-			box-shadow: 4px 7px 0 #121212;
+			box-shadow: #{$shadow-lg};
 		}
 
 		&.sfcore-socials__link--shadow-large {
-			box-shadow: 6px 9px 0 #121212;
+			box-shadow: #{$shadow-xl};
 		}
 	}
 
@@ -144,7 +150,7 @@
 	}
 
 	&--hover-glow:hover {
-		box-shadow: 0 0 0 4px rgba(16, 64, 192, 0.3);
+		box-shadow: 0 0 0 4px color-mix(in srgb, #{$color-accent-4} 30%, transparent);
 	}
 
 	&--hover-none:hover {
@@ -172,7 +178,7 @@
 }
 
 // Responsive
-@media (max-width: 600px) {
+@media (max-width: $breakpoint-mobile) {
 	.sfcore-socials__link {
 		// Cap at medium size on mobile
 		&--large,

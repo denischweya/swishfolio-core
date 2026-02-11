@@ -1,28 +1,15 @@
 /**
  * Custom Heading Block - Frontend Styles
  *
- * Neo-brutalist heading with bold typography and geometric elements.
+ * Style-aware design that adapts to theme variations
  */
 
-// Neo-brutalist Colors
-$neo-black: #000000;
-$neo-cream: #FFFDF5;
-$neo-accent: #FF6B6B;
-$neo-secondary: #FFD93D;
-$neo-muted: #C4B5FD;
-$neo-white: #FFFFFF;
-
-// Typography
-$font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-
-// Border
-$border-width: 4px;
+@import '../../_shared/variables';
 
 // Base Block
 .wp-block-swishfolio-core-heading {
 	position: relative;
 	padding: 2rem;
-	font-family: $font-family;
 }
 
 // Inner Container
@@ -108,6 +95,8 @@ $border-width: 4px;
 	line-height: 1.05;
 	letter-spacing: -0.02em;
 	text-transform: uppercase;
+	color: #{$color-contrast};
+	text-shadow: #{$text-glow};
 
 	// When has background
 	&.sfcore-heading__main--has-bg {
@@ -142,7 +131,7 @@ $border-width: 4px;
 }
 
 .sfcore-heading__main--shadow {
-	text-shadow: 4px 4px 0 $neo-black;
+	text-shadow: #{$shadow-text};
 }
 
 // =====================
@@ -158,6 +147,8 @@ $border-width: 4px;
 	margin: 0;
 	font-weight: 500;
 	line-height: 1.6;
+	color: #{$color-contrast};
+	opacity: 0.8;
 
 	// When has background
 	&.sfcore-heading__sub--has-bg {
@@ -188,8 +179,10 @@ $border-width: 4px;
 	align-items: center;
 	justify-content: center;
 	flex-shrink: 0;
-	border: $border-width solid $neo-black;
-	box-shadow: 4px 4px 0 $neo-black;
+	border: var(--sf-border);
+	box-shadow: #{$shadow-md};
+	background: #{$color-accent-2};
+	color: #{$color-contrast};
 
 	svg {
 		fill: currentColor;
@@ -268,7 +261,7 @@ $border-width: 4px;
 // Responsive - Tablet
 // =====================
 
-@media (max-width: 782px) {
+@media (max-width: $breakpoint-tablet) {
 	.wp-block-swishfolio-core-heading {
 		padding: 1.5rem;
 	}
@@ -295,7 +288,7 @@ $border-width: 4px;
 	}
 
 	.sfcore-heading__main--shadow {
-		text-shadow: 3px 3px 0 $neo-black;
+		text-shadow: #{$shadow-text-sm};
 	}
 
 	// Icon sizes
@@ -334,7 +327,7 @@ $border-width: 4px;
 // Responsive - Mobile
 // =====================
 
-@media (max-width: 600px) {
+@media (max-width: $breakpoint-mobile) {
 	.wp-block-swishfolio-core-heading {
 		padding: 1rem;
 	}
@@ -382,7 +375,7 @@ $border-width: 4px;
 	}
 
 	.sfcore-heading__main--shadow {
-		text-shadow: 2px 2px 0 $neo-black;
+		text-shadow: #{$shadow-text-xs};
 	}
 
 	.sfcore-heading__pre {

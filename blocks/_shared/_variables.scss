@@ -1,0 +1,153 @@
+// ==============================================
+// SWISHFOLIO CORE - SHARED DESIGN TOKENS
+// ==============================================
+// These map to CSS custom properties defined in the theme.
+// Blocks use these to adapt to different style variations
+// (Neo-Brutalism, Terminal, etc.)
+// ==============================================
+
+// ---------------------------------------------
+// THEME COLOR REFERENCES (Runtime)
+// ---------------------------------------------
+// These reference WordPress preset colors that change per style variation
+
+$color-base: var(--wp--preset--color--base);
+$color-contrast: var(--wp--preset--color--contrast);
+$color-accent-1: var(--wp--preset--color--accent-1);
+$color-accent-2: var(--wp--preset--color--accent-2);
+$color-accent-3: var(--wp--preset--color--accent-3);
+$color-accent-4: var(--wp--preset--color--accent-4);
+$color-accent-5: var(--wp--preset--color--accent-5);
+$color-accent-6: var(--wp--preset--color--accent-6);
+
+// ---------------------------------------------
+// STYLE-AWARE DESIGN TOKENS (Runtime)
+// ---------------------------------------------
+// These CSS custom properties are overridden by style variations
+
+// Shadows - Neo-brutalism uses hard offset, Terminal uses glow
+$shadow-sm: var(--sf-shadow-sm);
+$shadow-md: var(--sf-shadow-md);
+$shadow-lg: var(--sf-shadow-lg);
+$shadow-xl: var(--sf-shadow-xl);
+
+// Borders - Neo-brutalism uses thick black, Terminal uses thin glowing
+$border-default: var(--sf-border);
+$border-thin: var(--sf-border-thin);
+$border-heavy: var(--sf-border-heavy);
+
+// Border radius - Neo-brutalism uses 0, could vary per style
+$radius-none: var(--sf-radius-none, 0px);
+$radius-sm: var(--sf-radius-sm, 0px);
+$radius-md: var(--sf-radius-md, 0px);
+$radius-full: var(--sf-radius-full, 9999px);
+
+// Semantic colors
+$color-primary: var(--sf-color-primary);
+$color-secondary: var(--sf-color-secondary);
+$color-muted: var(--sf-color-muted);
+$color-surface: var(--sf-color-surface);
+
+// Text effects (glow for terminal, none for neo-brutalism)
+$text-glow: var(--sf-text-glow, none);
+
+// Text shadows (hard offset for neo-brutalism, glow for terminal)
+$shadow-text: var(--sf-shadow-text, 4px 4px 0 var(--wp--preset--color--contrast));
+$shadow-text-sm: var(--sf-shadow-text-sm, 3px 3px 0 var(--wp--preset--color--contrast));
+$shadow-text-xs: var(--sf-shadow-text-xs, 2px 2px 0 var(--wp--preset--color--contrast));
+
+// ---------------------------------------------
+// STATIC VALUES (Compile-time)
+// ---------------------------------------------
+// These don't change with style variations
+
+// Border widths (structural)
+$border-width-thin: 1px;
+$border-width-default: 2px;
+$border-width-thick: 3px;
+$border-width-heavy: 4px;
+
+// Spacing scale
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+$spacing-2xl: 3rem;
+
+// Transitions
+$transition-fast: 0.1s ease-out;
+$transition-default: 0.2s ease-out;
+$transition-slow: 0.3s ease-out;
+
+// Breakpoints
+$breakpoint-mobile: 600px;
+$breakpoint-tablet: 782px;
+$breakpoint-desktop: 1024px;
+
+// Z-index scale
+$z-dropdown: 100;
+$z-modal: 1000;
+$z-overlay: 900;
+
+// ---------------------------------------------
+// LEGACY BAUHAUS COLORS (For Backward Compatibility)
+// ---------------------------------------------
+// These map old hardcoded values to new CSS custom properties
+// Use sparingly - prefer the semantic tokens above
+
+$bauhaus-red: #{$color-accent-1};
+$bauhaus-blue: #{$color-accent-4};
+$bauhaus-yellow: #{$color-accent-2};
+$bauhaus-black: #{$color-contrast};
+$bauhaus-white: #{$color-accent-5};
+
+// Legacy shadow offsets (now use $shadow-* variables instead)
+$shadow-offset: 6px;
+$shadow-offset-hover: 8px;
+
+// ---------------------------------------------
+// MIXINS
+// ---------------------------------------------
+
+// Card/panel base styling that adapts to style variations
+@mixin card-base {
+	background: #{$color-surface};
+	border: var(--sf-border);
+	box-shadow: #{$shadow-md};
+	transition: box-shadow $transition-default, transform $transition-default;
+}
+
+// Button base that adapts to style variations
+@mixin button-base {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.75rem 1.5rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	text-decoration: none;
+	border: var(--sf-border);
+	box-shadow: #{$shadow-sm};
+	cursor: pointer;
+	transition: all $transition-fast;
+}
+
+// Hover lift effect (adapts per style)
+@mixin hover-lift {
+	&:hover {
+		transform: var(--sf-hover-transform, translate(-2px, -2px));
+		box-shadow: #{$shadow-lg};
+	}
+
+	&:active {
+		transform: var(--sf-active-transform, translate(2px, 2px));
+		box-shadow: none;
+	}
+}
+
+// Text glow for terminal style
+@mixin text-glow {
+	text-shadow: #{$text-glow};
+}

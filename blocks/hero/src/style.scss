@@ -1,18 +1,10 @@
 /**
  * Hero Block - Frontend Styles
  *
- * Bauhaus-inspired hero with bold typography and geometric elements.
+ * Style-aware design that adapts to theme variations (Neo-Brutalism, Terminal, etc.)
  */
 
-// Variables
-$bauhaus-red: #D02020;
-$bauhaus-blue: #1040C0;
-$bauhaus-yellow: #F0C020;
-$bauhaus-black: #121212;
-$bauhaus-white: #F0F0F0;
-
-$border-width: 3px;
-$border-width-thick: 4px;
+@import '../../_shared/variables';
 
 // Hero Base
 .wp-block-swishfolio-core-hero {
@@ -163,6 +155,7 @@ $border-width-thick: 4px;
 	font-weight: 800;
 	line-height: 1.1;
 	letter-spacing: -0.02em;
+	text-shadow: #{$text-glow};
 }
 
 // Heading Sizes
@@ -191,7 +184,7 @@ $border-width-thick: 4px;
 }
 
 .sfcore-hero__heading--shadow {
-	text-shadow: 4px 4px 0 $bauhaus-black;
+	text-shadow: 4px 4px 0 #{$color-contrast};
 }
 
 // Heading Transforms
@@ -238,41 +231,40 @@ $border-width-thick: 4px;
 }
 
 .sfcore-hero__cta {
-	display: inline-block;
+	@include button-base;
 	padding: 1rem 2rem;
 	font-size: 1rem;
-	font-weight: 700;
-	text-decoration: none;
-	text-transform: uppercase;
-	letter-spacing: 0.05em;
-	border: $border-width solid $bauhaus-black;
-	transition: all 0.2s ease;
-	cursor: pointer;
-	box-sizing: border-box;
-	max-width: 100%;
 }
 
 .sfcore-hero__cta--primary {
-	background: $bauhaus-red;
-	color: $bauhaus-white;
-	box-shadow: 4px 4px 0 $bauhaus-black;
+	background: #{$color-accent-1};
+	color: #{$color-accent-5};
+	box-shadow: #{$shadow-sm};
 
 	&:hover {
-		background: darken($bauhaus-red, 8%);
-		box-shadow: 6px 6px 0 $bauhaus-black;
-		transform: translate(-2px, -2px);
+		box-shadow: #{$shadow-md};
+		transform: var(--sf-hover-transform);
+	}
+
+	&:active {
+		box-shadow: none;
+		transform: var(--sf-active-transform);
 	}
 }
 
 .sfcore-hero__cta--secondary {
-	background: $bauhaus-yellow;
-	color: $bauhaus-black;
-	box-shadow: 4px 4px 0 $bauhaus-black;
+	background: #{$color-accent-2};
+	color: #{$color-contrast};
+	box-shadow: #{$shadow-sm};
 
 	&:hover {
-		background: darken($bauhaus-yellow, 8%);
-		box-shadow: 6px 6px 0 $bauhaus-black;
-		transform: translate(-2px, -2px);
+		box-shadow: #{$shadow-md};
+		transform: var(--sf-hover-transform);
+	}
+
+	&:active {
+		box-shadow: none;
+		transform: var(--sf-active-transform);
 	}
 }
 
@@ -284,8 +276,13 @@ $border-width-thick: 4px;
 
 	&:hover {
 		background: rgba(255, 255, 255, 0.1);
-		box-shadow: 4px 4px 0 currentColor;
-		transform: translate(-2px, -2px);
+		box-shadow: #{$shadow-sm};
+		transform: var(--sf-hover-transform);
+	}
+
+	&:active {
+		box-shadow: none;
+		transform: var(--sf-active-transform);
 	}
 }
 
@@ -316,14 +313,15 @@ $border-width-thick: 4px;
 	height: 48px;
 	color: currentColor;
 	text-decoration: none;
-	border: $border-width solid currentColor;
+	border: var(--sf-border);
 	background: transparent;
-	transition: all 0.2s ease;
+	transition: all $transition-default;
 
 	&:hover {
-		background: rgba(255, 255, 255, 0.1);
-		transform: translate(-2px, -2px);
-		box-shadow: 4px 4px 0 currentColor;
+		background: #{$color-contrast};
+		color: #{$color-base};
+		transform: var(--sf-hover-transform);
+		box-shadow: #{$shadow-sm};
 	}
 }
 
@@ -407,7 +405,7 @@ $border-width-thick: 4px;
 	z-index: 2;
 	border-style: solid;
 	overflow: hidden;
-	background: $bauhaus-white;
+	background: #{$color-accent-5};
 }
 
 .sfcore-hero__image {
@@ -706,7 +704,7 @@ $border-width-thick: 4px;
 // Responsive - Tablet
 // =====================
 
-@media (max-width: 782px) {
+@media (max-width: $breakpoint-tablet) {
 	.sfcore-hero__inner {
 		padding: 3rem 1.5rem;
 		gap: 2.5rem;
@@ -752,7 +750,7 @@ $border-width-thick: 4px;
 	}
 
 	.sfcore-hero__heading--shadow {
-		text-shadow: 3px 3px 0 $bauhaus-black;
+		text-shadow: 3px 3px 0 #{$color-contrast};
 	}
 
 	.sfcore-hero__subheading {
@@ -843,7 +841,7 @@ $border-width-thick: 4px;
 // Responsive - Mobile
 // =====================
 
-@media (max-width: 600px) {
+@media (max-width: $breakpoint-mobile) {
 	.wp-block-swishfolio-core-hero {
 		min-height: auto !important;
 		overflow-x: clip;
@@ -857,7 +855,7 @@ $border-width-thick: 4px;
 
 	.sfcore-hero__content {
 		max-width: 100%;
-		
+
 	}
 
 	.sfcore-hero__heading--medium {
@@ -880,7 +878,7 @@ $border-width-thick: 4px;
 	}
 
 	.sfcore-hero__heading--shadow {
-		text-shadow: 2px 2px 0 $bauhaus-black;
+		text-shadow: 2px 2px 0 #{$color-contrast};
 	}
 
 	.sfcore-hero__subheading {
@@ -893,7 +891,7 @@ $border-width-thick: 4px;
 		align-items: stretch;
 		gap: 0.625rem;
 		margin-top: 1.5rem;
-		// Account for button shadow (4px)
+		// Account for button shadow
 		padding-right: 4px;
 		padding-bottom: 4px;
 	}
@@ -905,11 +903,11 @@ $border-width-thick: 4px;
 		max-width: 100%;
 		width: 100%;
 		// Reduce shadow on mobile for better containment
-		box-shadow: 3px 3px 0 $bauhaus-black;
+		box-shadow: #{$shadow-sm};
 
 		&:hover {
-			box-shadow: 4px 4px 0 $bauhaus-black;
-			transform: translate(-1px, -1px);
+			box-shadow: #{$shadow-md};
+			transform: var(--sf-hover-transform);
 		}
 	}
 
@@ -917,8 +915,8 @@ $border-width-thick: 4px;
 		box-shadow: none;
 
 		&:hover {
-			box-shadow: 3px 3px 0 currentColor;
-			transform: translate(-1px, -1px);
+			box-shadow: #{$shadow-sm};
+			transform: var(--sf-hover-transform);
 		}
 	}
 
