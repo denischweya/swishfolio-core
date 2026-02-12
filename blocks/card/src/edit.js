@@ -10,6 +10,7 @@ import {
 	MediaUpload,
 	MediaUploadCheck,
 	URLInput,
+	useSetting,
 } from '@wordpress/block-editor';
 import {
 	PanelBody,
@@ -136,16 +137,9 @@ const ICON_LIBRARY = {
 	trash: trash,
 };
 
-// Bauhaus colors for the palette
-const BAUHAUS_COLORS = [
-	{ name: 'Primary Red', color: '#D02020' },
-	{ name: 'Primary Blue', color: '#1040C0' },
-	{ name: 'Primary Yellow', color: '#F0C020' },
-	{ name: 'Contrast', color: '#121212' },
-	{ name: 'Base', color: '#F0F0F0' },
-];
-
 export default function Edit( { attributes, setAttributes } ) {
+	// Get theme color palette dynamically
+	const themeColors = useSetting( 'color.palette' ) || [];
 	const {
 		icon,
 		iconPosition,
@@ -333,7 +327,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						{ __( 'Icon Color', 'swishfolio-core' ) }
 					</p>
 					<ColorPalette
-						colors={ BAUHAUS_COLORS }
+						colors={ themeColors }
 						value={ iconColor }
 						onChange={ ( color ) => setAttributes( { iconColor: color } ) }
 						clearable
@@ -343,7 +337,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						{ __( 'Icon Background', 'swishfolio-core' ) }
 					</p>
 					<ColorPalette
-						colors={ BAUHAUS_COLORS }
+						colors={ themeColors }
 						value={ iconBackgroundColor }
 						onChange={ ( color ) => setAttributes( { iconBackgroundColor: color } ) }
 						clearable
@@ -380,7 +374,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						{ __( 'Border Color', 'swishfolio-core' ) }
 					</p>
 					<ColorPalette
-						colors={ BAUHAUS_COLORS }
+						colors={ themeColors }
 						value={ cardBorderColor }
 						onChange={ ( color ) => setAttributes( { cardBorderColor: color } ) }
 						clearable
@@ -390,7 +384,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						{ __( 'Shadow Color', 'swishfolio-core' ) }
 					</p>
 					<ColorPalette
-						colors={ BAUHAUS_COLORS }
+						colors={ themeColors }
 						value={ cardShadowColor }
 						onChange={ ( color ) => setAttributes( { cardShadowColor: color } ) }
 						clearable
@@ -438,7 +432,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								{ __( 'Shape Color', 'swishfolio-core' ) }
 							</p>
 							<ColorPalette
-								colors={ BAUHAUS_COLORS }
+								colors={ themeColors }
 								value={ decorativeColor }
 								onChange={ ( color ) => setAttributes( { decorativeColor: color } ) }
 								clearable

@@ -9,6 +9,7 @@ import {
 	InspectorControls,
 	MediaUpload,
 	MediaUploadCheck,
+	useSetting,
 } from '@wordpress/block-editor';
 import {
 	PanelBody,
@@ -59,16 +60,6 @@ import {
 	square,
 } from '@wordpress/icons';
 
-// Neo-brutalist color palette
-const NEO_BRUTALIST_COLORS = [
-	{ name: 'Pure Black', color: '#000000' },
-	{ name: 'Cream', color: '#FFFDF5' },
-	{ name: 'Hot Red', color: '#FF6B6B' },
-	{ name: 'Vivid Yellow', color: '#FFD93D' },
-	{ name: 'Soft Violet', color: '#C4B5FD' },
-	{ name: 'White', color: '#FFFFFF' },
-];
-
 // Icon library mapping
 const ICON_LIBRARY = {
 	star: starFilled,
@@ -108,6 +99,9 @@ const ICON_LIBRARY = {
 };
 
 export default function Edit( { attributes, setAttributes } ) {
+	// Get theme color palette dynamically
+	const themeColors = useSetting( 'color.palette' ) || [];
+
 	const {
 		preHeading,
 		preHeadingBackgroundColor,
@@ -369,7 +363,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						{ __( 'Icon Color', 'swishfolio-core' ) }
 					</p>
 					<ColorPalette
-						colors={ NEO_BRUTALIST_COLORS }
+						colors={ themeColors }
 						value={ iconColor }
 						onChange={ setIconColor }
 						clearable
@@ -379,7 +373,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						{ __( 'Icon Background', 'swishfolio-core' ) }
 					</p>
 					<ColorPalette
-						colors={ NEO_BRUTALIST_COLORS }
+						colors={ themeColors }
 						value={ iconBgColor }
 						onChange={ setIconBgColor }
 						clearable
@@ -424,7 +418,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						{ __( 'Background Color', 'swishfolio-core' ) }
 					</p>
 					<ColorPalette
-						colors={ NEO_BRUTALIST_COLORS }
+						colors={ themeColors }
 						value={ bgColor }
 						onChange={ setBgColor }
 						clearable
@@ -434,7 +428,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						{ __( 'Text Color', 'swishfolio-core' ) }
 					</p>
 					<ColorPalette
-						colors={ NEO_BRUTALIST_COLORS }
+						colors={ themeColors }
 						value={ textColor }
 						onChange={ setTextColor }
 						clearable
@@ -473,7 +467,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								{ __( 'Border Color', 'swishfolio-core' ) }
 							</p>
 							<ColorPalette
-								colors={ NEO_BRUTALIST_COLORS }
+								colors={ themeColors }
 								value={ borderColor }
 								onChange={ setBorderColor }
 								clearable
@@ -518,7 +512,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						{ __( 'Block Background', 'swishfolio-core' ) }
 					</p>
 					<ColorPalette
-						colors={ NEO_BRUTALIST_COLORS }
+						colors={ themeColors }
 						value={ blockBackgroundColor }
 						onChange={ ( color ) => setAttributes( { blockBackgroundColor: color } ) }
 						clearable

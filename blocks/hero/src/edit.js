@@ -10,6 +10,7 @@ import {
 	MediaUpload,
 	MediaUploadCheck,
 	URLInput,
+	useSetting,
 } from '@wordpress/block-editor';
 import {
 	PanelBody,
@@ -67,16 +68,6 @@ import {
 	image,
 } from '@wordpress/icons';
 import { SOCIAL_ICONS } from '../../shared/social-icons';
-
-// Bauhaus colors
-const BAUHAUS_COLORS = [
-	{ name: 'Primary Red', color: '#D02020' },
-	{ name: 'Primary Blue', color: '#1040C0' },
-	{ name: 'Primary Yellow', color: '#F0C020' },
-	{ name: 'Contrast', color: '#121212' },
-	{ name: 'Base', color: '#F0F0F0' },
-	{ name: 'White', color: '#FFFFFF' },
-];
 
 // Icon library for CTA buttons (same pattern as heading block)
 const CTA_ICON_LIBRARY = {
@@ -166,6 +157,9 @@ const renderBlobSvg = ( blobKey, color, size = 60 ) => {
 };
 
 export default function Edit( { attributes, setAttributes } ) {
+	// Get theme color palette dynamically
+	const themeColors = useSetting( 'color.palette' ) || [];
+
 	const {
 		layout,
 		heading,
@@ -523,7 +517,7 @@ export default function Edit( { attributes, setAttributes } ) {
 									{ __( 'Color', 'swishfolio-core' ) }
 								</p>
 								<ColorPalette
-									colors={ BAUHAUS_COLORS }
+									colors={ themeColors }
 									value={ color }
 									onChange={ ( val ) => setAttributes( { [ `${ prefix }Color` ]: val } ) }
 								/>
@@ -768,7 +762,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						{ __( 'Text Color', 'swishfolio-core' ) }
 					</p>
 					<ColorPalette
-						colors={ BAUHAUS_COLORS }
+						colors={ themeColors }
 						value={ textColor }
 						onChange={ ( color ) => setAttributes( { textColor: color } ) }
 						clearable
@@ -792,7 +786,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								{ __( 'Background Color', 'swishfolio-core' ) }
 							</p>
 							<ColorPalette
-								colors={ BAUHAUS_COLORS }
+								colors={ themeColors }
 								value={ backgroundColor }
 								onChange={ ( color ) => setAttributes( { backgroundColor: color } ) }
 								clearable
@@ -848,7 +842,7 @@ export default function Edit( { attributes, setAttributes } ) {
 										{ __( 'Overlay Color', 'swishfolio-core' ) }
 									</p>
 									<ColorPalette
-										colors={ BAUHAUS_COLORS }
+										colors={ themeColors }
 										value={ overlayColor }
 										onChange={ ( color ) => setAttributes( { overlayColor: color } ) }
 									/>
@@ -928,7 +922,7 @@ export default function Edit( { attributes, setAttributes } ) {
 							{ __( 'Border Color', 'swishfolio-core' ) }
 						</p>
 						<ColorPalette
-							colors={ BAUHAUS_COLORS }
+							colors={ themeColors }
 							value={ imageBorderColor }
 							onChange={ ( color ) => setAttributes( { imageBorderColor: color } ) }
 						/>
@@ -996,7 +990,7 @@ export default function Edit( { attributes, setAttributes } ) {
 										{ __( 'Color', 'swishfolio-core' ) }
 									</p>
 									<ColorPalette
-										colors={ BAUHAUS_COLORS }
+										colors={ themeColors }
 										value={ imageBlob1Color }
 										onChange={ ( color ) => setAttributes( { imageBlob1Color: color } ) }
 									/>
@@ -1049,7 +1043,7 @@ export default function Edit( { attributes, setAttributes } ) {
 										{ __( 'Color', 'swishfolio-core' ) }
 									</p>
 									<ColorPalette
-										colors={ BAUHAUS_COLORS }
+										colors={ themeColors }
 										value={ imageBlob2Color }
 										onChange={ ( color ) => setAttributes( { imageBlob2Color: color } ) }
 									/>
@@ -1239,7 +1233,7 @@ export default function Edit( { attributes, setAttributes } ) {
 									{ __( 'Shape Color', 'swishfolio-core' ) }
 								</p>
 								<ColorPalette
-									colors={ BAUHAUS_COLORS }
+									colors={ themeColors }
 									value={ decorativeColor }
 									onChange={ ( color ) => setAttributes( { decorativeColor: color } ) }
 								/>

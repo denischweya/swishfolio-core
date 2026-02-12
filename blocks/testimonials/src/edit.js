@@ -3,7 +3,7 @@
  */
 
 import { __ } from '@wordpress/i18n';
-import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
+import { useBlockProps, InspectorControls, useSetting } from '@wordpress/block-editor';
 import {
 	PanelBody,
 	RangeControl,
@@ -15,16 +15,9 @@ import {
 } from '@wordpress/components';
 import ServerSideRender from '@wordpress/server-side-render';
 
-const BAUHAUS_COLORS = [
-	{ name: 'Primary Red', color: '#D02020' },
-	{ name: 'Primary Blue', color: '#1040C0' },
-	{ name: 'Primary Yellow', color: '#F0C020' },
-	{ name: 'Contrast', color: '#121212' },
-	{ name: 'Base', color: '#F0F0F0' },
-	{ name: 'White', color: '#FFFFFF' },
-];
-
 export default function Edit( { attributes, setAttributes } ) {
+	// Get theme color palette dynamically
+	const themeColors = useSetting( 'color.palette' ) || [];
 	const {
 		displayMode,
 		columns,
@@ -115,7 +108,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						{ __( 'Card Background Color', 'swishfolio-core' ) }
 					</p>
 					<ColorPalette
-						colors={ BAUHAUS_COLORS }
+						colors={ themeColors }
 						value={ cardBackgroundColor }
 						onChange={ ( color ) => setAttributes( { cardBackgroundColor: color || '' } ) }
 						clearable
@@ -125,7 +118,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						{ __( 'Card Border Color', 'swishfolio-core' ) }
 					</p>
 					<ColorPalette
-						colors={ BAUHAUS_COLORS }
+						colors={ themeColors }
 						value={ cardBorderColor }
 						onChange={ ( color ) => setAttributes( { cardBorderColor: color || '' } ) }
 						clearable
@@ -163,7 +156,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						{ __( 'Text Color', 'swishfolio-core' ) }
 					</p>
 					<ColorPalette
-						colors={ BAUHAUS_COLORS }
+						colors={ themeColors }
 						value={ textColor }
 						onChange={ ( color ) => setAttributes( { textColor: color || '' } ) }
 						clearable

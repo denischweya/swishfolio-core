@@ -3,7 +3,7 @@
  */
 
 import { __ } from '@wordpress/i18n';
-import { useBlockProps, InspectorControls, MediaUpload } from '@wordpress/block-editor';
+import { useBlockProps, InspectorControls, MediaUpload, useSetting } from '@wordpress/block-editor';
 import {
 	PanelBody,
 	SelectControl,
@@ -17,15 +17,6 @@ import {
 } from '@wordpress/components';
 import { SOCIAL_ICONS, SOCIAL_ICON_OPTIONS } from '../../shared/social-icons';
 
-const BAUHAUS_COLORS = [
-	{ name: 'Red', color: '#D02020' },
-	{ name: 'Blue', color: '#1040C0' },
-	{ name: 'Yellow', color: '#F0C020' },
-	{ name: 'Contrast', color: '#121212' },
-	{ name: 'Base', color: '#F0F0F0' },
-	{ name: 'White', color: '#FFFFFF' },
-];
-
 const DEFAULT_LINK = {
 	icon: 'facebook',
 	url: '',
@@ -35,6 +26,9 @@ const DEFAULT_LINK = {
 };
 
 export default function Edit( { attributes, setAttributes } ) {
+	// Get theme color palette dynamically
+	const themeColors = useSetting( 'color.palette' ) || [];
+
 	const {
 		socialLinks,
 		iconShape,
@@ -225,7 +219,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								{ __( 'Icon Color', 'swishfolio-core' ) }
 							</p>
 							<ColorPalette
-								colors={ BAUHAUS_COLORS }
+								colors={ themeColors }
 								value={ iconColor }
 								onChange={ ( val ) => setAttributes( { iconColor: val || '#121212' } ) }
 							/>
@@ -233,7 +227,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								{ __( 'Background Color', 'swishfolio-core' ) }
 							</p>
 							<ColorPalette
-								colors={ BAUHAUS_COLORS }
+								colors={ themeColors }
 								value={ backgroundColor }
 								onChange={ ( val ) => setAttributes( { backgroundColor: val || 'transparent' } ) }
 							/>
@@ -251,7 +245,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						{ __( 'Border Color', 'swishfolio-core' ) }
 					</p>
 					<ColorPalette
-						colors={ BAUHAUS_COLORS }
+						colors={ themeColors }
 						value={ borderColor }
 						onChange={ ( val ) => setAttributes( { borderColor: val || '#121212' } ) }
 					/>
