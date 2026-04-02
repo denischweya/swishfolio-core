@@ -1,0 +1,79 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "swishfolio-core/features",
+	"version": "1.2.0",
+	"title": "Features",
+	"category": "swishfolio",
+	"description": "A bento-grid style features section with customizable cards, icons, and CTAs.",
+	"keywords": [ "features", "bento", "grid", "cards", "modules" ],
+	"textdomain": "swishfolio-core",
+	"attributes": {
+		"featureItems": {
+			"type": "array",
+			"default": [
+				{
+					"id": "feature-1",
+					"subheading": "MODULE 01",
+					"subheadingFontSize": "",
+					"title": "Feature Title",
+					"titleTag": "h3",
+					"titleFontSize": "",
+					"titleColor": "",
+					"description": "Feature description goes here...",
+					"icon": { "type": "library", "value": "star" },
+					"iconColor": "",
+					"iconBackgroundColor": "",
+					"ctaType": "link",
+					"ctaText": "Learn More",
+					"ctaUrl": "",
+					"ctaTextColor": "",
+					"ctaBackgroundColor": "",
+					"cardSize": "medium",
+					"cardStyle": "default",
+					"cardBackgroundColor": "",
+					"cardAccentColor": "",
+					"backgroundImage": {},
+					"backgroundImagePosition": "center center",
+					"overlayColor": "",
+					"overlayOpacity": 50
+				}
+			]
+		},
+		"gridGap": {
+			"type": "string",
+			"default": "2rem"
+		},
+		"cardBorderStyle": {
+			"type": "string",
+			"default": "solid"
+		},
+		"cardBorderColor": {
+			"type": "string",
+			"default": ""
+		},
+		"cardShadowColor": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"align": [ "wide", "full" ],
+		"html": false,
+		"color": {
+			"background": true,
+			"text": true
+		},
+		"spacing": {
+			"margin": true,
+			"padding": true
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}

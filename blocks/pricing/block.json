@@ -1,0 +1,132 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "swishfolio-core/pricing",
+  "version": "1.0.0",
+  "title": "Pricing Table",
+  "category": "swishfolio",
+  "description": "Display pricing plans with a monthly/yearly toggle, features list, and customizable CTA buttons.",
+  "keywords": ["pricing", "plans", "subscription", "table", "toggle"],
+  "textdomain": "swishfolio-core",
+  "attributes": {
+    "columns": {
+      "type": "number",
+      "default": 3
+    },
+    "showToggle": {
+      "type": "boolean",
+      "default": true
+    },
+    "defaultBilling": {
+      "type": "string",
+      "default": "monthly"
+    },
+    "toggleMonthlyLabel": {
+      "type": "string",
+      "default": "Monthly"
+    },
+    "toggleYearlyLabel": {
+      "type": "string",
+      "default": "Yearly"
+    },
+    "yearlyDiscount": {
+      "type": "string",
+      "default": "Save 20%"
+    },
+    "plans": {
+      "type": "array",
+      "default": [
+        {
+          "title": "Starter",
+          "subtitle": "Best for getting started",
+          "monthlyPrice": "9.99",
+          "yearlyPrice": "95.90",
+          "pricePrefix": "$",
+          "priceSuffix": "",
+          "features": [
+            "Up to 10 portfolio items",
+            "2GB media storage",
+            "Custom domain support",
+            "All templates included",
+            "24/7 support"
+          ],
+          "buttonText": "Choose Starter",
+          "buttonUrl": "#",
+          "highlighted": false
+        },
+        {
+          "title": "Pro",
+          "subtitle": "Perfect for professionals",
+          "monthlyPrice": "17",
+          "yearlyPrice": "163.20",
+          "pricePrefix": "$",
+          "priceSuffix": "",
+          "features": [
+            "Unlimited portfolio items",
+            "Unlimited media storage",
+            "Custom domain support",
+            "All templates included",
+            "Priority support"
+          ],
+          "buttonText": "Go Pro Now",
+          "buttonUrl": "#",
+          "highlighted": true
+        },
+        {
+          "title": "Enterprise",
+          "subtitle": "For teams and agencies",
+          "monthlyPrice": "49",
+          "yearlyPrice": "470.40",
+          "pricePrefix": "$",
+          "priceSuffix": "",
+          "features": [
+            "Everything in Pro",
+            "Team collaboration",
+            "White-label branding",
+            "API access",
+            "Dedicated support"
+          ],
+          "buttonText": "Contact Sales",
+          "buttonUrl": "#",
+          "highlighted": false
+        }
+      ]
+    },
+    "highlightedBadgeText": {
+      "type": "string",
+      "default": "Recommended"
+    },
+    "borderColor": {
+      "type": "string",
+      "default": ""
+    },
+    "highlightedBackgroundColor": {
+      "type": "string",
+      "default": ""
+    },
+    "highlightedTextColor": {
+      "type": "string",
+      "default": ""
+    },
+    "textColor": {
+      "type": "string",
+      "default": ""
+    },
+    "toggleBackgroundColor": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "align": ["wide", "full"],
+    "html": false,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  },
+  "editorScript": "file:./build/index.js",
+  "editorStyle": "file:./build/index.css",
+  "style": "file:./build/style-index.css",
+  "viewScript": "file:./build/view.js"
+}

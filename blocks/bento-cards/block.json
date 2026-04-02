@@ -1,0 +1,100 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "swishfolio-core/bento-cards",
+	"version": "1.0.0",
+	"title": "Bento Cards",
+	"category": "swishfolio",
+	"description": "A bento-grid style card layout with images, titles, and CTAs for showcasing portfolio items or features.",
+	"keywords": [ "bento", "cards", "grid", "portfolio", "gallery", "showcase" ],
+	"textdomain": "swishfolio-core",
+	"attributes": {
+		"cards": {
+			"type": "array",
+			"default": [
+				{
+					"id": "card-1",
+					"image": {},
+					"subtitle": "sub title",
+					"title": "title",
+					"titleColor": "",
+					"description": "description",
+					"cardSize": "full"
+				},
+				{
+					"id": "card-2",
+					"image": {},
+					"subtitle": "sub title",
+					"title": "title",
+					"titleColor": "",
+					"description": "description",
+					"cardSize": "two-thirds"
+				},
+				{
+					"id": "card-3",
+					"image": {},
+					"subtitle": "sub title",
+					"title": "title",
+					"titleColor": "",
+					"description": "description",
+					"cardSize": "one-third"
+				}
+			]
+		},
+		"gridGap": {
+			"type": "string",
+			"default": "1.5rem"
+		},
+		"cardOverlayColor": {
+			"type": "string",
+			"default": ""
+		},
+		"cardOverlayOpacity": {
+			"type": "number",
+			"default": 60
+		},
+		"accentColor": {
+			"type": "string",
+			"default": ""
+		},
+		"ctaType": {
+			"type": "string",
+			"default": "none"
+		},
+		"ctaText": {
+			"type": "string",
+			"default": "View All"
+		},
+		"ctaUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"ctaTextColor": {
+			"type": "string",
+			"default": ""
+		},
+		"ctaBgColor": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"align": [ "wide", "full" ],
+		"html": false,
+		"color": {
+			"background": true,
+			"text": true
+		},
+		"spacing": {
+			"margin": true,
+			"padding": true
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}

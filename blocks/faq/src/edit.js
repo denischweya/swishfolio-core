@@ -7,23 +7,31 @@ import {
 	useBlockProps,
 	RichText,
 	InspectorControls,
+	useSetting,
 } from '@wordpress/block-editor';
 import {
 	PanelBody,
 	ToggleControl,
 	Button,
+	ColorPalette,
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 
 export default function Edit( { attributes, setAttributes } ) {
+	// Get theme color palette dynamically
+	const themeColors = useSetting( 'color.palette' ) || [];
 	const {
 		allowMultipleOpen,
 		defaultOpenFirst,
 		iconStyle,
 		iconPosition,
 		items,
+		questionColor,
+		headerBackgroundColor,
+		contentBackgroundColor,
+		answerColor,
 	} = attributes;
 
 	const [ openItems, setOpenItems ] = useState(
@@ -124,6 +132,48 @@ export default function Edit( { attributes, setAttributes } ) {
 						<ToggleGroupControlOption value="right" label={ __( 'Right', 'swishfolio-core' ) } />
 					</ToggleGroupControl>
 				</PanelBody>
+
+				<PanelBody title={ __( 'Colors', 'swishfolio-core' ) } initialOpen={ false }>
+					<p className="components-base-control__label">
+						{ __( 'Question Color', 'swishfolio-core' ) }
+					</p>
+					<ColorPalette
+						colors={ themeColors }
+						value={ questionColor }
+						onChange={ ( color ) => setAttributes( { questionColor: color || '' } ) }
+						clearable
+					/>
+
+					<p className="components-base-control__label">
+						{ __( 'Header Background', 'swishfolio-core' ) }
+					</p>
+					<ColorPalette
+						colors={ themeColors }
+						value={ headerBackgroundColor }
+						onChange={ ( color ) => setAttributes( { headerBackgroundColor: color || '' } ) }
+						clearable
+					/>
+
+					<p className="components-base-control__label">
+						{ __( 'Content Background', 'swishfolio-core' ) }
+					</p>
+					<ColorPalette
+						colors={ themeColors }
+						value={ contentBackgroundColor }
+						onChange={ ( color ) => setAttributes( { contentBackgroundColor: color || '' } ) }
+						clearable
+					/>
+
+					<p className="components-base-control__label">
+						{ __( 'Answer Color', 'swishfolio-core' ) }
+					</p>
+					<ColorPalette
+						colors={ themeColors }
+						value={ answerColor }
+						onChange={ ( color ) => setAttributes( { answerColor: color || '' } ) }
+						clearable
+					/>
+				</PanelBody>
 			</InspectorControls>
 
 			<div { ...blockProps }>
@@ -139,6 +189,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								className="sfcore-faq__header"
 								onClick={ () => toggleItem( index ) }
 								aria-expanded={ isOpen }
+								style={ headerBackgroundColor ? { backgroundColor: headerBackgroundColor } : undefined }
 							>
 								{ iconPosition === 'left' && renderIcon( isOpen ) }
 								<RichText
@@ -148,12 +199,16 @@ export default function Edit( { attributes, setAttributes } ) {
 									onChange={ ( value ) => updateItem( index, 'question', value ) }
 									placeholder={ __( 'Add your question...', 'swishfolio-core' ) }
 									onClick={ ( e ) => e.stopPropagation() }
+									style={ questionColor ? { color: questionColor } : undefined }
 								/>
 								{ iconPosition === 'right' && renderIcon( isOpen ) }
 							</button>
 							<div
 								className="sfcore-faq__content"
-								style={ { display: isOpen ? 'block' : 'none' } }
+								style={ {
+									display: isOpen ? 'block' : 'none',
+									...( contentBackgroundColor ? { backgroundColor: contentBackgroundColor } : {} ),
+								} }
 							>
 								<RichText
 									tagName="div"
@@ -161,6 +216,7 @@ export default function Edit( { attributes, setAttributes } ) {
 									value={ item.answer }
 									onChange={ ( value ) => updateItem( index, 'answer', value ) }
 									placeholder={ __( 'Add your answer...', 'swishfolio-core' ) }
+									style={ answerColor ? { color: answerColor } : undefined }
 								/>
 								<Button
 									variant="tertiary"

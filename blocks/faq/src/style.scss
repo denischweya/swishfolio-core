@@ -70,7 +70,7 @@
 	justify-content: center;
 	font-size: 1.25rem;
 	font-weight: 700;
-	background: #{$color-base};
+	/*background: #{$color-base};*/
 	color: #{$color-contrast};
 	border: var(--sf-border-thin);
 	transition: all $transition-default;
@@ -88,12 +88,6 @@
 
 	.sfcore-faq__icon--arrow {
 		transform: rotate(90deg);
-	}
-
-	.sfcore-faq__icon[data-icon="plus"] {
-		&::after {
-			content: '−';
-		}
 	}
 }
 

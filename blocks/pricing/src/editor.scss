@@ -1,0 +1,57 @@
+// Editor-specific styles for the Pricing block
+
+.sfcore-pricing-plan-panel {
+	margin-bottom: 12px;
+	border: 1px solid #ddd;
+	background: #f9f9f9;
+}
+
+.sfcore-pricing-plan-header {
+	padding: 12px;
+	cursor: pointer;
+	font-weight: 600;
+	justify-content: space-between;
+
+	&:hover {
+		background: #f0f0f0;
+	}
+}
+
+.sfcore-pricing-plan-content {
+	padding: 12px;
+	border-top: 1px solid #ddd;
+	background: #fff;
+
+	> * {
+		margin-bottom: 12px;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+
+.sfcore-pricing-feature-row {
+	margin-bottom: 8px;
+
+	.components-text-control__input {
+		margin-bottom: 0;
+	}
+
+	.components-base-control {
+		margin-bottom: 0;
+		flex: 1;
+	}
+}
+
+// Ensure the toggle preview works in editor
+.editor-styles-wrapper .sfcore-pricing__toggle-btn {
+	cursor: pointer;
+}
+
+// Price editing in block
+.editor-styles-wrapper .sfcore-pricing__title,
+.editor-styles-wrapper .sfcore-pricing__subtitle,
+.editor-styles-wrapper .sfcore-pricing__button {
+	cursor: text;
+}

@@ -2,7 +2,7 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "swishfolio-core/faq",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"title": "FAQ",
 	"category": "swishfolio",
 	"description": "An accordion-style FAQ section.",
@@ -28,6 +28,22 @@
 		"items": {
 			"type": "array",
 			"default": []
+		},
+		"questionColor": {
+			"type": "string",
+			"default": ""
+		},
+		"headerBackgroundColor": {
+			"type": "string",
+			"default": ""
+		},
+		"contentBackgroundColor": {
+			"type": "string",
+			"default": ""
+		},
+		"answerColor": {
+			"type": "string",
+			"default": ""
 		}
 	},
 	"supports": {

@@ -1,0 +1,61 @@
+/**
+ * Bento Cards Block - Editor Styles
+ */
+
+// Editor-specific card styles
+.wp-block-swishfolio-core-bento-cards {
+	// Ensure RichText components are editable
+	.sfcore-bento__title,
+	.sfcore-bento__pre-subtitle,
+	.sfcore-bento__description,
+	.sfcore-bento__card-title,
+	.sfcore-bento__card-subtitle,
+	.sfcore-bento__card-description {
+		cursor: text;
+
+		&:focus {
+			outline: 2px solid #007cba;
+			outline-offset: 2px;
+		}
+	}
+
+	// Card hover state in editor
+	.sfcore-bento__card {
+		&::after {
+			content: '';
+			position: absolute;
+			top: -2px;
+			left: -2px;
+			right: -2px;
+			bottom: -2px;
+			border: 2px solid transparent;
+			border-radius: inherit;
+			pointer-events: none;
+			transition: border-color 0.15s ease;
+			z-index: 10;
+		}
+
+		&:hover::after,
+		&:focus-within::after {
+			border-color: #007cba;
+		}
+	}
+
+	// Show subtitle in editor
+	.sfcore-bento__card-subtitle {
+		opacity: 0.6;
+		width: max-content;
+	}
+
+	// Ensure grid layout works in editor
+	.sfcore-bento__grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--grid-gap, 1.5rem);
+	}
+
+	// Editor placeholder styles
+	.block-editor-rich-text__editable[data-is-placeholder-visible="true"]::before {
+		opacity: 0.5;
+	}
+}

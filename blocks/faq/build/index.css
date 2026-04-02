@@ -1,1 +1,45 @@
-.wp-block-swishfolio-core-faq .sfcore-faq__add{justify-content:center;margin-top:1rem;width:100%}.wp-block-swishfolio-core-faq .sfcore-faq__remove{margin-top:1rem}.wp-block-swishfolio-core-faq .sfcore-faq__question [data-rich-text-placeholder]:before{opacity:.5}.wp-block-swishfolio-core-faq .sfcore-faq__answer{min-height:60px}.wp-block-swishfolio-core-faq .sfcore-faq__answer [data-rich-text-placeholder]:before{opacity:.4}.wp-block-swishfolio-core-faq .sfcore-faq__header{position:relative}.wp-block-swishfolio-core-faq .sfcore-faq__header:before{bottom:0;content:"";cursor:pointer;left:0;position:absolute;right:0;top:0}.wp-block-swishfolio-core-faq .sfcore-faq__icon,.wp-block-swishfolio-core-faq .sfcore-faq__question{position:relative;z-index:1}.wp-block-swishfolio-core-faq .sfcore-faq__question{cursor:text}
+/*!***************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/faq/src/editor.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************************/
+/**
+ * FAQ Block - Editor Styles
+ */
+.wp-block-swishfolio-core-faq .sfcore-faq__add {
+  margin-top: 1rem;
+  width: 100%;
+  justify-content: center;
+}
+.wp-block-swishfolio-core-faq .sfcore-faq__remove {
+  margin-top: 1rem;
+}
+.wp-block-swishfolio-core-faq .sfcore-faq__question [data-rich-text-placeholder]::before {
+  opacity: 0.5;
+}
+.wp-block-swishfolio-core-faq .sfcore-faq__answer {
+  min-height: 60px;
+}
+.wp-block-swishfolio-core-faq .sfcore-faq__answer [data-rich-text-placeholder]::before {
+  opacity: 0.4;
+}
+.wp-block-swishfolio-core-faq .sfcore-faq__header {
+  position: relative;
+}
+.wp-block-swishfolio-core-faq .sfcore-faq__header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+}
+.wp-block-swishfolio-core-faq .sfcore-faq__question,
+.wp-block-swishfolio-core-faq .sfcore-faq__icon {
+  position: relative;
+  z-index: 1;
+}
+.wp-block-swishfolio-core-faq .sfcore-faq__question {
+  cursor: text;
+}
+
+/*# sourceMappingURL=index.css.map*/

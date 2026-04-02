@@ -1,1 +1,66 @@
-document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll(".wp-block-swishfolio-core-faq").forEach(e=>{const t="true"===e.dataset.allowMultiple,o=e.querySelectorAll(".sfcore-faq__item");e.querySelectorAll(".sfcore-faq__header").forEach((e,r)=>{e.addEventListener("click",()=>{const s=o[r],a=s.querySelector(".sfcore-faq__content"),c=s.classList.contains("is-open");t||o.forEach((e,t)=>{if(t!==r&&e.classList.contains("is-open")){e.classList.remove("is-open");const t=e.querySelector(".sfcore-faq__content"),o=e.querySelector(".sfcore-faq__header");t.setAttribute("aria-hidden","true"),o.setAttribute("aria-expanded","false");const r=e.querySelector('.sfcore-faq__icon[data-icon="plus"]');r&&(r.textContent="+")}}),s.classList.toggle("is-open"),e.setAttribute("aria-expanded",c?"false":"true"),a.setAttribute("aria-hidden",c?"true":"false");const n=s.querySelector('.sfcore-faq__icon[data-icon="plus"]');n&&(n.textContent=c?"+":"−")}),e.addEventListener("keydown",t=>{"Enter"!==t.key&&" "!==t.key||(t.preventDefault(),e.click())})})})});
+/******/ (() => { // webpackBootstrap
+/*!********************************!*\
+  !*** ./blocks/faq/src/view.js ***!
+  \********************************/
+/**
+ * FAQ Block - View Script
+ *
+ * Handles accordion functionality on the frontend.
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  const faqBlocks = document.querySelectorAll('.wp-block-swishfolio-core-faq');
+  faqBlocks.forEach(faqBlock => {
+    const allowMultiple = faqBlock.dataset.allowMultiple === 'true';
+    const items = faqBlock.querySelectorAll('.sfcore-faq__item');
+    const headers = faqBlock.querySelectorAll('.sfcore-faq__header');
+    headers.forEach((header, index) => {
+      header.addEventListener('click', () => {
+        const item = items[index];
+        const content = item.querySelector('.sfcore-faq__content');
+        const isOpen = item.classList.contains('is-open');
+
+        // If not allowing multiple, close all others
+        if (!allowMultiple) {
+          items.forEach((otherItem, otherIndex) => {
+            if (otherIndex !== index && otherItem.classList.contains('is-open')) {
+              otherItem.classList.remove('is-open');
+              const otherContent = otherItem.querySelector('.sfcore-faq__content');
+              const otherHeader = otherItem.querySelector('.sfcore-faq__header');
+              otherContent.setAttribute('aria-hidden', 'true');
+              otherHeader.setAttribute('aria-expanded', 'false');
+
+              // Update plus icon if applicable
+              const otherIcon = otherItem.querySelector('.sfcore-faq__icon[data-icon="plus"]');
+              if (otherIcon) {
+                otherIcon.textContent = '+';
+              }
+            }
+          });
+        }
+
+        // Toggle current item
+        item.classList.toggle('is-open');
+        header.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
+        content.setAttribute('aria-hidden', !isOpen ? 'false' : 'true');
+
+        // Update plus icon if applicable
+        const icon = item.querySelector('.sfcore-faq__icon[data-icon="plus"]');
+        if (icon) {
+          icon.textContent = !isOpen ? '−' : '+';
+        }
+      });
+
+      // Keyboard support
+      header.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          header.click();
+        }
+      });
+    });
+  });
+});
+/******/ })()
+;
+//# sourceMappingURL=view.js.map

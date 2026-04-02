@@ -234,6 +234,7 @@
 	@include button-base;
 	padding: 1rem 2rem;
 	font-size: 1rem;
+	transition: transform $transition-default, box-shadow $transition-default, background $transition-default;
 }
 
 .sfcore-hero__cta--primary {
@@ -243,12 +244,12 @@
 
 	&:hover {
 		box-shadow: #{$shadow-md};
-		transform: var(--sf-hover-transform);
+		transform: var(--sf-hover-transform, translateY(-3px));
 	}
 
 	&:active {
 		box-shadow: none;
-		transform: var(--sf-active-transform);
+		transform: var(--sf-active-transform, translateY(0));
 	}
 }
 
@@ -259,12 +260,12 @@
 
 	&:hover {
 		box-shadow: #{$shadow-md};
-		transform: var(--sf-hover-transform);
+		transform: var(--sf-hover-transform, translateY(-3px));
 	}
 
 	&:active {
 		box-shadow: none;
-		transform: var(--sf-active-transform);
+		transform: var(--sf-active-transform, translateY(0));
 	}
 }
 
@@ -277,12 +278,12 @@
 	&:hover {
 		background: rgba(255, 255, 255, 0.1);
 		box-shadow: #{$shadow-sm};
-		transform: var(--sf-hover-transform);
+		transform: var(--sf-hover-transform, translateY(-3px));
 	}
 
 	&:active {
 		box-shadow: none;
-		transform: var(--sf-active-transform);
+		transform: var(--sf-active-transform, translateY(0));
 	}
 }
 
@@ -907,7 +908,7 @@
 
 		&:hover {
 			box-shadow: #{$shadow-md};
-			transform: var(--sf-hover-transform);
+			transform: var(--sf-hover-transform, translateY(-3px));
 		}
 	}
 
@@ -916,7 +917,7 @@
 
 		&:hover {
 			box-shadow: #{$shadow-sm};
-			transform: var(--sf-hover-transform);
+			transform: var(--sf-hover-transform, translateY(-3px));
 		}
 	}
 

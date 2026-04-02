@@ -10,6 +10,9 @@ import { heading as headingIcon } from '@wordpress/icons';
 import './style.scss';
 import './editor.scss';
 
+// Register custom formats
+import './formats/text-color';
+
 import Edit from './edit';
 import save from './save';
 import deprecations from './deprecations';

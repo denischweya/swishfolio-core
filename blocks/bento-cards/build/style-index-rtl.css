@@ -1,0 +1,271 @@
+/*!**********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/bento-cards/src/style.scss ***!
+  \**********************************************************************************************************************************************************************************************************************************************************/
+/**
+ * Bento Cards Block - Frontend Styles
+ *
+ * Bento-grid style card layout with images and overlays.
+ */
+.wp-block-swishfolio-core-bento-cards {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  box-sizing: border-box;
+}
+.sfcore-bento__header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.sfcore-bento__pre-subtitle {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--accent-color, var(--wp--preset--color--accent-1));
+  border: 1px solid var(--accent-color, var(--wp--preset--color--accent-1));
+  border-radius: 2rem;
+  opacity: 0.9;
+}
+.sfcore-bento__title {
+  margin: 0 0 1.5rem;
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: var(--wp--preset--color--contrast);
+}
+.sfcore-bento__description {
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 1.125rem;
+  line-height: 1.7;
+  font-weight: 300;
+  color: var(--wp--preset--color--contrast);
+  opacity: 0.5;
+}
+.sfcore-bento__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--grid-gap, 1.5rem);
+}
+.sfcore-bento__card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background-color: var(--sf-color-surface);
+  aspect-ratio: 4/5;
+  cursor: pointer;
+  text-decoration: none;
+}
+.sfcore-bento__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, var(--overlay-color, rgba(6, 26, 20, 0.85)) 95%);
+  opacity: var(--overlay-opacity, 0.6);
+  z-index: 2;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+.sfcore-bento__card:hover .sfcore-bento__card-image {
+  transform: scale(1.05);
+  filter: grayscale(100%) brightness(0.75);
+}
+.sfcore-bento__card:hover .sfcore-bento__card-subtitle {
+  opacity: 1;
+}
+.sfcore-bento__card--full {
+  grid-column: span 3;
+  aspect-ratio: 21/9;
+}
+.sfcore-bento__card--full .sfcore-bento__card-title {
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  margin-bottom: 0.5rem;
+}
+.sfcore-bento__card--two-thirds {
+  grid-column: span 2;
+  aspect-ratio: 16/9;
+}
+.sfcore-bento__card--two-thirds .sfcore-bento__card-title {
+  font-size: clamp(1.75rem, 5vw, 3.5rem);
+  margin-bottom: 0.5rem;
+}
+.sfcore-bento__card--one-third {
+  grid-column: span 1;
+}
+.sfcore-bento__card-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: fill;
+     object-fit: fill;
+  z-index: 1;
+  filter: grayscale(0) brightness(0.9);
+  transition: transform 1s ease, filter 1s ease;
+}
+.sfcore-bento__card-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.sfcore-bento__card-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: -webkit-fill-available;
+  height: fill-available;
+  height: -moz-available;
+  padding: 2rem;
+}
+.sfcore-bento__card-subtitle {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.625rem;
+  font-weight: 400;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--wp--preset--color--base);
+  background-color: var(--accent-color, var(--wp--preset--color--accent-1));
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  width: -moz-max-content;
+  width: max-content;
+}
+.sfcore-bento__card-info {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.sfcore-bento__card-title {
+  display: inline;
+  padding: 0.25rem 0.5rem;
+  margin: 0;
+  font-size: clamp(1.2rem, 4vw, 2rem);
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--wp--preset--color--base);
+  background-color: var(--accent-color, var(--wp--preset--color--accent-1));
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.sfcore-bento__card-description {
+  display: inline;
+  padding: 0.15rem 0.5rem;
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--wp--preset--color--base);
+  background-color: var(--accent-color, var(--wp--preset--color--accent-1));
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.sfcore-bento__cta-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+.sfcore-bento__cta {
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.sfcore-bento__cta--link {
+  color: var(--accent-color, var(--wp--preset--color--accent-1));
+  padding: 0.5rem 0;
+  border-bottom: 2px solid currentColor;
+}
+.sfcore-bento__cta--link:hover {
+  opacity: 0.8;
+}
+.sfcore-bento__cta--button {
+  padding: 1rem 2.5rem;
+  color: var(--wp--preset--color--base);
+  background-color: var(--accent-color, var(--wp--preset--color--accent-1));
+}
+.sfcore-bento__cta--button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.wp-block-swishfolio-core-bento-cards.alignfull {
+  width: 100%;
+  max-width: 100%;
+  padding-right: 2rem;
+  padding-left: 2rem;
+}
+.wp-block-swishfolio-core-bento-cards.alignwide {
+  max-width: 1600px;
+}
+@media (max-width: 782px) {
+  .wp-block-swishfolio-core-bento-cards {
+    padding: 3rem 1.5rem;
+  }
+  .sfcore-bento__header {
+    margin-bottom: 2rem;
+  }
+  .sfcore-bento__title {
+    font-size: clamp(2rem, 6vw, 4rem);
+  }
+  .sfcore-bento__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .sfcore-bento__card--full {
+    grid-column: span 2;
+    aspect-ratio: 4/3;
+  }
+  .sfcore-bento__card--full .sfcore-bento__card-title {
+    font-size: clamp(1.5rem, 5vw, 3rem);
+  }
+  .sfcore-bento__card--two-thirds {
+    grid-column: span 2;
+    aspect-ratio: 16/9;
+  }
+  .sfcore-bento__card--one-third {
+    grid-column: span 1;
+    aspect-ratio: 4/5;
+  }
+  .sfcore-bento__card-content {
+    padding: 1.5rem;
+  }
+}
+@media (max-width: 600px) {
+  .wp-block-swishfolio-core-bento-cards {
+    padding: 2rem 1rem;
+  }
+  .sfcore-bento__grid {
+    grid-template-columns: 1fr;
+  }
+  .sfcore-bento__card--full,
+  .sfcore-bento__card--two-thirds,
+  .sfcore-bento__card--one-third {
+    grid-column: span 1;
+    aspect-ratio: 4/5;
+  }
+  .sfcore-bento__card-title {
+    font-size: 1.5rem;
+  }
+  .sfcore-bento__card-content {
+    padding: 1.25rem;
+  }
+  .sfcore-bento__card-subtitle {
+    opacity: 0.5;
+  }
+}

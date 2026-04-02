@@ -1,1 +1,161 @@
-.sfcore-swish-form *,.sfcore-swish-form :after,.sfcore-swish-form :before{box-sizing:border-box}.sfcore-swish-form__preview{background:#fffdf5;border:4px solid #000;box-shadow:6px 6px 0 0 #000;max-width:100%;overflow:hidden}.sfcore-swish-form__preview-header{background:#ffd93d;border-bottom:4px solid #000;font-size:12px;font-weight:700;letter-spacing:.05em;padding:12px 16px;text-transform:uppercase}.sfcore-swish-form__preview-type{align-items:center;display:flex;gap:8px}.sfcore-swish-form__preview-type:before{background:#000;border-radius:50%;content:"";display:block;height:8px;width:8px}.sfcore-swish-form__preview-fields{display:flex;flex-wrap:wrap;gap:16px;padding:24px}.sfcore-swish-form__preview-field--full{width:100%}.sfcore-swish-form__preview-field--half{width:calc(50% - 8px)}.sfcore-swish-form__preview-label{display:block;font-size:14px;font-weight:700;letter-spacing:.02em;margin-bottom:8px;text-transform:uppercase}.sfcore-swish-form__preview-required{color:#ff6b6b;margin-left:4px}.sfcore-swish-form__preview-input,.sfcore-swish-form__preview-select,.sfcore-swish-form__preview-textarea{background:#fff;border:4px solid #000;box-shadow:4px 4px 0 0 #000;font-family:inherit;font-size:14px;max-width:100%;padding:12px 16px;transition:all .1s ease-out;width:100%}.sfcore-swish-form__preview-input:focus,.sfcore-swish-form__preview-select:focus,.sfcore-swish-form__preview-textarea:focus{box-shadow:6px 6px 0 0 #000;outline:none;transform:translate(-2px,-2px)}.sfcore-swish-form__preview-input::-moz-placeholder,.sfcore-swish-form__preview-select::-moz-placeholder,.sfcore-swish-form__preview-textarea::-moz-placeholder{color:#999}.sfcore-swish-form__preview-input::placeholder,.sfcore-swish-form__preview-select::placeholder,.sfcore-swish-form__preview-textarea::placeholder{color:#999}.sfcore-swish-form__preview-textarea{min-height:120px;resize:vertical}.sfcore-swish-form__preview-select{-webkit-appearance:none;-moz-appearance:none;appearance:none;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2712%27 height=%2712%27%3E%3Cpath d=%27M6 9 1 4h10z%27/%3E%3C/svg%3E");background-position:right 16px center;background-repeat:no-repeat;cursor:pointer;padding-right:40px}.sfcore-swish-form__preview-checkbox-label{align-items:center;cursor:pointer;display:flex;gap:12px}.sfcore-swish-form__preview-checkbox-label input[type=checkbox]{-webkit-appearance:none;-moz-appearance:none;appearance:none;background:#fff;border:4px solid #000;cursor:pointer;height:24px;width:24px}.sfcore-swish-form__preview-checkbox-label input[type=checkbox]:checked{background:#ffd93d}.sfcore-swish-form__preview-checkbox-label span{font-size:14px}.sfcore-swish-form__preview-submit{padding:0 24px 24px}.sfcore-swish-form__preview-button{background:#ff6b6b;border:4px solid #000;box-shadow:4px 4px 0 0 #000;color:#000;cursor:pointer;display:inline-block;font-size:14px;font-weight:700;letter-spacing:.05em;padding:16px 32px;text-transform:uppercase;transition:all .1s ease-out}.sfcore-swish-form__preview-button:hover{background:#ff8585;box-shadow:6px 6px 0 0 #000;transform:translate(-2px,-2px)}.sfcore-swish-form__preview-button:active{box-shadow:none;transform:translate(2px,2px)}.sfcore-swish-form--subscription .sfcore-swish-form__preview-button,.sfcore-swish-form--subscription .sfcore-swish-form__preview-header{background:#c4b5fd}.sfcore-swish-form--subscription .sfcore-swish-form__preview-button:hover{background:#d4c8fd}
+/*!**********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/swish-form/src/editor.scss ***!
+  \**********************************************************************************************************************************************************************************************************************************************************/
+/**
+ * Swish Form Block - Editor Styles
+ *
+ * @package SwishfolioCore
+ */
+.sfcore-swish-form *,
+.sfcore-swish-form *::before,
+.sfcore-swish-form *::after {
+  box-sizing: border-box;
+}
+.sfcore-swish-form__preview {
+  border: 4px solid #000;
+  background: #FFFDF5;
+  box-shadow: 6px 6px 0 0 #000;
+  max-width: 100%;
+  overflow: hidden;
+}
+.sfcore-swish-form__preview-header {
+  background: #FFD93D;
+  padding: 12px 16px;
+  border-bottom: 4px solid #000;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 12px;
+}
+.sfcore-swish-form__preview-type {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sfcore-swish-form__preview-type::before {
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+  background: #000;
+  border-radius: 50%;
+}
+.sfcore-swish-form__preview-fields {
+  padding: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.sfcore-swish-form__preview-field--full {
+  width: 100%;
+}
+.sfcore-swish-form__preview-field--half {
+  width: calc(50% - 8px);
+}
+.sfcore-swish-form__preview-label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 8px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.sfcore-swish-form__preview-required {
+  color: #FF6B6B;
+  margin-left: 4px;
+}
+.sfcore-swish-form__preview-input, .sfcore-swish-form__preview-textarea, .sfcore-swish-form__preview-select {
+  width: 100%;
+  max-width: 100%;
+  padding: 12px 16px;
+  border: 4px solid #000;
+  background: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  box-shadow: 4px 4px 0 0 #000;
+  transition: all 0.1s ease-out;
+}
+.sfcore-swish-form__preview-input:focus, .sfcore-swish-form__preview-textarea:focus, .sfcore-swish-form__preview-select:focus {
+  outline: none;
+  box-shadow: 6px 6px 0 0 #000;
+  transform: translate(-2px, -2px);
+}
+.sfcore-swish-form__preview-input::-moz-placeholder, .sfcore-swish-form__preview-textarea::-moz-placeholder, .sfcore-swish-form__preview-select::-moz-placeholder {
+  color: #999;
+}
+.sfcore-swish-form__preview-input::placeholder, .sfcore-swish-form__preview-textarea::placeholder, .sfcore-swish-form__preview-select::placeholder {
+  color: #999;
+}
+.sfcore-swish-form__preview-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+.sfcore-swish-form__preview-select {
+  cursor: pointer;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2712%27 height=%2712%27 viewBox=%270 0 12 12%27%3E%3Cpath fill=%27%23000%27 d=%27M6 9L1 4h10z%27/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+}
+.sfcore-swish-form__preview-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+.sfcore-swish-form__preview-checkbox-label input[type=checkbox] {
+  width: 24px;
+  height: 24px;
+  border: 4px solid #000;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  cursor: pointer;
+  background: #fff;
+}
+.sfcore-swish-form__preview-checkbox-label input[type=checkbox]:checked {
+  background: #FFD93D;
+}
+.sfcore-swish-form__preview-checkbox-label span {
+  font-size: 14px;
+}
+.sfcore-swish-form__preview-submit {
+  padding: 0 24px 24px;
+}
+.sfcore-swish-form__preview-button {
+  display: inline-block;
+  padding: 16px 32px;
+  background: #FF6B6B;
+  color: #000;
+  border: 4px solid #000;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 0 #000;
+  transition: all 0.1s ease-out;
+}
+.sfcore-swish-form__preview-button:hover {
+  background: #ff8585;
+  box-shadow: 6px 6px 0 0 #000;
+  transform: translate(-2px, -2px);
+}
+.sfcore-swish-form__preview-button:active {
+  box-shadow: none;
+  transform: translate(2px, 2px);
+}
+.sfcore-swish-form--subscription .sfcore-swish-form__preview-header {
+  background: #C4B5FD;
+}
+.sfcore-swish-form--subscription .sfcore-swish-form__preview-button {
+  background: #C4B5FD;
+}
+.sfcore-swish-form--subscription .sfcore-swish-form__preview-button:hover {
+  background: #d4c8fd;
+}
+
+/*# sourceMappingURL=index.css.map*/

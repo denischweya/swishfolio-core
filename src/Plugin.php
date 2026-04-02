@@ -14,9 +14,12 @@ use SwishfolioCore\Blocks\PortfolioBlock;
 use SwishfolioCore\Blocks\LatestPostsBlock;
 use SwishfolioCore\Blocks\TestimonialsBlock;
 use SwishfolioCore\Blocks\FaqBlock;
+use SwishfolioCore\Blocks\FeaturesBlock;
+use SwishfolioCore\Blocks\BentoCardsBlock;
 use SwishfolioCore\Blocks\SwishGalleryBlock;
 use SwishfolioCore\Blocks\SwishFormBlock;
 use SwishfolioCore\Blocks\SwishSocialsBlock;
+use SwishfolioCore\Blocks\PricingBlock;
 use SwishfolioCore\PostTypes\ProjectPostType;
 use SwishfolioCore\PostTypes\TestimonialPostType;
 use SwishfolioCore\Forms\FormEntryPostType;
@@ -164,9 +167,12 @@ class Plugin {
 			new LatestPostsBlock(),
 			new TestimonialsBlock(),
 			new FaqBlock(),
+			new FeaturesBlock(),
+			new BentoCardsBlock(),
 			new SwishGalleryBlock(),
 			new SwishFormBlock(),
 			new SwishSocialsBlock(),
+			new PricingBlock(),
 		];
 	}
 

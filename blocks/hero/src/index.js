@@ -10,6 +10,9 @@ import deprecations from './deprecations';
 import './style.scss';
 import './editor.scss';
 
+// Register custom formats
+import './formats/text-color';
+
 registerBlockType( 'swishfolio-core/hero', {
 	icon: 'cover-image',
 	edit: Edit,

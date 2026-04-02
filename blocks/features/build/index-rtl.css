@@ -1,0 +1,131 @@
+/*!********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/features/src/editor.scss ***!
+  \********************************************************************************************************************************************************************************************************************************************************/
+/**
+ * Features Block - Editor Styles
+ */
+.sfcore-icon-picker {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 4px;
+  padding: 8px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 12px;
+}
+.sfcore-icon-picker__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.sfcore-icon-picker__item:hover {
+  background: #f0f0f0;
+  border-color: #ccc;
+}
+.sfcore-icon-picker__item.is-selected {
+  background: #007cba;
+  border-color: #007cba;
+  color: #fff;
+}
+.sfcore-icon-picker__item.is-selected svg {
+  fill: #fff;
+}
+.sfcore-icon-picker__item svg {
+  width: 20px;
+  height: 20px;
+}
+.sfcore-custom-icon-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+.sfcore-custom-icon-preview img {
+  max-width: 60px;
+  max-height: 60px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.wp-block-swishfolio-core-features .sfcore-features__title,
+.wp-block-swishfolio-core-features .sfcore-features__description,
+.wp-block-swishfolio-core-features .sfcore-features__card-title,
+.wp-block-swishfolio-core-features .sfcore-features__card-subheading,
+.wp-block-swishfolio-core-features .sfcore-features__card-description {
+  cursor: text;
+}
+.wp-block-swishfolio-core-features .sfcore-features__title:focus,
+.wp-block-swishfolio-core-features .sfcore-features__description:focus,
+.wp-block-swishfolio-core-features .sfcore-features__card-title:focus,
+.wp-block-swishfolio-core-features .sfcore-features__card-subheading:focus,
+.wp-block-swishfolio-core-features .sfcore-features__card-description:focus {
+  outline: 2px solid #007cba;
+  outline-offset: 2px;
+}
+.wp-block-swishfolio-core-features .sfcore-features__card {
+  position: relative;
+}
+.wp-block-swishfolio-core-features .sfcore-features__card::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  left: -2px;
+  bottom: -2px;
+  border: 2px solid transparent;
+  border-radius: inherit;
+  pointer-events: none;
+  transition: border-color 0.15s ease;
+}
+.wp-block-swishfolio-core-features .sfcore-features__card:hover::before, .wp-block-swishfolio-core-features .sfcore-features__card:focus-within::before {
+  border-color: #007cba;
+}
+.wp-block-swishfolio-core-features .sfcore-features__grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--grid-gap, 2rem);
+}
+.wp-block-swishfolio-core-features .block-editor-rich-text__editable[data-is-placeholder-visible=true]::before {
+  opacity: 0.5;
+}
+.components-panel__body .sfcore-icon-picker {
+  margin-top: 8px;
+}
+.sfcore-feature-item-panel {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 12px;
+  background: #f9f9f9;
+}
+.sfcore-features__card-cta-wrapper .sfcore-features__card-link,
+.sfcore-features__card-cta-wrapper .sfcore-features__card-button {
+  cursor: text;
+}
+.sfcore-features__card-cta-wrapper .sfcore-features__card-link svg,
+.sfcore-features__card-cta-wrapper .sfcore-features__card-button svg {
+  pointer-events: none;
+}
+.sfcore-features__card-cta-wrapper .sfcore-features__card-link:focus-within,
+.sfcore-features__card-cta-wrapper .sfcore-features__card-button:focus-within {
+  outline: 2px solid #007cba;
+  outline-offset: 2px;
+}
+.sfcore-features__header-cta .sfcore-features__cta {
+  pointer-events: none;
+}

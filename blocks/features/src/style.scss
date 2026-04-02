@@ -1,0 +1,481 @@
+/**
+ * Features Block - Frontend Styles
+ *
+ * Bento-grid style features section with responsive cards.
+ * Style-aware design that adapts to theme variations.
+ */
+
+@import '../../_shared/variables';
+
+// =====================
+// Block Container
+// =====================
+
+.wp-block-swishfolio-core-features {
+	position: relative;
+	width: 100%;
+	max-width: 1400px;
+	margin: 0 auto;
+	padding: 4rem 2rem;
+	box-sizing: border-box;
+}
+
+// =====================
+// Bento Grid
+// =====================
+
+.sfcore-features__grid {
+	display: grid;
+	grid-template-columns: repeat(12, 1fr);
+	gap: var(--grid-gap, 2rem);
+}
+
+// =====================
+// Feature Cards
+// =====================
+
+.sfcore-features__card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	min-height: 300px;
+	padding: 2rem;
+	background-color: var(--card-bg, #{$color-surface});
+	border: var(--sf-border);
+	border-color: var(--card-border-color, #{$color-contrast});
+	box-shadow: #{$shadow-md};
+	box-shadow-color: var(--card-shadow-color, #{$color-contrast});
+	overflow: hidden;
+	transition: box-shadow $transition-default, transform $transition-default;
+
+	@include hover-lift;
+}
+
+// Card background image (as img element)
+.sfcore-features__card-bg-image {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+	z-index: 0;
+	pointer-events: none;
+}
+
+// Card overlay (sits on top of the image)
+.sfcore-features__card-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1;
+	pointer-events: none;
+}
+
+// Cards with overlay should have light text by default
+.sfcore-features__card--has-overlay {
+	color: #{$color-contrast};
+
+	// .sfcore-features__card-subheading {
+	// 	color: var(--card-accent, inherit);
+	// 	opacity: 0.8;
+	// }
+
+	.sfcore-features__card-title {
+		color: inherit;
+	}
+
+	.sfcore-features__card-description {
+		color: inherit;
+		opacity: 0.9;
+	}
+
+	.sfcore-features__card-link {
+		color: var(--card-accent, inherit);
+	}
+
+	.sfcore-features__card-icon {
+		background: var(--card-accent, rgba(255, 255, 255, 0.2));
+		color: inherit;
+	}
+}
+
+// Card Sizes (Bento grid columns)
+.sfcore-features__card--small {
+	grid-column: span 4;
+}
+
+.sfcore-features__card--medium {
+	grid-column: span 6;
+}
+
+.sfcore-features__card--large {
+	grid-column: span 8;
+	min-height: 450px;
+	padding: 3rem;
+}
+
+// Card Styles
+.sfcore-features__card--default {
+	background-color: var(--card-bg, #{$color-surface});
+}
+
+.sfcore-features__card--accent {
+	background-color: var(--card-bg, #{$color-accent-2});
+	color: #{$color-contrast};
+
+	.sfcore-features__card-title {
+		color: inherit;
+	}
+
+	.sfcore-features__card-description {
+		color: inherit;
+		opacity: 0.85;
+	}
+
+	.sfcore-features__card-link {
+		color: #{$color-contrast};
+	}
+
+	.sfcore-features__card-button {
+		background: #{$color-contrast};
+		color: var(--card-bg, #{$color-accent-2});
+	}
+}
+
+.sfcore-features__card--highlight {
+	background-color: var(--card-bg, #{$color-accent-1});
+	color: #{$color-contrast};
+
+	.sfcore-features__card-title {
+		color: inherit;
+	}
+
+	.sfcore-features__card-description {
+		color: inherit;
+		opacity: 0.85;
+	}
+
+	.sfcore-features__card-link {
+		color: #{$color-contrast};
+	}
+
+	.sfcore-features__card-button {
+		background: #{$color-contrast};
+		color: var(--card-bg, #{$color-accent-1});
+	}
+}
+
+// Border styles
+.sfcore-features--border-solid .sfcore-features__card {
+	border-style: solid;
+}
+
+.sfcore-features--border-dashed .sfcore-features__card {
+	border-style: dashed;
+}
+
+.sfcore-features--border-none .sfcore-features__card {
+	border: none;
+}
+
+// =====================
+// Card Inner Content
+// =====================
+
+.sfcore-features__card-inner {
+	position: relative;
+	z-index: 2;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.sfcore-features__card-header {
+	margin-bottom: 1rem;
+}
+
+.sfcore-features__card-subheading {
+	display: block;
+	font-size: 0.6875rem;
+	font-weight: 600;
+	letter-spacing: 0.3em;
+	text-transform: uppercase;
+	opacity: 0.6;
+	color: var(--card-accent, #{$color-accent-1});
+}
+
+.sfcore-features__card-title {
+	margin: 0 0 1rem;
+	font-weight: 800;
+	font-size: clamp(1.5rem, 4vw, 2.5rem);
+	line-height: 1.05;
+	letter-spacing: -0.02em;
+	text-transform: uppercase;
+}
+
+// Large cards get bigger titles
+.sfcore-features__card--large .sfcore-features__card-title {
+	font-size: clamp(2rem, 6vw, 4rem);
+	margin-bottom: 1.5rem;
+}
+
+.sfcore-features__card-description {
+	margin: 0 0 1.5rem;
+	font-size: 1rem;
+	line-height: 1.6;
+	font-weight: 300;
+	max-width: 500px;
+	opacity: 0.85;
+}
+
+// =====================
+// Card Icons
+// =====================
+
+.sfcore-features__card-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 64px;
+	height: 64px;
+	margin-top: auto;
+	margin-bottom: 1.5rem;
+	background: var(--card-accent, #{$color-accent-2});
+	color: #{$color-contrast};
+
+	svg {
+		width: 32px;
+		height: 32px;
+		fill: currentColor;
+	}
+}
+
+.sfcore-features__card-icon--custom {
+	background: transparent;
+	padding: 0;
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+	}
+}
+
+// Large cards get bigger icons
+.sfcore-features__card--large .sfcore-features__card-icon {
+	width: 80px;
+	height: 80px;
+
+	svg {
+		width: 40px;
+		height: 40px;
+	}
+}
+
+// =====================
+// Card CTAs
+// =====================
+
+.sfcore-features__card-cta-wrapper {
+	margin-top: auto;
+	padding-top: 1rem;
+}
+
+.sfcore-features__card-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.8125rem;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: var(--card-accent, #{$color-accent-1});
+	transition: transform $transition-fast;
+
+	svg {
+		width: 16px;
+		height: 16px;
+		fill: currentColor;
+		transition: transform $transition-fast;
+	}
+
+	&:hover {
+		transform: translateX(4px);
+
+		svg {
+			transform: translateX(4px);
+		}
+	}
+}
+
+.sfcore-features__card-button {
+	@include button-base;
+	display: inline-flex;
+	padding: 1rem 2rem;
+	background: var(--card-accent, #{$color-contrast});
+	color: #{$color-base};
+	font-size: 0.8125rem;
+	text-decoration: none;
+
+	&:hover {
+		box-shadow: #{$shadow-md};
+		transform: var(--sf-hover-transform);
+	}
+
+	&:active {
+		box-shadow: none;
+		transform: var(--sf-active-transform);
+	}
+}
+
+// =====================
+// Full Width Alignments
+// =====================
+
+.wp-block-swishfolio-core-features {
+	&.alignfull {
+		width: 100%;
+		max-width: 100%;
+		padding-left: 2rem;
+		padding-right: 2rem;
+	}
+
+	&.alignwide {
+		max-width: 1600px;
+	}
+}
+
+// =====================
+// Responsive - Tablet
+// =====================
+
+@media (max-width: $breakpoint-tablet) {
+	.wp-block-swishfolio-core-features {
+		padding: 3rem 1.5rem;
+	}
+
+	.sfcore-features__grid {
+		grid-template-columns: repeat(8, 1fr);
+		gap: 1.5rem;
+	}
+
+	// Adjust card sizes for tablet
+	.sfcore-features__card--small {
+		grid-column: span 4;
+	}
+
+	.sfcore-features__card--medium {
+		grid-column: span 4;
+	}
+
+	.sfcore-features__card--large {
+		grid-column: span 8;
+		min-height: 350px;
+		padding: 2rem;
+	}
+
+	.sfcore-features__card-title {
+		font-size: clamp(1.25rem, 3vw, 2rem);
+	}
+
+	.sfcore-features__card--large .sfcore-features__card-title {
+		font-size: clamp(1.75rem, 5vw, 3rem);
+	}
+
+	.sfcore-features__card-description {
+		font-size: 0.9375rem;
+	}
+
+	.sfcore-features__card-icon {
+		width: 56px;
+		height: 56px;
+
+		svg {
+			width: 28px;
+			height: 28px;
+		}
+	}
+}
+
+// =====================
+// Responsive - Mobile
+// =====================
+
+@media (max-width: $breakpoint-mobile) {
+	.wp-block-swishfolio-core-features {
+		padding: 2.5rem 1.25rem;
+	}
+
+	.sfcore-features__grid {
+		grid-template-columns: 1fr;
+		gap: 1.25rem;
+	}
+
+	// All cards full width on mobile
+	.sfcore-features__card--small,
+	.sfcore-features__card--medium,
+	.sfcore-features__card--large {
+		grid-column: span 1;
+		min-height: auto;
+		padding: 1.5rem;
+	}
+
+	.sfcore-features__card-title {
+		font-size: clamp(1.25rem, 5vw, 1.75rem);
+	}
+
+	.sfcore-features__card--large .sfcore-features__card-title {
+		font-size: clamp(1.5rem, 6vw, 2rem);
+	}
+
+	.sfcore-features__card-description {
+		font-size: 0.9375rem;
+		margin-bottom: 1rem;
+	}
+
+	.sfcore-features__card-icon {
+		width: 48px;
+		height: 48px;
+		margin-bottom: 1rem;
+
+		svg {
+			width: 24px;
+			height: 24px;
+		}
+	}
+
+	.sfcore-features__card--large .sfcore-features__card-icon {
+		width: 56px;
+		height: 56px;
+
+		svg {
+			width: 28px;
+			height: 28px;
+		}
+	}
+
+	.sfcore-features__card-link {
+		font-size: 0.75rem;
+	}
+
+	.sfcore-features__card-button {
+		width: 100%;
+		justify-content: center;
+		padding: 0.875rem 1.25rem;
+		font-size: 0.75rem;
+	}
+
+	// Reduce shadow intensity on mobile
+	.sfcore-features__card {
+		box-shadow: #{$shadow-sm};
+
+		&:hover {
+			box-shadow: #{$shadow-md};
+		}
+	}
+}

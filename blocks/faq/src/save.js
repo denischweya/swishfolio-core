@@ -11,6 +11,10 @@ export default function save( { attributes } ) {
 		iconStyle,
 		iconPosition,
 		items,
+		questionColor,
+		headerBackgroundColor,
+		contentBackgroundColor,
+		answerColor,
 	} = attributes;
 
 	if ( items.length === 0 ) {
@@ -50,9 +54,13 @@ export default function save( { attributes } ) {
 							className="sfcore-faq__header"
 							aria-expanded={ isDefaultOpen ? 'true' : 'false' }
 							aria-controls={ `faq-content-${ index }` }
+							style={ headerBackgroundColor ? { backgroundColor: headerBackgroundColor } : undefined }
 						>
 							{ iconPosition === 'left' && renderIcon() }
-							<span className="sfcore-faq__question">
+							<span
+								className="sfcore-faq__question"
+								style={ questionColor ? { color: questionColor } : undefined }
+							>
 								<RichText.Content value={ item.question } />
 							</span>
 							{ iconPosition === 'right' && renderIcon() }
@@ -61,8 +69,12 @@ export default function save( { attributes } ) {
 							id={ `faq-content-${ index }` }
 							className="sfcore-faq__content"
 							aria-hidden={ isDefaultOpen ? 'false' : 'true' }
+							style={ contentBackgroundColor ? { backgroundColor: contentBackgroundColor } : undefined }
 						>
-							<div className="sfcore-faq__answer">
+							<div
+								className="sfcore-faq__answer"
+								style={ answerColor ? { color: answerColor } : undefined }
+							>
 								<RichText.Content value={ item.answer } />
 							</div>
 						</div>
