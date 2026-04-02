@@ -1,0 +1,157 @@
+/**
+ * Features Block - Editor Styles
+ */
+
+// Icon Picker Grid (reusable pattern from card block)
+.sfcore-icon-picker {
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	gap: 4px;
+	padding: 8px;
+	background: #fff;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	max-height: 200px;
+	overflow-y: auto;
+	margin-bottom: 12px;
+}
+
+.sfcore-icon-picker__item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	padding: 0;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	background: transparent;
+	cursor: pointer;
+	transition: all 0.15s ease;
+
+	&:hover {
+		background: #f0f0f0;
+		border-color: #ccc;
+	}
+
+	&.is-selected {
+		background: #007cba;
+		border-color: #007cba;
+		color: #fff;
+
+		svg {
+			fill: #fff;
+		}
+	}
+
+	svg {
+		width: 20px;
+		height: 20px;
+	}
+}
+
+// Custom Icon Preview
+.sfcore-custom-icon-preview {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 8px;
+	padding: 12px;
+	background: #f9f9f9;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	margin-bottom: 12px;
+
+	img {
+		max-width: 60px;
+		max-height: 60px;
+		object-fit: contain;
+	}
+}
+
+// Editor-specific card styles
+.wp-block-swishfolio-core-features {
+	// Ensure RichText components are editable
+	.sfcore-features__title,
+	.sfcore-features__description,
+	.sfcore-features__card-title,
+	.sfcore-features__card-subheading,
+	.sfcore-features__card-description {
+		cursor: text;
+
+		&:focus {
+			outline: 2px solid #007cba;
+			outline-offset: 2px;
+		}
+	}
+
+	// Card hover state in editor
+	.sfcore-features__card {
+		position: relative;
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: -2px;
+			left: -2px;
+			right: -2px;
+			bottom: -2px;
+			border: 2px solid transparent;
+			border-radius: inherit;
+			pointer-events: none;
+			transition: border-color 0.15s ease;
+		}
+
+		&:hover::before,
+		&:focus-within::before {
+			border-color: #007cba;
+		}
+	}
+
+	// Ensure grid layout works in editor
+	.sfcore-features__grid {
+		display: grid;
+		grid-template-columns: repeat(12, 1fr);
+		gap: var(--grid-gap, 2rem);
+	}
+
+	// Editor placeholder styles
+	.block-editor-rich-text__editable[data-is-placeholder-visible="true"]::before {
+		opacity: 0.5;
+	}
+}
+
+// Inspector control improvements
+.components-panel__body {
+	.sfcore-icon-picker {
+		margin-top: 8px;
+	}
+}
+
+// Feature card item in sidebar
+.sfcore-feature-item-panel {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	padding: 12px;
+	margin-bottom: 12px;
+	background: #f9f9f9;
+}
+
+// CTA wrapper in editor
+.sfcore-features__card-cta-wrapper {
+	.sfcore-features__card-link,
+	.sfcore-features__card-button {
+		pointer-events: none;
+
+		svg {
+			pointer-events: none;
+		}
+	}
+}
+
+// Section CTA in editor (non-clickable)
+.sfcore-features__header-cta {
+	.sfcore-features__cta {
+		pointer-events: none;
+	}
+}

@@ -14,6 +14,7 @@ use SwishfolioCore\Blocks\PortfolioBlock;
 use SwishfolioCore\Blocks\LatestPostsBlock;
 use SwishfolioCore\Blocks\TestimonialsBlock;
 use SwishfolioCore\Blocks\FaqBlock;
+use SwishfolioCore\Blocks\FeaturesBlock;
 use SwishfolioCore\Blocks\SwishGalleryBlock;
 use SwishfolioCore\Blocks\SwishFormBlock;
 use SwishfolioCore\Blocks\SwishSocialsBlock;
@@ -164,6 +165,7 @@ class Plugin {
 			new LatestPostsBlock(),
 			new TestimonialsBlock(),
 			new FaqBlock(),
+			new FeaturesBlock(),
 			new SwishGalleryBlock(),
 			new SwishFormBlock(),
 			new SwishSocialsBlock(),
