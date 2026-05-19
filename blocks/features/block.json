@@ -15,24 +15,15 @@
 				{
 					"id": "feature-1",
 					"subheading": "MODULE 01",
-					"subheadingFontSize": "",
 					"title": "Feature Title",
 					"titleTag": "h3",
-					"titleFontSize": "",
-					"titleColor": "",
 					"description": "Feature description goes here...",
 					"icon": { "type": "library", "value": "star" },
-					"iconColor": "",
-					"iconBackgroundColor": "",
 					"ctaType": "link",
 					"ctaText": "Learn More",
 					"ctaUrl": "",
-					"ctaTextColor": "",
-					"ctaBackgroundColor": "",
 					"cardSize": "medium",
 					"cardStyle": "default",
-					"cardBackgroundColor": "",
-					"cardAccentColor": "",
 					"backgroundImage": {},
 					"backgroundImagePosition": "center center",
 					"overlayColor": "",
@@ -53,6 +44,42 @@
 			"default": ""
 		},
 		"cardShadowColor": {
+			"type": "string",
+			"default": ""
+		},
+		"titleFontSize": {
+			"type": "string",
+			"default": ""
+		},
+		"subheadingFontSize": {
+			"type": "string",
+			"default": ""
+		},
+		"titleColor": {
+			"type": "string",
+			"default": ""
+		},
+		"iconColor": {
+			"type": "string",
+			"default": ""
+		},
+		"iconBackgroundColor": {
+			"type": "string",
+			"default": ""
+		},
+		"ctaTextColor": {
+			"type": "string",
+			"default": ""
+		},
+		"ctaBackgroundColor": {
+			"type": "string",
+			"default": ""
+		},
+		"cardBackgroundColor": {
+			"type": "string",
+			"default": ""
+		},
+		"cardAccentColor": {
 			"type": "string",
 			"default": ""
 		}

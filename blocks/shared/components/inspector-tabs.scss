@@ -1,0 +1,49 @@
+/**
+ * InspectorTabs styles. Modelled on the Kadence Blocks inspector tab bar:
+ * a full-bleed flex row of icon+label buttons, active tab underlined with
+ * the WP admin theme colour.
+ */
+
+.sfcore-inspector-tabs {
+	display: flex;
+	// Bleed to the inspector edges (default panel padding is 16px).
+	margin: 0 -16px 16px;
+
+	&__tab.components-button {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 4px;
+		height: 64px;
+		padding: 8px 4px;
+		color: #4a5568;
+		background: #edf2f7;
+		border: 0;
+		border-top: 1px solid #cbd5e0;
+		border-radius: 0;
+		box-shadow: none;
+
+		svg {
+			fill: currentColor;
+		}
+
+		&:hover:not(:disabled) {
+			color: #1e1e1e;
+			background: #e2e8f0;
+		}
+
+		&:focus:not(:disabled) {
+			box-shadow: none;
+			outline: 1px solid var( --wp-admin-theme-color, #00669b );
+			outline-offset: -1px;
+		}
+
+		&.is-active {
+			color: #1e1e1e;
+			background: #fff;
+			box-shadow: inset 0 -3px 0 0 var( --wp-admin-theme-color, #00669b );
+		}
+	}
+}

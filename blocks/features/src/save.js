@@ -86,6 +86,15 @@ export default function save( { attributes } ) {
 		cardBorderStyle,
 		cardBorderColor,
 		cardShadowColor,
+		titleFontSize,
+		subheadingFontSize,
+		titleColor,
+		iconColor,
+		iconBackgroundColor,
+		ctaTextColor,
+		ctaBackgroundColor,
+		cardBackgroundColor,
+		cardAccentColor,
 	} = attributes;
 
 	// Render icon
@@ -98,8 +107,8 @@ export default function save( { attributes } ) {
 				<span
 					className="sfcore-features__card-icon"
 					style={ {
-						color: item.iconColor || undefined,
-						backgroundColor: item.iconBackgroundColor || undefined,
+						color: iconColor || undefined,
+						backgroundColor: iconBackgroundColor || undefined,
 					} }
 				>
 					{ ICON_LIBRARY[ item.icon.value ] }
@@ -111,7 +120,7 @@ export default function save( { attributes } ) {
 				<span
 					className="sfcore-features__card-icon sfcore-features__card-icon--custom"
 					style={ {
-						backgroundColor: item.iconBackgroundColor || undefined,
+						backgroundColor: iconBackgroundColor || undefined,
 					} }
 				>
 					<img src={ item.icon.value } alt="" />
@@ -137,14 +146,14 @@ export default function save( { attributes } ) {
 		return classes.join( ' ' );
 	};
 
-	// Get card styles
-	const getCardStyles = ( item ) => {
+	// Get card styles (shared across all cards)
+	const getCardStyles = () => {
 		const styles = {};
-		if ( item.cardBackgroundColor ) {
-			styles[ '--card-bg' ] = item.cardBackgroundColor;
+		if ( cardBackgroundColor ) {
+			styles[ '--card-bg' ] = cardBackgroundColor;
 		}
-		if ( item.cardAccentColor ) {
-			styles[ '--card-accent' ] = item.cardAccentColor;
+		if ( cardAccentColor ) {
+			styles[ '--card-accent' ] = cardAccentColor;
 		}
 		return styles;
 	};
@@ -165,7 +174,7 @@ export default function save( { attributes } ) {
 					<div
 						key={ item.id }
 						className={ getCardClasses( item ) }
-						style={ getCardStyles( item ) }
+						style={ getCardStyles() }
 					>
 						{ item.backgroundImage?.url && (
 							<img
@@ -192,7 +201,7 @@ export default function save( { attributes } ) {
 									<span
 										className="sfcore-features__card-subheading"
 										style={ {
-											fontSize: item.subheadingFontSize || undefined,
+											fontSize: subheadingFontSize || undefined,
 										} }
 									>
 										<RichText.Content value={ item.subheading } />
@@ -206,8 +215,8 @@ export default function save( { attributes } ) {
 									className="sfcore-features__card-title"
 									value={ item.title }
 									style={ {
-										fontSize: item.titleFontSize || undefined,
-										color: item.titleColor || undefined,
+										fontSize: titleFontSize || undefined,
+										color: titleColor || undefined,
 									} }
 								/>
 							) }
@@ -218,7 +227,7 @@ export default function save( { attributes } ) {
 									className="sfcore-features__card-description"
 									value={ item.description }
 									style={ {
-										color: item.titleColor || undefined,
+										color: titleColor || undefined,
 									} }
 								/>
 							) }
@@ -232,8 +241,8 @@ export default function save( { attributes } ) {
 											href={ item.ctaUrl || '#' }
 											className="sfcore-features__card-link"
 											style={ {
-												color: item.ctaTextColor || undefined,
-												backgroundColor: item.ctaBackgroundColor || undefined,
+												color: ctaTextColor || undefined,
+												backgroundColor: ctaBackgroundColor || undefined,
 											} }
 										>
 											<RichText.Content value={ item.ctaText } />
@@ -244,8 +253,8 @@ export default function save( { attributes } ) {
 											href={ item.ctaUrl || '#' }
 											className="sfcore-features__card-button"
 											style={ {
-												color: item.ctaTextColor || undefined,
-												backgroundColor: item.ctaBackgroundColor || undefined,
+												color: ctaTextColor || undefined,
+												backgroundColor: ctaBackgroundColor || undefined,
 											} }
 										>
 											<RichText.Content value={ item.ctaText } />

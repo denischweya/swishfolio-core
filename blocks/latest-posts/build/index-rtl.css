@@ -1,17 +1,1 @@
-/*!************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/latest-posts/src/editor.scss ***!
-  \************************************************************************************************************************************************************************************************************************************************************/
-/**
- * Latest Posts Block - Editor Styles
- */
-.wp-block-swishfolio-core-latest-posts .sfcore-latest-posts__empty {
-  text-align: center;
-  padding: 3rem 2rem;
-  background: #f0f0f0;
-  border: 2px dashed #ccc;
-  border-radius: 4px;
-}
-.wp-block-swishfolio-core-latest-posts .sfcore-latest-posts__empty p {
-  margin: 0;
-  color: #666;
-}
+.wp-block-swishfolio-core-latest-posts .sfcore-latest-posts__empty{background:#f0f0f0;border:2px dashed #ccc;border-radius:4px;padding:3rem 2rem;text-align:center}.wp-block-swishfolio-core-latest-posts .sfcore-latest-posts__empty p{color:#666;margin:0}

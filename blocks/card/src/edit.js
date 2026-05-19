@@ -78,6 +78,9 @@ import {
 	pencil,
 	trash,
 } from '@wordpress/icons';
+import InspectorTabs, {
+	useInspectorTabs,
+} from '../../shared/components/inspector-tabs';
 
 // Icon library mapping - only using icons available in @wordpress/icons
 const ICON_LIBRARY = {
@@ -138,6 +141,8 @@ const ICON_LIBRARY = {
 };
 
 export default function Edit( { attributes, setAttributes } ) {
+	// Inspector tab state (General / Style / Advanced)
+	const [ activeTab, setActiveTab ] = useInspectorTabs();
 	// Get theme color palette dynamically
 	const themeColors = useSetting( 'color.palette' ) || [];
 	const {
@@ -215,231 +220,258 @@ export default function Edit( { attributes, setAttributes } ) {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Icon Settings', 'swishfolio-core' ) }>
-					<SelectControl
-						label={ __( 'Icon Source', 'swishfolio-core' ) }
-						value={ icon.type }
-						options={ [
-							{ label: __( 'Icon Library', 'swishfolio-core' ), value: 'library' },
-							{ label: __( 'Custom Image', 'swishfolio-core' ), value: 'custom' },
-						] }
-						onChange={ ( type ) =>
-							setAttributes( {
-								icon: { ...icon, type, value: type === 'library' ? 'star' : '' },
-							} )
-						}
-					/>
+				<InspectorTabs
+					activeTab={ activeTab }
+					setActiveTab={ setActiveTab }
+				/>
 
-					{ icon.type === 'library' && (
-						<>
-							<p className="components-base-control__label">
-								{ __( 'Select Icon', 'swishfolio-core' ) }
-							</p>
-							<div className="sfcore-icon-picker">
-								{ Object.keys( ICON_LIBRARY ).map( ( iconKey ) => {
-									const iconComponent = ICON_LIBRARY[ iconKey ];
-									return (
-										<Button
-											key={ iconKey }
-											className={ `sfcore-icon-picker__item ${
-												icon.value === iconKey ? 'is-selected' : ''
-											}` }
-											onClick={ () =>
-												setAttributes( {
-													icon: { ...icon, value: iconKey },
-												} )
-											}
-											label={ iconKey }
-										>
-											<Icon icon={ iconComponent } />
-										</Button>
-									);
-								} ) }
-							</div>
-						</>
-					) }
-
-					{ icon.type === 'custom' && (
-						<MediaUploadCheck>
-							<MediaUpload
-								onSelect={ ( media ) =>
+				{ activeTab === 'general' && (
+					<>
+						<PanelBody title={ __( 'Icon Settings', 'swishfolio-core' ) }>
+							<SelectControl
+								label={ __( 'Icon Source', 'swishfolio-core' ) }
+								value={ icon.type }
+								options={ [
+									{ label: __( 'Icon Library', 'swishfolio-core' ), value: 'library' },
+									{ label: __( 'Custom Image', 'swishfolio-core' ), value: 'custom' },
+								] }
+								onChange={ ( type ) =>
 									setAttributes( {
-										icon: { ...icon, value: media.url },
+										icon: { ...icon, type, value: type === 'library' ? 'star' : '' },
 									} )
 								}
-								allowedTypes={ [ 'image/svg+xml', 'image' ] }
-								render={ ( { open } ) => (
-									<>
-										{ icon.value ? (
-											<div className="sfcore-custom-icon-preview">
-												<img src={ icon.value } alt="" />
-												<ButtonGroup>
-													<Button variant="secondary" onClick={ open }>
-														{ __( 'Replace', 'swishfolio-core' ) }
-													</Button>
-													<Button
-														variant="tertiary"
-														isDestructive
-														onClick={ () =>
-															setAttributes( {
-																icon: { ...icon, value: '' },
-															} )
-														}
-													>
-														{ __( 'Remove', 'swishfolio-core' ) }
-													</Button>
-												</ButtonGroup>
-											</div>
-										) : (
-											<Button variant="secondary" onClick={ open }>
-												{ __( 'Upload Icon', 'swishfolio-core' ) }
-											</Button>
-										) }
-									</>
-								) }
 							/>
-						</MediaUploadCheck>
-					) }
 
-					<ToggleGroupControl
-						label={ __( 'Icon Position', 'swishfolio-core' ) }
-						value={ iconPosition }
-						onChange={ ( value ) => setAttributes( { iconPosition: value } ) }
-						isBlock
-					>
-						<ToggleGroupControlOption value="top" label={ __( 'Top', 'swishfolio-core' ) } />
-						<ToggleGroupControlOption value="left" label={ __( 'Left', 'swishfolio-core' ) } />
-						<ToggleGroupControlOption value="right" label={ __( 'Right', 'swishfolio-core' ) } />
-					</ToggleGroupControl>
+							{ icon.type === 'library' && (
+								<>
+									<p className="components-base-control__label">
+										{ __( 'Select Icon', 'swishfolio-core' ) }
+									</p>
+									<div className="sfcore-icon-picker">
+										{ Object.keys( ICON_LIBRARY ).map( ( iconKey ) => {
+											const iconComponent = ICON_LIBRARY[ iconKey ];
+											return (
+												<Button
+													key={ iconKey }
+													className={ `sfcore-icon-picker__item ${
+														icon.value === iconKey ? 'is-selected' : ''
+													}` }
+													onClick={ () =>
+														setAttributes( {
+															icon: { ...icon, value: iconKey },
+														} )
+													}
+													label={ iconKey }
+												>
+													<Icon icon={ iconComponent } />
+												</Button>
+											);
+										} ) }
+									</div>
+								</>
+							) }
 
-					<ToggleGroupControl
-						label={ __( 'Icon Size', 'swishfolio-core' ) }
-						value={ iconSize }
-						onChange={ ( value ) => setAttributes( { iconSize: value } ) }
-						isBlock
-					>
-						<ToggleGroupControlOption value="small" label={ __( 'S', 'swishfolio-core' ) } />
-						<ToggleGroupControlOption value="medium" label={ __( 'M', 'swishfolio-core' ) } />
-						<ToggleGroupControlOption value="large" label={ __( 'L', 'swishfolio-core' ) } />
-					</ToggleGroupControl>
+							{ icon.type === 'custom' && (
+								<MediaUploadCheck>
+									<MediaUpload
+										onSelect={ ( media ) =>
+											setAttributes( {
+												icon: { ...icon, value: media.url },
+											} )
+										}
+										allowedTypes={ [ 'image/svg+xml', 'image' ] }
+										render={ ( { open } ) => (
+											<>
+												{ icon.value ? (
+													<div className="sfcore-custom-icon-preview">
+														<img src={ icon.value } alt="" />
+														<ButtonGroup>
+															<Button variant="secondary" onClick={ open }>
+																{ __( 'Replace', 'swishfolio-core' ) }
+															</Button>
+															<Button
+																variant="tertiary"
+																isDestructive
+																onClick={ () =>
+																	setAttributes( {
+																		icon: { ...icon, value: '' },
+																	} )
+																}
+															>
+																{ __( 'Remove', 'swishfolio-core' ) }
+															</Button>
+														</ButtonGroup>
+													</div>
+												) : (
+													<Button variant="secondary" onClick={ open }>
+														{ __( 'Upload Icon', 'swishfolio-core' ) }
+													</Button>
+												) }
+											</>
+										) }
+									/>
+								</MediaUploadCheck>
+							) }
 
-					<p className="components-base-control__label">
-						{ __( 'Icon Color', 'swishfolio-core' ) }
-					</p>
-					<ColorPalette
-						colors={ themeColors }
-						value={ iconColor }
-						onChange={ ( color ) => setAttributes( { iconColor: color } ) }
-						clearable
-					/>
+							<ToggleGroupControl
+								label={ __( 'Icon Position', 'swishfolio-core' ) }
+								value={ iconPosition }
+								onChange={ ( value ) => setAttributes( { iconPosition: value } ) }
+								isBlock
+							>
+								<ToggleGroupControlOption value="top" label={ __( 'Top', 'swishfolio-core' ) } />
+								<ToggleGroupControlOption value="left" label={ __( 'Left', 'swishfolio-core' ) } />
+								<ToggleGroupControlOption value="right" label={ __( 'Right', 'swishfolio-core' ) } />
+							</ToggleGroupControl>
 
-					<p className="components-base-control__label">
-						{ __( 'Icon Background', 'swishfolio-core' ) }
-					</p>
-					<ColorPalette
-						colors={ themeColors }
-						value={ iconBackgroundColor }
-						onChange={ ( color ) => setAttributes( { iconBackgroundColor: color } ) }
-						clearable
-					/>
+							<ToggleGroupControl
+								label={ __( 'Icon Size', 'swishfolio-core' ) }
+								value={ iconSize }
+								onChange={ ( value ) => setAttributes( { iconSize: value } ) }
+								isBlock
+							>
+								<ToggleGroupControlOption value="small" label={ __( 'S', 'swishfolio-core' ) } />
+								<ToggleGroupControlOption value="medium" label={ __( 'M', 'swishfolio-core' ) } />
+								<ToggleGroupControlOption value="large" label={ __( 'L', 'swishfolio-core' ) } />
+							</ToggleGroupControl>
 
-					<ToggleGroupControl
-						label={ __( 'Icon Shape', 'swishfolio-core' ) }
-						value={ iconShape }
-						onChange={ ( value ) => setAttributes( { iconShape: value } ) }
-						isBlock
-					>
-						<ToggleGroupControlOption value="square" label={ __( 'Square', 'swishfolio-core' ) } />
-						<ToggleGroupControlOption value="rounded" label={ __( 'Rounded', 'swishfolio-core' ) } />
-						<ToggleGroupControlOption value="circle" label={ __( 'Circle', 'swishfolio-core' ) } />
-					</ToggleGroupControl>
-				</PanelBody>
+							<ToggleGroupControl
+								label={ __( 'Icon Shape', 'swishfolio-core' ) }
+								value={ iconShape }
+								onChange={ ( value ) => setAttributes( { iconShape: value } ) }
+								isBlock
+							>
+								<ToggleGroupControlOption value="square" label={ __( 'Square', 'swishfolio-core' ) } />
+								<ToggleGroupControlOption value="rounded" label={ __( 'Rounded', 'swishfolio-core' ) } />
+								<ToggleGroupControlOption value="circle" label={ __( 'Circle', 'swishfolio-core' ) } />
+							</ToggleGroupControl>
+						</PanelBody>
 
-				<PanelBody
-					title={ __( 'Card Style', 'swishfolio-core' ) }
-					initialOpen={ false }
-				>
-					<ToggleGroupControl
-						label={ __( 'Border Style', 'swishfolio-core' ) }
-						value={ cardBorderStyle }
-						onChange={ ( value ) => setAttributes( { cardBorderStyle: value } ) }
-						isBlock
-					>
-						<ToggleGroupControlOption value="solid" label={ __( 'Solid', 'swishfolio-core' ) } />
-						<ToggleGroupControlOption value="dashed" label={ __( 'Dashed', 'swishfolio-core' ) } />
-						<ToggleGroupControlOption value="none" label={ __( 'None', 'swishfolio-core' ) } />
-					</ToggleGroupControl>
+						<PanelBody
+							title={ __( 'Link Settings', 'swishfolio-core' ) }
+							initialOpen={ false }
+						>
+							<URLInput
+								label={ __( 'Link URL', 'swishfolio-core' ) }
+								value={ linkUrl }
+								onChange={ ( url ) => setAttributes( { linkUrl: url } ) }
+							/>
+							<ToggleGroupControl
+								label={ __( 'Link Style', 'swishfolio-core' ) }
+								value={ linkStyle }
+								onChange={ ( value ) => setAttributes( { linkStyle: value } ) }
+								isBlock
+							>
+								<ToggleGroupControlOption value="text" label={ __( 'Text', 'swishfolio-core' ) } />
+								<ToggleGroupControlOption value="button" label={ __( 'Button', 'swishfolio-core' ) } />
+							</ToggleGroupControl>
+						</PanelBody>
 
-					<p className="components-base-control__label">
-						{ __( 'Border Color', 'swishfolio-core' ) }
-					</p>
-					<ColorPalette
-						colors={ themeColors }
-						value={ cardBorderColor }
-						onChange={ ( color ) => setAttributes( { cardBorderColor: color } ) }
-						clearable
-					/>
+						<PanelBody
+							title={ __( 'Decorative Shape', 'swishfolio-core' ) }
+							initialOpen={ false }
+						>
+							<SelectControl
+								label={ __( 'Shape', 'swishfolio-core' ) }
+								value={ decorativeShape }
+								options={ [
+									{ label: __( 'None', 'swishfolio-core' ), value: 'none' },
+									{ label: __( 'Circle', 'swishfolio-core' ), value: 'circle' },
+									{ label: __( 'Square', 'swishfolio-core' ), value: 'square' },
+									{ label: __( 'Triangle', 'swishfolio-core' ), value: 'triangle' },
+								] }
+								onChange={ ( value ) => setAttributes( { decorativeShape: value } ) }
+							/>
+						</PanelBody>
+					</>
+				) }
 
-					<p className="components-base-control__label">
-						{ __( 'Shadow Color', 'swishfolio-core' ) }
-					</p>
-					<ColorPalette
-						colors={ themeColors }
-						value={ cardShadowColor }
-						onChange={ ( color ) => setAttributes( { cardShadowColor: color } ) }
-						clearable
-					/>
-				</PanelBody>
-
-				<PanelBody
-					title={ __( 'Link Settings', 'swishfolio-core' ) }
-					initialOpen={ false }
-				>
-					<URLInput
-						label={ __( 'Link URL', 'swishfolio-core' ) }
-						value={ linkUrl }
-						onChange={ ( url ) => setAttributes( { linkUrl: url } ) }
-					/>
-					<ToggleGroupControl
-						label={ __( 'Link Style', 'swishfolio-core' ) }
-						value={ linkStyle }
-						onChange={ ( value ) => setAttributes( { linkStyle: value } ) }
-						isBlock
-					>
-						<ToggleGroupControlOption value="text" label={ __( 'Text', 'swishfolio-core' ) } />
-						<ToggleGroupControlOption value="button" label={ __( 'Button', 'swishfolio-core' ) } />
-					</ToggleGroupControl>
-				</PanelBody>
-
-				<PanelBody
-					title={ __( 'Decorative Shape', 'swishfolio-core' ) }
-					initialOpen={ false }
-				>
-					<SelectControl
-						label={ __( 'Shape', 'swishfolio-core' ) }
-						value={ decorativeShape }
-						options={ [
-							{ label: __( 'None', 'swishfolio-core' ), value: 'none' },
-							{ label: __( 'Circle', 'swishfolio-core' ), value: 'circle' },
-							{ label: __( 'Square', 'swishfolio-core' ), value: 'square' },
-							{ label: __( 'Triangle', 'swishfolio-core' ), value: 'triangle' },
-						] }
-						onChange={ ( value ) => setAttributes( { decorativeShape: value } ) }
-					/>
-					{ decorativeShape !== 'none' && (
-						<>
+				{ activeTab === 'style' && (
+					<>
+						<PanelBody title={ __( 'Icon Colors', 'swishfolio-core' ) }>
 							<p className="components-base-control__label">
-								{ __( 'Shape Color', 'swishfolio-core' ) }
+								{ __( 'Icon Color', 'swishfolio-core' ) }
 							</p>
 							<ColorPalette
 								colors={ themeColors }
-								value={ decorativeColor }
-								onChange={ ( color ) => setAttributes( { decorativeColor: color } ) }
+								value={ iconColor }
+								onChange={ ( color ) => setAttributes( { iconColor: color } ) }
 								clearable
 							/>
-						</>
-					) }
-				</PanelBody>
+
+							<p className="components-base-control__label">
+								{ __( 'Icon Background', 'swishfolio-core' ) }
+							</p>
+							<ColorPalette
+								colors={ themeColors }
+								value={ iconBackgroundColor }
+								onChange={ ( color ) => setAttributes( { iconBackgroundColor: color } ) }
+								clearable
+							/>
+						</PanelBody>
+
+						<PanelBody
+							title={ __( 'Card Style', 'swishfolio-core' ) }
+							initialOpen={ false }
+						>
+							<ToggleGroupControl
+								label={ __( 'Border Style', 'swishfolio-core' ) }
+								value={ cardBorderStyle }
+								onChange={ ( value ) => setAttributes( { cardBorderStyle: value } ) }
+								isBlock
+							>
+								<ToggleGroupControlOption value="solid" label={ __( 'Solid', 'swishfolio-core' ) } />
+								<ToggleGroupControlOption value="dashed" label={ __( 'Dashed', 'swishfolio-core' ) } />
+								<ToggleGroupControlOption value="none" label={ __( 'None', 'swishfolio-core' ) } />
+							</ToggleGroupControl>
+
+							<p className="components-base-control__label">
+								{ __( 'Border Color', 'swishfolio-core' ) }
+							</p>
+							<ColorPalette
+								colors={ themeColors }
+								value={ cardBorderColor }
+								onChange={ ( color ) => setAttributes( { cardBorderColor: color } ) }
+								clearable
+							/>
+
+							<p className="components-base-control__label">
+								{ __( 'Shadow Color', 'swishfolio-core' ) }
+							</p>
+							<ColorPalette
+								colors={ themeColors }
+								value={ cardShadowColor }
+								onChange={ ( color ) => setAttributes( { cardShadowColor: color } ) }
+								clearable
+							/>
+						</PanelBody>
+
+						{ decorativeShape !== 'none' && (
+							<PanelBody
+								title={ __( 'Shape Color', 'swishfolio-core' ) }
+								initialOpen={ false }
+							>
+								<ColorPalette
+									colors={ themeColors }
+									value={ decorativeColor }
+									onChange={ ( color ) => setAttributes( { decorativeColor: color } ) }
+									clearable
+								/>
+							</PanelBody>
+						) }
+					</>
+				) }
+
+				{ activeTab === 'advanced' && (
+					<PanelBody title={ __( 'Advanced', 'swishfolio-core' ) }>
+						<p className="components-base-control__help">
+							{ __(
+								'Spacing, border, and typography are available in the editor’s native Styles tab for this block.',
+								'swishfolio-core'
+							) }
+						</p>
+					</PanelBody>
+				) }
 			</InspectorControls>
 
 			<div { ...blockProps }>

@@ -61,6 +61,9 @@ import {
 	plugins,
 	arrowRight,
 } from '@wordpress/icons';
+import InspectorTabs, {
+	useInspectorTabs,
+} from '../../shared/components/inspector-tabs';
 
 // Icon library mapping
 const ICON_LIBRARY = {
@@ -104,6 +107,8 @@ const ICON_LIBRARY = {
 const generateId = () => `feature-${ Date.now() }-${ Math.random().toString( 36 ).substr( 2, 9 ) }`;
 
 export default function Edit( { attributes, setAttributes } ) {
+	// Inspector tab state (General / Style / Advanced)
+	const [ activeTab, setActiveTab ] = useInspectorTabs();
 	const themeColors = useSetting( 'color.palette' ) || [];
 	const themeFontSizes = useSetting( 'typography.fontSizes' ) || [];
 
@@ -113,6 +118,15 @@ export default function Edit( { attributes, setAttributes } ) {
 		cardBorderStyle,
 		cardBorderColor,
 		cardShadowColor,
+		titleFontSize,
+		subheadingFontSize,
+		titleColor,
+		iconColor,
+		iconBackgroundColor,
+		ctaTextColor,
+		ctaBackgroundColor,
+		cardBackgroundColor,
+		cardAccentColor,
 	} = attributes;
 
 	// Update a specific feature item
@@ -127,24 +141,15 @@ export default function Edit( { attributes, setAttributes } ) {
 		const newItem = {
 			id: generateId(),
 			subheading: `MODULE ${ String( featureItems.length + 1 ).padStart( 2, '0' ) }`,
-			subheadingFontSize: '',
 			title: 'New Feature',
 			titleTag: 'h3',
-			titleFontSize: '',
-			titleColor: '',
 			description: 'Feature description goes here...',
 			icon: { type: 'library', value: 'star' },
-			iconColor: '',
-			iconBackgroundColor: '',
 			ctaType: 'link',
 			ctaText: 'Learn More',
 			ctaUrl: '',
-			ctaTextColor: '',
-			ctaBackgroundColor: '',
 			cardSize: 'medium',
 			cardStyle: 'default',
-			cardBackgroundColor: '',
-			cardAccentColor: '',
 			backgroundImage: {},
 			backgroundImagePosition: 'center center',
 			overlayColor: '',
@@ -180,8 +185,8 @@ export default function Edit( { attributes, setAttributes } ) {
 				<span
 					className="sfcore-features__card-icon"
 					style={ {
-						color: item.iconColor || undefined,
-						backgroundColor: item.iconBackgroundColor || undefined,
+						color: iconColor || undefined,
+						backgroundColor: iconBackgroundColor || undefined,
 					} }
 				>
 					<Icon icon={ ICON_LIBRARY[ item.icon.value ] } />
@@ -193,7 +198,7 @@ export default function Edit( { attributes, setAttributes } ) {
 				<span
 					className="sfcore-features__card-icon sfcore-features__card-icon--custom"
 					style={ {
-						backgroundColor: item.iconBackgroundColor || undefined,
+						backgroundColor: iconBackgroundColor || undefined,
 					} }
 				>
 					<img src={ item.icon.value } alt="" />
@@ -219,14 +224,14 @@ export default function Edit( { attributes, setAttributes } ) {
 		return classes.join( ' ' );
 	};
 
-	// Get card styles
-	const getCardStyles = ( item ) => {
+	// Get card styles (shared across all cards)
+	const getCardStyles = () => {
 		const styles = {};
-		if ( item.cardBackgroundColor ) {
-			styles[ '--card-bg' ] = item.cardBackgroundColor;
+		if ( cardBackgroundColor ) {
+			styles[ '--card-bg' ] = cardBackgroundColor;
 		}
-		if ( item.cardAccentColor ) {
-			styles[ '--card-accent' ] = item.cardAccentColor;
+		if ( cardAccentColor ) {
+			styles[ '--card-accent' ] = cardAccentColor;
 		}
 		return styles;
 	};
@@ -243,7 +248,14 @@ export default function Edit( { attributes, setAttributes } ) {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Grid Settings', 'swishfolio-core' ) } initialOpen={ false }>
+				<InspectorTabs
+					activeTab={ activeTab }
+					setActiveTab={ setActiveTab }
+				/>
+
+				{ activeTab === 'general' && (
+				<>
+				<PanelBody title={ __( 'Layout', 'swishfolio-core' ) } initialOpen={ false }>
 					<SelectControl
 						label={ __( 'Grid Gap', 'swishfolio-core' ) }
 						value={ gridGap }
@@ -253,37 +265,6 @@ export default function Edit( { attributes, setAttributes } ) {
 							{ label: __( 'Large (3rem)', 'swishfolio-core' ), value: '3rem' },
 						] }
 						onChange={ ( value ) => setAttributes( { gridGap: value } ) }
-					/>
-
-					<ToggleGroupControl
-						label={ __( 'Card Border Style', 'swishfolio-core' ) }
-						value={ cardBorderStyle }
-						onChange={ ( value ) => setAttributes( { cardBorderStyle: value } ) }
-						isBlock
-					>
-						<ToggleGroupControlOption value="solid" label={ __( 'Solid', 'swishfolio-core' ) } />
-						<ToggleGroupControlOption value="dashed" label={ __( 'Dashed', 'swishfolio-core' ) } />
-						<ToggleGroupControlOption value="none" label={ __( 'None', 'swishfolio-core' ) } />
-					</ToggleGroupControl>
-
-					<p className="components-base-control__label">
-						{ __( 'Card Border Color', 'swishfolio-core' ) }
-					</p>
-					<ColorPalette
-						colors={ themeColors }
-						value={ cardBorderColor }
-						onChange={ ( color ) => setAttributes( { cardBorderColor: color } ) }
-						clearable
-					/>
-
-					<p className="components-base-control__label">
-						{ __( 'Card Shadow Color', 'swishfolio-core' ) }
-					</p>
-					<ColorPalette
-						colors={ themeColors }
-						value={ cardShadowColor }
-						onChange={ ( color ) => setAttributes( { cardShadowColor: color } ) }
-						clearable
 					/>
 				</PanelBody>
 
@@ -360,40 +341,6 @@ export default function Edit( { attributes, setAttributes } ) {
 									{ label: 'H5', value: 'h5' },
 								] }
 								onChange={ ( value ) => updateFeatureItem( index, 'titleTag', value ) }
-							/>
-
-							<p className="components-base-control__label" style={ { marginTop: '16px', fontWeight: 600 } }>
-								{ __( 'Typography', 'swishfolio-core' ) }
-							</p>
-
-							<p className="components-base-control__label">
-								{ __( 'Title Font Size', 'swishfolio-core' ) }
-							</p>
-							<FontSizePicker
-								fontSizes={ themeFontSizes }
-								value={ item.titleFontSize }
-								onChange={ ( value ) => updateFeatureItem( index, 'titleFontSize', value ) }
-								withSlider
-							/>
-
-							<p className="components-base-control__label">
-								{ __( 'Text Color', 'swishfolio-core' ) }
-							</p>
-							<ColorPalette
-								colors={ themeColors }
-								value={ item.titleColor }
-								onChange={ ( color ) => updateFeatureItem( index, 'titleColor', color ) }
-								clearable
-							/>
-
-							<p className="components-base-control__label">
-								{ __( 'Subheading Font Size', 'swishfolio-core' ) }
-							</p>
-							<FontSizePicker
-								fontSizes={ themeFontSizes }
-								value={ item.subheadingFontSize }
-								onChange={ ( value ) => updateFeatureItem( index, 'subheadingFontSize', value ) }
-								withSlider
 							/>
 
 							<SelectControl
@@ -473,30 +420,6 @@ export default function Edit( { attributes, setAttributes } ) {
 								</MediaUploadCheck>
 							) }
 
-							{ item.icon && item.icon.type !== 'none' && (
-								<>
-									<p className="components-base-control__label" style={ { marginTop: '12px' } }>
-										{ __( 'Icon Color', 'swishfolio-core' ) }
-									</p>
-									<ColorPalette
-										colors={ themeColors }
-										value={ item.iconColor }
-										onChange={ ( color ) => updateFeatureItem( index, 'iconColor', color ) }
-										clearable
-									/>
-
-									<p className="components-base-control__label">
-										{ __( 'Icon Background', 'swishfolio-core' ) }
-									</p>
-									<ColorPalette
-										colors={ themeColors }
-										value={ item.iconBackgroundColor }
-										onChange={ ( color ) => updateFeatureItem( index, 'iconBackgroundColor', color ) }
-										clearable
-									/>
-								</>
-							) }
-
 							<ToggleGroupControl
 								label={ __( 'CTA Type', 'swishfolio-core' ) }
 								value={ item.ctaType }
@@ -509,54 +432,12 @@ export default function Edit( { attributes, setAttributes } ) {
 							</ToggleGroupControl>
 
 							{ item.ctaType !== 'none' && (
-								<>
-									<URLInput
-										label={ __( 'CTA URL', 'swishfolio-core' ) }
-										value={ item.ctaUrl }
-										onChange={ ( url ) => updateFeatureItem( index, 'ctaUrl', url ) }
-									/>
-
-									<p className="components-base-control__label" style={ { marginTop: '12px' } }>
-										{ __( 'CTA Text Color', 'swishfolio-core' ) }
-									</p>
-									<ColorPalette
-										colors={ themeColors }
-										value={ item.ctaTextColor }
-										onChange={ ( color ) => updateFeatureItem( index, 'ctaTextColor', color ) }
-										clearable
-									/>
-
-									<p className="components-base-control__label">
-										{ __( 'CTA Background Color', 'swishfolio-core' ) }
-									</p>
-									<ColorPalette
-										colors={ themeColors }
-										value={ item.ctaBackgroundColor }
-										onChange={ ( color ) => updateFeatureItem( index, 'ctaBackgroundColor', color ) }
-										clearable
-									/>
-								</>
+								<URLInput
+									label={ __( 'CTA URL', 'swishfolio-core' ) }
+									value={ item.ctaUrl }
+									onChange={ ( url ) => updateFeatureItem( index, 'ctaUrl', url ) }
+								/>
 							) }
-
-							<p className="components-base-control__label" style={ { marginTop: '12px' } }>
-								{ __( 'Card Background', 'swishfolio-core' ) }
-							</p>
-							<ColorPalette
-								colors={ themeColors }
-								value={ item.cardBackgroundColor }
-								onChange={ ( color ) => updateFeatureItem( index, 'cardBackgroundColor', color ) }
-								clearable
-							/>
-
-							<p className="components-base-control__label">
-								{ __( 'Card Accent Color', 'swishfolio-core' ) }
-							</p>
-							<ColorPalette
-								colors={ themeColors }
-								value={ item.cardAccentColor }
-								onChange={ ( color ) => updateFeatureItem( index, 'cardAccentColor', color ) }
-								clearable
-							/>
 
 							<p className="components-base-control__label" style={ { marginTop: '16px', fontWeight: 600 } }>
 								{ __( 'Background Image', 'swishfolio-core' ) }
@@ -661,6 +542,166 @@ export default function Edit( { attributes, setAttributes } ) {
 						{ __( 'Add Feature Card', 'swishfolio-core' ) }
 					</Button>
 				</PanelBody>
+				</>
+				) }
+
+				{ activeTab === 'style' && (
+				<>
+					<PanelBody title={ __( 'Card Appearance', 'swishfolio-core' ) }>
+						<ToggleGroupControl
+							label={ __( 'Card Border Style', 'swishfolio-core' ) }
+							value={ cardBorderStyle }
+							onChange={ ( value ) => setAttributes( { cardBorderStyle: value } ) }
+							isBlock
+						>
+							<ToggleGroupControlOption value="solid" label={ __( 'Solid', 'swishfolio-core' ) } />
+							<ToggleGroupControlOption value="dashed" label={ __( 'Dashed', 'swishfolio-core' ) } />
+							<ToggleGroupControlOption value="none" label={ __( 'None', 'swishfolio-core' ) } />
+						</ToggleGroupControl>
+
+						<p className="components-base-control__label">
+							{ __( 'Card Border Color', 'swishfolio-core' ) }
+						</p>
+						<ColorPalette
+							colors={ themeColors }
+							value={ cardBorderColor }
+							onChange={ ( color ) => setAttributes( { cardBorderColor: color } ) }
+							clearable
+						/>
+
+						<p className="components-base-control__label">
+							{ __( 'Card Shadow Color', 'swishfolio-core' ) }
+						</p>
+						<ColorPalette
+							colors={ themeColors }
+							value={ cardShadowColor }
+							onChange={ ( color ) => setAttributes( { cardShadowColor: color } ) }
+							clearable
+						/>
+					</PanelBody>
+
+					<PanelBody
+						title={ __( 'Typography', 'swishfolio-core' ) }
+						initialOpen={ false }
+					>
+						<p className="components-base-control__label">
+							{ __( 'Title Font Size', 'swishfolio-core' ) }
+						</p>
+						<FontSizePicker
+							fontSizes={ themeFontSizes }
+							value={ titleFontSize }
+							onChange={ ( value ) => setAttributes( { titleFontSize: value } ) }
+							withSlider
+						/>
+
+						<p className="components-base-control__label">
+							{ __( 'Subheading Font Size', 'swishfolio-core' ) }
+						</p>
+						<FontSizePicker
+							fontSizes={ themeFontSizes }
+							value={ subheadingFontSize }
+							onChange={ ( value ) => setAttributes( { subheadingFontSize: value } ) }
+							withSlider
+						/>
+
+						<p className="components-base-control__label">
+							{ __( 'Text Color', 'swishfolio-core' ) }
+						</p>
+						<ColorPalette
+							colors={ themeColors }
+							value={ titleColor }
+							onChange={ ( color ) => setAttributes( { titleColor: color } ) }
+							clearable
+						/>
+					</PanelBody>
+
+					<PanelBody
+						title={ __( 'Icon Colors', 'swishfolio-core' ) }
+						initialOpen={ false }
+					>
+						<p className="components-base-control__label">
+							{ __( 'Icon Color', 'swishfolio-core' ) }
+						</p>
+						<ColorPalette
+							colors={ themeColors }
+							value={ iconColor }
+							onChange={ ( color ) => setAttributes( { iconColor: color } ) }
+							clearable
+						/>
+
+						<p className="components-base-control__label">
+							{ __( 'Icon Background', 'swishfolio-core' ) }
+						</p>
+						<ColorPalette
+							colors={ themeColors }
+							value={ iconBackgroundColor }
+							onChange={ ( color ) => setAttributes( { iconBackgroundColor: color } ) }
+							clearable
+						/>
+					</PanelBody>
+
+					<PanelBody
+						title={ __( 'CTA Colors', 'swishfolio-core' ) }
+						initialOpen={ false }
+					>
+						<p className="components-base-control__label">
+							{ __( 'CTA Text Color', 'swishfolio-core' ) }
+						</p>
+						<ColorPalette
+							colors={ themeColors }
+							value={ ctaTextColor }
+							onChange={ ( color ) => setAttributes( { ctaTextColor: color } ) }
+							clearable
+						/>
+
+						<p className="components-base-control__label">
+							{ __( 'CTA Background Color', 'swishfolio-core' ) }
+						</p>
+						<ColorPalette
+							colors={ themeColors }
+							value={ ctaBackgroundColor }
+							onChange={ ( color ) => setAttributes( { ctaBackgroundColor: color } ) }
+							clearable
+						/>
+					</PanelBody>
+
+					<PanelBody
+						title={ __( 'Card Colors', 'swishfolio-core' ) }
+						initialOpen={ false }
+					>
+						<p className="components-base-control__label">
+							{ __( 'Card Background', 'swishfolio-core' ) }
+						</p>
+						<ColorPalette
+							colors={ themeColors }
+							value={ cardBackgroundColor }
+							onChange={ ( color ) => setAttributes( { cardBackgroundColor: color } ) }
+							clearable
+						/>
+
+						<p className="components-base-control__label">
+							{ __( 'Card Accent Color', 'swishfolio-core' ) }
+						</p>
+						<ColorPalette
+							colors={ themeColors }
+							value={ cardAccentColor }
+							onChange={ ( color ) => setAttributes( { cardAccentColor: color } ) }
+							clearable
+						/>
+					</PanelBody>
+				</>
+				) }
+
+				{ activeTab === 'advanced' && (
+					<PanelBody title={ __( 'Advanced', 'swishfolio-core' ) }>
+						<p className="components-base-control__help">
+							{ __(
+								'Spacing, border, and typography are available in the editor’s native Styles tab for this block.',
+								'swishfolio-core'
+							) }
+						</p>
+					</PanelBody>
+				) }
 			</InspectorControls>
 
 			<div { ...blockProps }>
@@ -669,7 +710,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						<div
 							key={ item.id }
 							className={ getCardClasses( item ) }
-							style={ getCardStyles( item ) }
+							style={ getCardStyles() }
 						>
 							{ item.backgroundImage?.url && (
 								<img
@@ -699,7 +740,7 @@ export default function Edit( { attributes, setAttributes } ) {
 										onChange={ ( value ) => updateFeatureItem( index, 'subheading', value ) }
 										placeholder={ __( 'MODULE 01', 'swishfolio-core' ) }
 										style={ {
-											fontSize: item.subheadingFontSize || undefined,
+											fontSize: subheadingFontSize || undefined,
 										} }
 									/>
 								</div>
@@ -711,8 +752,8 @@ export default function Edit( { attributes, setAttributes } ) {
 									onChange={ ( value ) => updateFeatureItem( index, 'title', value ) }
 									placeholder={ __( 'Feature Title', 'swishfolio-core' ) }
 									style={ {
-										fontSize: item.titleFontSize || undefined,
-										color: item.titleColor || undefined,
+										fontSize: titleFontSize || undefined,
+										color: titleColor || undefined,
 									} }
 								/>
 
@@ -723,7 +764,7 @@ export default function Edit( { attributes, setAttributes } ) {
 									onChange={ ( value ) => updateFeatureItem( index, 'description', value ) }
 									placeholder={ __( 'Feature description...', 'swishfolio-core' ) }
 									style={ {
-										color: item.titleColor || undefined,
+										color: titleColor || undefined,
 									} }
 								/>
 
@@ -735,8 +776,8 @@ export default function Edit( { attributes, setAttributes } ) {
 											<div
 												className="sfcore-features__card-link"
 												style={ {
-													color: item.ctaTextColor || undefined,
-													backgroundColor: item.ctaBackgroundColor || undefined,
+													color: ctaTextColor || undefined,
+													backgroundColor: ctaBackgroundColor || undefined,
 												} }
 											>
 												<RichText
@@ -755,8 +796,8 @@ export default function Edit( { attributes, setAttributes } ) {
 												onChange={ ( value ) => updateFeatureItem( index, 'ctaText', value ) }
 												placeholder={ __( 'Get Started', 'swishfolio-core' ) }
 												style={ {
-													color: item.ctaTextColor || undefined,
-													backgroundColor: item.ctaBackgroundColor || undefined,
+													color: ctaTextColor || undefined,
+													backgroundColor: ctaBackgroundColor || undefined,
 												} }
 											/>
 										) }
