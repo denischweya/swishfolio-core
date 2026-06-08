@@ -1,0 +1,26 @@
+/**
+ * Counter Item - Editor-only tweaks.
+ *
+ * Visual styles ship in the parent block's style.scss. Editor tweaks below
+ * keep the inline RichText spans feeling editable.
+ */
+
+.wp-block-swishfolio-core-swish-counter-item {
+	.sfcore-swish-counter-item__counter {
+		.sfcore-swish-counter-item__prefix,
+		.sfcore-swish-counter-item__value,
+		.sfcore-swish-counter-item__suffix {
+			cursor: text;
+
+			&:focus {
+				outline: 2px solid #007cba;
+				outline-offset: 2px;
+			}
+
+			// RichText placeholders look correct without showing empty span height.
+			&[data-is-placeholder-visible="true"] {
+				opacity: 0.5;
+			}
+		}
+	}
+}

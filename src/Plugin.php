@@ -13,6 +13,7 @@ use SwishfolioCore\Blocks\HeadingBlock;
 use SwishfolioCore\Blocks\PortfolioBlock;
 use SwishfolioCore\Blocks\LatestPostsBlock;
 use SwishfolioCore\Blocks\TestimonialsBlock;
+use SwishfolioCore\Blocks\TestimonialCardBlock;
 use SwishfolioCore\Blocks\FaqBlock;
 use SwishfolioCore\Blocks\FeaturesBlock;
 use SwishfolioCore\Blocks\FeatureCardBlock;
@@ -23,8 +24,9 @@ use SwishfolioCore\Blocks\SwishSocialsBlock;
 use SwishfolioCore\Blocks\PricingBlock;
 use SwishfolioCore\Blocks\SwishCvBlock;
 use SwishfolioCore\Blocks\SwishLinksBlock;
+use SwishfolioCore\Blocks\SwishCounterBlock;
+use SwishfolioCore\Blocks\SwishCounterItemBlock;
 use SwishfolioCore\PostTypes\ProjectPostType;
-use SwishfolioCore\PostTypes\TestimonialPostType;
 use SwishfolioCore\Forms\FormEntryPostType;
 use SwishfolioCore\Taxonomies\ProjectCategoryTaxonomy;
 use SwishfolioCore\Taxonomies\ProjectTypeTaxonomy;
@@ -153,7 +155,6 @@ class Plugin
     {
         $this->postTypes = [
             new ProjectPostType(),
-            new TestimonialPostType(),
             new FormEntryPostType(),
         ];
     }
@@ -185,6 +186,7 @@ class Plugin
             new PortfolioBlock(),
             new LatestPostsBlock(),
             new TestimonialsBlock(),
+            new TestimonialCardBlock(),
             new FaqBlock(),
             new FeaturesBlock(),
             new FeatureCardBlock(),
@@ -195,6 +197,8 @@ class Plugin
             new PricingBlock(),
             new SwishCvBlock(),
             new SwishLinksBlock(),
+            new SwishCounterBlock(),
+            new SwishCounterItemBlock(),
         ];
     }
 

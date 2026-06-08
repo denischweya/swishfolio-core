@@ -1,45 +1,45 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "swishfolio-core/testimonials",
-	"version": "2.0.0",
-	"title": "Testimonials",
+	"name": "swishfolio-core/swish-counter",
+	"version": "1.0.0",
+	"title": "Swish Counter",
 	"category": "swishfolio",
-	"description": "Grid of testimonial cards. Add testimonials inline as child blocks.",
-	"keywords": [ "testimonials", "reviews", "quotes", "feedback" ],
+	"description": "Row of animated stat counters. Each counter tweens from 0 to its target on first viewport entry.",
+	"keywords": [ "counter", "stats", "metrics", "numbers" ],
 	"textdomain": "swishfolio-core",
 	"attributes": {
 		"columns": {
 			"type": "number",
-			"default": 3
+			"default": 4
 		},
-		"cardBackgroundColor": {
+		"align": {
+			"type": "string",
+			"default": "center"
+		},
+		"counterFontSize": {
 			"type": "string",
 			"default": ""
 		},
-		"cardBorderColor": {
-			"type": "string",
-			"default": ""
-		},
-		"cardBorderWidth": {
+		"counterFontWeight": {
 			"type": "number",
-			"default": 0
+			"default": 800
 		},
-		"cardBorderRadius": {
+		"counterColor": {
+			"type": "string",
+			"default": ""
+		},
+		"titleFontSize": {
+			"type": "string",
+			"default": ""
+		},
+		"titleColor": {
+			"type": "string",
+			"default": ""
+		},
+		"counterTitleGap": {
 			"type": "number",
-			"default": 18
-		},
-		"cardShadow": {
-			"type": "string",
-			"default": "none"
-		},
-		"textColor": {
-			"type": "string",
-			"default": ""
-		},
-		"roleColor": {
-			"type": "string",
-			"default": ""
+			"default": 8
 		}
 	},
 	"supports": {
@@ -52,5 +52,6 @@
 	},
 	"editorScript": "file:./build/index.js",
 	"editorStyle": "file:./build/index.css",
-	"style": "file:./build/style-index.css"
+	"style": "file:./build/style-index.css",
+	"viewScript": "file:./build/view.js"
 }

@@ -1,0 +1,44 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "swishfolio-core/swish-counter-item",
+	"version": "1.0.0",
+	"title": "Counter Item",
+	"category": "swishfolio",
+	"description": "A single animated counter inside Swish Counter. Prefix, value, suffix, and title - all inline editable.",
+	"keywords": [ "counter", "stat", "number" ],
+	"textdomain": "swishfolio-core",
+	"parent": [ "swishfolio-core/swish-counter" ],
+	"attributes": {
+		"prefix": {
+			"type": "string",
+			"source": "html",
+			"selector": ".sfcore-swish-counter-item__prefix",
+			"default": ""
+		},
+		"value": {
+			"type": "string",
+			"source": "html",
+			"selector": ".sfcore-swish-counter-item__value",
+			"default": "0"
+		},
+		"suffix": {
+			"type": "string",
+			"source": "html",
+			"selector": ".sfcore-swish-counter-item__suffix",
+			"default": ""
+		},
+		"title": {
+			"type": "string",
+			"source": "html",
+			"selector": ".sfcore-swish-counter-item__title",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"reusable": false
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css"
+}

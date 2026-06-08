@@ -1,0 +1,54 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "swishfolio-core/testimonial-card",
+	"version": "1.0.0",
+	"title": "Testimonial Card",
+	"category": "swishfolio",
+	"description": "A single testimonial inside the Testimonials block. Quote, attribution, and optional avatar.",
+	"keywords": [ "testimonial", "quote", "review" ],
+	"textdomain": "swishfolio-core",
+	"parent": [ "swishfolio-core/testimonials" ],
+	"attributes": {
+		"quote": {
+			"type": "string",
+			"source": "html",
+			"selector": ".sfcore-testimonial-card__quote",
+			"default": ""
+		},
+		"name": {
+			"type": "string",
+			"source": "html",
+			"selector": ".sfcore-testimonial-card__name",
+			"default": ""
+		},
+		"role": {
+			"type": "string",
+			"source": "html",
+			"selector": ".sfcore-testimonial-card__role",
+			"default": ""
+		},
+		"roleUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"avatarImageId": {
+			"type": "number",
+			"default": 0
+		},
+		"avatarImageUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"avatarColor": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"reusable": false
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css"
+}

@@ -1,0 +1,17 @@
+/**
+ * Swish Counter Block - Editor Styles
+ */
+
+.wp-block-swishfolio-core-swish-counter {
+	.sfcore-swish-counter__grid {
+		display: grid;
+		grid-template-columns: repeat(var(--sf-counter-columns, 4), 1fr);
+		gap: clamp(18px, 2vw, 28px);
+	}
+
+	@media (max-width: 781px) {
+		.sfcore-swish-counter__grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+}
