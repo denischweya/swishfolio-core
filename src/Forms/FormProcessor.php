@@ -40,7 +40,12 @@ class FormProcessor {
 		register_rest_route( 'swishfolio/v1', '/forms/submit', [
 			'methods'             => 'POST',
 			'callback'            => [ $this, 'handleSubmission' ],
-			'permission_callback' => '__return_true',
+			// Public endpoint, but gated by the form-specific nonce that the
+			// frontend script injects via swishFormData.restNonce + the
+			// per-form action name. Anonymous submissions are allowed (forms
+			// are by definition contact-form-style), the nonce is the only
+			// "you came from our page" proof we require.
+			'permission_callback' => [ $this, 'verifySubmissionNonce' ],
 			'args'                => [
 				'formId'   => [
 					'required'          => true,
@@ -80,25 +85,46 @@ class FormProcessor {
 	}
 
 	/**
-	 * Handle form submission.
+	 * Permission callback — runs before handleSubmission and gates the
+	 * endpoint on a valid, form-scoped nonce. Returning a WP_Error short-
+	 * circuits the request with the appropriate HTTP status.
+	 *
+	 * @param WP_REST_Request $request Request object.
+	 * @return true|WP_Error
+	 */
+	public function verifySubmissionNonce( WP_REST_Request $request ) {
+		$formId = $request->get_param( 'formId' );
+		$nonce  = $request->get_param( 'nonce' );
+
+		if ( ! $formId || ! $nonce ) {
+			return new WP_Error(
+				'missing_nonce',
+				esc_html__( 'Security check failed. Please refresh the page and try again.', 'swishfolio-core' ),
+				[ 'status' => 403 ]
+			);
+		}
+
+		if ( ! wp_verify_nonce( $nonce, 'swish_form_submit_' . $formId ) ) {
+			return new WP_Error(
+				'invalid_nonce',
+				esc_html__( 'Security check failed. Please refresh the page and try again.', 'swishfolio-core' ),
+				[ 'status' => 403 ]
+			);
+		}
+
+		return true;
+	}
+
+	/**
+	 * Handle form submission. Nonce is already verified in permission_callback.
 	 *
 	 * @param WP_REST_Request $request Request object.
 	 * @return WP_REST_Response|WP_Error
 	 */
 	public function handleSubmission( WP_REST_Request $request ) {
-		$formId = $request->get_param( 'formId' );
+		$formId   = $request->get_param( 'formId' );
 		$formType = $request->get_param( 'formType' );
-		$fields = $request->get_param( 'fields' );
-		$nonce = $request->get_param( 'nonce' );
-
-		// Verify nonce.
-		if ( ! wp_verify_nonce( $nonce, 'swish_form_submit_' . $formId ) ) {
-			return new WP_Error(
-				'invalid_nonce',
-				__( 'Security check failed. Please refresh the page and try again.', 'swishfolio-core' ),
-				[ 'status' => 403 ]
-			);
-		}
+		$fields   = $request->get_param( 'fields' );
 
 		// Rate limiting check (simple implementation using transients).
 		$ip = $this->getClientIp();

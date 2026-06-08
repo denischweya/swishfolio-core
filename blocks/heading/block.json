@@ -86,6 +86,14 @@
 			"type": "string",
 			"default": "large"
 		},
+		"headingFontSize": {
+			"type": "string",
+			"default": ""
+		},
+		"headingFontSizeCustom": {
+			"type": "string",
+			"default": ""
+		},
 		"headingStyle": {
 			"type": "string",
 			"default": "normal"

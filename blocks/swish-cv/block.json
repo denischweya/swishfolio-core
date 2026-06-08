@@ -1,0 +1,51 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "swishfolio-core/swish-cv",
+	"version": "1.0.0",
+	"title": "Swish CV",
+	"category": "swishfolio",
+	"description": "A timeline list of CV entries: year range, role at company, description, and location. Pair with the Custom Heading block above for a title + intro.",
+	"keywords": [ "cv", "resume", "timeline", "experience", "history" ],
+	"textdomain": "swishfolio-core",
+	"attributes": {
+		"accentColor": {
+			"type": "string",
+			"default": ""
+		},
+		"titleColor": {
+			"type": "string",
+			"default": ""
+		},
+		"rows": {
+			"type": "array",
+			"default": [
+				{
+					"year": "2024 — Now",
+					"role": "Independent",
+					"atCompany": "— self-employed",
+					"description": "Design and front-end engagements for early-stage startups and cultural institutions.",
+					"location": "Remote"
+				},
+				{
+					"year": "2022 — 2024",
+					"role": "Design Lead",
+					"atCompany": "— Company",
+					"description": "Built the design system, the marketing site, and a small team. Shipped weekly.",
+					"location": "City"
+				}
+			]
+		}
+	},
+	"supports": {
+		"align": [ "wide", "full" ],
+		"html": false,
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}

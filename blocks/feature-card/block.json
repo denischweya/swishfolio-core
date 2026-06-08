@@ -1,0 +1,43 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "swishfolio-core/feature-card",
+	"version": "1.0.0",
+	"title": "Feature Card",
+	"category": "swishfolio",
+	"description": "A single card inside a Features block. Inherits the parent's global styles; per-card overrides win when set.",
+	"keywords": [ "feature", "card", "module" ],
+	"textdomain": "swishfolio-core",
+	"parent": [ "swishfolio-core/features" ],
+	"attributes": {
+		"subheading": { "type": "string", "default": "MODULE 01" },
+		"title": { "type": "string", "default": "Feature Title" },
+		"titleTag": { "type": "string", "default": "h3" },
+		"description": { "type": "string", "default": "Feature description goes here..." },
+		"icon": { "type": "object", "default": { "type": "library", "value": "star" } },
+		"ctaType": { "type": "string", "default": "link" },
+		"ctaText": { "type": "string", "default": "Learn More" },
+		"ctaUrl": { "type": "string", "default": "" },
+		"cardSize": { "type": "string", "default": "medium" },
+		"cardStyle": { "type": "string", "default": "default" },
+		"backgroundImage": { "type": "object", "default": {} },
+		"backgroundImagePosition": { "type": "string", "default": "center center" },
+		"overlayColor": { "type": "string", "default": "" },
+		"overlayOpacity": { "type": "number", "default": 50 },
+		"titleFontSize": { "type": "string", "default": "" },
+		"subheadingFontSize": { "type": "string", "default": "" },
+		"titleColor": { "type": "string", "default": "" },
+		"iconColor": { "type": "string", "default": "" },
+		"iconBackgroundColor": { "type": "string", "default": "" },
+		"ctaTextColor": { "type": "string", "default": "" },
+		"ctaBackgroundColor": { "type": "string", "default": "" },
+		"cardBackgroundColor": { "type": "string", "default": "" },
+		"cardAccentColor": { "type": "string", "default": "" }
+	},
+	"supports": {
+		"html": false,
+		"reusable": false
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css"
+}

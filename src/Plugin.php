@@ -15,11 +15,14 @@ use SwishfolioCore\Blocks\LatestPostsBlock;
 use SwishfolioCore\Blocks\TestimonialsBlock;
 use SwishfolioCore\Blocks\FaqBlock;
 use SwishfolioCore\Blocks\FeaturesBlock;
+use SwishfolioCore\Blocks\FeatureCardBlock;
 use SwishfolioCore\Blocks\BentoCardsBlock;
 use SwishfolioCore\Blocks\SwishGalleryBlock;
 use SwishfolioCore\Blocks\SwishFormBlock;
 use SwishfolioCore\Blocks\SwishSocialsBlock;
 use SwishfolioCore\Blocks\PricingBlock;
+use SwishfolioCore\Blocks\SwishCvBlock;
+use SwishfolioCore\Blocks\SwishLinksBlock;
 use SwishfolioCore\PostTypes\ProjectPostType;
 use SwishfolioCore\PostTypes\TestimonialPostType;
 use SwishfolioCore\Forms\FormEntryPostType;
@@ -31,6 +34,7 @@ use SwishfolioCore\Email\EmailService;
 use SwishfolioCore\Email\EspManager;
 use SwishfolioCore\Services\SvgSupport;
 use SwishfolioCore\Extensions\ColumnsExtension;
+use SwishfolioCore\Extensions\ButtonExtension;
 
 /**
  * Plugin orchestrator - boots and wires all components.
@@ -101,6 +105,13 @@ class Plugin
     private ?ColumnsExtension $columnsExtension = null;
 
     /**
+     * Button extension instance.
+     *
+     * @var ButtonExtension|null
+     */
+    private ?ButtonExtension $buttonExtension = null;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -128,6 +139,9 @@ class Plugin
 
         // Initialize columns extension.
         $this->columnsExtension = new ColumnsExtension();
+
+        // Initialize button extension.
+        $this->buttonExtension = new ButtonExtension();
     }
 
     /**
@@ -173,11 +187,14 @@ class Plugin
             new TestimonialsBlock(),
             new FaqBlock(),
             new FeaturesBlock(),
+            new FeatureCardBlock(),
             new BentoCardsBlock(),
             new SwishGalleryBlock(),
             new SwishFormBlock(),
             new SwishSocialsBlock(),
             new PricingBlock(),
+            new SwishCvBlock(),
+            new SwishLinksBlock(),
         ];
     }
 
@@ -201,8 +218,19 @@ class Plugin
         // Register blocks.
         add_action('init', [ $this, 'initBlocks' ]);
 
+        // Register block patterns.
+        add_action('init', [ $this, 'initBlockPatterns' ]);
+
         // Enqueue editor assets.
         add_action('enqueue_block_editor_assets', [ $this, 'enqueueEditorAssets' ]);
+
+        // Register WP-CLI commands.
+        if (defined('WP_CLI') && \WP_CLI) {
+            \WP_CLI::add_command(
+                'swishfolio migrate-colors',
+                \SwishfolioCore\Commands\MigrateColorsCommand::class
+            );
+        }
     }
 
     /**
@@ -273,6 +301,64 @@ class Plugin
         foreach ($this->blocks as $block) {
             $block->register();
         }
+    }
+
+    /**
+     * Register block patterns.
+     *
+     * Patterns are scoped to specific blocks via "blockTypes" so they surface
+     * in that block's Advanced tab pattern list.
+     *
+     * @return void
+     */
+    public function initBlockPatterns(): void
+    {
+        if (! function_exists('register_block_pattern')) {
+            return;
+        }
+
+        if (function_exists('register_block_pattern_category')) {
+            register_block_pattern_category(
+                'swishfolio',
+                [ 'label' => __('Swishfolio', 'swishfolio-core') ]
+            );
+        }
+
+        // Pattern markup lives in /patterns/*.html as static block-comment
+        // markup. We load it via file_get_contents (local file, never a URL —
+        // this is not a remote call) and register through the standard
+        // pattern API. WordPress.org review guidelines forbid HEREDOC for
+        // HTML because the linter cannot inspect what's inside.
+        $features_showcase_file = SFCORE_PLUGIN_DIR . 'patterns/features-showcase.html';
+        $features_showcase      = is_readable($features_showcase_file)
+            ? file_get_contents($features_showcase_file)
+            : '';
+
+        if ('' !== $features_showcase) {
+            register_block_pattern(
+                'swishfolio-core/features-showcase',
+                [
+                    'title'      => __('Features: Showcase', 'swishfolio-core'),
+                    'categories' => [ 'swishfolio' ],
+                    'blockTypes' => [ 'swishfolio-core/features' ],
+                    'content'    => $features_showcase,
+                ]
+            );
+        }
+
+        // Pass pattern screenshot URLs to the Features editor script so the
+        // Advanced tab can show a preview image instead of a plain button.
+        $handle = generate_block_asset_handle('swishfolio-core/features', 'editorScript');
+
+        wp_localize_script(
+            $handle,
+            'sfcoreFeaturesData',
+            [
+                'patternPreviews' => [
+                    'swishfolio-core/features-showcase' => SFCORE_PLUGIN_URL . 'assets/images/patterns/features-showcase.png',
+                ],
+            ]
+        );
     }
 
     /**

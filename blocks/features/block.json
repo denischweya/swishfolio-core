@@ -2,87 +2,26 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "swishfolio-core/features",
-	"version": "1.2.0",
+	"version": "2.0.0",
 	"title": "Features",
 	"category": "swishfolio",
-	"description": "A bento-grid style features section with customizable cards, icons, and CTAs.",
+	"description": "A bento-grid features section. Each card is a child Feature Card block; the parent holds global styles inherited by its cards.",
 	"keywords": [ "features", "bento", "grid", "cards", "modules" ],
 	"textdomain": "swishfolio-core",
 	"attributes": {
-		"featureItems": {
-			"type": "array",
-			"default": [
-				{
-					"id": "feature-1",
-					"subheading": "MODULE 01",
-					"title": "Feature Title",
-					"titleTag": "h3",
-					"description": "Feature description goes here...",
-					"icon": { "type": "library", "value": "star" },
-					"ctaType": "link",
-					"ctaText": "Learn More",
-					"ctaUrl": "",
-					"cardSize": "medium",
-					"cardStyle": "default",
-					"backgroundImage": {},
-					"backgroundImagePosition": "center center",
-					"overlayColor": "",
-					"overlayOpacity": 50
-				}
-			]
-		},
-		"gridGap": {
-			"type": "string",
-			"default": "2rem"
-		},
-		"cardBorderStyle": {
-			"type": "string",
-			"default": "solid"
-		},
-		"cardBorderColor": {
-			"type": "string",
-			"default": ""
-		},
-		"cardShadowColor": {
-			"type": "string",
-			"default": ""
-		},
-		"titleFontSize": {
-			"type": "string",
-			"default": ""
-		},
-		"subheadingFontSize": {
-			"type": "string",
-			"default": ""
-		},
-		"titleColor": {
-			"type": "string",
-			"default": ""
-		},
-		"iconColor": {
-			"type": "string",
-			"default": ""
-		},
-		"iconBackgroundColor": {
-			"type": "string",
-			"default": ""
-		},
-		"ctaTextColor": {
-			"type": "string",
-			"default": ""
-		},
-		"ctaBackgroundColor": {
-			"type": "string",
-			"default": ""
-		},
-		"cardBackgroundColor": {
-			"type": "string",
-			"default": ""
-		},
-		"cardAccentColor": {
-			"type": "string",
-			"default": ""
-		}
+		"gridGap": { "type": "string", "default": "2rem" },
+		"cardBorderStyle": { "type": "string", "default": "solid" },
+		"cardBorderColor": { "type": "string", "default": "" },
+		"cardShadowColor": { "type": "string", "default": "" },
+		"titleFontSize": { "type": "string", "default": "" },
+		"subheadingFontSize": { "type": "string", "default": "" },
+		"titleColor": { "type": "string", "default": "" },
+		"iconColor": { "type": "string", "default": "" },
+		"iconBackgroundColor": { "type": "string", "default": "" },
+		"ctaTextColor": { "type": "string", "default": "" },
+		"ctaBackgroundColor": { "type": "string", "default": "" },
+		"cardBackgroundColor": { "type": "string", "default": "" },
+		"cardAccentColor": { "type": "string", "default": "" }
 	},
 	"supports": {
 		"align": [ "wide", "full" ],

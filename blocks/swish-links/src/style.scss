@@ -1,0 +1,143 @@
+@import '../../_shared/variables';
+
+// ==============================================
+// SWISH LINKS BLOCK
+// ==============================================
+//
+// Inline-flex list of styled text links with optional handle (e.g. "/sasha")
+// and icon. Hover behaviour is variant-selectable; the icon, if present,
+// always shifts in its direction on hover.
+
+.wp-block-swishfolio-core-swish-links.sfcore-links {
+	display: inline-flex;
+	flex-wrap: wrap;
+	// flex-direction and gap are set inline by save() from block attrs.
+	align-items: center;
+}
+
+.sfcore-link {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-family: var(--wp--preset--font-family--geist,
+		var(--wp--preset--font-family--body, inherit));
+	font-weight: 500;
+	font-size: 14px;
+	color: var(--wp--preset--color--contrast);
+	text-decoration: none;
+	transition:
+		color var(--sfcore-link-duration, 0.25s) ease,
+		opacity 0.2s ease;
+}
+
+.sfcore-link__text {
+	display: inline-block;
+}
+
+.sfcore-link__handle {
+	font-family: var(--wp--preset--font-family--jetbrains-mono,
+		var(--wp--preset--font-family--mono, ui-monospace, Menlo, monospace));
+	font-size: 11px;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--accent-3);
+	transition: color 0.25s ease;
+}
+
+.sfcore-link__icon {
+	display: inline-flex;
+	align-items: center;
+	line-height: 0;
+	color: var(--wp--preset--color--accent-3);
+	transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.sfcore-link__icon svg {
+	display: block;
+	width: 1em;
+	height: 1em;
+}
+
+// Icon shift on hover — direction matches iconPosition.
+.sfcore-link:hover .sfcore-link__icon--after,
+.sfcore-link:focus-visible .sfcore-link__icon--after {
+	transform: translate(3px, -3px);
+}
+
+.sfcore-link:hover .sfcore-link__icon--before,
+.sfcore-link:focus-visible .sfcore-link__icon--before {
+	transform: translateX(-3px);
+}
+
+// ---- Hover variants ----
+
+// `none` — no decorative change on hover; only the icon shift (if any) plays.
+
+// `underline` — plain text-decoration underline.
+.sfcore-links--hover-underline .sfcore-link:hover,
+.sfcore-links--hover-underline .sfcore-link:focus-visible {
+	text-decoration: underline;
+	text-underline-offset: 4px;
+	text-decoration-thickness: 1px;
+}
+
+// `underline-grow` — animated bar grows from left to right under text only.
+.sfcore-links--hover-underline-grow .sfcore-link__text {
+	position: relative;
+}
+
+.sfcore-links--hover-underline-grow .sfcore-link__text::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -4px;
+	height: 1px;
+	background: currentColor;
+	transform: scaleX(0);
+	transform-origin: left center;
+	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sfcore-links--hover-underline-grow .sfcore-link:hover .sfcore-link__text::after,
+.sfcore-links--hover-underline-grow .sfcore-link:focus-visible .sfcore-link__text::after {
+	transform: scaleX(1);
+}
+
+// `color` — link color shifts to the user-picked hover color (or theme accent).
+.sfcore-links--hover-color .sfcore-link:hover,
+.sfcore-links--hover-color .sfcore-link:focus-visible {
+	color: var(--swish-links-hover-color, var(--wp--preset--color--accent-1));
+}
+
+.sfcore-links--hover-color .sfcore-link:hover .sfcore-link__handle,
+.sfcore-links--hover-color .sfcore-link:focus-visible .sfcore-link__handle,
+.sfcore-links--hover-color .sfcore-link:hover .sfcore-link__icon,
+.sfcore-links--hover-color .sfcore-link:focus-visible .sfcore-link__icon {
+	color: var(--swish-links-hover-color, var(--wp--preset--color--accent-1));
+}
+
+// Any variant: if hoverColor was set, apply it on hover.
+.sfcore-link:hover,
+.sfcore-link:focus-visible {
+	color: var(--swish-links-hover-color, inherit);
+}
+
+.sfcore-link:hover .sfcore-link__handle,
+.sfcore-link:focus-visible .sfcore-link__handle,
+.sfcore-link:hover .sfcore-link__icon,
+.sfcore-link:focus-visible .sfcore-link__icon {
+	color: var(--swish-links-hover-color, inherit);
+}
+
+// Reduced motion: disable transforms.
+@media (prefers-reduced-motion: reduce) {
+	.sfcore-link,
+	.sfcore-link__icon,
+	.sfcore-link__handle,
+	.sfcore-link__text::after {
+		transition: none !important;
+		transform: none !important;
+	}
+}

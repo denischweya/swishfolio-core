@@ -1,0 +1,12 @@
+/**
+ * Feature Card editor-only styles.
+ *
+ * Frontend styles for .sfcore-features__card live in the parent Features
+ * block stylesheet so the markup looks identical on the front end.
+ */
+
+// Make individual feature-card blocks behave as grid items in the editor
+// preview the same way they do on the front end.
+.wp-block-swishfolio-core-feature-card {
+	display: contents;
+}

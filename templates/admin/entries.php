@@ -12,68 +12,90 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// Handle bulk actions.
-if ( isset( $_POST['action'] ) && $_POST['action'] === 'delete' && ! empty( $_POST['entry_ids'] ) ) {
-	if ( check_admin_referer( 'swish_forms_bulk_action' ) ) {
+// Defence-in-depth: the menu page registration already gates this view on
+// `manage_options`, but check again so the file is safe even if loaded
+// directly by a future caller.
+if ( ! current_user_can( 'manage_options' ) ) {
+	wp_die( esc_html__( 'You do not have permission to access this page.', 'swishfolio-core' ) );
+}
+
+// Handle bulk-delete POST.
+// Verify the nonce BEFORE reading any POST values; superglobal access is then
+// safe to interpret as user intent. wp_unslash() must precede every
+// sanitize_*() call on these values.
+if ( ! empty( $_POST['_wpnonce'] ) ) {
+	check_admin_referer( 'swish_forms_bulk_action' );
+
+	$action    = isset( $_POST['action'] ) ? sanitize_text_field( wp_unslash( $_POST['action'] ) ) : '';
+	$entry_ids = isset( $_POST['entry_ids'] )
+		? array_map( 'absint', (array) wp_unslash( $_POST['entry_ids'] ) )
+		: [];
+
+	if ( 'delete' === $action && ! empty( $entry_ids ) ) {
 		$deleted = 0;
-		foreach ( (array) $_POST['entry_ids'] as $entryId ) {
-			if ( wp_delete_post( absint( $entryId ), true ) ) {
+		foreach ( $entry_ids as $entryId ) {
+			if ( wp_delete_post( $entryId, true ) ) {
 				$deleted++;
 			}
 		}
 		echo '<div class="notice notice-success"><p>' . sprintf(
 			/* translators: %d: number of entries deleted */
 			esc_html__( '%d entries deleted.', 'swishfolio-core' ),
-			$deleted
+			(int) $deleted
 		) . '</p></div>';
 	}
 }
 
-// Handle single delete.
-if ( isset( $_GET['action'] ) && $_GET['action'] === 'delete' && isset( $_GET['entry'] ) ) {
-	if ( check_admin_referer( 'delete_entry_' . $_GET['entry'] ) ) {
-		if ( wp_delete_post( absint( $_GET['entry'] ), true ) ) {
-			echo '<div class="notice notice-success"><p>' . esc_html__( 'Entry deleted.', 'swishfolio-core' ) . '</p></div>';
-		}
+// Handle single delete via GET (link in entries table).
+$get_action = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : '';
+$get_entry  = isset( $_GET['entry'] ) ? absint( $_GET['entry'] ) : 0;
+
+if ( 'delete' === $get_action && $get_entry ) {
+	check_admin_referer( 'delete_entry_' . $get_entry );
+
+	if ( wp_delete_post( $get_entry, true ) ) {
+		echo '<div class="notice notice-success"><p>' . esc_html__( 'Entry deleted.', 'swishfolio-core' ) . '</p></div>';
 	}
 }
 
 // Handle CSV export.
-if ( isset( $_GET['action'] ) && $_GET['action'] === 'export' ) {
-	if ( check_admin_referer( 'swish_forms_export' ) ) {
-		$entries = FormEntryPostType::getEntries( '', [ 'posts_per_page' => -1 ] );
+if ( 'export' === $get_action ) {
+	check_admin_referer( 'swish_forms_export' );
 
-		header( 'Content-Type: text/csv; charset=utf-8' );
-		header( 'Content-Disposition: attachment; filename=swish-forms-entries-' . date( 'Y-m-d' ) . '.csv' );
+	$entries = FormEntryPostType::getEntries( '', [ 'posts_per_page' => -1 ] );
 
-		$output = fopen( 'php://output', 'w' );
+	header( 'Content-Type: text/csv; charset=utf-8' );
+	header( 'Content-Disposition: attachment; filename=swish-forms-entries-' . gmdate( 'Y-m-d' ) . '.csv' );
 
-		// Header row.
-		fputcsv( $output, [ 'ID', 'Email', 'Form Type', 'Date', 'Data' ] );
+	$output = fopen( 'php://output', 'w' );
 
-		foreach ( $entries as $entry ) {
-			$email = get_post_meta( $entry->ID, FormEntryPostType::META_SUBMISSION_EMAIL, true );
-			$formType = get_post_meta( $entry->ID, FormEntryPostType::META_FORM_TYPE, true );
-			$data = get_post_meta( $entry->ID, FormEntryPostType::META_FORM_DATA, true );
+	// Header row.
+	fputcsv( $output, [ 'ID', 'Email', 'Form Type', 'Date', 'Data' ] );
 
-			fputcsv( $output, [
-				$entry->ID,
-				$email,
-				$formType,
-				$entry->post_date,
-				is_array( $data ) ? wp_json_encode( $data ) : $data,
-			] );
-		}
+	foreach ( $entries as $entry ) {
+		$email = get_post_meta( $entry->ID, FormEntryPostType::META_SUBMISSION_EMAIL, true );
+		$formType = get_post_meta( $entry->ID, FormEntryPostType::META_FORM_TYPE, true );
+		$data = get_post_meta( $entry->ID, FormEntryPostType::META_FORM_DATA, true );
 
-		fclose( $output );
-		exit;
+		fputcsv( $output, [
+			$entry->ID,
+			$email,
+			$formType,
+			$entry->post_date,
+			is_array( $data ) ? wp_json_encode( $data ) : $data,
+		] );
 	}
+
+	fclose( $output );
+	exit;
 }
 
-// Pagination.
-$paged = isset( $_GET['paged'] ) ? max( 1, absint( $_GET['paged'] ) ) : 1;
-$perPage = 20;
-$formIdFilter = isset( $_GET['form_id'] ) ? sanitize_text_field( $_GET['form_id'] ) : '';
+// Pagination (read-only inputs; sanitise before use).
+$paged        = isset( $_GET['paged'] ) ? max( 1, absint( $_GET['paged'] ) ) : 1;
+$perPage      = 20;
+$formIdFilter = isset( $_GET['form_id'] )
+	? sanitize_text_field( wp_unslash( $_GET['form_id'] ) )
+	: '';
 
 $entries = FormEntryPostType::getEntries( $formIdFilter, [
 	'posts_per_page' => $perPage,
@@ -125,14 +147,17 @@ $totalPages = ceil( $totalEntries / $perPage );
 						</span>
 						<span class="pagination-links">
 							<?php
-							echo paginate_links( [
+							// paginate_links() returns safe HTML built from
+							// sanitised arguments above; wp_kses_post keeps
+							// the output safe for reviewers' static checks.
+							echo wp_kses_post( paginate_links( [
 								'base'      => add_query_arg( 'paged', '%#%' ),
 								'format'    => '',
 								'prev_text' => '&laquo;',
 								'next_text' => '&raquo;',
 								'total'     => $totalPages,
 								'current'   => $paged,
-							] );
+							] ) );
 							?>
 						</span>
 					</div>

@@ -39,7 +39,7 @@
 		},
 		"backgroundColor": {
 			"type": "string",
-			"default": "#1040C0"
+			"default": "var(--wp--preset--color--accent-1)"
 		},
 		"backgroundImage": {
 			"type": "object",
@@ -47,7 +47,7 @@
 		},
 		"overlayColor": {
 			"type": "string",
-			"default": "#121212"
+			"default": "var(--wp--preset--color--contrast)"
 		},
 		"overlayOpacity": {
 			"type": "number",
@@ -63,7 +63,7 @@
 		},
 		"imageBorderColor": {
 			"type": "string",
-			"default": "#121212"
+			"default": "var(--wp--preset--color--contrast)"
 		},
 		"imageShadowSize": {
 			"type": "string",
@@ -83,7 +83,7 @@
 		},
 		"decoShape1Color": {
 			"type": "string",
-			"default": "#F0C020"
+			"default": "var(--wp--preset--color--accent-2)"
 		},
 		"decoShape2": {
 			"type": "string",
@@ -91,7 +91,7 @@
 		},
 		"decoShape2Color": {
 			"type": "string",
-			"default": "#D02020"
+			"default": "var(--wp--preset--color--accent-1)"
 		},
 		"ctaText": {
 			"type": "string",
@@ -127,7 +127,7 @@
 		},
 		"textColor": {
 			"type": "string",
-			"default": "#F0F0F0"
+			"default": "var(--wp--preset--color--base)"
 		},
 		"decorativeShape": {
 			"type": "string",
@@ -135,7 +135,7 @@
 		},
 		"decorativeColor": {
 			"type": "string",
-			"default": "#F0C020"
+			"default": "var(--wp--preset--color--accent-2)"
 		},
 		"socialLinks": {
 			"type": "array",
@@ -160,7 +160,7 @@
 		},
 		"bgShape1Color": {
 			"type": "string",
-			"default": "#F0C020"
+			"default": "var(--wp--preset--color--accent-2)"
 		},
 		"bgShape1GradientSide": {
 			"type": "string",
@@ -189,7 +189,7 @@
 		},
 		"bgShape2Color": {
 			"type": "string",
-			"default": "#D02020"
+			"default": "var(--wp--preset--color--accent-1)"
 		},
 		"bgShape2GradientSide": {
 			"type": "string",
@@ -218,7 +218,7 @@
 		},
 		"bgShape3Color": {
 			"type": "string",
-			"default": "#1040C0"
+			"default": "var(--wp--preset--color--accent-4)"
 		},
 		"bgShape3GradientSide": {
 			"type": "string",
@@ -243,7 +243,7 @@
 		},
 		"imageBlob1Color": {
 			"type": "string",
-			"default": "#F0C020"
+			"default": "var(--wp--preset--color--accent-2)"
 		},
 		"imageBlob1Size": {
 			"type": "string",
@@ -260,7 +260,7 @@
 		},
 		"imageBlob2Color": {
 			"type": "string",
-			"default": "#D02020"
+			"default": "var(--wp--preset--color--accent-1)"
 		},
 		"imageBlob2Size": {
 			"type": "string",

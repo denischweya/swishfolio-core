@@ -26,6 +26,8 @@ export default function save( { attributes } ) {
 		headingBorderColor,
 		headingShadowSize,
 		headingSize,
+		headingFontSize,
+		headingFontSizeCustom,
 		headingStyle,
 		showHeading,
 
@@ -87,6 +89,9 @@ export default function save( { attributes } ) {
 		borderWidth: headingBorderStyle !== 'none' ? `${ headingBorderWidth }px` : undefined,
 		borderColor: headingBorderStyle !== 'none' ? headingBorderColor : undefined,
 		boxShadow: getShadow( headingShadowSize ),
+		// Preset slug applies via class on the heading element; only a custom
+		// font-size value lands as inline style here.
+		fontSize: ! headingFontSize && headingFontSizeCustom ? headingFontSizeCustom : undefined,
 	} );
 
 	const getSubHeadingStyles = () => ( {
@@ -99,10 +104,19 @@ export default function save( { attributes } ) {
 		boxShadow: getShadow( subHeadingShadowSize ),
 	} );
 
-	// Get heading classes
+	// Get heading classes — preset slug wins over legacy enum, custom wins via
+	// inline style (no class added in that branch). See edit.js for the same
+	// cascade comment.
 	const getHeadingClasses = () => {
 		const classes = [ 'sfcore-heading__main' ];
-		classes.push( `sfcore-heading__main--${ headingSize }` );
+
+		if ( headingFontSize ) {
+			classes.push( `has-${ headingFontSize }-font-size` );
+			classes.push( 'has-custom-font-size' );
+		} else if ( ! headingFontSizeCustom ) {
+			classes.push( `sfcore-heading__main--${ headingSize }` );
+		}
+
 		if ( headingStyle !== 'normal' ) {
 			classes.push( `sfcore-heading__main--${ headingStyle }` );
 		}

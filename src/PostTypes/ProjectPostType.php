@@ -189,7 +189,10 @@ class ProjectPostType extends AbstractPostType {
 	 */
 	public function saveMetaBox( int $post_id, \WP_Post $post ): void {
 		// Verify nonce.
-		if ( ! isset( $_POST['sfcore_project_meta_nonce'] ) || ! wp_verify_nonce( $_POST['sfcore_project_meta_nonce'], 'sfcore_project_meta' ) ) {
+		$nonce = isset( $_POST['sfcore_project_meta_nonce'] )
+			? sanitize_text_field( wp_unslash( $_POST['sfcore_project_meta_nonce'] ) )
+			: '';
+		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'sfcore_project_meta' ) ) {
 			return;
 		}
 
@@ -205,27 +208,27 @@ class ProjectPostType extends AbstractPostType {
 
 		// Save completion date.
 		if ( isset( $_POST['sfcore_completion_date'] ) ) {
-			update_post_meta( $post_id, '_sfcore_completion_date', sanitize_text_field( $_POST['sfcore_completion_date'] ) );
+			update_post_meta( $post_id, '_sfcore_completion_date', sanitize_text_field( wp_unslash( $_POST['sfcore_completion_date'] ) ) );
 		}
 
 		// Save project status.
 		if ( isset( $_POST['sfcore_project_status'] ) ) {
-			update_post_meta( $post_id, '_sfcore_project_status', $this->sanitizeProjectStatus( $_POST['sfcore_project_status'] ) );
+			update_post_meta( $post_id, '_sfcore_project_status', $this->sanitizeProjectStatus( wp_unslash( $_POST['sfcore_project_status'] ) ) );
 		}
 
 		// Save client name.
 		if ( isset( $_POST['sfcore_client_name'] ) ) {
-			update_post_meta( $post_id, '_sfcore_client_name', sanitize_text_field( $_POST['sfcore_client_name'] ) );
+			update_post_meta( $post_id, '_sfcore_client_name', sanitize_text_field( wp_unslash( $_POST['sfcore_client_name'] ) ) );
 		}
 
 		// Save project URL.
 		if ( isset( $_POST['sfcore_project_url'] ) ) {
-			update_post_meta( $post_id, '_sfcore_project_url', esc_url_raw( $_POST['sfcore_project_url'] ) );
+			update_post_meta( $post_id, '_sfcore_project_url', esc_url_raw( wp_unslash( $_POST['sfcore_project_url'] ) ) );
 		}
 
 		// Save skills (convert comma-separated string to array).
 		if ( isset( $_POST['sfcore_skills'] ) ) {
-			$skills_string = sanitize_text_field( $_POST['sfcore_skills'] );
+			$skills_string = sanitize_text_field( wp_unslash( $_POST['sfcore_skills'] ) );
 			$skills_array  = array_map( 'trim', explode( ',', $skills_string ) );
 			$skills_array  = array_filter( $skills_array ); // Remove empty values.
 			update_post_meta( $post_id, '_sfcore_skills', $skills_array );

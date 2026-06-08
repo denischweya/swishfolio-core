@@ -1,0 +1,180 @@
+/**
+ * Button Extension — frontend styles.
+ *
+ * Icon spacing + 4 hover animations + hover color overrides.
+ * Classes are added to .wp-block-button by ButtonExtension::renderBlock().
+ *
+ * All animations have transitions on the BASE state so both mouse-in and
+ * mouse-out animate symmetrically. Durations use 0.3s with a symmetric easing
+ * (`ease-in-out`) so the return reads as cleanly as the entry.
+ */
+
+:root {
+	--sfcore-btn-anim-duration: 0.3s;
+	--sfcore-btn-anim-easing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ----- Icon layout ----- */
+.wp-block-button.sfcore-btn--has-icon .wp-block-button__link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5em;
+}
+
+.sfcore-btn-icon {
+	display: inline-flex;
+	align-items: center;
+	line-height: 0;
+	flex-shrink: 0;
+	transition: transform var(--sfcore-btn-anim-duration) var(--sfcore-btn-anim-easing);
+	will-change: transform;
+}
+
+.sfcore-btn-icon svg {
+	display: block;
+	width: 1em;
+	height: 1em;
+}
+
+/* ----- Hover color overrides -----
+ * !important here because core/button writes background-color and color
+ * inline on .wp-block-button__link (preset class or style attr); without it
+ * the user-set hover colour can't win the cascade.
+ *
+ * Slide animation paints the hover bg via the `::before` sweep, not by
+ * swapping the link's own bg — otherwise the link snaps instantly to the
+ * hover colour and the sweep happens invisibly under it. So the bg-swap
+ * rule excludes the slide variant; text colour swap still applies to all.
+ */
+.wp-block-button.sfcore-btn--has-hover .wp-block-button__link {
+	transition:
+		background-color var(--sfcore-btn-anim-duration) var(--sfcore-btn-anim-easing),
+		color var(--sfcore-btn-anim-duration) var(--sfcore-btn-anim-easing),
+		border-color var(--sfcore-btn-anim-duration) var(--sfcore-btn-anim-easing),
+		transform var(--sfcore-btn-anim-duration) var(--sfcore-btn-anim-easing),
+		box-shadow var(--sfcore-btn-anim-duration) var(--sfcore-btn-anim-easing);
+}
+
+.wp-block-button.sfcore-btn--has-hover .wp-block-button__link:hover,
+.wp-block-button.sfcore-btn--has-hover .wp-block-button__link:focus-visible {
+	color: var(--sfcore-btn-hover-text, inherit) !important;
+}
+
+.wp-block-button.sfcore-btn--has-hover:not(.sfcore-btn--anim-slide) .wp-block-button__link:hover,
+.wp-block-button.sfcore-btn--has-hover:not(.sfcore-btn--anim-slide) .wp-block-button__link:focus-visible {
+	background-color: var(--sfcore-btn-hover-bg, inherit) !important;
+}
+
+/* ----- Animations ----- */
+
+/* Lift — translate up + soft shadow. */
+.wp-block-button.sfcore-btn--anim-lift .wp-block-button__link {
+	transition:
+		transform var(--sfcore-btn-anim-duration) var(--sfcore-btn-anim-easing),
+		box-shadow var(--sfcore-btn-anim-duration) var(--sfcore-btn-anim-easing),
+		background-color var(--sfcore-btn-anim-duration) var(--sfcore-btn-anim-easing),
+		color var(--sfcore-btn-anim-duration) var(--sfcore-btn-anim-easing);
+	will-change: transform, box-shadow;
+}
+
+.wp-block-button.sfcore-btn--anim-lift .wp-block-button__link:hover,
+.wp-block-button.sfcore-btn--anim-lift .wp-block-button__link:focus-visible {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.wp-block-button.sfcore-btn--anim-lift .wp-block-button__link:active {
+	transform: translateY(0);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	transition-duration: 0.1s;
+}
+
+/* Scale — slight grow on hover. */
+.wp-block-button.sfcore-btn--anim-scale .wp-block-button__link {
+	transition:
+		transform var(--sfcore-btn-anim-duration) var(--sfcore-btn-anim-easing),
+		background-color var(--sfcore-btn-anim-duration) var(--sfcore-btn-anim-easing),
+		color var(--sfcore-btn-anim-duration) var(--sfcore-btn-anim-easing);
+	will-change: transform;
+}
+
+.wp-block-button.sfcore-btn--anim-scale .wp-block-button__link:hover,
+.wp-block-button.sfcore-btn--anim-scale .wp-block-button__link:focus-visible {
+	transform: scale(1.04);
+}
+
+.wp-block-button.sfcore-btn--anim-scale .wp-block-button__link:active {
+	transform: scale(0.98);
+	transition-duration: 0.1s;
+}
+
+/*
+ * Slide — bg panel slides IN on hover, slides back OUT on mouse-out
+ * along the same axis (the entry motion played in reverse).
+ *   IN  : panel slides from the LEFT edge to fill the button
+ *   OUT : panel slides back LEFT, returning to its hidden position
+ *
+ * One pseudo, one translateX, one transition. The same `transition`
+ * declaration on the base state drives both directions, so mouse-out is
+ * the time-reverse of mouse-in.
+ */
+.wp-block-button.sfcore-btn--anim-slide .wp-block-button__link {
+	position: relative;
+	overflow: hidden;
+	isolation: isolate;
+	z-index: 0;
+	transition: color var(--sfcore-btn-anim-duration) var(--sfcore-btn-anim-easing);
+}
+
+.wp-block-button.sfcore-btn--anim-slide .wp-block-button__link::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: var(--sfcore-btn-hover-bg, currentColor);
+	transform: translateX(-101%);
+	transition: transform var(--sfcore-btn-anim-duration) var(--sfcore-btn-anim-easing);
+	z-index: -1;
+	will-change: transform;
+}
+
+.wp-block-button.sfcore-btn--anim-slide .wp-block-button__link:hover::before,
+.wp-block-button.sfcore-btn--anim-slide .wp-block-button__link:focus-visible::before {
+	transform: translateX(0);
+}
+
+/*
+ * Shift — icon translates in its direction; whole label if no icon.
+ * Transition lives on .sfcore-btn-icon (declared above) and on the link
+ * itself, so the slide back to origin is animated on mouse-out.
+ */
+.wp-block-button.sfcore-btn--anim-shift .wp-block-button__link {
+	transition:
+		transform var(--sfcore-btn-anim-duration) var(--sfcore-btn-anim-easing),
+		background-color var(--sfcore-btn-anim-duration) var(--sfcore-btn-anim-easing),
+		color var(--sfcore-btn-anim-duration) var(--sfcore-btn-anim-easing);
+}
+
+.wp-block-button.sfcore-btn--anim-shift .wp-block-button__link:hover .sfcore-btn-icon--after,
+.wp-block-button.sfcore-btn--anim-shift .wp-block-button__link:focus-visible .sfcore-btn-icon--after {
+	transform: translateX(4px);
+}
+
+.wp-block-button.sfcore-btn--anim-shift .wp-block-button__link:hover .sfcore-btn-icon--before,
+.wp-block-button.sfcore-btn--anim-shift .wp-block-button__link:focus-visible .sfcore-btn-icon--before {
+	transform: translateX(-4px);
+}
+
+.wp-block-button.sfcore-btn--anim-shift:not(.sfcore-btn--has-icon) .wp-block-button__link:hover,
+.wp-block-button.sfcore-btn--anim-shift:not(.sfcore-btn--has-icon) .wp-block-button__link:focus-visible {
+	transform: translateX(4px);
+}
+
+/* Reduced motion: disable transforms + transitions across all variants. */
+@media (prefers-reduced-motion: reduce) {
+	.wp-block-button[class*="sfcore-btn--anim-"] .wp-block-button__link,
+	.wp-block-button[class*="sfcore-btn--anim-"] .wp-block-button__link::before,
+	.wp-block-button[class*="sfcore-btn--anim-"] .wp-block-button__link .sfcore-btn-icon {
+		transition: none !important;
+		transform: none !important;
+	}
+}

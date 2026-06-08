@@ -56,44 +56,50 @@ $providers = [
 	],
 ];
 
-// Handle form submission.
+// Handle form submission. Nonce first, then unslash + sanitise each value.
 if ( isset( $_POST['swish_forms_esp_submit'] ) ) {
-	if ( check_admin_referer( 'swish_forms_esp_settings' ) ) {
-		$activeProvider = sanitize_text_field( $_POST['active_provider'] ?? 'none' );
+	check_admin_referer( 'swish_forms_esp_settings' );
 
-		$newSettings = [
-			'active_provider' => $activeProvider,
-		];
+	if ( ! current_user_can( 'manage_options' ) ) {
+		wp_die( esc_html__( 'You do not have permission to access this page.', 'swishfolio-core' ) );
+	}
 
-		// Save each provider's credentials.
-		foreach ( $providers as $slug => $provider ) {
-			$providerSettings = [];
-			foreach ( array_keys( $provider['fields'] ) as $field ) {
-				$fieldName = $slug . '_' . $field;
-				$value = $_POST[ $fieldName ] ?? '';
+	$activeProvider = sanitize_text_field( wp_unslash( $_POST['active_provider'] ?? 'none' ) );
 
-				// Only update if not empty, otherwise keep existing.
-				if ( ! empty( $value ) ) {
-					$providerSettings[ $field ] = $encryption->encrypt( $value );
-				} elseif ( isset( $settings[ $slug ][ $field ] ) ) {
-					$providerSettings[ $field ] = $settings[ $slug ][ $field ];
-				}
+	$newSettings = [
+		'active_provider' => $activeProvider,
+	];
+
+	// Save each provider's credentials.
+	foreach ( $providers as $slug => $provider ) {
+		$providerSettings = [];
+		foreach ( array_keys( $provider['fields'] ) as $field ) {
+			$fieldName = $slug . '_' . $field;
+			$value     = isset( $_POST[ $fieldName ] )
+				? sanitize_text_field( wp_unslash( $_POST[ $fieldName ] ) )
+				: '';
+
+			// Only update if not empty, otherwise keep existing.
+			if ( '' !== $value ) {
+				$providerSettings[ $field ] = $encryption->encrypt( $value );
+			} elseif ( isset( $settings[ $slug ][ $field ] ) ) {
+				$providerSettings[ $field ] = $settings[ $slug ][ $field ];
 			}
-
-			// Save list ID if set.
-			$listIdField = $slug . '_list_id';
-			if ( isset( $_POST[ $listIdField ] ) ) {
-				$providerSettings['list_id'] = sanitize_text_field( $_POST[ $listIdField ] );
-			}
-
-			$newSettings[ $slug ] = $providerSettings;
 		}
 
-		update_option( 'swish_forms_esp_settings', $newSettings );
-		$settings = $newSettings;
+		// Save list ID if set.
+		$listIdField = $slug . '_list_id';
+		if ( isset( $_POST[ $listIdField ] ) ) {
+			$providerSettings['list_id'] = sanitize_text_field( wp_unslash( $_POST[ $listIdField ] ) );
+		}
 
-		echo '<div class="notice notice-success"><p>' . esc_html__( 'Settings saved.', 'swishfolio-core' ) . '</p></div>';
+		$newSettings[ $slug ] = $providerSettings;
 	}
+
+	update_option( 'swish_forms_esp_settings', $newSettings );
+	$settings = $newSettings;
+
+	echo '<div class="notice notice-success"><p>' . esc_html__( 'Settings saved.', 'swishfolio-core' ) . '</p></div>';
 }
 
 $activeProvider = $settings['active_provider'] ?? 'none';

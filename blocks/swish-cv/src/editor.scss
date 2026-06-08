@@ -1,0 +1,31 @@
+// Editor-only affordances for Swish CV.
+//
+// Visual cue for the currently-selected row so toolbar actions (move up/down,
+// remove) have a clear target. Highlight is subtle — doesn't shift layout.
+
+.wp-block-swishfolio-core-swish-cv {
+	&__row {
+		position: relative;
+		border-radius: 4px;
+		outline: 1px solid transparent;
+		outline-offset: 6px;
+		transition: outline-color 0.15s ease;
+	}
+
+	&__row.is-active {
+		outline-color: var(--wp-admin-theme-color, #007cba);
+	}
+
+	&__row [data-rich-text-placeholder]::before,
+	&__row [contenteditable]:empty::before {
+		opacity: 0.5;
+	}
+
+	&__add {
+		margin-top: 16px;
+		display: flex;
+		justify-content: center;
+		border-top: 1px dashed var(--wp--preset--color--accent-3);
+		padding-top: 16px;
+	}
+}

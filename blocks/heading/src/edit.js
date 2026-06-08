@@ -3,6 +3,7 @@
  */
 
 import { __ } from '@wordpress/i18n';
+import { useState } from '@wordpress/element';
 import {
 	useBlockProps,
 	RichText,
@@ -22,6 +23,7 @@ import {
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 	Icon,
+	FontSizePicker,
 } from '@wordpress/components';
 import {
 	starFilled,
@@ -123,6 +125,8 @@ export default function Edit( { attributes, setAttributes } ) {
 		headingBorderColor,
 		headingShadowSize,
 		headingSize,
+		headingFontSize,
+		headingFontSizeCustom,
 		headingStyle,
 		showHeading,
 
@@ -152,6 +156,24 @@ export default function Edit( { attributes, setAttributes } ) {
 		showBackgroundPattern,
 		backgroundPattern,
 	} = attributes;
+
+	// Theme.json font-size presets (merged across variations). Drives the
+	// FontSizePicker's preset chips; falls back to an empty list if the theme
+	// doesn't define any so the picker still works in custom-only mode.
+	const themeFontSizes = useSetting( 'typography.fontSizes' ) || [];
+
+	// Inspector panel that's currently expanded. Stored in Edit state so it
+	// survives setAttributes re-renders (fixes the "panel closes on any
+	// setting change" bug — PanelBody's internal state was being reset every
+	// time TextElementPanel/IconSettingsPanel were re-created). Clicking an
+	// editable element in the block also switches this, so the panel for the
+	// clicked element auto-expands.
+	const [ activePanel, setActivePanel ] = useState( 'heading' );
+
+	const panelProps = ( key ) => ( {
+		opened: activePanel === key,
+		onToggle: ( open ) => setActivePanel( open ? key : null ),
+	} );
 
 	// Helper function to generate shadow CSS
 	const getShadow = ( size ) => {
@@ -184,6 +206,9 @@ export default function Edit( { attributes, setAttributes } ) {
 		borderWidth: headingBorderStyle !== 'none' ? `${ headingBorderWidth }px` : undefined,
 		borderColor: headingBorderStyle !== 'none' ? headingBorderColor : undefined,
 		boxShadow: getShadow( headingShadowSize ),
+		// Custom font-size (no preset slug selected) is applied inline. Preset
+		// slugs apply via class on the heading element instead — see getHeadingClasses().
+		fontSize: ! headingFontSize && headingFontSizeCustom ? headingFontSizeCustom : undefined,
 	} );
 
 	const getSubHeadingStyles = () => ( {
@@ -196,10 +221,24 @@ export default function Edit( { attributes, setAttributes } ) {
 		boxShadow: getShadow( subHeadingShadowSize ),
 	} );
 
-	// Get heading classes
+	// Get heading classes.
+	//
+	// Font-size cascade:
+	//   1. If headingFontSize (preset slug) is set → apply `has-<slug>-font-size`;
+	//      the slug class wins over the legacy enum class.
+	//   2. Else if headingFontSizeCustom is set → no class; inline style provides
+	//      the value (see getHeadingStyles).
+	//   3. Else → fall back to the legacy `sfcore-heading__main--<headingSize>` enum class.
 	const getHeadingClasses = () => {
 		const classes = [ 'sfcore-heading__main' ];
-		classes.push( `sfcore-heading__main--${ headingSize }` );
+
+		if ( headingFontSize ) {
+			classes.push( `has-${ headingFontSize }-font-size` );
+			classes.push( 'has-custom-font-size' );
+		} else if ( ! headingFontSizeCustom ) {
+			classes.push( `sfcore-heading__main--${ headingSize }` );
+		}
+
 		if ( headingStyle !== 'normal' ) {
 			classes.push( `sfcore-heading__main--${ headingStyle }` );
 		}
@@ -276,10 +315,11 @@ export default function Edit( { attributes, setAttributes } ) {
 	} );
 
 	// Icon settings panel component
-	const IconSettingsPanel = ( { position, icon, setIcon, iconColor, setIconColor, iconBgColor, setIconBgColor, iconSize, setIconSize } ) => (
+	const IconSettingsPanel = ( { position, icon, setIcon, iconColor, setIconColor, iconBgColor, setIconBgColor, iconSize, setIconSize, opened, onToggle } ) => (
 		<PanelBody
 			title={ position === 'left' ? __( 'Left Icon', 'swishfolio-core' ) : __( 'Right Icon', 'swishfolio-core' ) }
-			initialOpen={ false }
+			opened={ opened }
+			onToggle={ onToggle }
 		>
 			<SelectControl
 				label={ __( 'Icon Source', 'swishfolio-core' ) }
@@ -403,9 +443,10 @@ export default function Edit( { attributes, setAttributes } ) {
 		shadowSize,
 		setShadowSize,
 		extraControls,
-		initialOpen = false,
+		opened,
+		onToggle,
 	} ) => (
-		<PanelBody title={ title } initialOpen={ initialOpen }>
+		<PanelBody title={ title } opened={ opened } onToggle={ onToggle }>
 			<ToggleControl
 				label={ __( 'Show Element', 'swishfolio-core' ) }
 				checked={ show }
@@ -496,7 +537,7 @@ export default function Edit( { attributes, setAttributes } ) {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Layout', 'swishfolio-core' ) }>
+				<PanelBody title={ __( 'Layout', 'swishfolio-core' ) } { ...panelProps( 'layout' ) }>
 					<ToggleGroupControl
 						label={ __( 'Content Alignment', 'swishfolio-core' ) }
 						value={ contentAlign }
@@ -540,6 +581,7 @@ export default function Edit( { attributes, setAttributes } ) {
 
 				<TextElementPanel
 					title={ __( 'Pre-Heading', 'swishfolio-core' ) }
+					{ ...panelProps( 'preHeading' ) }
 					show={ showPreHeading }
 					setShow={ ( value ) => setAttributes( { showPreHeading: value } ) }
 					bgColor={ preHeadingBackgroundColor }
@@ -560,6 +602,7 @@ export default function Edit( { attributes, setAttributes } ) {
 
 				<TextElementPanel
 					title={ __( 'Heading', 'swishfolio-core' ) }
+					{ ...panelProps( 'heading' ) }
 					show={ showHeading }
 					setShow={ ( value ) => setAttributes( { showHeading: value } ) }
 					bgColor={ headingBackgroundColor }
@@ -592,17 +635,39 @@ export default function Edit( { attributes, setAttributes } ) {
 								onChange={ ( value ) => setAttributes( { headingTag: value } ) }
 							/>
 
-							<ToggleGroupControl
-								label={ __( 'Heading Size', 'swishfolio-core' ) }
-								value={ headingSize }
-								onChange={ ( value ) => setAttributes( { headingSize: value } ) }
-								isBlock
-							>
-								<ToggleGroupControlOption value="small" label={ __( 'S', 'swishfolio-core' ) } />
-								<ToggleGroupControlOption value="medium" label={ __( 'M', 'swishfolio-core' ) } />
-								<ToggleGroupControlOption value="large" label={ __( 'L', 'swishfolio-core' ) } />
-								<ToggleGroupControlOption value="xlarge" label={ __( 'XL', 'swishfolio-core' ) } />
-							</ToggleGroupControl>
+							<FontSizePicker
+								__nextHasNoMarginBottom
+								fontSizes={ themeFontSizes }
+								value={
+									headingFontSize
+										? themeFontSizes.find(
+												( fs ) => fs.slug === headingFontSize
+										  )?.size
+										: headingFontSizeCustom || undefined
+								}
+								withSlider
+								withReset
+								onChange={ ( newValue ) => {
+									if ( ! newValue ) {
+										setAttributes( {
+											headingFontSize: '',
+											headingFontSizeCustom: '',
+										} );
+										return;
+									}
+									const matched = themeFontSizes.find(
+										( fs ) => fs.size === newValue
+									);
+									setAttributes( {
+										headingFontSize: matched
+											? matched.slug
+											: '',
+										headingFontSizeCustom: matched
+											? ''
+											: newValue,
+									} );
+								} }
+							/>
 
 							<ToggleGroupControl
 								label={ __( 'Heading Style', 'swishfolio-core' ) }
@@ -620,6 +685,7 @@ export default function Edit( { attributes, setAttributes } ) {
 
 				<TextElementPanel
 					title={ __( 'Sub-Heading', 'swishfolio-core' ) }
+					{ ...panelProps( 'subHeading' ) }
 					show={ showSubHeading }
 					setShow={ ( value ) => setAttributes( { showSubHeading: value } ) }
 					bgColor={ subHeadingBackgroundColor }
@@ -652,6 +718,7 @@ export default function Edit( { attributes, setAttributes } ) {
 
 				<IconSettingsPanel
 					position="left"
+					{ ...panelProps( 'leftIcon' ) }
 					icon={ leftIcon }
 					setIcon={ ( icon ) => setAttributes( { leftIcon: icon } ) }
 					iconColor={ leftIconColor }
@@ -664,6 +731,7 @@ export default function Edit( { attributes, setAttributes } ) {
 
 				<IconSettingsPanel
 					position="right"
+					{ ...panelProps( 'rightIcon' ) }
 					icon={ rightIcon }
 					setIcon={ ( icon ) => setAttributes( { rightIcon: icon } ) }
 					iconColor={ rightIconColor }
@@ -681,7 +749,10 @@ export default function Edit( { attributes, setAttributes } ) {
 
 					<div className="sfcore-heading__content">
 						{ showPreHeading && (
-							<div className="sfcore-heading__pre-wrapper">
+							<div
+								className="sfcore-heading__pre-wrapper"
+								onMouseDown={ () => setActivePanel( 'preHeading' ) }
+							>
 								<RichText
 									tagName="span"
 									className="sfcore-heading__pre"
@@ -694,7 +765,10 @@ export default function Edit( { attributes, setAttributes } ) {
 						) }
 
 						{ showHeading && (
-							<div className="sfcore-heading__main-wrapper">
+							<div
+								className="sfcore-heading__main-wrapper"
+								onMouseDown={ () => setActivePanel( 'heading' ) }
+							>
 								<RichText
 									tagName={ headingTag }
 									className={ getHeadingClasses() }
@@ -707,7 +781,10 @@ export default function Edit( { attributes, setAttributes } ) {
 						) }
 
 						{ showSubHeading && (
-							<div className="sfcore-heading__sub-wrapper">
+							<div
+								className="sfcore-heading__sub-wrapper"
+								onMouseDown={ () => setActivePanel( 'subHeading' ) }
+							>
 								<RichText
 									tagName="p"
 									className={ `sfcore-heading__sub sfcore-heading__sub--${ subHeadingFontSize } ${ subHeadingBackgroundColor ? 'sfcore-heading__sub--has-bg' : '' }` }

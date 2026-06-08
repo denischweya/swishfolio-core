@@ -12,28 +12,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// Capability guard (defence-in-depth on top of the admin menu).
+if ( ! current_user_can( 'manage_options' ) ) {
+	wp_die( esc_html__( 'You do not have permission to access this page.', 'swishfolio-core' ) );
+}
+
 $encryption = new EncryptionService();
-$settings = get_option( 'swish_forms_email_settings', [] );
+$settings   = get_option( 'swish_forms_email_settings', [] );
 
-// Handle form submission.
+// Handle form submission. Verify nonce first; only then unslash + sanitise
+// each field individually before persisting.
 if ( isset( $_POST['swish_forms_email_submit'] ) ) {
-	if ( check_admin_referer( 'swish_forms_email_settings' ) ) {
-		$newSettings = [
-			'from_email'       => sanitize_email( $_POST['from_email'] ?? '' ),
-			'from_name'        => sanitize_text_field( $_POST['from_name'] ?? '' ),
-			'smtp_enabled'     => isset( $_POST['smtp_enabled'] ),
-			'smtp_host'        => sanitize_text_field( $_POST['smtp_host'] ?? '' ),
-			'smtp_port'        => absint( $_POST['smtp_port'] ?? 587 ),
-			'smtp_encryption'  => sanitize_text_field( $_POST['smtp_encryption'] ?? 'tls' ),
-			'smtp_username'    => sanitize_text_field( $_POST['smtp_username'] ?? '' ),
-			'smtp_password'    => ! empty( $_POST['smtp_password'] ) ? $encryption->encrypt( $_POST['smtp_password'] ) : ( $settings['smtp_password'] ?? '' ),
-		];
+	check_admin_referer( 'swish_forms_email_settings' );
 
-		update_option( 'swish_forms_email_settings', $newSettings );
-		$settings = $newSettings;
+	$newSettings = [
+		'from_email'       => sanitize_email( wp_unslash( $_POST['from_email'] ?? '' ) ),
+		'from_name'        => sanitize_text_field( wp_unslash( $_POST['from_name'] ?? '' ) ),
+		'smtp_enabled'     => isset( $_POST['smtp_enabled'] ),
+		'smtp_host'        => sanitize_text_field( wp_unslash( $_POST['smtp_host'] ?? '' ) ),
+		'smtp_port'        => absint( $_POST['smtp_port'] ?? 587 ),
+		'smtp_encryption'  => sanitize_text_field( wp_unslash( $_POST['smtp_encryption'] ?? 'tls' ) ),
+		'smtp_username'    => sanitize_text_field( wp_unslash( $_POST['smtp_username'] ?? '' ) ),
+		'smtp_password'    => ! empty( $_POST['smtp_password'] )
+			? $encryption->encrypt( sanitize_text_field( wp_unslash( $_POST['smtp_password'] ) ) )
+			: ( $settings['smtp_password'] ?? '' ),
+	];
 
-		echo '<div class="notice notice-success"><p>' . esc_html__( 'Settings saved.', 'swishfolio-core' ) . '</p></div>';
-	}
+	update_option( 'swish_forms_email_settings', $newSettings );
+	$settings = $newSettings;
+
+	echo '<div class="notice notice-success"><p>' . esc_html__( 'Settings saved.', 'swishfolio-core' ) . '</p></div>';
 }
 
 // Get current values.

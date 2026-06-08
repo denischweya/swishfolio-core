@@ -1,0 +1,69 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "swishfolio-core/swish-links",
+	"version": "1.0.0",
+	"title": "Swish Links",
+	"category": "swishfolio",
+	"description": "A row or column of styled text links with optional handle suffix, icon (before/after), and configurable hover style.",
+	"keywords": [ "links", "list", "social", "navigation", "menu" ],
+	"textdomain": "swishfolio-core",
+	"attributes": {
+		"links": {
+			"type": "array",
+			"default": [
+				{
+					"text": "Read.cv",
+					"url": "#",
+					"handle": "/sasha",
+					"icon": "arrow-up-right",
+					"iconPosition": "after",
+					"newTab": true
+				},
+				{
+					"text": "Are.na",
+					"url": "#",
+					"handle": "/sasha-vance",
+					"icon": "arrow-up-right",
+					"iconPosition": "after",
+					"newTab": true
+				},
+				{
+					"text": "LinkedIn",
+					"url": "#",
+					"handle": "/in/svance",
+					"icon": "arrow-up-right",
+					"iconPosition": "after",
+					"newTab": true
+				}
+			]
+		},
+		"direction": {
+			"type": "string",
+			"default": "horizontal"
+		},
+		"gap": {
+			"type": "number",
+			"default": 28
+		},
+		"hoverColor": {
+			"type": "string",
+			"default": ""
+		},
+		"hoverStyle": {
+			"type": "string",
+			"default": "underline-grow"
+		}
+	},
+	"supports": {
+		"align": [ "wide", "full" ],
+		"html": false,
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}

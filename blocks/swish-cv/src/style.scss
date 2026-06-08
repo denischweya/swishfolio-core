@@ -1,0 +1,95 @@
+@import '../../_shared/variables';
+
+// ==============================================
+// SWISH CV BLOCK
+// ==============================================
+//
+// Timeline list of CV rows. Baseline styling uses theme.json preset vars so
+// each variation's palette / fonts cascade in automatically. Style variations
+// can override .wp-block-swishfolio-core-swish-cv__* under their scope.
+
+// Divider hairline. Variations can set --sf-rule to control; otherwise we
+// derive a subtle hairline from currentColor so light/dark themes both work.
+$swish-cv-rule: var(--sf-rule, color-mix(in srgb, currentColor 14%, transparent));
+
+.wp-block-swishfolio-core-swish-cv {
+	display: flex;
+	flex-direction: column;
+
+	&__row {
+		display: grid;
+		grid-template-columns: 110px 1fr auto;
+		gap: 24px;
+		padding: 26px 0;
+		border-top: 1px solid #{$swish-cv-rule};
+		align-items: baseline;
+		transition: padding 0.25s ease, opacity 0.25s ease;
+
+		&:last-child {
+			border-bottom: 1px solid #{$swish-cv-rule};
+		}
+
+		&:hover {
+			padding-left: 8px;
+		}
+
+		@media (max-width: 640px) {
+			grid-template-columns: 1fr;
+			gap: 8px;
+
+			&:hover {
+				padding-left: 0;
+			}
+		}
+	}
+
+	// Color cascade:
+	// --swish-cv-accent → year, role (when no title set), location
+	// --swish-cv-title  → role (wins over accent), description
+	// Both are set inline on the block wrapper by the inspector; unset values
+	// fall through to theme.json preset slugs.
+
+	&__year {
+		font-family: var(--wp--preset--font-family--jetbrains-mono,
+			var(--wp--preset--font-family--fira-code,
+			ui-monospace, Menlo, monospace));
+		font-size: 12px;
+		letter-spacing: 0.1em;
+		color: var(--swish-cv-accent, var(--wp--preset--color--accent-3));
+	}
+
+	&__role {
+		font-family: var(--wp--preset--font-family--manrope,
+			var(--wp--preset--font-family--heading, inherit));
+		font-weight: 700;
+		font-size: clamp(19px, 1.5vw, 24px);
+		line-height: 1.2;
+		letter-spacing: -0.03em;
+		color: var(--swish-cv-title, var(--swish-cv-accent, var(--wp--preset--color--contrast)));
+		margin: 0;
+	}
+
+	&__role-at {
+		color: var(--swish-cv-accent, var(--wp--preset--color--accent-3));
+		font-weight: 500;
+	}
+
+	&__description {
+		margin: 8px 0 0;
+		color: var(--swish-cv-title, var(--wp--preset--color--accent-4));
+		font-size: 14.5px;
+		line-height: 1.55;
+		max-width: 56ch;
+	}
+
+	&__location {
+		font-family: var(--wp--preset--font-family--jetbrains-mono,
+			var(--wp--preset--font-family--fira-code,
+			ui-monospace, Menlo, monospace));
+		font-size: 11px;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--swish-cv-accent, var(--wp--preset--color--accent-3));
+		align-self: start;
+	}
+}

@@ -1,0 +1,36 @@
+# Files and directories excluded from the WordPress.org distribution ZIP.
+# Used by `wp dist-archive` (WP-CLI). Source PHP and block sources stay in
+# so reviewers can verify the compiled build/ output. Only build tooling
+# and machine-generated artifacts are stripped.
+
+# Build tooling — not needed at runtime.
+/node_modules
+/.npm
+/composer.lock
+/package-lock.json
+
+# Local dev environment.
+/.ddev
+/.vscode
+/.idea
+
+# Version control.
+/.git
+/.github
+/.gitignore
+/.gitattributes
+
+# This file itself.
+/.distignore
+
+# Test / docs scaffolding (none yet, but reserve the exclusions).
+/tests
+/phpunit.xml
+/phpunit.xml.dist
+/phpcs.xml
+/phpcs.xml.dist
+
+# OS noise.
+.DS_Store
+Thumbs.db
+*.log

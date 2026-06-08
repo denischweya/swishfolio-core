@@ -191,7 +191,9 @@ export default function save( { attributes } ) {
 			};
 		}
 		return {
-			backgroundColor: backgroundColor || '#1040C0',
+			// `backgroundColor` defaults to the theme accent var() in block.json,
+			// so the falsy-fallback to a hardcoded hex is no longer needed.
+			backgroundColor,
 		};
 	};
 

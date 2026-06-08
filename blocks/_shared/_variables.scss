@@ -46,7 +46,7 @@ $radius-full: var(--sf-radius-full, 9999px);
 $color-primary: var(--sf-color-primary);
 $color-secondary: var(--sf-color-secondary);
 $color-muted: var(--sf-color-muted);
-$color-surface: var(--sf-color-surface);
+$color-surface: var(--sf-color-surface, var(--wp--preset--color--base));
 
 // Text effects (glow for terminal, none for neo-brutalism)
 $text-glow: var(--sf-text-glow, none);
