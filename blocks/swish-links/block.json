@@ -53,6 +53,10 @@
 		"hoverStyle": {
 			"type": "string",
 			"default": "underline-grow"
+		},
+		"linksAlign": {
+			"type": "string",
+			"default": "center"
 		}
 	},
 	"supports": {

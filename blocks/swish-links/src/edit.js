@@ -2,6 +2,7 @@ import {
 	useBlockProps,
 	RichText,
 	BlockControls,
+	AlignmentToolbar,
 	InspectorControls,
 	PanelColorSettings,
 	__experimentalLinkControl as LinkControl,
@@ -49,6 +50,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 		gap = 28,
 		hoverColor = '',
 		hoverStyle = 'underline-grow',
+		linksAlign = 'center',
 	} = attributes;
 
 	const [ activeLink, setActiveLink ] = useState( 0 );
@@ -63,7 +65,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 	}
 
 	const blockProps = useBlockProps( {
-		className: `wp-block-swishfolio-core-swish-links sfcore-links sfcore-links--${ direction } sfcore-links--hover-${ hoverStyle }`,
+		className: `wp-block-swishfolio-core-swish-links sfcore-links sfcore-links--${ direction } sfcore-links--hover-${ hoverStyle } sfcore-links--align-${ linksAlign }`,
 		style: wrapperStyle,
 	} );
 
@@ -101,6 +103,12 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 	return (
 		<div { ...blockProps }>
 			<BlockControls>
+				<AlignmentToolbar
+					value={ linksAlign }
+					onChange={ ( v ) =>
+						setAttributes( { linksAlign: v || 'center' } )
+					}
+				/>
 				<ToolbarGroup>
 					<ToolbarButton
 						icon={ linkIcon }

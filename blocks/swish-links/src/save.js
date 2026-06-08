@@ -8,6 +8,7 @@ export default function save( { attributes } ) {
 		gap = 28,
 		hoverColor = '',
 		hoverStyle = 'underline-grow',
+		linksAlign = 'center',
 	} = attributes;
 
 	const wrapperStyle = {
@@ -19,7 +20,7 @@ export default function save( { attributes } ) {
 	}
 
 	const blockProps = useBlockProps.save( {
-		className: `wp-block-swishfolio-core-swish-links sfcore-links sfcore-links--${ direction } sfcore-links--hover-${ hoverStyle }`,
+		className: `wp-block-swishfolio-core-swish-links sfcore-links sfcore-links--${ direction } sfcore-links--hover-${ hoverStyle } sfcore-links--align-${ linksAlign }`,
 		style: wrapperStyle,
 	} );
 

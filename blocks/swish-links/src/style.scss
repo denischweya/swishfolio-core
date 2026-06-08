@@ -9,11 +9,21 @@
 // always shifts in its direction on hover.
 
 .wp-block-swishfolio-core-swish-links.sfcore-links {
-	display: inline-flex;
+	display: flex;
 	flex-wrap: wrap;
 	// flex-direction and gap are set inline by save() from block attrs.
 	align-items: center;
 }
+
+// Horizontal direction: alignment maps to justify-content (main axis) + text-align.
+.sfcore-links--horizontal.sfcore-links--align-left { justify-content: flex-start; text-align: left; }
+.sfcore-links--horizontal.sfcore-links--align-center { justify-content: center; text-align: center; }
+.sfcore-links--horizontal.sfcore-links--align-right { justify-content: flex-end; text-align: right; }
+
+// Vertical direction: alignment maps to align-items (cross axis) + text-align.
+.sfcore-links--vertical.sfcore-links--align-left { align-items: flex-start; text-align: left; }
+.sfcore-links--vertical.sfcore-links--align-center { align-items: center; text-align: center; }
+.sfcore-links--vertical.sfcore-links--align-right { align-items: flex-end; text-align: right; }
 
 .sfcore-link {
 	position: relative;
