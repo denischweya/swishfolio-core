@@ -122,6 +122,33 @@
 	font-size: clamp(3rem, 10vw, 6rem);
 }
 
+// Custom font-size: when the user types a value into the Custom input, edit/save
+// emit `--sf-heading-fs: <value>` as an inline CSS variable on the heading.
+// Wrap it in a fluid clamp() so it scales down on small viewports.
+//
+// Linear interpolation between two viewport breakpoints (same pattern WP uses
+// for theme.json fluid typography):
+//   - At <=420px:  38px (the floor; readable on the smallest screens)
+//   - At >=1600px: 100% of typed value (the typed value)
+//   - In between:  smooth scaling
+// Note: if the typed value is below 38px, clamp returns the typed value
+// (max wins when min > max), so no upward inflation occurs.
+//
+// The calc() expressions live in custom property declarations because cssnano
+// strips calc() that contains only var() math when it appears directly inside
+// clamp(). Custom property declarations are preserved verbatim, so the
+// indirection works.
+.sfcore-heading__main[style*="--sf-heading-fs"] {
+	--sf-heading-fs-min: 38px;
+	--sf-heading-fs-slope: calc((var(--sf-heading-fs) - var(--sf-heading-fs-min)) / 1px / 1180);
+	--sf-heading-fs-pref: calc(var(--sf-heading-fs-min) + (100vw - 420px) * var(--sf-heading-fs-slope));
+	font-size: clamp(
+		var(--sf-heading-fs-min),
+		var(--sf-heading-fs-pref),
+		var(--sf-heading-fs)
+	);
+}
+
 // Heading Styles
 .sfcore-heading__main--outline {
 	-webkit-text-stroke: 2px currentColor;

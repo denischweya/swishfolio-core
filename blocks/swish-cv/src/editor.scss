@@ -21,6 +21,15 @@
 		opacity: 0.5;
 	}
 
+	// Keep the empty atCompany RichText clickable. Without a min-width an empty
+	// inline contenteditable collapses to zero width and clicks land in the
+	// adjacent role field.
+	&__role-at {
+		display: inline-block;
+		min-width: 8ch;
+		padding: 0 2px;
+	}
+
 	&__add {
 		margin-top: 16px;
 		display: flex;

@@ -8,7 +8,7 @@ import {
 import { Button, ToolbarGroup, ToolbarButton } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { plus, trash, arrowUp, arrowDown } from '@wordpress/icons';
-import { useState } from '@wordpress/element';
+import { useState, useRef } from '@wordpress/element';
 
 const blankRow = () => ( {
 	year: '',
@@ -21,6 +21,25 @@ const blankRow = () => ( {
 export default function Edit( { attributes, setAttributes } ) {
 	const { rows = [], accentColor = '', titleColor = '' } = attributes;
 	const [ activeRow, setActiveRow ] = useState( 0 );
+
+	// Refs to the wrapper of each row's atCompany RichText, used to focus
+	// it when Enter is pressed in the role field.
+	const atCompanyRefs = useRef( [] );
+
+	const focusAtCompany = ( index ) => {
+		const wrapper = atCompanyRefs.current[ index ];
+		const editable = wrapper?.querySelector( '[contenteditable="true"]' );
+		if ( editable ) {
+			editable.focus();
+			// Place caret at end of existing content.
+			const range = document.createRange();
+			const selection = window.getSelection();
+			range.selectNodeContents( editable );
+			range.collapse( false );
+			selection.removeAllRanges();
+			selection.addRange( range );
+		}
+	};
 
 	const wrapperStyle = {};
 	if ( accentColor ) {
@@ -131,24 +150,38 @@ export default function Edit( { attributes, setAttributes } ) {
 
 					<div className="wp-block-swishfolio-core-swish-cv__middle">
 						<h3 className="wp-block-swishfolio-core-swish-cv__role">
-							<RichText
-								tagName="span"
-								value={ row.role }
-								onChange={ ( v ) => updateRow( index, 'role', v ) }
-								placeholder={ __( 'Role', 'swishfolio-core' ) }
-								allowedFormats={ [] }
-							/>
+							<span
+								onKeyDownCapture={ ( e ) => {
+									if ( e.key === 'Enter' && ! e.shiftKey ) {
+										e.preventDefault();
+										e.stopPropagation();
+										focusAtCompany( index );
+									}
+								} }
+							>
+								<RichText
+									tagName="span"
+									value={ row.role }
+									onChange={ ( v ) => updateRow( index, 'role', v ) }
+									placeholder={ __( 'Role', 'swishfolio-core' ) }
+									allowedFormats={ [] }
+								/>
+							</span>
 							{ ' ' }
-							<RichText
-								tagName="span"
-								className="wp-block-swishfolio-core-swish-cv__role-at"
-								value={ row.atCompany }
-								onChange={ ( v ) =>
-									updateRow( index, 'atCompany', v )
-								}
-								placeholder={ __( '— Company', 'swishfolio-core' ) }
-								allowedFormats={ [] }
-							/>
+							<span
+								ref={ ( el ) => ( atCompanyRefs.current[ index ] = el ) }
+							>
+								<RichText
+									tagName="span"
+									className="wp-block-swishfolio-core-swish-cv__role-at"
+									value={ row.atCompany }
+									onChange={ ( v ) =>
+										updateRow( index, 'atCompany', v )
+									}
+									placeholder={ __( '— Company', 'swishfolio-core' ) }
+									allowedFormats={ [] }
+								/>
+							</span>
 						</h3>
 						<RichText
 							tagName="p"

@@ -206,9 +206,9 @@ export default function Edit( { attributes, setAttributes } ) {
 		borderWidth: headingBorderStyle !== 'none' ? `${ headingBorderWidth }px` : undefined,
 		borderColor: headingBorderStyle !== 'none' ? headingBorderColor : undefined,
 		boxShadow: getShadow( headingShadowSize ),
-		// Custom font-size (no preset slug selected) is applied inline. Preset
-		// slugs apply via class on the heading element instead — see getHeadingClasses().
-		fontSize: ! headingFontSize && headingFontSizeCustom ? headingFontSizeCustom : undefined,
+		// Custom font-size lands as the --sf-heading-fs CSS variable so the
+		// fluid clamp() in style.scss can scale it on smaller viewports.
+		'--sf-heading-fs': ! headingFontSize && headingFontSizeCustom ? headingFontSizeCustom : undefined,
 	} );
 
 	const getSubHeadingStyles = () => ( {

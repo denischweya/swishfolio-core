@@ -89,10 +89,9 @@ export default function save( { attributes } ) {
 		borderWidth: headingBorderStyle !== 'none' ? `${ headingBorderWidth }px` : undefined,
 		borderColor: headingBorderStyle !== 'none' ? headingBorderColor : undefined,
 		boxShadow: getShadow( headingShadowSize ),
-		// Preset slug applies via class on the heading element; a custom
-		// font-size value is emitted as the --sf-heading-fs CSS variable so
-		// style.scss can wrap it in a fluid clamp() formula.
-		'--sf-heading-fs': ! headingFontSize && headingFontSizeCustom ? headingFontSizeCustom : undefined,
+		// Preset slug applies via class on the heading element; only a custom
+		// font-size value lands as inline style here.
+		fontSize: ! headingFontSize && headingFontSizeCustom ? headingFontSizeCustom : undefined,
 	} );
 
 	const getSubHeadingStyles = () => ( {

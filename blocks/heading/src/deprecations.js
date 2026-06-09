@@ -6,6 +6,20 @@
  */
 
 import { useBlockProps, RichText } from '@wordpress/block-editor';
+import v2save from './deprecations-v2-save';
+import metadata from '../block.json';
+
+/**
+ * Version 2 - Custom font-size applied as inline `font-size`.
+ *
+ * Pre-fluid-typography custom values. Instances saved before the heading
+ * switched to emitting `--sf-heading-fs` (which style.scss wraps in a fluid
+ * clamp()). Same attributes; only the save HTML differs.
+ */
+const v2 = {
+	attributes: metadata.attributes,
+	save: v2save,
+};
 
 /**
  * Version 1.0.0 - Initial release
@@ -451,4 +465,4 @@ const v1 = {
 };
 
 // Export deprecations array (newest deprecations first)
-export default [ v1 ];
+export default [ v2, v1 ];

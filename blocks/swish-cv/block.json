@@ -33,6 +33,20 @@
 					"atCompany": "— Company",
 					"description": "Built the design system, the marketing site, and a small team. Shipped weekly.",
 					"location": "City"
+				},
+				{
+					"year": "2020 — 2022",
+					"role": "Senior Designer",
+					"atCompany": "— Studio",
+					"description": "Shaped product, brand, and the system tying them together.",
+					"location": "City"
+				},
+				{
+					"year": "2018 — 2020",
+					"role": "Product Designer",
+					"atCompany": "— Agency",
+					"description": "Client work across fintech, civic tech, and the in-between.",
+					"location": "City"
 				}
 			]
 		}
