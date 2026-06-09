@@ -12,35 +12,10 @@
 
 namespace SwishfolioCore\Extensions;
 
+use SwishfolioCore\Services\SvgKses;
+
 class ButtonExtension
 {
-    /**
-     * Tag/attribute allow-list for wp_kses() when emitting the icon SVGs.
-     * Limited to the elements/attrs our ICONS dictionary actually uses;
-     * keep tight so reviewers can verify nothing user-controlled escapes.
-     */
-    private const SVG_KSES = [
-        'svg' => [
-            'width'            => true,
-            'height'           => true,
-            'viewbox'          => true,
-            'xmlns'            => true,
-            'fill'             => true,
-            'stroke'           => true,
-            'stroke-width'     => true,
-            'stroke-linecap'   => true,
-            'stroke-linejoin'  => true,
-            'aria-hidden'      => true,
-            'focusable'        => true,
-            'class'            => true,
-        ],
-        'line'     => [ 'x1' => true, 'y1' => true, 'x2' => true, 'y2' => true ],
-        'polyline' => [ 'points' => true, 'fill' => true, 'stroke' => true ],
-        'polygon'  => [ 'points' => true, 'fill' => true, 'stroke' => true ],
-        'path'     => [ 'd' => true, 'fill' => true, 'stroke' => true ],
-        'circle'   => [ 'cx' => true, 'cy' => true, 'r' => true, 'fill' => true, 'stroke' => true ],
-        'rect'     => [ 'x' => true, 'y' => true, 'width' => true, 'height' => true, 'rx' => true, 'ry' => true, 'fill' => true, 'stroke' => true ],
-    ];
 
     /**
      * Server-side SVG icon library. Same slugs as the editor map in
@@ -135,7 +110,7 @@ class ButtonExtension
         if ($icon && isset(self::ICONS[ $icon ])) {
             // Both the icon SVG and the wrapper attrs are run through their
             // appropriate escape function before reaching the output.
-            $svg = wp_kses(self::ICONS[ $icon ], self::SVG_KSES);
+            $svg = wp_kses(self::ICONS[ $icon ], SvgKses::allowlist());
 
             $icon_html = sprintf(
                 '<span class="sfcore-btn-icon sfcore-btn-icon--%s" aria-hidden="true">%s</span>',

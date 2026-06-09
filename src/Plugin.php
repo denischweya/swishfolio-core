@@ -37,6 +37,7 @@ use SwishfolioCore\Email\EspManager;
 use SwishfolioCore\Services\SvgSupport;
 use SwishfolioCore\Extensions\ColumnsExtension;
 use SwishfolioCore\Extensions\ButtonExtension;
+use SwishfolioCore\Extensions\NavigationExtension;
 
 /**
  * Plugin orchestrator - boots and wires all components.
@@ -114,6 +115,13 @@ class Plugin
     private ?ButtonExtension $buttonExtension = null;
 
     /**
+     * Navigation extension instance.
+     *
+     * @var NavigationExtension|null
+     */
+    private ?NavigationExtension $navigationExtension = null;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -144,6 +152,9 @@ class Plugin
 
         // Initialize button extension.
         $this->buttonExtension = new ButtonExtension();
+
+        // Initialize navigation extension.
+        $this->navigationExtension = new NavigationExtension();
     }
 
     /**

@@ -1,0 +1,188 @@
+/**
+ * Navigation Block Extension - Frontend + Editor Styles
+ *
+ * Custom inspector controls + three block style variations for core/navigation.
+ * Selectors are chained with .wp-block-navigation to stay specific enough to
+ * beat core navigation styles without resorting to !important.
+ *
+ * Two scope rules:
+ *   - Alignment classes (.sfcore-nav--align-*) only apply inside the open
+ *     responsive overlay.
+ *   - Hover style classes (.sfcore-nav--hover-*) apply in both inline (desktop)
+ *     and overlay (mobile) modes.
+ */
+
+/* ============================================================
+ * Hover color CSS variable (fallback to currentColor)
+ * ============================================================ */
+
+.wp-block-navigation {
+	--sfcore-nav-hover-color: currentColor;
+}
+
+/* ============================================================
+ * Hover styles — both modes
+ * ============================================================ */
+
+.wp-block-navigation.sfcore-nav--hover-underline .wp-block-navigation-item__content {
+	text-decoration: none;
+	transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+.wp-block-navigation.sfcore-nav--hover-underline .wp-block-navigation-item__content:hover,
+.wp-block-navigation.sfcore-nav--hover-underline .wp-block-navigation-item__content:focus-visible {
+	text-decoration: underline !important;
+	color: var(--sfcore-nav-hover-color) !important;
+}
+
+.wp-block-navigation.sfcore-nav--hover-underline-grow .wp-block-navigation-item__content {
+	position: relative;
+	text-decoration: none;
+}
+.wp-block-navigation.sfcore-nav--hover-underline-grow .wp-block-navigation-item__content::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -0.15em;
+	height: 1.5px;
+	background: var(--sfcore-nav-hover-color);
+	transform: scaleX(0);
+	transform-origin: left center;
+	transition: transform 0.25s ease;
+	pointer-events: none;
+}
+.wp-block-navigation.sfcore-nav--hover-underline-grow .wp-block-navigation-item__content:hover::after,
+.wp-block-navigation.sfcore-nav--hover-underline-grow .wp-block-navigation-item__content:focus-visible::after {
+	transform: scaleX(1);
+}
+
+.wp-block-navigation.sfcore-nav--hover-color .wp-block-navigation-item__content {
+	transition: color 0.2s ease;
+}
+.wp-block-navigation.sfcore-nav--hover-color .wp-block-navigation-item__content:hover,
+.wp-block-navigation.sfcore-nav--hover-color .wp-block-navigation-item__content:focus-visible {
+	color: var(--sfcore-nav-hover-color) !important;
+}
+
+/* ============================================================
+ * Overlay padding — generous inset around the menu content when open
+ * ============================================================ */
+
+.wp-block-navigation
+	.wp-block-navigation__responsive-container.is-menu-open
+	.wp-block-navigation__responsive-container-content {
+	padding-inline: 12%;
+	padding-top: 10%;
+}
+
+/* ============================================================
+ * Overlay alignment — only inside the open responsive container
+ *
+ * Core can use any of three possible flex parents to position overlay items
+ * depending on WP version (the responsive-container, its content child, or
+ * the ul.__container). We force-align on all three so the rule lands wherever
+ * the actual flex layout lives.
+ * ============================================================ */
+
+.wp-block-navigation.sfcore-nav--align-left
+	.wp-block-navigation__responsive-container.is-menu-open
+	.wp-block-navigation__responsive-container-content,
+.wp-block-navigation.sfcore-nav--align-left
+	.wp-block-navigation__responsive-container.is-menu-open
+	.wp-block-navigation__container {
+	align-items: flex-start;
+	justify-content: flex-start;
+	text-align: left;
+}
+.wp-block-navigation.sfcore-nav--align-center
+	.wp-block-navigation__responsive-container.is-menu-open
+	.wp-block-navigation__responsive-container-content,
+.wp-block-navigation.sfcore-nav--align-center
+	.wp-block-navigation__responsive-container.is-menu-open
+	.wp-block-navigation__container {
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+.wp-block-navigation.sfcore-nav--align-right
+	.wp-block-navigation__responsive-container.is-menu-open
+	.wp-block-navigation__responsive-container-content,
+.wp-block-navigation.sfcore-nav--align-right
+	.wp-block-navigation__responsive-container.is-menu-open
+	.wp-block-navigation__container {
+	align-items: flex-end;
+	justify-content: flex-end;
+	text-align: right;
+}
+
+/* ============================================================
+ * Block style variations (B layer)
+ * ============================================================ */
+
+.wp-block-navigation.is-style-centered-overlay
+	.wp-block-navigation__responsive-container.is-menu-open
+	.wp-block-navigation__container {
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+.wp-block-navigation.is-style-centered-overlay .wp-block-navigation-item__content {
+	position: relative;
+	text-decoration: none;
+}
+.wp-block-navigation.is-style-centered-overlay .wp-block-navigation-item__content::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -0.15em;
+	height: 1.5px;
+	background: var(--sfcore-nav-hover-color);
+	transform: scaleX(0);
+	transform-origin: left center;
+	transition: transform 0.25s ease;
+	pointer-events: none;
+}
+.wp-block-navigation.is-style-centered-overlay .wp-block-navigation-item__content:hover::after,
+.wp-block-navigation.is-style-centered-overlay .wp-block-navigation-item__content:focus-visible::after {
+	transform: scaleX(1);
+}
+
+.wp-block-navigation.is-style-minimal .wp-block-navigation-item__content {
+	transition: color 0.2s ease;
+}
+.wp-block-navigation.is-style-minimal .wp-block-navigation-item__content:hover,
+.wp-block-navigation.is-style-minimal .wp-block-navigation-item__content:focus-visible {
+	color: var(--sfcore-nav-hover-color);
+}
+
+/* ============================================================
+ * Editor-only: inspector control affordances
+ * ============================================================ */
+
+.sfcore-nav-color-trigger {
+	display: flex !important;
+	align-items: center;
+	gap: 8px;
+	width: 100%;
+	justify-content: flex-start !important;
+}
+.sfcore-nav-color-swatch {
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	border-radius: 3px;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	flex-shrink: 0;
+}
+.sfcore-nav-icon-preview {
+	margin: 8px 0;
+	padding: 8px;
+	background: #f6f7f7;
+	border-radius: 3px;
+	display: inline-flex;
+	color: currentColor;
+}
+.sfcore-nav-icon-preview svg {
+	display: block;
+}
