@@ -3,7 +3,7 @@
 	"apiVersion": 3,
 	"name": "swishfolio-core/latest-posts",
 	"version": "1.0.0",
-	"title": "Latest Posts",
+	"title": "Swish Blog",
 	"category": "swishfolio",
 	"description": "Display recent blog posts in a stylish grid.",
 	"keywords": [ "posts", "blog", "news", "articles" ],
@@ -44,6 +44,26 @@
 		"imageAspectRatio": {
 			"type": "string",
 			"default": "landscape"
+		},
+		"inheritQuery": {
+			"type": "boolean",
+			"default": false
+		},
+		"imageBorderRadius": {
+			"type": "number",
+			"default": 0
+		},
+		"titleColor": {
+			"type": "string",
+			"default": ""
+		},
+		"excerptColor": {
+			"type": "string",
+			"default": ""
+		},
+		"metaColor": {
+			"type": "string",
+			"default": ""
 		}
 	},
 	"supports": {
