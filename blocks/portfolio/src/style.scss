@@ -128,7 +128,6 @@
 
 .sfcore-portfolio__card {
 	height: 100%;
-	background: #{$color-accent-5};
 	border: var(--sf-border);
 	box-shadow: #{$shadow-md};
 	overflow: hidden;
@@ -922,3 +921,96 @@
 		box-shadow: none;
 	}
 }
+
+// =====================
+// Featured layout — hero project full-width above the grid
+// =====================
+
+.sfcore-portfolio__featured {
+	margin-bottom: var(--portfolio-gap, 24px);
+}
+
+.sfcore-portfolio__item--featured {
+	width: 100%;
+
+	.sfcore-portfolio__image {
+		width: 100%;
+	}
+}
+
+// =====================
+// Card style — title typography + image radius (driven by CSS vars set on
+// the portfolio wrapper by render_block).
+// =====================
+
+.sfcore-portfolio__title {
+	font-size: var(--sf-portfolio-title-size, inherit);
+	font-weight: var(--sf-portfolio-title-weight, inherit);
+}
+
+.sfcore-portfolio__image,
+.sfcore-portfolio__image-link {
+	border-radius: var(--sf-portfolio-image-radius, 0);
+}
+.sfcore-portfolio__image-link {
+	overflow: hidden; // keep child img clipped to the radius
+}
+
+// Card body background (applies to both featured hero and grid cards).
+.sfcore-portfolio__content {
+	background: var(--sf-portfolio-content-bg, transparent);
+}
+
+// =====================
+// Taxonomy pill styles (applies to .__badge and .__skill).
+// Color comes from --sf-portfolio-tax-color when set; falls back to
+// theme accent.
+// =====================
+
+.sfcore-portfolio {
+	--sf-portfolio-tax-color: var(--wp--preset--color--accent, currentColor);
+}
+
+.sfcore-portfolio--tax-rounded {
+	.sfcore-portfolio__badge,
+	.sfcore-portfolio__skill {
+		border-radius: 999px;
+		padding: 4px 12px;
+		background: var(--sf-portfolio-tax-color);
+		color: #fff;
+	}
+}
+
+.sfcore-portfolio--tax-border {
+	.sfcore-portfolio__badge,
+	.sfcore-portfolio__skill {
+		border-radius: 4px;
+		padding: 3px 10px;
+		background: transparent;
+		border: 1px solid var(--sf-portfolio-tax-color);
+		color: var(--sf-portfolio-tax-color);
+	}
+}
+
+.sfcore-portfolio--tax-underline {
+	.sfcore-portfolio__badge,
+	.sfcore-portfolio__skill {
+		background: transparent;
+		border: 0;
+		padding: 0;
+		color: var(--sf-portfolio-tax-color);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+}
+
+.sfcore-portfolio--tax-plain {
+	.sfcore-portfolio__badge,
+	.sfcore-portfolio__skill {
+		background: transparent;
+		border: 0;
+		padding: 0;
+		color: var(--sf-portfolio-tax-color);
+	}
+}
+

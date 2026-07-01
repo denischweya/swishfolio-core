@@ -4,21 +4,39 @@
  * Vertical alignment styles for core/columns and core/column blocks.
  */
 
-/* Columns container vertical alignment */
+/* Columns container vertical alignment.
+ * Each rule also targets the direct .wp-block-column children with align-self
+ * because in flexbox a child's align-self always wins over the parent's
+ * align-items. Without the child rule, WP's native verticalAlignment (which
+ * adds is-vertically-aligned-* classes to each column) overrides our parent
+ * intent. The compound selector specificity (0,3,0) beats native's (0,2,0). */
+
 .wp-block-columns.sfcore-vertical-align-top {
 	align-items: flex-start;
+}
+.wp-block-columns.sfcore-vertical-align-top > .wp-block-column {
+	align-self: flex-start;
 }
 
 .wp-block-columns.sfcore-vertical-align-center {
 	align-items: center;
 }
+.wp-block-columns.sfcore-vertical-align-center > .wp-block-column {
+	align-self: center;
+}
 
 .wp-block-columns.sfcore-vertical-align-bottom {
 	align-items: flex-end;
 }
+.wp-block-columns.sfcore-vertical-align-bottom > .wp-block-column {
+	align-self: flex-end;
+}
 
 .wp-block-columns.sfcore-vertical-align-stretch {
 	align-items: stretch;
+}
+.wp-block-columns.sfcore-vertical-align-stretch > .wp-block-column {
+	align-self: stretch;
 }
 
 .wp-block-columns.sfcore-vertical-align-space-between {

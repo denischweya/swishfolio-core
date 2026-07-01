@@ -100,6 +100,38 @@
 		"viewButtonText": {
 			"type": "string",
 			"default": "View Project"
+		},
+		"featuredProjectId": {
+			"type": "number",
+			"default": 0
+		},
+		"taxonomyStyle": {
+			"type": "string",
+			"default": "plain"
+		},
+		"taxonomyColor": {
+			"type": "string",
+			"default": ""
+		},
+		"showClientLabel": {
+			"type": "boolean",
+			"default": true
+		},
+		"titleFontSize": {
+			"type": "string",
+			"default": ""
+		},
+		"titleFontWeight": {
+			"type": "string",
+			"default": ""
+		},
+		"imageBorderRadius": {
+			"type": "number",
+			"default": 0
+		},
+		"cardContentBackground": {
+			"type": "string",
+			"default": ""
 		}
 	},
 	"supports": {

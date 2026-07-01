@@ -3,19 +3,39 @@
  */
 
 import { __ } from '@wordpress/i18n';
-import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
+import {
+	useBlockProps,
+	InspectorControls,
+	useSetting,
+} from '@wordpress/block-editor';
 import {
 	PanelBody,
 	RangeControl,
 	ToggleControl,
 	SelectControl,
 	TextControl,
+	ComboboxControl,
+	ColorPalette,
+	FontSizePicker,
 	Spinner,
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import ServerSideRender from '@wordpress/server-side-render';
+import InspectorTabs, {
+	useInspectorTabs,
+} from '../../shared/components/inspector-tabs';
+
+const FONT_WEIGHT_OPTIONS = [
+	{ label: __( 'Inherit', 'swishfolio-core' ), value: '' },
+	{ label: '400', value: '400' },
+	{ label: '500', value: '500' },
+	{ label: '600', value: '600' },
+	{ label: '700', value: '700' },
+	{ label: '800', value: '800' },
+	{ label: '900', value: '900' },
+];
 
 export default function Edit( { attributes, setAttributes } ) {
 	const {
@@ -42,9 +62,36 @@ export default function Edit( { attributes, setAttributes } ) {
 		hoverEffect,
 		showViewButton,
 		viewButtonText,
+		featuredProjectId,
+		taxonomyStyle,
+		taxonomyColor,
+		showClientLabel,
+		titleFontSize,
+		titleFontWeight,
+		imageBorderRadius,
+		cardContentBackground,
 	} = attributes;
 
+	const [ activeTab, setActiveTab ] = useInspectorTabs();
 	const blockProps = useBlockProps();
+	const themeColors = useSetting( 'color.palette' ) || [];
+	const themeFontSizes = useSetting( 'typography.fontSizes' ) || [];
+
+	// Fetch all projects for the featured-project picker.
+	const projectOptions = useSelect( ( select ) => {
+		const posts = select( 'core' ).getEntityRecords( 'postType', 'sfcore_project', {
+			per_page: -1,
+			status: 'publish',
+			_fields: 'id,title',
+		} );
+		if ( ! posts ) {
+			return [];
+		}
+		return posts.map( ( p ) => ( {
+			label: p.title?.rendered || `#${ p.id }`,
+			value: p.id,
+		} ) );
+	}, [] );
 
 	// Fetch project categories
 	const projectCategories = useSelect( ( select ) => {
@@ -79,6 +126,12 @@ export default function Edit( { attributes, setAttributes } ) {
 	return (
 		<>
 			<InspectorControls>
+				<InspectorTabs
+					activeTab={ activeTab }
+					setActiveTab={ setActiveTab }
+				/>
+
+				{ activeTab === 'general' && (
 				<PanelBody title={ __( 'Layout', 'swishfolio-core' ) }>
 					<ToggleGroupControl
 						label={ __( 'Layout Style', 'swishfolio-core' ) }
@@ -90,6 +143,20 @@ export default function Edit( { attributes, setAttributes } ) {
 						<ToggleGroupControlOption value="masonry" label={ __( 'Masonry', 'swishfolio-core' ) } />
 						<ToggleGroupControlOption value="list" label={ __( 'List', 'swishfolio-core' ) } />
 					</ToggleGroupControl>
+
+					<ComboboxControl
+						__nextHasNoMarginBottom
+						label={ __( 'Featured Project (optional)', 'swishfolio-core' ) }
+						value={ featuredProjectId || null }
+						options={ projectOptions }
+						onChange={ ( value ) =>
+							setAttributes( { featuredProjectId: value ? parseInt( value, 10 ) : 0 } )
+						}
+						help={ __(
+							'When set, this project renders as a full-width hero above the grid (and is hidden from the grid itself). Leave empty for grid-only.',
+							'swishfolio-core'
+						) }
+					/>
 
 					<ToggleGroupControl
 						label={ __( 'Card Style', 'swishfolio-core' ) }
@@ -154,7 +221,93 @@ export default function Edit( { attributes, setAttributes } ) {
 						<ToggleGroupControlOption value="reveal" label={ __( 'Reveal', 'swishfolio-core' ) } />
 					</ToggleGroupControl>
 				</PanelBody>
+				) }
 
+				{ activeTab === 'style' && ( <>
+				<PanelBody title={ __( 'Card Style', 'swishfolio-core' ) } initialOpen>
+					<FontSizePicker
+						__nextHasNoMarginBottom
+						fontSizes={ themeFontSizes }
+						value={ titleFontSize }
+						onChange={ ( size ) =>
+							setAttributes( { titleFontSize: size || '' } )
+						}
+					/>
+
+					<SelectControl
+						__nextHasNoMarginBottom
+						label={ __( 'Title Font Weight', 'swishfolio-core' ) }
+						value={ titleFontWeight }
+						options={ FONT_WEIGHT_OPTIONS }
+						onChange={ ( value ) =>
+							setAttributes( { titleFontWeight: value } )
+						}
+					/>
+
+					<RangeControl
+						__nextHasNoMarginBottom
+						label={ __( 'Image Border Radius (px)', 'swishfolio-core' ) }
+						value={ imageBorderRadius }
+						onChange={ ( value ) =>
+							setAttributes( { imageBorderRadius: value } )
+						}
+						min={ 0 }
+						max={ 40 }
+					/>
+
+					<p className="components-base-control__label" style={ { marginTop: '12px' } }>
+						{ __( 'Card Content Background', 'swishfolio-core' ) }
+					</p>
+					<ColorPalette
+						colors={ themeColors }
+						value={ cardContentBackground }
+						onChange={ ( color ) =>
+							setAttributes( { cardContentBackground: color || '' } )
+						}
+						clearable
+					/>
+					<p className="components-base-control__help">
+						{ __(
+							'Background color of the card body below the image. Applies to both the featured hero and the grid cards.',
+							'swishfolio-core'
+						) }
+					</p>
+				</PanelBody>
+
+				<PanelBody title={ __( 'Taxonomy Pills', 'swishfolio-core' ) } initialOpen={ false }>
+					<ToggleGroupControl
+						label={ __( 'Pill Style', 'swishfolio-core' ) }
+						value={ taxonomyStyle }
+						onChange={ ( value ) => setAttributes( { taxonomyStyle: value } ) }
+						isBlock
+					>
+						<ToggleGroupControlOption value="plain" label={ __( 'Plain', 'swishfolio-core' ) } />
+						<ToggleGroupControlOption value="rounded" label={ __( 'Rounded', 'swishfolio-core' ) } />
+						<ToggleGroupControlOption value="border" label={ __( 'Border', 'swishfolio-core' ) } />
+						<ToggleGroupControlOption value="underline" label={ __( 'Underline', 'swishfolio-core' ) } />
+					</ToggleGroupControl>
+
+					<p className="components-base-control__label" style={ { marginTop: '12px' } }>
+						{ __( 'Pill Color', 'swishfolio-core' ) }
+					</p>
+					<ColorPalette
+						colors={ themeColors }
+						value={ taxonomyColor }
+						onChange={ ( color ) =>
+							setAttributes( { taxonomyColor: color || '' } )
+						}
+						clearable
+					/>
+					<p className="components-base-control__help">
+						{ __(
+							'Applies to category, project type, and skill pills. Leave empty to use the theme accent.',
+							'swishfolio-core'
+						) }
+					</p>
+				</PanelBody>
+				</> ) }
+
+				{ activeTab === 'general' && ( <>
 				<PanelBody title={ __( 'Query', 'swishfolio-core' ) } initialOpen={ false }>
 					<SelectControl
 						label={ __( 'Order By', 'swishfolio-core' ) }
@@ -251,6 +404,17 @@ export default function Edit( { attributes, setAttributes } ) {
 						checked={ showClient }
 						onChange={ ( value ) => setAttributes( { showClient: value } ) }
 					/>
+					{ showClient && (
+						<ToggleControl
+							label={ __( 'Show "Client" label', 'swishfolio-core' ) }
+							checked={ showClientLabel }
+							onChange={ ( value ) => setAttributes( { showClientLabel: value } ) }
+							help={ __(
+								'When off, only the client name renders (no "Client:" prefix).',
+								'swishfolio-core'
+							) }
+						/>
+					) }
 					<ToggleControl
 						label={ __( 'Show Project URL', 'swishfolio-core' ) }
 						checked={ showProjectUrl }
@@ -317,6 +481,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						) ) }
 					</PanelBody>
 				) }
+				</> ) }
 			</InspectorControls>
 
 			<div { ...blockProps }>
