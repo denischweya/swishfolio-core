@@ -18,6 +18,7 @@ use SwishfolioCore\Blocks\FaqBlock;
 use SwishfolioCore\Blocks\FeaturesBlock;
 use SwishfolioCore\Blocks\FeatureCardBlock;
 use SwishfolioCore\Blocks\BentoCardsBlock;
+use SwishfolioCore\Blocks\BentoCardBlock;
 use SwishfolioCore\Blocks\SwishGalleryBlock;
 use SwishfolioCore\Blocks\SwishFormBlock;
 use SwishfolioCore\Blocks\SwishSocialsBlock;
@@ -202,6 +203,7 @@ class Plugin
             new FeaturesBlock(),
             new FeatureCardBlock(),
             new BentoCardsBlock(),
+            new BentoCardBlock(),
             new SwishGalleryBlock(),
             new SwishFormBlock(),
             new SwishSocialsBlock(),

@@ -9,38 +9,6 @@
 	"keywords": [ "bento", "cards", "grid", "portfolio", "gallery", "showcase" ],
 	"textdomain": "swishfolio-core",
 	"attributes": {
-		"cards": {
-			"type": "array",
-			"default": [
-				{
-					"id": "card-1",
-					"image": {},
-					"subtitle": "sub title",
-					"title": "title",
-					"titleColor": "",
-					"description": "description",
-					"cardSize": "full"
-				},
-				{
-					"id": "card-2",
-					"image": {},
-					"subtitle": "sub title",
-					"title": "title",
-					"titleColor": "",
-					"description": "description",
-					"cardSize": "two-thirds"
-				},
-				{
-					"id": "card-3",
-					"image": {},
-					"subtitle": "sub title",
-					"title": "title",
-					"titleColor": "",
-					"description": "description",
-					"cardSize": "one-third"
-				}
-			]
-		},
 		"gridGap": {
 			"type": "string",
 			"default": "1.5rem"

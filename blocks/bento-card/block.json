@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "swishfolio-core/bento-card",
+	"version": "1.0.0",
+	"title": "Card",
+	"category": "swishfolio",
+	"description": "A single card inside Bento Cards. Image, subtitle, title, description, and layout size.",
+	"keywords": [ "bento", "card" ],
+	"textdomain": "swishfolio-core",
+	"parent": [ "swishfolio-core/bento-cards" ],
+	"attributes": {
+		"image": {
+			"type": "object"
+		},
+		"subtitle": {
+			"type": "string",
+			"source": "html",
+			"selector": ".sfcore-bento__card-subtitle",
+			"default": ""
+		},
+		"title": {
+			"type": "string",
+			"source": "html",
+			"selector": ".sfcore-bento__card-title",
+			"default": ""
+		},
+		"description": {
+			"type": "string",
+			"source": "html",
+			"selector": ".sfcore-bento__card-description",
+			"default": ""
+		},
+		"titleColor": {
+			"type": "string",
+			"default": ""
+		},
+		"cardSize": {
+			"type": "string",
+			"default": "one-third"
+		}
+	},
+	"supports": {
+		"html": false,
+		"reusable": false
+	},
+	"editorScript": "file:./build/index.js"
+}

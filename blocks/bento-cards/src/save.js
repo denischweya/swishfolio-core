@@ -1,12 +1,15 @@
 /**
- * Bento Cards Block - Save Component
+ * Bento Cards - Save Component.
+ *
+ * Static save. Emits the wrapper + grid container with `<InnerBlocks.Content />`
+ * for cards, plus the optional CTA. CSS custom properties are set on the
+ * wrapper and inherited by all children.
  */
 
-import { useBlockProps, RichText } from '@wordpress/block-editor';
+import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 
 export default function save( { attributes } ) {
 	const {
-		cards,
 		gridGap,
 		cardOverlayColor,
 		cardOverlayOpacity,
@@ -17,18 +20,6 @@ export default function save( { attributes } ) {
 		ctaTextColor,
 		ctaBgColor,
 	} = attributes;
-
-	// Get card classes
-	const getCardClasses = ( card ) => {
-		const classes = [
-			'sfcore-bento__card',
-			`sfcore-bento__card--${ card.cardSize || 'one-third' }`,
-		];
-		if ( card.image?.url ) {
-			classes.push( 'sfcore-bento__card--has-image' );
-		}
-		return classes.join( ' ' );
-	};
 
 	const blockProps = useBlockProps.save( {
 		className: 'sfcore-bento',
@@ -42,54 +33,10 @@ export default function save( { attributes } ) {
 
 	return (
 		<div { ...blockProps }>
-			{ /* Cards Grid */ }
 			<div className="sfcore-bento__grid">
-				{ cards.map( ( card ) => (
-					<div
-						key={ card.id }
-						className={ getCardClasses( card ) }
-					>
-						{ card.image?.url && (
-							<img
-								src={ card.image.url }
-								alt={ card.image.alt || '' }
-								className="sfcore-bento__card-image"
-							/>
-						) }
-						<div className="sfcore-bento__card-overlay" />
-						<div className="sfcore-bento__card-content">
-							{ card.subtitle && (
-								<RichText.Content
-									tagName="span"
-									className="sfcore-bento__card-subtitle"
-									value={ card.subtitle }
-									style={ card.titleColor ? { color: card.titleColor } : undefined }
-								/>
-							) }
-							<div className="sfcore-bento__card-info">
-								{ card.title && (
-									<RichText.Content
-										tagName="h3"
-										className="sfcore-bento__card-title"
-										value={ card.title }
-										style={ card.titleColor ? { color: card.titleColor } : undefined }
-									/>
-								) }
-								{ card.description && (
-									<RichText.Content
-										tagName="p"
-										className="sfcore-bento__card-description"
-										value={ card.description }
-										style={ card.titleColor ? { color: card.titleColor } : undefined }
-									/>
-								) }
-							</div>
-						</div>
-					</div>
-				) ) }
+				<InnerBlocks.Content />
 			</div>
 
-			{ /* Block CTA */ }
 			{ ctaType !== 'none' && ctaText && ctaUrl && (
 				<div className="sfcore-bento__cta-wrapper">
 					<a
@@ -97,7 +44,8 @@ export default function save( { attributes } ) {
 						className={ `sfcore-bento__cta sfcore-bento__cta--${ ctaType }` }
 						style={ {
 							color: ctaTextColor || undefined,
-							backgroundColor: ctaType === 'button' ? ( ctaBgColor || undefined ) : undefined,
+							backgroundColor:
+								ctaType === 'button' ? ctaBgColor || undefined : undefined,
 						} }
 					>
 						{ ctaText }

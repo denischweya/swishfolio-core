@@ -68,7 +68,7 @@
 
 .sfcore-bento__grid {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(6, 1fr);
 	gap: var(--grid-gap, 1.5rem);
 }
 
@@ -112,9 +112,9 @@
 	}
 }
 
-// Card Sizes
+// Card Sizes (6-column grid: full=6, two-thirds=4, half=3, one-third=2)
 .sfcore-bento__card--full {
-	grid-column: span 3;
+	grid-column: span 6;
 	aspect-ratio: 21 / 9;
 
 	.sfcore-bento__card-title {
@@ -124,7 +124,7 @@
 }
 
 .sfcore-bento__card--two-thirds {
-	grid-column: span 2;
+	grid-column: span 4;
 	aspect-ratio: 16 / 9;
 
 	.sfcore-bento__card-title {
@@ -133,8 +133,18 @@
 	}
 }
 
+.sfcore-bento__card--half {
+	grid-column: span 3;
+	aspect-ratio: 4 / 3;
+
+	.sfcore-bento__card-title {
+		font-size: clamp(1.5rem, 4.5vw, 3rem);
+		margin-bottom: 0.5rem;
+	}
+}
+
 .sfcore-bento__card--one-third {
-	grid-column: span 1;
+	grid-column: span 2;
 }
 
 // =====================
@@ -308,6 +318,7 @@
 		font-size: clamp(2rem, 6vw, 4rem);
 	}
 
+	// Tablet: collapse to a 2-column grid (spans halved from the 6-col base).
 	.sfcore-bento__grid {
 		grid-template-columns: repeat(2, 1fr);
 	}
@@ -324,6 +335,11 @@
 	.sfcore-bento__card--two-thirds {
 		grid-column: span 2;
 		aspect-ratio: 16 / 9;
+	}
+
+	.sfcore-bento__card--half {
+		grid-column: span 1;
+		aspect-ratio: 4 / 5;
 	}
 
 	.sfcore-bento__card--one-third {
@@ -351,6 +367,7 @@
 
 	.sfcore-bento__card--full,
 	.sfcore-bento__card--two-thirds,
+	.sfcore-bento__card--half,
 	.sfcore-bento__card--one-third {
 		grid-column: span 1;
 		aspect-ratio: 4 / 5;
