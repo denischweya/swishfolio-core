@@ -81,7 +81,6 @@
 	display: block;
 	overflow: hidden;
 	background-color: #{$color-surface};
-	aspect-ratio: 4 / 5;
 	cursor: pointer;
 	text-decoration: none;
 
@@ -89,11 +88,9 @@
 		content: '';
 		position: absolute;
 		inset: 0;
-		background: linear-gradient(
-			to bottom,
-			transparent 40%,
-			var(--overlay-color, rgba(6, 26, 20, 0.85)) 95%
-		);
+		background: linear-gradient(to bottom,
+				transparent 40%,
+				var(--overlay-color, rgba(6, 26, 20, 0.85)) 95%);
 		opacity: var(--overlay-opacity, 0.6);
 		z-index: 2;
 		pointer-events: none;
@@ -118,7 +115,7 @@
 	aspect-ratio: 21 / 9;
 
 	.sfcore-bento__card-title {
-		font-size: clamp(2rem, 6vw, 4.5rem);
+		font-size: var(--card-title-base-size, clamp(2rem, 6vw, 4.5rem));
 		margin-bottom: 0.5rem;
 	}
 }
@@ -128,7 +125,7 @@
 	aspect-ratio: 16 / 9;
 
 	.sfcore-bento__card-title {
-		font-size: clamp(1.75rem, 5vw, 3.5rem);
+		font-size: var(--card-title-base-size, clamp(1.75rem, 5vw, 3.5rem));
 		margin-bottom: 0.5rem;
 	}
 }
@@ -138,7 +135,7 @@
 	aspect-ratio: 4 / 3;
 
 	.sfcore-bento__card-title {
-		font-size: clamp(1.5rem, 4.5vw, 3rem);
+		font-size: var(--card-title-base-size, clamp(1.5rem, 4.5vw, 3rem));
 		margin-bottom: 0.5rem;
 	}
 }
@@ -151,13 +148,22 @@
 // Card Image
 // =====================
 
-.sfcore-bento__card-image {
+// The image now lives inside `.sfcore-bento__card-image-layer` so `layered`
+// mode can turn the layer into a coloured backdrop with a smaller image
+// bottom-aligned inside. In default (non-layered) mode the layer stretches
+// edge-to-edge and the image fills it — reproducing the original behaviour.
+.sfcore-bento__card-image-layer {
 	position: absolute;
 	inset: 0;
+	z-index: 1;
+	overflow: hidden;
+}
+
+.sfcore-bento__card-image {
+	display: block;
 	width: 100%;
 	height: 100%;
 	object-fit: fill;
-	z-index: 1;
 	filter: grayscale(0) brightness(0.9);
 	transition: transform 1s ease, filter 1s ease;
 }
@@ -196,11 +202,12 @@
 .sfcore-bento__card-subtitle {
 	display: inline-block;
 	padding: 0.25rem 0.75rem;
+	padding-left: 0;
 	font-size: 0.625rem;
 	font-weight: 400;
 	letter-spacing: 0.5em;
 	text-transform: uppercase;
-	color: #{$color-base};
+	color: var(--card-subtitle-color, #{$color-base});
 	background-color: var(--accent-color, #{$color-accent-1});
 	opacity: 0;
 	transition: opacity 0.5s ease;
@@ -214,16 +221,27 @@
 	align-items: flex-start;
 }
 
+// Wraps the title and the inner-blocks actions slot. Behaviour is
+// per-style: block-flow by default (overlay / hover-reveal) so the button
+// sits below the title as before; flex row for content-region styles
+// (caption-below / stacked / cta) so the button sits inline with the title
+// on the right.
+.sfcore-bento__card-title-row {
+	display: block;
+	width: 100%;
+}
+
 .sfcore-bento__card-title {
 	display: inline;
 	padding: 0.25rem 0.5rem;
+	padding-left: 0;
 	margin: 0;
-	font-size: clamp(1.2rem, 4vw, 2rem);
+	font-size: var(--card-title-base-size, clamp(1.2rem, 4vw, 2rem));
 	font-weight: 700;
 	line-height: 1.4;
 	letter-spacing: -0.02em;
 	text-transform: uppercase;
-	color: #{$color-base};
+	color: var(--card-title-color, #{$color-base});
 	background-color: var(--accent-color, #{$color-accent-1});
 	box-decoration-break: clone;
 	-webkit-box-decoration-break: clone;
@@ -232,15 +250,24 @@
 .sfcore-bento__card-description {
 	display: inline;
 	padding: 0.15rem 0.5rem;
+	padding-left: 0;
 	margin: 0;
 	font-size: 0.875rem;
 	font-weight: 300;
 	letter-spacing: 0.2em;
 	text-transform: uppercase;
-	color: #{$color-base};
+	color: var(--card-description-color, #{$color-base});
 	background-color: var(--accent-color, #{$color-accent-1});
 	box-decoration-break: clone;
 	-webkit-box-decoration-break: clone;
+}
+
+// Slot for the child's InnerBlocks (core/buttons). Sized down to nothing
+// when empty so unused slots never affect layout.
+.sfcore-bento__card-actions {
+	&:empty {
+		display: none;
+	}
 }
 
 // =====================
@@ -302,6 +329,235 @@
 }
 
 // =====================
+// Card Style Variants
+// =====================
+//
+// The parent block emits one of `sfcore-bento--style-{overlay|hover-reveal
+// |caption-below|stacked|cta}` on its wrapper. `overlay` is the default and
+// uses the base rules above. The four remaining styles restyle the card
+// using only CSS — the child block's DOM is uniform across all styles.
+
+// --- Hover Reveal --------------------------------------------------------
+// Image fills the card. On rest: only the title is visible. On hover a dark
+// scrim + subtitle + description fade in.
+.sfcore-bento--style-hover-reveal {
+	.sfcore-bento__card {
+		&::before {
+			// Solid dark scrim, hidden by default.
+			background: var(--overlay-color, rgba(6, 26, 20, 0.85));
+			opacity: 0;
+			transition: opacity 0.4s ease;
+		}
+
+		&:hover::before {
+			opacity: calc(var(--overlay-opacity, 0.6) + 0.1);
+		}
+	}
+
+	.sfcore-bento__card-subtitle,
+	.sfcore-bento__card-description {
+		opacity: 0;
+		transform: translateY(8px);
+		transition: opacity 0.4s ease, transform 0.4s ease;
+	}
+
+	.sfcore-bento__card:hover {
+
+		.sfcore-bento__card-subtitle,
+		.sfcore-bento__card-description {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+}
+
+// --- Caption Below -------------------------------------------------------
+// Image in top region, text in an always-visible band below. No overlay.
+.sfcore-bento--style-caption-below {
+	.sfcore-bento__card {
+		aspect-ratio: auto;
+		display: flex;
+		flex-direction: column;
+		background-color: var(--card-text-bg, #{$color-surface});
+
+		&::before {
+			display: none;
+		}
+	}
+
+	.sfcore-bento__card-image-layer {
+		position: relative;
+		inset: auto;
+		flex: 0 0 60%;
+	}
+
+	.sfcore-bento__card-overlay {
+		display: none;
+	}
+
+	.sfcore-bento__card-content {
+		position: relative;
+		z-index: 3;
+		height: auto;
+		padding: 1.5rem;
+		background-color: var(--card-text-bg, transparent);
+	}
+
+	.sfcore-bento__card-subtitle {
+		opacity: 1;
+	}
+}
+
+// --- Stacked -------------------------------------------------------------
+// Image on top of a padded container that carries its own background.
+.sfcore-bento--style-stacked {
+	.sfcore-bento__card {
+		aspect-ratio: auto;
+		display: flex;
+		flex-direction: column;
+		background-color: var(--card-text-bg, #{$color-surface});
+		padding: 0.75rem;
+
+		&::before {
+			display: none;
+		}
+	}
+
+	.sfcore-bento__card-image-layer {
+		position: relative;
+		inset: auto;
+		flex: 0 0 auto;
+		aspect-ratio: 16 / 9;
+		margin-bottom: 1rem;
+	}
+
+	.sfcore-bento__card-overlay {
+		display: none;
+	}
+
+	.sfcore-bento__card-content {
+		position: relative;
+		z-index: 3;
+		height: auto;
+		padding: 0.5rem 0.75rem 1rem;
+	}
+
+	.sfcore-bento__card-subtitle {
+		opacity: 1;
+	}
+}
+
+// --- CTA -----------------------------------------------------------------
+// Same overall structure as stacked, with prominence given to the InnerBlocks
+// actions slot (core/buttons). Suits marketing-style cards.
+.sfcore-bento--style-cta {
+	.sfcore-bento__card {
+		aspect-ratio: auto;
+		display: flex;
+		flex-direction: column;
+		background-color: var(--card-text-bg, #{$color-surface});
+		padding: 0.75rem;
+
+		&::before {
+			display: none;
+		}
+	}
+
+	.sfcore-bento__card-image-layer {
+		position: relative;
+		inset: auto;
+		flex: 0 0 auto;
+		aspect-ratio: 16 / 9;
+		margin-bottom: 1rem;
+	}
+
+	.sfcore-bento__card-overlay {
+		display: none;
+	}
+
+	.sfcore-bento__card-content {
+		position: relative;
+		z-index: 3;
+		height: auto;
+		padding: 0.5rem 0.75rem 1rem;
+	}
+
+	.sfcore-bento__card-subtitle {
+		opacity: 1;
+	}
+
+	.sfcore-bento__card-actions {
+		margin-top: 1rem;
+	}
+}
+
+// --- Inline Title + Button Row -------------------------------------------
+// For content-region styles the title-row becomes a flex row so the button
+// (inner core/buttons block) sits at the right edge of the title. On narrow
+// cards the row wraps to two lines rather than squishing.
+//
+// `margin-left: auto` on the actions is more reliable than `space-between`:
+// it works even when the title's editor wrappers steal flex-grow and when
+// the actions slot is empty (rendered but visually collapsed via `:empty`).
+.sfcore-bento--style-caption-below,
+.sfcore-bento--style-stacked,
+.sfcore-bento--style-cta {
+	.sfcore-bento__card-title-row {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		flex-wrap: wrap;
+		margin-bottom: 0.5rem;
+	}
+
+	.sfcore-bento__card-title-row .sfcore-bento__card-actions {
+		margin-left: auto;
+	}
+}
+
+// =====================
+// Layered Image Mode
+// =====================
+//
+// Only takes effect when combined with a style where the image sits in its
+// own region (caption-below / stacked / cta). Turns the image layer into a
+// backdrop with the image bottom-aligned inside at a configurable width.
+
+.sfcore-bento--layered {
+
+	&.sfcore-bento--style-caption-below,
+	&.sfcore-bento--style-stacked,
+	&.sfcore-bento--style-cta {
+		.sfcore-bento__card-image-layer {
+			background-color: var(--layered-bg-color, transparent);
+			display: flex;
+			align-items: flex-end;
+			justify-content: center;
+			overflow: hidden;
+			// Padding sits inside the layer, above the bottom-aligned image,
+			// so the backdrop shows through at the top.
+			padding-top: var(--layered-padding-top, 10%);
+			box-sizing: border-box;
+		}
+
+		.sfcore-bento__card-image {
+			width: var(--layered-image-width, 100%);
+			height: auto;
+			max-height: 100%;
+			object-fit: contain;
+			filter: none;
+			transform-origin: center bottom;
+			transition: transform 0.4s ease;
+		}
+
+		.sfcore-bento__card:hover .sfcore-bento__card-image {
+			transform: scale(1.08);
+			filter: none;
+		}
+	}
+}
+
+// =====================
 // Responsive - Tablet
 // =====================
 
@@ -328,7 +584,7 @@
 		aspect-ratio: 4 / 3;
 
 		.sfcore-bento__card-title {
-			font-size: clamp(1.5rem, 5vw, 3rem);
+			font-size: var(--card-title-base-size, clamp(1.5rem, 5vw, 3rem));
 		}
 	}
 
@@ -349,6 +605,22 @@
 
 	.sfcore-bento__card-content {
 		padding: 1.5rem;
+	}
+
+	// Touch devices don't hover — fall back to caption-below behaviour so
+	// the subtitle + description are always visible.
+	.sfcore-bento--style-hover-reveal {
+		.sfcore-bento__card {
+			&::before {
+				opacity: var(--overlay-opacity, 0.6);
+			}
+		}
+
+		.sfcore-bento__card-subtitle,
+		.sfcore-bento__card-description {
+			opacity: 1;
+			transform: none;
+		}
 	}
 }
 
@@ -374,7 +646,7 @@
 	}
 
 	.sfcore-bento__card-title {
-		font-size: 1.5rem;
+		font-size: var(--card-title-base-size, 1.5rem);
 	}
 
 	.sfcore-bento__card-content {

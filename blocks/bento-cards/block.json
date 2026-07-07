@@ -13,6 +13,10 @@
 			"type": "string",
 			"default": "1.5rem"
 		},
+		"cardStyle": {
+			"type": "string",
+			"default": "overlay"
+		},
 		"cardOverlayColor": {
 			"type": "string",
 			"default": ""
@@ -24,6 +28,38 @@
 		"accentColor": {
 			"type": "string",
 			"default": ""
+		},
+		"cardSubtitleColor": {
+			"type": "string",
+			"default": ""
+		},
+		"cardTitleColor": {
+			"type": "string",
+			"default": ""
+		},
+		"cardDescriptionColor": {
+			"type": "string",
+			"default": ""
+		},
+		"cardTextBg": {
+			"type": "string",
+			"default": ""
+		},
+		"cardTitleFontSize": {
+			"type": "string",
+			"default": ""
+		},
+		"layeredImages": {
+			"type": "boolean",
+			"default": false
+		},
+		"layeredBgColor": {
+			"type": "string",
+			"default": ""
+		},
+		"layeredPaddingTop": {
+			"type": "number",
+			"default": 10
 		},
 		"ctaType": {
 			"type": "string",

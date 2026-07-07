@@ -1,14 +1,17 @@
 /**
  * Bento Card - Edit Component.
  *
- * Inline-editable subtitle/title/description, media picker for image, size
- * selector, per-card title color. Locked to the bento-cards parent via
- * block.json's `parent` field.
+ * Inline-editable subtitle/title/description, media picker for image,
+ * size selector, per-card title color, layered-image width control (shown
+ * only when the parent's `layeredImages` toggle is on and cardStyle
+ * supports it). Also renders an `InnerBlocks` slot for a `core/buttons`
+ * block, used by the `cta` layout on the parent.
  */
 
 import { __ } from '@wordpress/i18n';
 import {
 	useBlockProps,
+	useInnerBlocksProps,
 	RichText,
 	InspectorControls,
 	MediaUpload,
@@ -21,7 +24,9 @@ import {
 	ButtonGroup,
 	ColorPalette,
 	SelectControl,
+	RangeControl,
 } from '@wordpress/components';
+import { useSelect } from '@wordpress/data';
 import InspectorTabs, {
 	useInspectorTabs,
 } from '../../shared/components/inspector-tabs';
@@ -33,12 +38,42 @@ const SIZE_OPTIONS = [
 	{ label: __( 'One Third (1/3)', 'swishfolio-core' ), value: 'one-third' },
 ];
 
-export default function Edit( { attributes, setAttributes } ) {
+const LAYERED_ELIGIBLE_STYLES = [ 'caption-below', 'stacked', 'cta' ];
+
+const INNER_ALLOWED = [ 'core/buttons' ];
+
+export default function Edit( { attributes, setAttributes, clientId } ) {
 	const [ activeTab, setActiveTab ] = useInspectorTabs();
 	const themeColors = useSetting( 'color.palette' ) || [];
 
-	const { image, subtitle, title, description, titleColor, cardSize } =
-		attributes;
+	const {
+		image,
+		subtitle,
+		title,
+		description,
+		titleColor,
+		cardSize,
+		layeredImageWidth,
+	} = attributes;
+
+	// Read the parent bento-cards block's cardStyle + layeredImages to decide
+	// whether to render the layered width control.
+	const { parentLayered, parentStyle } = useSelect(
+		( select ) => {
+			const { getBlockRootClientId, getBlockAttributes } =
+				select( 'core/block-editor' );
+			const rootId = getBlockRootClientId( clientId );
+			const parentAttrs = rootId ? getBlockAttributes( rootId ) : {};
+			return {
+				parentLayered: !! parentAttrs?.layeredImages,
+				parentStyle: parentAttrs?.cardStyle || 'overlay',
+			};
+		},
+		[ clientId ]
+	);
+
+	const showLayeredWidth =
+		parentLayered && LAYERED_ELIGIBLE_STYLES.includes( parentStyle );
 
 	const classes = [
 		'sfcore-bento__card',
@@ -48,9 +83,23 @@ export default function Edit( { attributes, setAttributes } ) {
 		classes.push( 'sfcore-bento__card--has-image' );
 	}
 
-	const blockProps = useBlockProps( { className: classes.join( ' ' ) } );
+	const blockProps = useBlockProps( {
+		className: classes.join( ' ' ),
+		style: {
+			'--layered-image-width': `${ layeredImageWidth || 100 }%`,
+		},
+	} );
 
 	const titleStyle = titleColor ? { color: titleColor } : undefined;
+
+	const innerBlocksProps = useInnerBlocksProps(
+		{ className: 'sfcore-bento__card-actions' },
+		{
+			allowedBlocks: INNER_ALLOWED,
+			template: [ [ 'core/buttons' ] ],
+			templateLock: false,
+		}
+	);
 
 	return (
 		<>
@@ -135,6 +184,25 @@ export default function Edit( { attributes, setAttributes } ) {
 								) }
 							/>
 						</MediaUploadCheck>
+
+						{ showLayeredWidth && (
+							<RangeControl
+								label={ __( 'Image Width (%)', 'swishfolio-core' ) }
+								help={ __(
+									'Width of the image within its backdrop.',
+									'swishfolio-core'
+								) }
+								value={ layeredImageWidth }
+								onChange={ ( value ) =>
+									setAttributes( {
+										layeredImageWidth: value ?? 100,
+									} )
+								}
+								min={ 20 }
+								max={ 100 }
+								step={ 5 }
+							/>
+						) }
 					</PanelBody>
 				) }
 
@@ -156,13 +224,15 @@ export default function Edit( { attributes, setAttributes } ) {
 			</InspectorControls>
 
 			<div { ...blockProps }>
-				{ image?.url && (
-					<img
-						src={ image.url }
-						alt={ image.alt || '' }
-						className="sfcore-bento__card-image"
-					/>
-				) }
+				<div className="sfcore-bento__card-image-layer">
+					{ image?.url && (
+						<img
+							src={ image.url }
+							alt={ image.alt || '' }
+							className="sfcore-bento__card-image"
+						/>
+					) }
+				</div>
 				<div className="sfcore-bento__card-overlay" />
 				<div className="sfcore-bento__card-content">
 					<RichText
@@ -174,14 +244,17 @@ export default function Edit( { attributes, setAttributes } ) {
 						style={ titleStyle }
 					/>
 					<div className="sfcore-bento__card-info">
-						<RichText
-							tagName="h3"
-							className="sfcore-bento__card-title"
-							value={ title }
-							onChange={ ( value ) => setAttributes( { title: value } ) }
-							placeholder={ __( 'Card title…', 'swishfolio-core' ) }
-							style={ titleStyle }
-						/>
+						<div className="sfcore-bento__card-title-row">
+							<RichText
+								tagName="h3"
+								className="sfcore-bento__card-title"
+								value={ title }
+								onChange={ ( value ) => setAttributes( { title: value } ) }
+								placeholder={ __( 'Card title…', 'swishfolio-core' ) }
+								style={ titleStyle }
+							/>
+							<div { ...innerBlocksProps } />
+						</div>
 						<RichText
 							tagName="p"
 							className="sfcore-bento__card-description"

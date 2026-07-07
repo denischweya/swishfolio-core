@@ -1,9 +1,9 @@
 /**
  * Bento Cards - Save Component.
  *
- * Static save. Emits the wrapper + grid container with `<InnerBlocks.Content />`
- * for cards, plus the optional CTA. CSS custom properties are set on the
- * wrapper and inherited by all children.
+ * Static save. Emits the wrapper (with grid-wide style + layered classes and
+ * CSS custom properties) and the grid container with `<InnerBlocks.Content />`
+ * for cards, plus the optional section CTA.
  */
 
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
@@ -11,9 +11,18 @@ import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 export default function save( { attributes } ) {
 	const {
 		gridGap,
+		cardStyle,
 		cardOverlayColor,
 		cardOverlayOpacity,
 		accentColor,
+		cardSubtitleColor,
+		cardTitleColor,
+		cardDescriptionColor,
+		cardTextBg,
+		cardTitleFontSize,
+		layeredImages,
+		layeredBgColor,
+		layeredPaddingTop,
 		ctaType,
 		ctaText,
 		ctaUrl,
@@ -21,13 +30,28 @@ export default function save( { attributes } ) {
 		ctaBgColor,
 	} = attributes;
 
+	const wrapperClasses = [
+		'sfcore-bento',
+		`sfcore-bento--style-${ cardStyle || 'overlay' }`,
+	];
+	if ( layeredImages ) {
+		wrapperClasses.push( 'sfcore-bento--layered' );
+	}
+
 	const blockProps = useBlockProps.save( {
-		className: 'sfcore-bento',
+		className: wrapperClasses.join( ' ' ),
 		style: {
 			'--grid-gap': gridGap,
 			'--overlay-color': cardOverlayColor || 'rgba(6, 26, 20, 0.85)',
 			'--overlay-opacity': cardOverlayOpacity / 100,
 			'--accent-color': accentColor || '#FFE500',
+			'--card-subtitle-color': cardSubtitleColor || undefined,
+			'--card-title-color': cardTitleColor || undefined,
+			'--card-description-color': cardDescriptionColor || undefined,
+			'--card-text-bg': cardTextBg || undefined,
+			'--card-title-base-size': cardTitleFontSize || undefined,
+			'--layered-bg-color': layeredBgColor || undefined,
+			'--layered-padding-top': `${ layeredPaddingTop ?? 10 }%`,
 		},
 	} );
 

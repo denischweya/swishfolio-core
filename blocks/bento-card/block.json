@@ -38,6 +38,10 @@
 		"cardSize": {
 			"type": "string",
 			"default": "one-third"
+		},
+		"layeredImageWidth": {
+			"type": "number",
+			"default": 100
 		}
 	},
 	"supports": {
