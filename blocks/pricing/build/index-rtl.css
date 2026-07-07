@@ -1,1 +1,56 @@
-.sfcore-pricing-plan-panel{background:#f9f9f9;border:1px solid #ddd;margin-bottom:12px}.sfcore-pricing-plan-header{cursor:pointer;font-weight:600;justify-content:space-between;padding:12px}.sfcore-pricing-plan-header:hover{background:#f0f0f0}.sfcore-pricing-plan-content{background:#fff;border-top:1px solid #ddd;padding:12px}.sfcore-pricing-plan-content>*{margin-bottom:12px}.sfcore-pricing-plan-content>:last-child{margin-bottom:0}.sfcore-pricing-feature-row{margin-bottom:8px}.sfcore-pricing-feature-row .components-text-control__input{margin-bottom:0}.sfcore-pricing-feature-row .components-base-control{flex:1;margin-bottom:0}.editor-styles-wrapper .sfcore-pricing__toggle-btn{cursor:pointer}.editor-styles-wrapper .sfcore-pricing__button,.editor-styles-wrapper .sfcore-pricing__subtitle,.editor-styles-wrapper .sfcore-pricing__title{cursor:text}
+/*!*******************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/pricing/src/editor.scss ***!
+  \*******************************************************************************************************************************************************************************************************************************************************/
+.sfcore-pricing-plan-panel {
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  background: #f9f9f9;
+}
+
+.sfcore-pricing-plan-header {
+  padding: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  justify-content: space-between;
+}
+
+.sfcore-pricing-plan-header:hover {
+  background: #f0f0f0;
+}
+
+.sfcore-pricing-plan-content {
+  padding: 12px;
+  border-top: 1px solid #ddd;
+  background: #fff;
+}
+
+.sfcore-pricing-plan-content > * {
+  margin-bottom: 12px;
+}
+
+.sfcore-pricing-plan-content > *:last-child {
+  margin-bottom: 0;
+}
+
+.sfcore-pricing-feature-row {
+  margin-bottom: 8px;
+}
+
+.sfcore-pricing-feature-row .components-text-control__input {
+  margin-bottom: 0;
+}
+
+.sfcore-pricing-feature-row .components-base-control {
+  margin-bottom: 0;
+  flex: 1;
+}
+
+.editor-styles-wrapper .sfcore-pricing__toggle-btn {
+  cursor: pointer;
+}
+
+.editor-styles-wrapper .sfcore-pricing__title,
+.editor-styles-wrapper .sfcore-pricing__subtitle,
+.editor-styles-wrapper .sfcore-pricing__button {
+  cursor: text;
+}

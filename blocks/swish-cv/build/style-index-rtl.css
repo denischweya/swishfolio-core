@@ -1,1 +1,65 @@
-.wp-block-swishfolio-core-swish-cv{display:flex;flex-direction:column}.wp-block-swishfolio-core-swish-cv__row{align-items:baseline;border-top:1px solid var(--sf-rule,color-mix(in srgb,currentColor 14%,transparent));display:grid;gap:24px;grid-template-columns:110px 1fr auto;padding:26px 0;transition:padding .25s ease,opacity .25s ease}.wp-block-swishfolio-core-swish-cv__row:last-child{border-bottom:1px solid var(--sf-rule,color-mix(in srgb,currentColor 14%,transparent))}.wp-block-swishfolio-core-swish-cv__row:hover{padding-right:8px}@media(max-width:640px){.wp-block-swishfolio-core-swish-cv__row{gap:8px;grid-template-columns:1fr}.wp-block-swishfolio-core-swish-cv__row:hover{padding-right:0}}.wp-block-swishfolio-core-swish-cv__year{color:var(--swish-cv-accent,var(--wp--preset--color--accent-3));font-family:var(--wp--preset--font-family--jetbrains-mono,var(--wp--preset--font-family--fira-code,ui-monospace,Menlo,monospace));font-size:12px;letter-spacing:.1em}.wp-block-swishfolio-core-swish-cv__role{color:var(--swish-cv-title,var(--swish-cv-accent,var(--wp--preset--color--contrast)));font-family:var(--wp--preset--font-family--manrope,var(--wp--preset--font-family--heading,inherit));font-size:clamp(19px,1.5vw,24px);font-weight:700;letter-spacing:-.03em;line-height:1.2;margin:0}.wp-block-swishfolio-core-swish-cv__role-at{color:var(--swish-cv-accent,var(--wp--preset--color--accent-3));font-weight:500}.wp-block-swishfolio-core-swish-cv__description{color:var(--swish-cv-title,var(--wp--preset--color--accent-4));font-size:14.5px;line-height:1.55;margin:8px 0 0;max-width:56ch}.wp-block-swishfolio-core-swish-cv__location{align-self:start;color:var(--swish-cv-accent,var(--wp--preset--color--accent-3));font-family:var(--wp--preset--font-family--jetbrains-mono,var(--wp--preset--font-family--fira-code,ui-monospace,Menlo,monospace));font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+/*!*******************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/swish-cv/src/style.scss ***!
+  \*******************************************************************************************************************************************************************************************************************************************************/
+.wp-block-swishfolio-core-swish-cv {
+  display: flex;
+  flex-direction: column;
+}
+.wp-block-swishfolio-core-swish-cv__row {
+  display: grid;
+  grid-template-columns: 110px 1fr auto;
+  gap: 24px;
+  padding: 26px 0;
+  border-top: 1px solid var(--sf-rule, color-mix(in srgb, currentColor 14%, transparent));
+  align-items: baseline;
+  transition: padding 0.25s ease, opacity 0.25s ease;
+}
+.wp-block-swishfolio-core-swish-cv__row:last-child {
+  border-bottom: 1px solid var(--sf-rule, color-mix(in srgb, currentColor 14%, transparent));
+}
+.wp-block-swishfolio-core-swish-cv__row:hover {
+  padding-right: 8px;
+}
+@media (max-width: 640px) {
+  .wp-block-swishfolio-core-swish-cv__row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .wp-block-swishfolio-core-swish-cv__row:hover {
+    padding-right: 0;
+  }
+}
+.wp-block-swishfolio-core-swish-cv__year {
+  font-family: var(--wp--preset--font-family--jetbrains-mono, var(--wp--preset--font-family--fira-code, ui-monospace, Menlo, monospace));
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--swish-cv-accent, var(--wp--preset--color--accent-3));
+}
+.wp-block-swishfolio-core-swish-cv__role {
+  font-family: var(--wp--preset--font-family--manrope, var(--wp--preset--font-family--heading, inherit));
+  font-weight: 700;
+  font-size: clamp(19px, 1.5vw, 24px);
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--swish-cv-title, var(--swish-cv-accent, var(--wp--preset--color--contrast)));
+  margin: 0;
+}
+.wp-block-swishfolio-core-swish-cv__role-at {
+  color: var(--swish-cv-accent, var(--wp--preset--color--accent-3));
+  font-weight: 500;
+}
+.wp-block-swishfolio-core-swish-cv__description {
+  margin: 8px 0 0;
+  color: var(--swish-cv-title, var(--wp--preset--color--accent-4));
+  font-size: 14.5px;
+  line-height: 1.55;
+  max-width: 56ch;
+}
+.wp-block-swishfolio-core-swish-cv__location {
+  font-family: var(--wp--preset--font-family--jetbrains-mono, var(--wp--preset--font-family--fira-code, ui-monospace, Menlo, monospace));
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--swish-cv-accent, var(--wp--preset--color--accent-3));
+  align-self: start;
+}

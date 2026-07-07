@@ -1,1 +1,306 @@
-.sfcore-pricing{--pricing-border-color:var(--wp--preset--color--accent-1);--pricing-highlight-bg:var(--wp--preset--color--accent-2);--pricing-highlight-text:var(--wp--preset--color--contrast);--pricing-text-color:var(--wp--preset--color--contrast);--pricing-toggle-bg:var(--sf-color-surface,var(--wp--preset--color--base))}.sfcore-pricing__toggle-wrapper{display:flex;justify-content:center;margin-bottom:3rem}.sfcore-pricing__toggle{background:var(--pricing-toggle-bg);border:var(--sf-border);box-shadow:var(--sf-shadow-sm);display:inline-flex;gap:.25rem;padding:.25rem}.sfcore-pricing__toggle-btn{background:transparent;border:none;color:var(--wp--preset--color--contrast);cursor:pointer;font-family:var(--wp--preset--font-family--heading,inherit);font-size:.875rem;font-weight:700;letter-spacing:.05em;padding:.5rem 1.5rem;position:relative;text-transform:uppercase;transition:all .1s ease-out}.sfcore-pricing__toggle-btn:hover:not(.is-active){background:rgba(0,0,0,.05)}.sfcore-pricing__toggle-btn.is-active{background:var(--wp--preset--color--contrast);box-shadow:var(--sf-shadow-sm);color:var(--wp--preset--color--base)}.sfcore-pricing__discount-badge{background:var(--wp--preset--color--accent-1);color:var(--wp--preset--color--base);display:inline-block;font-size:.625rem;font-weight:700;margin-right:.5rem;padding:.125rem .5rem;text-transform:uppercase}.sfcore-pricing__grid{border:4px solid var(--pricing-border-color);display:grid;gap:0}.sfcore-pricing--cols-1 .sfcore-pricing__grid,.sfcore-pricing--cols-2 .sfcore-pricing__grid{grid-template-columns:1fr}@media(min-width:782px){.sfcore-pricing--cols-2 .sfcore-pricing__grid{grid-template-columns:repeat(2,1fr)}}.sfcore-pricing--cols-3 .sfcore-pricing__grid{grid-template-columns:1fr}@media(min-width:782px){.sfcore-pricing--cols-3 .sfcore-pricing__grid{grid-template-columns:repeat(2,1fr)}}@media(min-width:1024px){.sfcore-pricing--cols-3 .sfcore-pricing__grid{grid-template-columns:repeat(3,1fr)}}.sfcore-pricing__plan{background:var(--sf-color-surface,var(--wp--preset--color--base));border-bottom:4px solid var(--pricing-border-color);color:var(--pricing-text-color);display:flex;flex-direction:column;padding:2rem 1.5rem;position:relative}@media(min-width:782px){.sfcore-pricing__plan{border-bottom:none;border-left:4px solid var(--pricing-border-color);padding:3rem}}.sfcore-pricing__plan:last-child{border-bottom:none;border-left:none}.sfcore-pricing__plan--highlighted{background:var(--pricing-highlight-bg);overflow:hidden}.sfcore-pricing__plan--highlighted,.sfcore-pricing__plan--highlighted .sfcore-pricing__feature,.sfcore-pricing__plan--highlighted .sfcore-pricing__feature-icon,.sfcore-pricing__plan--highlighted .sfcore-pricing__price,.sfcore-pricing__plan--highlighted .sfcore-pricing__price-amount,.sfcore-pricing__plan--highlighted .sfcore-pricing__price-period,.sfcore-pricing__plan--highlighted .sfcore-pricing__price-prefix,.sfcore-pricing__plan--highlighted .sfcore-pricing__subtitle,.sfcore-pricing__plan--highlighted .sfcore-pricing__title{color:var(--pricing-highlight-text)}.sfcore-pricing__plan--highlighted .sfcore-pricing__button:hover{opacity:.9}.sfcore-pricing__badge{background:var(--wp--preset--color--contrast);border-bottom:2px solid var(--pricing-highlight-bg);border-top:2px solid var(--pricing-highlight-bg);color:var(--wp--preset--color--base);font-family:var(--wp--preset--font-family--heading,inherit);font-size:.75rem;font-weight:700;letter-spacing:.1em;padding:.5rem 3rem;position:absolute;left:-48px;text-transform:uppercase;top:24px;transform:rotate(-45deg)}.sfcore-pricing__header{margin-bottom:1.5rem}.sfcore-pricing__title{color:inherit;font-family:var(--wp--preset--font-family--heading,inherit);font-size:clamp(1.5rem,3vw,2rem);font-weight:900;letter-spacing:-.02em;line-height:1.1;margin:0 0 .25rem;text-transform:uppercase}.sfcore-pricing__subtitle{font-size:.9375rem;margin:0;opacity:.8}.sfcore-pricing__price{align-items:baseline;display:flex;flex-wrap:wrap;gap:.25rem;margin-bottom:2rem}.sfcore-pricing__price-prefix{font-size:clamp(1.5rem,3vw,2rem)}.sfcore-pricing__price-amount,.sfcore-pricing__price-prefix{font-family:var(--wp--preset--font-family--heading,inherit);font-weight:900}.sfcore-pricing__price-amount{font-size:clamp(3rem,6vw,4rem);line-height:1}.sfcore-pricing__price-period{font-family:var(--wp--preset--font-family--heading,inherit);font-size:1rem;font-weight:500;letter-spacing:.1em;opacity:.7;text-transform:uppercase}.sfcore-pricing__features{flex-grow:1;list-style:none;margin:0 0 2rem;padding:0}.sfcore-pricing__feature{align-items:flex-start;display:flex;font-size:.9375rem;gap:.5rem;line-height:1.4;padding:.5rem 0}.sfcore-pricing__feature-icon{color:var(--wp--preset--color--accent-1);flex-shrink:0}.sfcore-pricing__feature-icon svg{display:block}.sfcore-pricing__plan--highlighted .sfcore-pricing__feature-icon{color:inherit}.sfcore-pricing__feature-text{flex:1}.sfcore-pricing__cta{margin-top:auto}.sfcore-pricing__button{align-items:center;background:transparent;border:4px solid var(--pricing-border-color);box-shadow:var(--sf-shadow-sm);color:var(--pricing-border-color);cursor:pointer;display:inline-flex;display:flex;font-size:1rem;font-weight:700;gap:.5rem;justify-content:center;letter-spacing:.05em;padding:1.5rem 2rem;text-align:center;text-decoration:none;text-transform:uppercase;transition:all .1s ease-out;width:auto}.sfcore-pricing__button:hover{background:var(--pricing-border-color);color:var(--wp--preset--color--base)}.sfcore-pricing__button:active{box-shadow:none;transform:translate(-2px,2px)}.sfcore-pricing__plan--highlighted .sfcore-pricing__button{background:var(--pricing-highlight-text);border-color:var(--pricing-highlight-text);box-shadow:var(--sf-shadow-md);color:var(--pricing-highlight-bg)}.sfcore-pricing__plan--highlighted .sfcore-pricing__button:hover{box-shadow:var(--sf-shadow-lg);transform:translate(2px,-2px)}.sfcore-pricing__plan--highlighted .sfcore-pricing__button:active{box-shadow:none;transform:translate(-2px,2px)}
+/*!******************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/pricing/src/style.scss ***!
+  \******************************************************************************************************************************************************************************************************************************************************/
+.sfcore-pricing {
+  --pricing-border-color: var(--wp--preset--color--accent-1);
+  --pricing-highlight-bg: var(--wp--preset--color--accent-2);
+  --pricing-highlight-text: var(--wp--preset--color--contrast);
+  --pricing-text-color: var(--wp--preset--color--contrast);
+  --pricing-toggle-bg: var(--sf-color-surface, var(--wp--preset--color--base));
+}
+
+.sfcore-pricing__toggle-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.sfcore-pricing__toggle {
+  display: inline-flex;
+  background: var(--pricing-toggle-bg);
+  border: var(--sf-border);
+  box-shadow: var(--sf-shadow-sm);
+  padding: 0.25rem;
+  gap: 0.25rem;
+}
+
+.sfcore-pricing__toggle-btn {
+  position: relative;
+  padding: 0.5rem 1.5rem;
+  font-family: var(--wp--preset--font-family--heading, inherit);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--wp--preset--color--contrast);
+  transition: all 0.1s ease-out;
+}
+
+.sfcore-pricing__toggle-btn:hover:not(.is-active) {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.sfcore-pricing__toggle-btn.is-active {
+  background: var(--wp--preset--color--contrast);
+  color: var(--wp--preset--color--base);
+  box-shadow: var(--sf-shadow-sm);
+}
+
+.sfcore-pricing__discount-badge {
+  display: inline-block;
+  margin-right: 0.5rem;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: var(--wp--preset--color--accent-1);
+  color: var(--wp--preset--color--base);
+}
+
+.sfcore-pricing__grid {
+  display: grid;
+  gap: 0;
+  border: 4px solid var(--pricing-border-color);
+}
+
+.sfcore-pricing--cols-1 .sfcore-pricing__grid {
+  grid-template-columns: 1fr;
+}
+
+.sfcore-pricing--cols-2 .sfcore-pricing__grid {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 782px) {
+  .sfcore-pricing--cols-2 .sfcore-pricing__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.sfcore-pricing--cols-3 .sfcore-pricing__grid {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 782px) {
+  .sfcore-pricing--cols-3 .sfcore-pricing__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .sfcore-pricing--cols-3 .sfcore-pricing__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.sfcore-pricing__plan {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1.5rem;
+  background: var(--sf-color-surface, var(--wp--preset--color--base));
+  color: var(--pricing-text-color);
+  border-bottom: 4px solid var(--pricing-border-color);
+}
+
+@media (min-width: 782px) {
+  .sfcore-pricing__plan {
+    padding: 3rem;
+    border-bottom: none;
+    border-left: 4px solid var(--pricing-border-color);
+  }
+}
+
+.sfcore-pricing__plan:last-child {
+  border-bottom: none;
+  border-left: none;
+}
+
+.sfcore-pricing__plan--highlighted {
+  background: var(--pricing-highlight-bg);
+  color: var(--pricing-highlight-text);
+  overflow: hidden;
+}
+
+.sfcore-pricing__plan--highlighted .sfcore-pricing__title,
+.sfcore-pricing__plan--highlighted .sfcore-pricing__subtitle,
+.sfcore-pricing__plan--highlighted .sfcore-pricing__price,
+.sfcore-pricing__plan--highlighted .sfcore-pricing__price-prefix,
+.sfcore-pricing__plan--highlighted .sfcore-pricing__price-amount,
+.sfcore-pricing__plan--highlighted .sfcore-pricing__price-period,
+.sfcore-pricing__plan--highlighted .sfcore-pricing__feature {
+  color: var(--pricing-highlight-text);
+}
+
+.sfcore-pricing__plan--highlighted .sfcore-pricing__feature-icon {
+  color: var(--pricing-highlight-text);
+}
+
+.sfcore-pricing__plan--highlighted .sfcore-pricing__button {
+  background: var(--pricing-highlight-text);
+  color: var(--pricing-highlight-bg);
+  border-color: var(--pricing-highlight-text);
+}
+
+.sfcore-pricing__plan--highlighted .sfcore-pricing__button:hover {
+  opacity: 0.9;
+}
+
+.sfcore-pricing__badge {
+  position: absolute;
+  top: 24px;
+  left: -48px;
+  padding: 0.5rem 3rem;
+  transform: rotate(-45deg);
+  font-family: var(--wp--preset--font-family--heading, inherit);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: var(--wp--preset--color--contrast);
+  color: var(--wp--preset--color--base);
+  border-top: 2px solid var(--pricing-highlight-bg);
+  border-bottom: 2px solid var(--pricing-highlight-bg);
+}
+
+.sfcore-pricing__header {
+  margin-bottom: 1.5rem;
+}
+
+.sfcore-pricing__title {
+  margin: 0 0 0.25rem 0;
+  font-family: var(--wp--preset--font-family--heading, inherit);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: inherit;
+}
+
+.sfcore-pricing__subtitle {
+  margin: 0;
+  font-size: 0.9375rem;
+  opacity: 0.8;
+}
+
+.sfcore-pricing__price {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-bottom: 2rem;
+}
+
+.sfcore-pricing__price-prefix {
+  font-family: var(--wp--preset--font-family--heading, inherit);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 900;
+}
+
+.sfcore-pricing__price-amount {
+  font-family: var(--wp--preset--font-family--heading, inherit);
+  font-size: clamp(3rem, 6vw, 4rem);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.sfcore-pricing__price-period {
+  font-family: var(--wp--preset--font-family--heading, inherit);
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+}
+
+.sfcore-pricing__features {
+  list-style: none;
+  margin: 0 0 2rem 0;
+  padding: 0;
+  flex-grow: 1;
+}
+
+.sfcore-pricing__feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+}
+
+.sfcore-pricing__feature-icon {
+  flex-shrink: 0;
+  color: var(--wp--preset--color--accent-1);
+}
+
+.sfcore-pricing__feature-icon svg {
+  display: block;
+}
+
+.sfcore-pricing__plan--highlighted .sfcore-pricing__feature-icon {
+  color: inherit;
+}
+
+.sfcore-pricing__feature-text {
+  flex: 1;
+}
+
+.sfcore-pricing__cta {
+  margin-top: auto;
+}
+
+.sfcore-pricing__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  border: var(--sf-border);
+  box-shadow: var(--sf-shadow-sm);
+  cursor: pointer;
+  transition: all 0.1s ease-out;
+  display: flex;
+  justify-content: center;
+  width: auto;
+  padding: 1.5rem 2rem;
+  font-size: 1rem;
+  background: transparent;
+  color: var(--pricing-border-color);
+  border: 4px solid var(--pricing-border-color);
+  text-align: center;
+}
+
+.sfcore-pricing__button:hover {
+  background: var(--pricing-border-color);
+  color: var(--wp--preset--color--base);
+}
+
+.sfcore-pricing__button:active {
+  transform: translate(-2px, 2px);
+  box-shadow: none;
+}
+
+.sfcore-pricing__plan--highlighted .sfcore-pricing__button {
+  background: var(--pricing-highlight-text);
+  color: var(--pricing-highlight-bg);
+  border-color: var(--pricing-highlight-text);
+  box-shadow: var(--sf-shadow-md);
+}
+
+.sfcore-pricing__plan--highlighted .sfcore-pricing__button:hover {
+  transform: translate(2px, -2px);
+  box-shadow: var(--sf-shadow-lg);
+}
+
+.sfcore-pricing__plan--highlighted .sfcore-pricing__button:active {
+  transform: translate(-2px, 2px);
+  box-shadow: none;
+}

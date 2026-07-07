@@ -1,1 +1,23 @@
-.wp-block-swishfolio-core-swish-links .sfcore-link{border-radius:4px;cursor:pointer;outline:1px solid transparent;outline-offset:4px;transition:outline-color .15s ease}.wp-block-swishfolio-core-swish-links .sfcore-link.is-active{outline-color:var(--wp-admin-theme-color,#007cba)}.wp-block-swishfolio-core-swish-links .sfcore-link [contenteditable]{cursor:text}.wp-block-swishfolio-core-swish-links .sfcore-links__add{margin-inline-start:12px;opacity:.7}.wp-block-swishfolio-core-swish-links .sfcore-links__add:hover{opacity:1}
+/*!***********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/swish-links/src/editor.scss ***!
+  \***********************************************************************************************************************************************************************************************************************************************************/
+.wp-block-swishfolio-core-swish-links .sfcore-link {
+  cursor: pointer;
+  border-radius: 4px;
+  outline: 1px solid transparent;
+  outline-offset: 4px;
+  transition: outline-color 0.15s ease;
+}
+.wp-block-swishfolio-core-swish-links .sfcore-link.is-active {
+  outline-color: var(--wp-admin-theme-color, #007cba);
+}
+.wp-block-swishfolio-core-swish-links .sfcore-link [contenteditable] {
+  cursor: text;
+}
+.wp-block-swishfolio-core-swish-links .sfcore-links__add {
+  margin-inline-start: 12px;
+  opacity: 0.7;
+}
+.wp-block-swishfolio-core-swish-links .sfcore-links__add:hover {
+  opacity: 1;
+}

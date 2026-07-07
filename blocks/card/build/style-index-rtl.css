@@ -1,1 +1,286 @@
-.wp-block-swishfolio-core-card{--card-border-color:var(--wp--preset--color--contrast);--card-shadow-color:var(--wp--preset--color--contrast);background:var(--sf-color-surface,var(--wp--preset--color--base));border:var(--sf-border);box-shadow:var(--sf-shadow-md);padding:2rem;position:relative;transition:box-shadow .2s ease-out,transform .2s ease-out}.wp-block-swishfolio-core-card:hover{box-shadow:var(--sf-shadow-lg);transform:var(--sf-hover-transform,translate(2px,-2px))}.wp-block-swishfolio-core-card:active{box-shadow:none;transform:var(--sf-active-transform,translate(-2px,2px))}.sfcore-card--border-solid{border-style:solid}.sfcore-card--border-dashed{border-style:dashed}.sfcore-card--border-none{border:none;box-shadow:var(--sf-shadow-md)}.sfcore-card__inner{display:flex;gap:1.5rem;position:relative;z-index:1}.sfcore-card--icon-top .sfcore-card__inner{align-items:flex-start;flex-direction:column}.sfcore-card--icon-left .sfcore-card__inner{align-items:flex-start;flex-direction:row}.sfcore-card--icon-right .sfcore-card__inner{align-items:flex-start;flex-direction:row-reverse}.sfcore-card__icon{align-items:center;background:var(--wp--preset--color--accent-2);border:var(--sf-border);color:var(--wp--preset--color--accent-1);display:flex;flex-shrink:0;justify-content:center}.sfcore-card__icon svg{display:block;fill:currentColor}.sfcore-card--icon-shape-square .sfcore-card__icon{border-radius:var(--sf-radius-none,0)}.sfcore-card--icon-shape-rounded .sfcore-card__icon{border-radius:var(--sf-radius-sm,0)}.sfcore-card--icon-shape-circle .sfcore-card__icon{border-radius:var(--sf-radius-full,9999px)}.sfcore-card--icon-small .sfcore-card__icon{height:48px;padding:10px;width:48px}.sfcore-card--icon-small .sfcore-card__icon svg{height:24px;width:24px}.sfcore-card--icon-medium .sfcore-card__icon{height:64px;padding:14px;width:64px}.sfcore-card--icon-medium .sfcore-card__icon svg{height:32px;width:32px}.sfcore-card--icon-large .sfcore-card__icon{height:80px;padding:18px;width:80px}.sfcore-card--icon-large .sfcore-card__icon svg{height:40px;width:40px}.sfcore-card__icon--custom{background:transparent;border:none;padding:0}.sfcore-card__icon--custom img{height:100%;-o-object-fit:contain;object-fit:contain;width:100%}.sfcore-card__content{flex:1;min-width:0}.sfcore-card__title{color:var(--wp--preset--color--contrast);font-size:1.5rem;font-weight:700;letter-spacing:.02em;line-height:1.2;margin:0 0 .75rem;text-shadow:var(--sf-text-glow,none);text-transform:uppercase}.sfcore-card__description{color:var(--wp--preset--color--contrast);font-size:1rem;line-height:1.6;margin:0;opacity:.8}.sfcore-card__link-wrapper{margin-top:1.25rem}.sfcore-card__link{display:inline-block;font-weight:600;text-decoration:none;transition:all .2s ease-out}.sfcore-card__link--text{color:var(--wp--preset--color--accent-4);position:relative}.sfcore-card__link--text:after{background:currentColor;bottom:-2px;content:"";height:2px;right:0;position:absolute;transform:scaleX(0);transform-origin:left;transition:transform .2s ease-out;width:100%}.sfcore-card__link--text:hover:after{transform:scaleX(1);transform-origin:right}.sfcore-card__link--button{align-items:center;background:var(--wp--preset--color--accent-1);border:var(--sf-border);box-shadow:var(--sf-shadow-sm);color:var(--wp--preset--color--accent-5);cursor:pointer;display:inline-flex;font-weight:700;gap:.5rem;letter-spacing:.05em;padding:.75rem 1.5rem;text-decoration:none;text-transform:uppercase;transition:all .1s ease-out}.sfcore-card__link--button:hover{box-shadow:var(--sf-shadow-lg);transform:var(--sf-hover-transform)}.sfcore-card__link--button:active{box-shadow:none;transform:var(--sf-active-transform)}.sfcore-card__wrapper-link{color:inherit;display:block;text-decoration:none}.sfcore-card__shape{opacity:.6;pointer-events:none;position:absolute;z-index:0}.sfcore-card__shape--circle{border-radius:50%;height:60px;left:-20px;top:-20px;width:60px}.sfcore-card__shape--square{bottom:-15px;height:50px;right:-15px;transform:rotate(-15deg);width:50px}.sfcore-card__shape--triangle{background:transparent!important;border-bottom:52px solid;border-bottom-color:inherit;border-right:30px solid transparent;border-left:30px solid transparent;height:0;right:50%;top:-25px;transform:translateX(50%);width:0}.wp-block-swishfolio-core-card.alignfull .sfcore-card__inner,.wp-block-swishfolio-core-card.alignwide .sfcore-card__inner{margin:0 auto;max-width:1200px}@media(max-width:782px){.wp-block-swishfolio-core-card{padding:1.75rem}.sfcore-card__title{font-size:1.35rem}.sfcore-card--icon-large .sfcore-card__icon{height:70px;padding:16px;width:70px}.sfcore-card--icon-large .sfcore-card__icon svg{height:36px;width:36px}}@media(max-width:600px){.sfcore-card--icon-left .sfcore-card__inner,.sfcore-card--icon-right .sfcore-card__inner{flex-direction:column}.sfcore-card__title{font-size:1.25rem}.sfcore-card__description{font-size:.9375rem}.wp-block-swishfolio-core-card{padding:1.5rem}.sfcore-card__inner{gap:1rem}.sfcore-card--icon-medium .sfcore-card__icon{height:56px;padding:12px;width:56px}.sfcore-card--icon-medium .sfcore-card__icon svg{height:28px;width:28px}.sfcore-card--icon-large .sfcore-card__icon{height:64px;padding:14px;width:64px}.sfcore-card--icon-large .sfcore-card__icon svg{height:32px;width:32px}.sfcore-card__link--button{font-size:.875rem;padding:.625rem 1.25rem}}
+/*!***************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/card/src/style.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************************/
+/**
+ * Card Block - Frontend Styles
+ *
+ * Style-aware design that adapts to theme variations (Neo-Brutalism, Terminal, etc.)
+ */
+.wp-block-swishfolio-core-card {
+  --card-border-color: var(--wp--preset--color--contrast);
+  --card-shadow-color: var(--wp--preset--color--contrast);
+  position: relative;
+  background: var(--sf-color-surface, var(--wp--preset--color--base));
+  border: var(--sf-border);
+  box-shadow: var(--sf-shadow-md);
+  padding: 2rem;
+  transition: box-shadow 0.2s ease-out, transform 0.2s ease-out;
+}
+.wp-block-swishfolio-core-card:hover {
+  transform: var(--sf-hover-transform, translate(2px, -2px));
+  box-shadow: var(--sf-shadow-lg);
+}
+.wp-block-swishfolio-core-card:active {
+  transform: var(--sf-active-transform, translate(-2px, 2px));
+  box-shadow: none;
+}
+.sfcore-card--border-solid {
+  border-style: solid;
+}
+.sfcore-card--border-dashed {
+  border-style: dashed;
+}
+.sfcore-card--border-none {
+  border: none;
+  box-shadow: var(--sf-shadow-md);
+}
+.sfcore-card__inner {
+  display: flex;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+.sfcore-card--icon-top .sfcore-card__inner {
+  flex-direction: column;
+  align-items: flex-start;
+}
+.sfcore-card--icon-left .sfcore-card__inner {
+  flex-direction: row;
+  align-items: flex-start;
+}
+.sfcore-card--icon-right .sfcore-card__inner {
+  flex-direction: row-reverse;
+  align-items: flex-start;
+}
+.sfcore-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--wp--preset--color--accent-1);
+  background: var(--wp--preset--color--accent-2);
+  border: var(--sf-border);
+}
+.sfcore-card__icon svg {
+  display: block;
+  fill: currentColor;
+}
+.sfcore-card--icon-shape-square .sfcore-card__icon {
+  border-radius: var(--sf-radius-none, 0px);
+}
+.sfcore-card--icon-shape-rounded .sfcore-card__icon {
+  border-radius: var(--sf-radius-sm, 0px);
+}
+.sfcore-card--icon-shape-circle .sfcore-card__icon {
+  border-radius: var(--sf-radius-full, 9999px);
+}
+.sfcore-card--icon-small .sfcore-card__icon {
+  width: 48px;
+  height: 48px;
+  padding: 10px;
+}
+.sfcore-card--icon-small .sfcore-card__icon svg {
+  width: 24px;
+  height: 24px;
+}
+.sfcore-card--icon-medium .sfcore-card__icon {
+  width: 64px;
+  height: 64px;
+  padding: 14px;
+}
+.sfcore-card--icon-medium .sfcore-card__icon svg {
+  width: 32px;
+  height: 32px;
+}
+.sfcore-card--icon-large .sfcore-card__icon {
+  width: 80px;
+  height: 80px;
+  padding: 18px;
+}
+.sfcore-card--icon-large .sfcore-card__icon svg {
+  width: 40px;
+  height: 40px;
+}
+.sfcore-card__icon--custom {
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+.sfcore-card__icon--custom img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.sfcore-card__content {
+  flex: 1;
+  min-width: 0;
+}
+.sfcore-card__title {
+  margin: 0 0 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--wp--preset--color--contrast);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  text-shadow: var(--sf-text-glow, none);
+}
+.sfcore-card__description {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--wp--preset--color--contrast);
+  opacity: 0.8;
+}
+.sfcore-card__link-wrapper {
+  margin-top: 1.25rem;
+}
+.sfcore-card__link {
+  display: inline-block;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease-out;
+}
+.sfcore-card__link--text {
+  color: var(--wp--preset--color--accent-4);
+  position: relative;
+}
+.sfcore-card__link--text::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  right: 0;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease-out;
+}
+.sfcore-card__link--text:hover::after {
+  transform: scaleX(1);
+  transform-origin: right;
+}
+.sfcore-card__link--button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  border: var(--sf-border);
+  box-shadow: var(--sf-shadow-sm);
+  cursor: pointer;
+  transition: all 0.1s ease-out;
+  background: var(--wp--preset--color--accent-1);
+  color: var(--wp--preset--color--accent-5);
+}
+.sfcore-card__link--button:hover {
+  box-shadow: var(--sf-shadow-lg);
+  transform: var(--sf-hover-transform);
+}
+.sfcore-card__link--button:active {
+  box-shadow: none;
+  transform: var(--sf-active-transform);
+}
+.sfcore-card__wrapper-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+.sfcore-card__shape {
+  position: absolute;
+  z-index: 0;
+  opacity: 0.6;
+  pointer-events: none;
+}
+.sfcore-card__shape--circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  top: -20px;
+  left: -20px;
+}
+.sfcore-card__shape--square {
+  width: 50px;
+  height: 50px;
+  bottom: -15px;
+  right: -15px;
+  transform: rotate(-15deg);
+}
+.sfcore-card__shape--triangle {
+  width: 0;
+  height: 0;
+  border-right: 30px solid transparent;
+  border-left: 30px solid transparent;
+  border-bottom: 52px solid;
+  border-bottom-color: inherit;
+  background: transparent !important;
+  top: -25px;
+  right: 50%;
+  transform: translateX(50%);
+}
+.wp-block-swishfolio-core-card.alignwide .sfcore-card__inner, .wp-block-swishfolio-core-card.alignfull .sfcore-card__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+@media (max-width: 782px) {
+  .wp-block-swishfolio-core-card {
+    padding: 1.75rem;
+  }
+  .sfcore-card__title {
+    font-size: 1.35rem;
+  }
+  .sfcore-card--icon-large .sfcore-card__icon {
+    width: 70px;
+    height: 70px;
+    padding: 16px;
+  }
+  .sfcore-card--icon-large .sfcore-card__icon svg {
+    width: 36px;
+    height: 36px;
+  }
+}
+@media (max-width: 600px) {
+  .sfcore-card--icon-left .sfcore-card__inner,
+  .sfcore-card--icon-right .sfcore-card__inner {
+    flex-direction: column;
+  }
+  .sfcore-card__title {
+    font-size: 1.25rem;
+  }
+  .sfcore-card__description {
+    font-size: 0.9375rem;
+  }
+  .wp-block-swishfolio-core-card {
+    padding: 1.5rem;
+  }
+  .sfcore-card__inner {
+    gap: 1rem;
+  }
+  .sfcore-card--icon-medium .sfcore-card__icon {
+    width: 56px;
+    height: 56px;
+    padding: 12px;
+  }
+  .sfcore-card--icon-medium .sfcore-card__icon svg {
+    width: 28px;
+    height: 28px;
+  }
+  .sfcore-card--icon-large .sfcore-card__icon {
+    width: 64px;
+    height: 64px;
+    padding: 14px;
+  }
+  .sfcore-card--icon-large .sfcore-card__icon svg {
+    width: 32px;
+    height: 32px;
+  }
+  .sfcore-card__link--button {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+  }
+}
