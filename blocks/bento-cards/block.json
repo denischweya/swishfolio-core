@@ -61,6 +61,14 @@
 			"type": "number",
 			"default": 10
 		},
+		"layeredTallImage": {
+			"type": "boolean",
+			"default": false
+		},
+		"layeredTallHeight": {
+			"type": "number",
+			"default": 395
+		},
 		"ctaType": {
 			"type": "string",
 			"default": "none"

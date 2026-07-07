@@ -558,6 +558,49 @@
 }
 
 // =====================
+// Layered Tall-Image Mode
+// =====================
+//
+// Sub-mode of `.sfcore-bento--layered`. The layer becomes a fixed-height
+// viewport onto a potentially-taller image. Default state shows the top of
+// the image; hover reveals the rest via translateY + slight scale.
+//
+// Only meaningful when combined with a style where the image sits in its own
+// region (caption-below / stacked / cta) — same eligibility as the parent
+// layered mode.
+.sfcore-bento--layered.sfcore-bento--tall-image {
+	&.sfcore-bento--style-caption-below,
+	&.sfcore-bento--style-stacked,
+	&.sfcore-bento--style-cta {
+		.sfcore-bento__card-image-layer {
+			// Fixed viewport height overrides the aspect-ratio (stacked/cta)
+			// and flex percentage (caption-below) that would otherwise apply.
+			height: var(--layered-tall-height, 395px);
+			flex: 0 0 var(--layered-tall-height, 395px);
+			aspect-ratio: auto;
+			align-items: flex-start;
+			padding-top: var(--layered-padding-top, 10%);
+		}
+
+		.sfcore-bento__card-image {
+			height: auto;
+			max-height: none;
+			transform-origin: center top;
+			transition: transform 0.8s ease-out;
+			// Reset the layered-mode default (which was bottom-anchored).
+			transform: translateY(0) scale(1);
+		}
+
+		// The `-100%` translate is relative to the image's own natural
+		// height. Adding the viewport height reveals the exact hidden
+		// portion so the image bottom lines up with the viewport bottom.
+		.sfcore-bento__card:hover .sfcore-bento__card-image {
+			transform: translateY(calc(-100% + var(--layered-tall-height, 395px))) scale(1.1);
+		}
+	}
+}
+
+// =====================
 // Responsive - Tablet
 // =====================
 

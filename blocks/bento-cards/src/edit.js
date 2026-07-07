@@ -74,6 +74,8 @@ export default function Edit( { attributes, setAttributes } ) {
 		layeredImages,
 		layeredBgColor,
 		layeredPaddingTop,
+		layeredTallImage,
+		layeredTallHeight,
 		ctaType,
 		ctaText,
 		ctaUrl,
@@ -90,6 +92,9 @@ export default function Edit( { attributes, setAttributes } ) {
 	];
 	if ( layeredImages ) {
 		wrapperClasses.push( 'sfcore-bento--layered' );
+		if ( layeredTallImage ) {
+			wrapperClasses.push( 'sfcore-bento--tall-image' );
+		}
 	}
 
 	const blockProps = useBlockProps( {
@@ -106,6 +111,7 @@ export default function Edit( { attributes, setAttributes } ) {
 			'--card-title-base-size': cardTitleFontSize || undefined,
 			'--layered-bg-color': layeredBgColor || undefined,
 			'--layered-padding-top': `${ layeredPaddingTop ?? 10 }%`,
+			'--layered-tall-height': `${ layeredTallHeight ?? 395 }px`,
 		},
 	} );
 
@@ -184,6 +190,39 @@ export default function Edit( { attributes, setAttributes } ) {
 												max={ 30 }
 												step={ 1 }
 											/>
+
+											<div style={ { marginTop: '16px', paddingTop: '12px', borderTop: '1px solid #eee' } }>
+												<ToggleControl
+													label={ __( 'Tall Image (Hover to Scroll)', 'swishfolio-core' ) }
+													help={ __(
+														'Allow taller images. Only the top is visible; hover reveals the rest with a scroll animation.',
+														'swishfolio-core'
+													) }
+													checked={ !! layeredTallImage }
+													onChange={ ( value ) =>
+														setAttributes( { layeredTallImage: value } )
+													}
+												/>
+											</div>
+
+											{ layeredTallImage && (
+												<RangeControl
+													label={ __( 'Viewport Height (px)', 'swishfolio-core' ) }
+													help={ __(
+														'How much of the image is visible before hover.',
+														'swishfolio-core'
+													) }
+													value={ layeredTallHeight }
+													onChange={ ( value ) =>
+														setAttributes( {
+															layeredTallHeight: value ?? 395,
+														} )
+													}
+													min={ 200 }
+													max={ 800 }
+													step={ 5 }
+												/>
+											) }
 										</>
 									) }
 								</>

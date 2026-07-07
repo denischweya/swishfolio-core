@@ -23,6 +23,8 @@ export default function save( { attributes } ) {
 		layeredImages,
 		layeredBgColor,
 		layeredPaddingTop,
+		layeredTallImage,
+		layeredTallHeight,
 		ctaType,
 		ctaText,
 		ctaUrl,
@@ -36,6 +38,9 @@ export default function save( { attributes } ) {
 	];
 	if ( layeredImages ) {
 		wrapperClasses.push( 'sfcore-bento--layered' );
+		if ( layeredTallImage ) {
+			wrapperClasses.push( 'sfcore-bento--tall-image' );
+		}
 	}
 
 	const blockProps = useBlockProps.save( {
@@ -52,6 +57,7 @@ export default function save( { attributes } ) {
 			'--card-title-base-size': cardTitleFontSize || undefined,
 			'--layered-bg-color': layeredBgColor || undefined,
 			'--layered-padding-top': `${ layeredPaddingTop ?? 10 }%`,
+			'--layered-tall-height': `${ layeredTallHeight ?? 395 }px`,
 		},
 	} );
 
