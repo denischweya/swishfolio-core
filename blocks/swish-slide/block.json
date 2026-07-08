@@ -1,0 +1,58 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "swishfolio-core/swish-slide",
+	"version": "1.0.0",
+	"title": "Slide",
+	"category": "swishfolio",
+	"description": "A single slide inside Swish Slider. Image, title, subtitle, and up to two CTA links.",
+	"keywords": [ "slide", "slider" ],
+	"textdomain": "swishfolio-core",
+	"parent": [ "swishfolio-core/swish-slider" ],
+	"attributes": {
+		"image": {
+			"type": "object"
+		},
+		"title": {
+			"type": "string",
+			"source": "html",
+			"selector": ".sfcore-swish-slide__title",
+			"default": ""
+		},
+		"subtitle": {
+			"type": "string",
+			"source": "html",
+			"selector": ".sfcore-swish-slide__subtitle",
+			"default": ""
+		},
+		"cta1Text": {
+			"type": "string",
+			"default": "Start With This Design"
+		},
+		"cta1Url": {
+			"type": "string",
+			"default": "https://swishfolio.com/"
+		},
+		"cta1NewTab": {
+			"type": "boolean",
+			"default": false
+		},
+		"cta2Text": {
+			"type": "string",
+			"default": "View Demo"
+		},
+		"cta2Url": {
+			"type": "string",
+			"default": "https://swishfolio.com/"
+		},
+		"cta2NewTab": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"supports": {
+		"html": false,
+		"reusable": false
+	},
+	"editorScript": "file:./build/index.js"
+}

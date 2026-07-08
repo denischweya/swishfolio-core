@@ -1,0 +1,27 @@
+/**
+ * Swish Slider - Editor-only Styles.
+ *
+ * The marquee is static in the editor: the track scrolls horizontally so
+ * every slide stays reachable, and slide text is always visible for editing.
+ */
+
+.sfcore-swish-slider {
+	.sfcore-swish-slider__track {
+		width: auto;
+		overflow-x: auto;
+		padding-bottom: 0.5rem;
+	}
+
+	.sfcore-swish-slide__content {
+		opacity: 1;
+	}
+
+	.sfcore-swish-slide__placeholder {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #e0e0e0;
+	}
+}

@@ -1,0 +1,81 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "swishfolio-core/swish-slider",
+	"version": "1.0.0",
+	"title": "Swish Slider",
+	"category": "swishfolio",
+	"description": "A continuous horizontal marquee of image slides with hover-reveal text and CTAs.",
+	"keywords": [ "slider", "marquee", "carousel", "strip", "scroll" ],
+	"textdomain": "swishfolio-core",
+	"attributes": {
+		"slideWidth": {
+			"type": "number",
+			"default": 426
+		},
+		"slideHeight": {
+			"type": "number",
+			"default": 262
+		},
+		"gap": {
+			"type": "number",
+			"default": 1
+		},
+		"direction": {
+			"type": "string",
+			"default": "left"
+		},
+		"secondsPerSlide": {
+			"type": "number",
+			"default": 6
+		},
+		"pauseOnHover": {
+			"type": "boolean",
+			"default": true
+		},
+		"revealOnHover": {
+			"type": "boolean",
+			"default": true
+		},
+		"textColor": {
+			"type": "string",
+			"default": ""
+		},
+		"scrimColor": {
+			"type": "string",
+			"default": ""
+		},
+		"scrimOpacity": {
+			"type": "number",
+			"default": 60
+		},
+		"ctaColor": {
+			"type": "string",
+			"default": ""
+		},
+		"accentColor": {
+			"type": "string",
+			"default": ""
+		},
+		"ariaLabel": {
+			"type": "string",
+			"default": "Featured slider"
+		}
+	},
+	"supports": {
+		"align": [ "wide", "full" ],
+		"html": false,
+		"color": {
+			"background": true,
+			"text": true
+		},
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css",
+	"viewScript": "file:./build/view.js"
+}

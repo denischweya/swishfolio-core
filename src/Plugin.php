@@ -27,6 +27,8 @@ use SwishfolioCore\Blocks\SwishCvBlock;
 use SwishfolioCore\Blocks\SwishLinksBlock;
 use SwishfolioCore\Blocks\SwishCounterBlock;
 use SwishfolioCore\Blocks\SwishCounterItemBlock;
+use SwishfolioCore\Blocks\SwishSliderBlock;
+use SwishfolioCore\Blocks\SwishSlideBlock;
 use SwishfolioCore\PostTypes\ProjectPostType;
 use SwishfolioCore\Forms\FormEntryPostType;
 use SwishfolioCore\Taxonomies\ProjectCategoryTaxonomy;
@@ -212,6 +214,8 @@ class Plugin
             new SwishLinksBlock(),
             new SwishCounterBlock(),
             new SwishCounterItemBlock(),
+            new SwishSliderBlock(),
+            new SwishSlideBlock(),
         ];
     }
 
