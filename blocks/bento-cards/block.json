@@ -69,6 +69,10 @@
 			"type": "number",
 			"default": 395
 		},
+		"layeredTallSpeed": {
+			"type": "number",
+			"default": 4.6
+		},
 		"ctaType": {
 			"type": "string",
 			"default": "none"

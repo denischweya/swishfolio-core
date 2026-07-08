@@ -25,6 +25,7 @@ export default function save( { attributes } ) {
 		layeredPaddingTop,
 		layeredTallImage,
 		layeredTallHeight,
+		layeredTallSpeed,
 		ctaType,
 		ctaText,
 		ctaUrl,
@@ -58,6 +59,7 @@ export default function save( { attributes } ) {
 			'--layered-bg-color': layeredBgColor || undefined,
 			'--layered-padding-top': `${ layeredPaddingTop ?? 10 }%`,
 			'--layered-tall-height': `${ layeredTallHeight ?? 395 }px`,
+			'--layered-tall-speed': `${ layeredTallSpeed ?? 4.6 }s`,
 		},
 	} );
 

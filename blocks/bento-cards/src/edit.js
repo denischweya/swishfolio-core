@@ -76,6 +76,7 @@ export default function Edit( { attributes, setAttributes } ) {
 		layeredPaddingTop,
 		layeredTallImage,
 		layeredTallHeight,
+		layeredTallSpeed,
 		ctaType,
 		ctaText,
 		ctaUrl,
@@ -112,6 +113,7 @@ export default function Edit( { attributes, setAttributes } ) {
 			'--layered-bg-color': layeredBgColor || undefined,
 			'--layered-padding-top': `${ layeredPaddingTop ?? 10 }%`,
 			'--layered-tall-height': `${ layeredTallHeight ?? 395 }px`,
+			'--layered-tall-speed': `${ layeredTallSpeed ?? 4.6 }s`,
 		},
 	} );
 
@@ -206,22 +208,41 @@ export default function Edit( { attributes, setAttributes } ) {
 											</div>
 
 											{ layeredTallImage && (
-												<RangeControl
-													label={ __( 'Viewport Height (px)', 'swishfolio-core' ) }
-													help={ __(
-														'How much of the image is visible before hover.',
-														'swishfolio-core'
-													) }
-													value={ layeredTallHeight }
-													onChange={ ( value ) =>
-														setAttributes( {
-															layeredTallHeight: value ?? 395,
-														} )
-													}
-													min={ 200 }
-													max={ 800 }
-													step={ 5 }
-												/>
+												<>
+													<RangeControl
+														label={ __( 'Viewport Height (px)', 'swishfolio-core' ) }
+														help={ __(
+															'How much of the image is visible before hover.',
+															'swishfolio-core'
+														) }
+														value={ layeredTallHeight }
+														onChange={ ( value ) =>
+															setAttributes( {
+																layeredTallHeight: value ?? 395,
+															} )
+														}
+														min={ 200 }
+														max={ 800 }
+														step={ 5 }
+													/>
+
+													<RangeControl
+														label={ __( 'Scroll Speed (s)', 'swishfolio-core' ) }
+														help={ __(
+															'Duration of the hover reveal. Higher = slower scroll.',
+															'swishfolio-core'
+														) }
+														value={ layeredTallSpeed }
+														onChange={ ( value ) =>
+															setAttributes( {
+																layeredTallSpeed: value ?? 4.6,
+															} )
+														}
+														min={ 0.5 }
+														max={ 10 }
+														step={ 0.1 }
+													/>
+												</>
 											) }
 										</>
 									) }

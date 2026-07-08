@@ -589,7 +589,7 @@
 			transform-origin: center top;
 			// Slower duration approximates the cadence of a natural mouse
 			// scroll through content of this height.
-			transition: transform 4.6s ease-out;
+			transition: transform var(--layered-tall-speed, 4.6s) ease-out;
 			// Reset the layered-mode default (which was bottom-anchored).
 			transform: translateY(0) scale(1);
 		}
