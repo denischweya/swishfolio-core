@@ -64,26 +64,12 @@
 	color: #{$color-base};
 }
 
-// Grid layout
+// Grid layout - column count follows plan count (ADR-0002): stacked on
+// mobile, 2-up on tablet, one column per plan on desktop.
 .sfcore-pricing__grid {
 	display: grid;
 	gap: 0;
 	border: 4px solid var(--pricing-border-color);
-}
-
-.sfcore-pricing--cols-1 .sfcore-pricing__grid {
-	grid-template-columns: 1fr;
-}
-
-.sfcore-pricing--cols-2 .sfcore-pricing__grid {
-	grid-template-columns: 1fr;
-
-	@media (min-width: $breakpoint-tablet) {
-		grid-template-columns: repeat(2, 1fr);
-	}
-}
-
-.sfcore-pricing--cols-3 .sfcore-pricing__grid {
 	grid-template-columns: 1fr;
 
 	@media (min-width: $breakpoint-tablet) {
@@ -91,7 +77,9 @@
 	}
 
 	@media (min-width: $breakpoint-desktop) {
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: none;
+		grid-auto-flow: column;
+		grid-auto-columns: 1fr;
 	}
 }
 
@@ -129,11 +117,8 @@
 	.sfcore-pricing__price-prefix,
 	.sfcore-pricing__price-amount,
 	.sfcore-pricing__price-period,
-	.sfcore-pricing__feature {
-		color: var(--pricing-highlight-text);
-	}
-
-	.sfcore-pricing__feature-icon {
+	.sfcore-pricing__price-link,
+	.sfcore-pricing__features li {
 		color: var(--pricing-highlight-text);
 	}
 
@@ -188,13 +173,44 @@
 	opacity: 0.8;
 }
 
-// Price
+// Price - each plan saves both billing rows; the parent's data-billing
+// attribute decides which one shows. min-height keeps plans aligned when a
+// plan has no price at all.
 .sfcore-pricing__price {
+	margin-bottom: $spacing-xl;
+	min-height: clamp(3rem, 6vw, 4rem);
+}
+
+.sfcore-pricing__price-row {
 	display: flex;
 	align-items: baseline;
 	flex-wrap: wrap;
 	gap: $spacing-xs;
-	margin-bottom: $spacing-xl;
+}
+
+.sfcore-pricing[data-billing='monthly'] .sfcore-pricing__price-row--yearly,
+.sfcore-pricing[data-billing='yearly'] .sfcore-pricing__price-row--monthly {
+	display: none;
+}
+
+// Period labels are parent attributes rendered via CSS string vars, since
+// the plan's static save can't read parent attributes (ADR-0002).
+.sfcore-pricing__price-period--monthly::before {
+	content: '/' var(--period-monthly, 'month');
+}
+
+.sfcore-pricing__price-period--yearly::before {
+	content: '/' var(--period-yearly, 'year');
+}
+
+// Price link - replaces the numeric price for non-quoted tiers.
+.sfcore-pricing__price-link {
+	font-family: var(--wp--preset--font-family--heading, inherit);
+	font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+	font-weight: 900;
+	line-height: 1.2;
+	color: inherit;
+	text-decoration: underline;
 }
 
 .sfcore-pricing__price-prefix {
@@ -219,38 +235,43 @@
 	opacity: 0.7;
 }
 
-// Features
+// Features - a core/list block inside the plan (ADR-0002). The check icon
+// is a CSS mask so the plain core markup styles identically to the old
+// per-item inline SVG.
 .sfcore-pricing__features {
-	list-style: none;
-	margin: 0 0 $spacing-xl 0;
-	padding: 0;
 	flex-grow: 1;
-}
+	margin-bottom: $spacing-xl;
 
-.sfcore-pricing__feature {
-	display: flex;
-	align-items: flex-start;
-	gap: $spacing-sm;
-	padding: $spacing-sm 0;
-	font-size: 0.9375rem;
-	line-height: 1.4;
-}
+	ul,
+	ol {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
 
-.sfcore-pricing__feature-icon {
-	flex-shrink: 0;
-	color: #{$color-accent-1};
+	li {
+		display: flex;
+		align-items: flex-start;
+		gap: $spacing-sm;
+		padding: $spacing-sm 0;
+		font-size: 0.9375rem;
+		line-height: 1.4;
 
-	svg {
-		display: block;
+		&::before {
+			content: '';
+			flex-shrink: 0;
+			width: 20px;
+			height: 20px;
+			margin-top: 1px;
+			background-color: #{$color-accent-1};
+			mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M16.667 5L7.5 14.167 3.333 10" fill="none" stroke="%23000" stroke-width="2"/></svg>') no-repeat center / contain;
+			-webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M16.667 5L7.5 14.167 3.333 10" fill="none" stroke="%23000" stroke-width="2"/></svg>') no-repeat center / contain;
+		}
 	}
 }
 
-.sfcore-pricing__plan--highlighted .sfcore-pricing__feature-icon {
-	color: inherit;
-}
-
-.sfcore-pricing__feature-text {
-	flex: 1;
+.sfcore-pricing__plan--highlighted .sfcore-pricing__features li::before {
+	background-color: var(--pricing-highlight-text);
 }
 
 // CTA Button

@@ -23,6 +23,7 @@ use SwishfolioCore\Blocks\SwishGalleryBlock;
 use SwishfolioCore\Blocks\SwishFormBlock;
 use SwishfolioCore\Blocks\SwishSocialsBlock;
 use SwishfolioCore\Blocks\PricingBlock;
+use SwishfolioCore\Blocks\PricingPlanBlock;
 use SwishfolioCore\Blocks\SwishCvBlock;
 use SwishfolioCore\Blocks\SwishLinksBlock;
 use SwishfolioCore\Blocks\SwishCounterBlock;
@@ -210,6 +211,7 @@ class Plugin
             new SwishFormBlock(),
             new SwishSocialsBlock(),
             new PricingBlock(),
+            new PricingPlanBlock(),
             new SwishCvBlock(),
             new SwishLinksBlock(),
             new SwishCounterBlock(),

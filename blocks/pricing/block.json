@@ -9,10 +9,6 @@
   "keywords": ["pricing", "plans", "subscription", "table", "toggle"],
   "textdomain": "swishfolio-core",
   "attributes": {
-    "columns": {
-      "type": "number",
-      "default": 3
-    },
     "showToggle": {
       "type": "boolean",
       "default": true
@@ -33,68 +29,13 @@
       "type": "string",
       "default": "Save 20%"
     },
-    "plans": {
-      "type": "array",
-      "default": [
-        {
-          "title": "Starter",
-          "subtitle": "Best for getting started",
-          "monthlyPrice": "9.99",
-          "yearlyPrice": "95.90",
-          "pricePrefix": "$",
-          "priceSuffix": "",
-          "features": [
-            "Up to 10 portfolio items",
-            "2GB media storage",
-            "Custom domain support",
-            "All templates included",
-            "24/7 support"
-          ],
-          "buttonText": "Choose Starter",
-          "buttonUrl": "#",
-          "highlighted": false
-        },
-        {
-          "title": "Pro",
-          "subtitle": "Perfect for professionals",
-          "monthlyPrice": "17",
-          "yearlyPrice": "163.20",
-          "pricePrefix": "$",
-          "priceSuffix": "",
-          "features": [
-            "Unlimited portfolio items",
-            "Unlimited media storage",
-            "Custom domain support",
-            "All templates included",
-            "Priority support"
-          ],
-          "buttonText": "Go Pro Now",
-          "buttonUrl": "#",
-          "highlighted": true
-        },
-        {
-          "title": "Enterprise",
-          "subtitle": "For teams and agencies",
-          "monthlyPrice": "49",
-          "yearlyPrice": "470.40",
-          "pricePrefix": "$",
-          "priceSuffix": "",
-          "features": [
-            "Everything in Pro",
-            "Team collaboration",
-            "White-label branding",
-            "API access",
-            "Dedicated support"
-          ],
-          "buttonText": "Contact Sales",
-          "buttonUrl": "#",
-          "highlighted": false
-        }
-      ]
-    },
-    "highlightedBadgeText": {
+    "monthlyPeriodLabel": {
       "type": "string",
-      "default": "Recommended"
+      "default": "month"
+    },
+    "yearlyPeriodLabel": {
+      "type": "string",
+      "default": "year"
     },
     "borderColor": {
       "type": "string",
@@ -116,6 +57,11 @@
       "type": "string",
       "default": ""
     }
+  },
+  "providesContext": {
+    "swishfolio-core/pricing/defaultBilling": "defaultBilling",
+    "swishfolio-core/pricing/monthlyPeriodLabel": "monthlyPeriodLabel",
+    "swishfolio-core/pricing/yearlyPeriodLabel": "yearlyPeriodLabel"
   },
   "supports": {
     "align": ["wide", "full"],

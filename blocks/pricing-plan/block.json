@@ -1,0 +1,74 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "swishfolio-core/pricing-plan",
+  "version": "1.0.0",
+  "title": "Plan",
+  "category": "swishfolio",
+  "description": "A single pricing plan inside the Pricing Table. Title, prices, feature list, and CTA button.",
+  "keywords": ["plan", "pricing", "tier"],
+  "textdomain": "swishfolio-core",
+  "parent": ["swishfolio-core/pricing"],
+  "attributes": {
+    "title": {
+      "type": "string",
+      "source": "html",
+      "selector": ".sfcore-pricing__title",
+      "default": ""
+    },
+    "subtitle": {
+      "type": "string",
+      "source": "html",
+      "selector": ".sfcore-pricing__subtitle",
+      "default": ""
+    },
+    "monthlyPrice": {
+      "type": "string",
+      "default": ""
+    },
+    "yearlyPrice": {
+      "type": "string",
+      "default": ""
+    },
+    "pricePrefix": {
+      "type": "string",
+      "default": "$"
+    },
+    "priceLinkText": {
+      "type": "string",
+      "default": ""
+    },
+    "priceLinkUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "highlighted": {
+      "type": "boolean",
+      "default": false
+    },
+    "badgeText": {
+      "type": "string",
+      "default": "Recommended"
+    },
+    "buttonText": {
+      "type": "string",
+      "source": "html",
+      "selector": ".sfcore-pricing__button",
+      "default": ""
+    },
+    "buttonUrl": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "usesContext": [
+    "swishfolio-core/pricing/defaultBilling",
+    "swishfolio-core/pricing/monthlyPeriodLabel",
+    "swishfolio-core/pricing/yearlyPeriodLabel"
+  ],
+  "supports": {
+    "html": false,
+    "reusable": false
+  },
+  "editorScript": "file:./build/index.js"
+}
