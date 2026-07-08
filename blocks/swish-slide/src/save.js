@@ -9,7 +9,7 @@
 
 import { useBlockProps, RichText } from '@wordpress/block-editor';
 
-function Cta( { text, url, newTab } ) {
+function Cta( { text, url, newTab, variant } ) {
 	if ( ! text || ! url ) {
 		return null;
 	}
@@ -17,7 +17,7 @@ function Cta( { text, url, newTab } ) {
 	return (
 		<a
 			href={ url }
-			className="sfcore-swish-slide__cta"
+			className={ `sfcore-swish-slide__cta sfcore-swish-slide__cta--${ variant }` }
 			target={ newTab ? '_blank' : undefined }
 			rel={ newTab ? 'noreferrer noopener' : undefined }
 		>
@@ -79,11 +79,13 @@ export default function save( { attributes } ) {
 								text={ cta1Text }
 								url={ cta1Url }
 								newTab={ cta1NewTab }
+								variant="primary"
 							/>
 							<Cta
 								text={ cta2Text }
 								url={ cta2Url }
 								newTab={ cta2NewTab }
+								variant="secondary"
 							/>
 						</div>
 					) }

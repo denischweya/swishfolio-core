@@ -215,12 +215,12 @@ export default function Edit( { attributes, setAttributes } ) {
 					{ ( ( cta1Text && cta1Url ) || ( cta2Text && cta2Url ) ) && (
 						<div className="sfcore-swish-slide__ctas">
 							{ cta1Text && cta1Url && (
-								<span className="sfcore-swish-slide__cta">
+								<span className="sfcore-swish-slide__cta sfcore-swish-slide__cta--primary">
 									{ cta1Text }
 								</span>
 							) }
 							{ cta2Text && cta2Url && (
-								<span className="sfcore-swish-slide__cta">
+								<span className="sfcore-swish-slide__cta sfcore-swish-slide__cta--secondary">
 									{ cta2Text }
 								</span>
 							) }

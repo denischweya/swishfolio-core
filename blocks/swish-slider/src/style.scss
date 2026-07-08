@@ -66,25 +66,23 @@
 	&__scrim {
 		position: absolute;
 		inset: 0;
-		background: linear-gradient(to top,
-				var(--scrim-color, #000),
-				transparent 70%);
+		background: var(--scrim-color, #000);
 		opacity: var(--scrim-opacity, 0.6);
 		pointer-events: none;
+		transition: opacity 0.3s ease;
 	}
 
 	&__content {
 		position: absolute;
-		inset: auto 0 0;
+		inset: 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
 		padding: 1.25rem;
 		color: var(--slider-text-color, #fff);
-		opacity: 0;
 		transition: opacity 0.3s ease;
-	}
-
-	&:hover &__content,
-	&:focus-within &__content {
-		opacity: 1;
 	}
 
 	&__title {
@@ -107,24 +105,41 @@
 	}
 
 	&__cta {
-		color: var(--cta-color, var(--accent-color, #ffe500));
+		padding: 0.4em 1.1em;
 		font-size: 0.875rem;
 		text-decoration: none;
+		transition: background-color 0.2s ease, color 0.2s ease;
 
-		&::after {
-			content: '→';
-			display: inline-block;
-			margin-left: 0.35em;
-			color: var(--accent-color, #ffe500);
-			transition: transform 0.2s ease;
-		}
+		&--primary {
+			background: var(--wp--preset--color--accent-2, var(--accent-color, #ffe500));
+			color: #000;
 
-		&:hover {
-			text-decoration: underline;
-
-			&::after {
-				transform: translateX(4px);
+			&:hover {
+				background: #fff;
 			}
 		}
+
+		&--secondary {
+			border: 1px solid #fff;
+			color: #fff;
+		}
+	}
+}
+
+// Hover-reveal mode: overlay + text hidden until the slide is hovered/focused.
+.sfcore-swish-slider--reveal-hover {
+	.sfcore-swish-slide__scrim,
+	.sfcore-swish-slide__content {
+		opacity: 0;
+	}
+
+	.sfcore-swish-slide:hover .sfcore-swish-slide__scrim,
+	.sfcore-swish-slide:focus-within .sfcore-swish-slide__scrim {
+		opacity: var(--scrim-opacity, 0.6);
+	}
+
+	.sfcore-swish-slide:hover .sfcore-swish-slide__content,
+	.sfcore-swish-slide:focus-within .sfcore-swish-slide__content {
+		opacity: 1;
 	}
 }
