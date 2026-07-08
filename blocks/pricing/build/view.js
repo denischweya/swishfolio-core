@@ -1,1 +1,44 @@
-document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll(".sfcore-pricing").forEach(e=>{const t=e.querySelectorAll(".sfcore-pricing__toggle-btn"),r=e.querySelectorAll(".sfcore-pricing__price-amount"),l=e.querySelectorAll(".sfcore-pricing__period-monthly"),o=e.querySelectorAll(".sfcore-pricing__period-yearly");0!==t.length&&t.forEach(e=>{e.addEventListener("click",()=>{var c;c=e.dataset.billing,r.forEach(e=>{const t=e.dataset.monthly,r=e.dataset.yearly;e.textContent="monthly"===c?t:r}),l.forEach(e=>{e.style.display="monthly"===c?"":"none"}),o.forEach(e=>{e.style.display="yearly"===c?"":"none"}),t.forEach(e=>{const t=e.dataset.billing===c;e.classList.toggle("is-active",t),e.setAttribute("aria-selected",t?"true":"false")})})})})});
+/******/ (() => { // webpackBootstrap
+/*!************************************!*\
+  !*** ./blocks/pricing/src/view.js ***!
+  \************************************/
+document.addEventListener('DOMContentLoaded', () => {
+  const pricingBlocks = document.querySelectorAll('.sfcore-pricing');
+  pricingBlocks.forEach(block => {
+    const toggleBtns = block.querySelectorAll('.sfcore-pricing__toggle-btn');
+    const priceAmounts = block.querySelectorAll('.sfcore-pricing__price-amount');
+    const periodMonthly = block.querySelectorAll('.sfcore-pricing__period-monthly');
+    const periodYearly = block.querySelectorAll('.sfcore-pricing__period-yearly');
+    if (toggleBtns.length === 0) {
+      return;
+    }
+    const updatePrices = billing => {
+      priceAmounts.forEach(priceEl => {
+        const monthlyPrice = priceEl.dataset.monthly;
+        const yearlyPrice = priceEl.dataset.yearly;
+        priceEl.textContent = billing === 'monthly' ? monthlyPrice : yearlyPrice;
+      });
+      periodMonthly.forEach(el => {
+        el.style.display = billing === 'monthly' ? '' : 'none';
+      });
+      periodYearly.forEach(el => {
+        el.style.display = billing === 'yearly' ? '' : 'none';
+      });
+      toggleBtns.forEach(btn => {
+        const btnBilling = btn.dataset.billing;
+        const isActive = btnBilling === billing;
+        btn.classList.toggle('is-active', isActive);
+        btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+    };
+    toggleBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const billing = btn.dataset.billing;
+        updatePrices(billing);
+      });
+    });
+  });
+});
+/******/ })()
+;
+//# sourceMappingURL=view.js.map

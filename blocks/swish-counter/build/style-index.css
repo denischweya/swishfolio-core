@@ -1,1 +1,61 @@
-.sfcore-swish-counter__grid{display:grid;gap:clamp(18px,2vw,28px);grid-template-columns:repeat(var(--sf-counter-columns,4),1fr)}.sfcore-swish-counter--align-left .sfcore-swish-counter-item{align-items:flex-start;text-align:left}.sfcore-swish-counter--align-center .sfcore-swish-counter-item{align-items:center;text-align:center}.sfcore-swish-counter--align-right .sfcore-swish-counter-item{align-items:flex-end;text-align:right}@media(max-width:781px){.sfcore-swish-counter__grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:480px){.sfcore-swish-counter__grid{grid-template-columns:1fr}}.sfcore-swish-counter-item{display:flex;flex-direction:column;gap:var(--sf-counter-title-gap,8px);margin:0}.sfcore-swish-counter-item__counter{align-items:baseline;color:var(--sf-counter-color,var(--wp--preset--color--contrast));display:inline-flex;font-size:var(--sf-counter-size,clamp(32px,4vw,56px));font-weight:var(--sf-counter-weight,800);line-height:1}.sfcore-swish-counter-item__prefix,.sfcore-swish-counter-item__suffix,.sfcore-swish-counter-item__value{display:inline}.sfcore-swish-counter-item__title{color:var(--sf-counter-title-color,var(--wp--preset--color--contrast));font-size:var(--sf-counter-title-size,1rem);line-height:1.3;margin:0}
+/*!************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/swish-counter/src/style.scss ***!
+  \************************************************************************************************************************************************************************************************************************************************************/
+/**
+ * Swish Counter Block - Frontend Styles
+ *
+ * Visual styling is driven by --sf-counter-* CSS custom properties on the
+ * parent wrapper. Child counter items inherit them.
+ */
+.sfcore-swish-counter__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--sf-counter-columns, 4), 1fr);
+  gap: clamp(18px, 2vw, 28px);
+}
+.sfcore-swish-counter--align-left .sfcore-swish-counter-item {
+  text-align: left;
+  align-items: flex-start;
+}
+.sfcore-swish-counter--align-center .sfcore-swish-counter-item {
+  text-align: center;
+  align-items: center;
+}
+.sfcore-swish-counter--align-right .sfcore-swish-counter-item {
+  text-align: right;
+  align-items: flex-end;
+}
+@media (max-width: 781px) {
+  .sfcore-swish-counter__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 480px) {
+  .sfcore-swish-counter__grid {
+    grid-template-columns: 1fr;
+  }
+}
+.sfcore-swish-counter-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sf-counter-title-gap, 8px);
+  margin: 0;
+}
+.sfcore-swish-counter-item__counter {
+  font-size: var(--sf-counter-size, clamp(32px, 4vw, 56px));
+  font-weight: var(--sf-counter-weight, 800);
+  color: var(--sf-counter-color, var(--wp--preset--color--contrast));
+  line-height: 1;
+  display: inline-flex;
+  align-items: baseline;
+}
+.sfcore-swish-counter-item__prefix, .sfcore-swish-counter-item__suffix, .sfcore-swish-counter-item__value {
+  display: inline;
+}
+.sfcore-swish-counter-item__title {
+  font-size: var(--sf-counter-title-size, 1rem);
+  color: var(--sf-counter-title-color, var(--wp--preset--color--contrast));
+  line-height: 1.3;
+  margin: 0;
+}
+
+/*# sourceMappingURL=style-index.css.map*/

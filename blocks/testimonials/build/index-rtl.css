@@ -1,2 +1,61 @@
-.sfcore-inspector-tabs{display:flex;margin:0 -16px 16px}.sfcore-inspector-tabs__tab.components-button{align-items:center;background:#edf2f7;border:0;border-radius:0;border-top:1px solid #cbd5e0;box-shadow:none;color:#4a5568;display:flex;flex:1;flex-direction:column;gap:4px;height:64px;justify-content:center;padding:8px 4px}.sfcore-inspector-tabs__tab.components-button svg{fill:currentColor}.sfcore-inspector-tabs__tab.components-button:hover:not(:disabled){background:#e2e8f0;color:#1e1e1e}.sfcore-inspector-tabs__tab.components-button:focus:not(:disabled){box-shadow:none;outline:1px solid var(--wp-admin-theme-color,#00669b);outline-offset:-1px}.sfcore-inspector-tabs__tab.components-button.is-active{background:#fff;box-shadow:inset 0 -3px 0 0 var(--wp-admin-theme-color,#00669b);color:#1e1e1e}
-.wp-block-swishfolio-core-testimonials .sfcore-testimonials__grid{display:grid;gap:clamp(18px,2vw,28px);grid-template-columns:repeat(var(--sf-columns,3),1fr)}@media(max-width:781px){.wp-block-swishfolio-core-testimonials .sfcore-testimonials__grid{grid-template-columns:repeat(2,1fr)}}
+/*!*********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/shared/components/inspector-tabs.scss ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************/
+/**
+ * InspectorTabs styles. Modelled on the Kadence Blocks inspector tab bar:
+ * a full-bleed flex row of icon+label buttons, active tab underlined with
+ * the WP admin theme colour.
+ */
+.sfcore-inspector-tabs {
+  display: flex;
+  margin: 0 -16px 16px;
+}
+.sfcore-inspector-tabs__tab.components-button {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 64px;
+  padding: 8px 4px;
+  color: #4a5568;
+  background: #edf2f7;
+  border: 0;
+  border-top: 1px solid #cbd5e0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.sfcore-inspector-tabs__tab.components-button svg {
+  fill: currentColor;
+}
+.sfcore-inspector-tabs__tab.components-button:hover:not(:disabled) {
+  color: #1e1e1e;
+  background: #e2e8f0;
+}
+.sfcore-inspector-tabs__tab.components-button:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 1px solid var(--wp-admin-theme-color, #00669b);
+  outline-offset: -1px;
+}
+.sfcore-inspector-tabs__tab.components-button.is-active {
+  color: #1e1e1e;
+  background: #fff;
+  box-shadow: inset 0 -3px 0 0 var(--wp-admin-theme-color, #00669b);
+}
+/*!************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/testimonials/src/editor.scss ***!
+  \************************************************************************************************************************************************************************************************************************************************************/
+/**
+ * Testimonials Block - Editor Styles
+ */
+.wp-block-swishfolio-core-testimonials .sfcore-testimonials__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--sf-columns, 3), 1fr);
+  gap: clamp(18px, 2vw, 28px);
+}
+@media (max-width: 781px) {
+  .wp-block-swishfolio-core-testimonials .sfcore-testimonials__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
