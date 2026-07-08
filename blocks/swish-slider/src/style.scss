@@ -87,7 +87,7 @@
 
 	&__title {
 		margin: 0;
-		font-size: 1.25rem;
+		font-size: 2.25rem;
 		line-height: 1.2;
 		color: inherit;
 	}
@@ -128,6 +128,7 @@
 
 // Hover-reveal mode: overlay + text hidden until the slide is hovered/focused.
 .sfcore-swish-slider--reveal-hover {
+
 	.sfcore-swish-slide__scrim,
 	.sfcore-swish-slide__content {
 		opacity: 0;
