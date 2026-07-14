@@ -1,0 +1,24 @@
+/**
+ * Swishfolio Core - Design Token Defaults
+ *
+ * Fallback values for the --sf-* tokens that blocks consume. Theme style
+ * variations (neo-brutalist, terminal, swiss, ...) load after this file
+ * and override these at the same :root specificity. Without these defaults,
+ * declarations like `border: var(--sf-border)` are invalid when no variation
+ * defines the token (default and sasha variations), collapsing to no border.
+ *
+ * @package SwishfolioCore
+ */
+
+:root {
+	--sf-border: 1px solid var(--wp--preset--color--contrast);
+	--sf-border-thin: 1px solid var(--wp--preset--color--contrast);
+	--sf-border-heavy: 2px solid var(--wp--preset--color--contrast);
+	--sf-shadow-sm: none;
+	--sf-shadow-md: none;
+	--sf-shadow-lg: none;
+	--sf-shadow-xl: none;
+	--sf-hover-transform: translate(-2px, -2px);
+	--sf-active-transform: translate(2px, 2px);
+	--sf-color-muted: var(--wp--preset--color--accent-3);
+}

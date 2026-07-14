@@ -247,6 +247,9 @@ class Plugin
         // Enqueue editor assets.
         add_action('enqueue_block_editor_assets', [ $this, 'enqueueEditorAssets' ]);
 
+        // Enqueue design token defaults (frontend + editor iframe).
+        add_action('enqueue_block_assets', [ $this, 'enqueueTokenStyles' ]);
+
         // Register WP-CLI commands.
         if (defined('WP_CLI') && \WP_CLI) {
             \WP_CLI::add_command(
@@ -402,6 +405,25 @@ class Plugin
 
         // Enqueue project sidebar script.
         $this->enqueueProjectSidebar();
+    }
+
+    /**
+     * Enqueue default values for the --sf-* design tokens.
+     *
+     * Theme style variations override these; without them, blocks using
+     * `var(--sf-border)` etc. render unstyled when no variation defines
+     * the token (default and sasha variations).
+     *
+     * @return void
+     */
+    public function enqueueTokenStyles(): void
+    {
+        wp_enqueue_style(
+            'sfcore-tokens',
+            SFCORE_PLUGIN_URL . 'assets/css/tokens.css',
+            [],
+            SFCORE_VERSION
+        );
     }
 
     /**
