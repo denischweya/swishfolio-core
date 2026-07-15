@@ -2,7 +2,7 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "swishfolio-core/bento-cards",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"title": "Bento Cards",
 	"category": "swishfolio",
 	"description": "A bento-grid style card layout with images, titles, and CTAs for showcasing portfolio items or features.",
