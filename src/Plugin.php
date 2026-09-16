@@ -414,15 +414,21 @@ class Plugin
      * `var(--sf-border)` etc. render unstyled when no variation defines
      * the token (default and sasha variations).
      *
+     * Versioned by file mtime rather than SFCORE_VERSION: this single file
+     * styles every block, so a token tweak deployed without a plugin header
+     * bump would stay cached behind Cloudflare's immutable max-age.
+     *
      * @return void
      */
     public function enqueueTokenStyles(): void
     {
+        $path = SFCORE_PLUGIN_DIR . 'assets/css/tokens.css';
+
         wp_enqueue_style(
             'sfcore-tokens',
             SFCORE_PLUGIN_URL . 'assets/css/tokens.css',
             [],
-            SFCORE_VERSION
+            file_exists($path) ? (string) filemtime($path) : SFCORE_VERSION
         );
     }
 

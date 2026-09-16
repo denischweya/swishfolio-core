@@ -1,24 +1,31 @@
 /**
  * Swishfolio Core - Design Token Defaults
  *
- * Fallback values for the --sf-* tokens that blocks consume. Theme style
- * variations (neo-brutalist, terminal, swiss, ...) load after this file
- * and override these at the same :root specificity. Without these defaults,
- * declarations like `border: var(--sf-border)` are invalid when no variation
- * defines the token (default and sasha variations), collapsing to no border.
+ * Fallback values for the --sf-* tokens that blocks consume. The default and
+ * sasha style variations do not define them, so declarations like
+ * `border: var(--sf-border)` are invalid-at-computed-value-time and fall back
+ * to `unset` - `border-style: none` (no border) on most blocks, or a 3px
+ * currentColor border where a modifier class supplies its own border-style
+ * (card, features, hero). These defaults replace both with a deliberate 1px rule.
+ *
+ * Only tokens that are actually broken without a default belong here. Tokens
+ * whose invalid state is already the desired one (--sf-shadow-*, which collapses
+ * to `none`) must stay undefined: the theme ships `var(--sf-shadow-sm, ...)`
+ * fallbacks that only fire while the token is undefined, and blocks carry
+ * per-block fallbacks of their own (hero's `translateY(-3px)`, the RTL builds'
+ * mirrored transforms). Defining those here silently overrides all of them.
+ *
+ * Declared in :where() so variations win regardless of stylesheet order.
  *
  * @package SwishfolioCore
  */
 
-:root {
-	--sf-border: 1px solid var(--wp--preset--color--contrast);
-	--sf-border-thin: 1px solid var(--wp--preset--color--contrast);
-	--sf-border-heavy: 2px solid var(--wp--preset--color--contrast);
-	--sf-shadow-sm: none;
-	--sf-shadow-md: none;
-	--sf-shadow-lg: none;
-	--sf-shadow-xl: none;
-	--sf-hover-transform: translate(-2px, -2px);
-	--sf-active-transform: translate(2px, 2px);
-	--sf-color-muted: var(--wp--preset--color--accent-3);
+:where(:root) {
+	--sf-border: 1px solid var(--wp--preset--color--contrast, currentColor);
+	--sf-border-thin: 1px solid var(--wp--preset--color--contrast, currentColor);
+	--sf-border-heavy: 2px solid var(--wp--preset--color--contrast, currentColor);
+
+	/* "Accent 3" is the border swatch on the default variation (#E5E5E5);
+	   accent-4 is its muted *text* colour. */
+	--sf-color-muted: var(--wp--preset--color--accent-4, #6b7280);
 }
