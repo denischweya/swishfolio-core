@@ -2,7 +2,7 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "swishfolio-core/faq",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"title": "FAQ",
 	"category": "swishfolio",
 	"description": "An accordion-style FAQ section.",

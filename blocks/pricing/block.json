@@ -2,7 +2,7 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
   "name": "swishfolio-core/pricing",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "title": "Pricing Table",
   "category": "swishfolio",
   "description": "Display pricing plans with a monthly/yearly toggle, features list, and customizable CTA buttons.",
