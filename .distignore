@@ -34,3 +34,6 @@
 .DS_Store
 Thumbs.db
 *.log
+
+# Playwright MCP session artifacts (admin a11y snapshots, console logs).
+/.playwright-mcp

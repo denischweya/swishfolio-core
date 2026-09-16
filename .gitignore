@@ -27,3 +27,6 @@ npm-debug.log*
 
 # Optional: Uncomment if you want to exclude build files
 # blocks/*/build/
+
+# Playwright MCP session artifacts (admin a11y snapshots, console logs)
+.playwright-mcp/
