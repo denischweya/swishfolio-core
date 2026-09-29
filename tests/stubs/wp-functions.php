@@ -70,3 +70,44 @@ if (! function_exists('__')) {
         return $text;
     }
 }
+
+/**
+ * Minimal WP_Error stand-in for provider transport-failure tests.
+ */
+if (! class_exists('WP_Error_Stub')) {
+    class WP_Error_Stub
+    {
+        public $message;
+
+        public function __construct($message)
+        {
+            $this->message = $message;
+        }
+
+        public function get_error_message()
+        {
+            return $this->message;
+        }
+    }
+}
+
+if (! function_exists('is_wp_error')) {
+    function is_wp_error($thing)
+    {
+        return $thing instanceof \WP_Error_Stub || $thing instanceof \WP_Error;
+    }
+}
+
+if (! function_exists('wp_remote_retrieve_response_code')) {
+    function wp_remote_retrieve_response_code($response)
+    {
+        return isset($response['response']['code']) ? (int) $response['response']['code'] : 0;
+    }
+}
+
+if (! function_exists('wp_remote_retrieve_body')) {
+    function wp_remote_retrieve_body($response)
+    {
+        return isset($response['body']) ? $response['body'] : '';
+    }
+}
