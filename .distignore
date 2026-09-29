@@ -5,6 +5,7 @@
 
 # Build tooling — not needed at runtime.
 /node_modules
+/vendor
 /.npm
 /composer.lock
 /package-lock.json
