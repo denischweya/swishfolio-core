@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "id": "needs-media",
+  "scope": "section",
+  "file": "alpha-hero.html",
+  "role": "gallery",
+  "summary": "Fixture unit that needs images, so it must never be offered or accepted.",
+  "pageTypes": ["home"],
+  "styleVariations": [],
+  "requiresMedia": 3,
+  "ksesStable": true,
+  "slots": {}
+}

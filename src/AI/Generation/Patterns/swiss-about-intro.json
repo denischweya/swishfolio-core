@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "id": "swiss-about-intro",
+  "scope": "section",
+  "file": "swiss-about-intro.html",
+  "role": "about",
+  "summary": "Personal or company introduction: name-sized headline and role subhead in a narrow left column, two paragraphs of biography in a wide bordered right column.",
+  "pageTypes": ["about", "home"],
+  "styleVariations": [],
+  "capacity": { "headline": 40, "body": 340 },
+  "requiresMedia": 0,
+  "ksesStable": true,
+  "slots": {
+    "eyebrow": { "type": "text", "maxLength": 40, "role": "eyebrow", "default": "About" },
+    "headline": { "type": "text", "maxLength": 40, "role": "headline", "default": "Jane Doe" },
+    "subhead": { "type": "text", "maxLength": 60, "role": "supporting", "default": "Designer and Art Director" },
+    "body": { "type": "text", "maxLength": 340, "role": "supporting", "default": "I am a designer focused on creating objective, functional visual solutions with systematic precision and unwavering attention to detail." },
+    "bodySecondary": { "type": "text", "maxLength": 340, "role": "supporting", "default": "My work is rooted in the International Typographic Style, where typography is architecture and every element earns its place through function." }
+  }
+}

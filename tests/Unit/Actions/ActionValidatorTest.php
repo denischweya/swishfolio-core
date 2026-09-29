@@ -92,6 +92,26 @@ class ActionValidatorTest extends StageTestCase
         $this->assertSame('Premium', $changes['heading']);
     }
 
+    /**
+     * An ampersand in a headline is ordinary content and must survive.
+     *
+     * The generation pipeline's PlanValueStage deliberately REJECTS "&" and ">"
+     * because it writes attribute JSON into pattern markup itself. The editor
+     * path does not: Gutenberg's own serializer escapes attribute JSON, and
+     * sanitize_text_field leaves "&" alone. Mirroring that guard here would
+     * refuse "Design & build" for no benefit, so this test exists to stop
+     * anyone "fixing" the asymmetry.
+     */
+    public function test_an_ampersand_in_a_text_attribute_is_preserved_not_rejected()
+    {
+        $result = $this->validator()->validate(
+            $this->response([$this->updateAction('hero-1', ['heading' => 'Design & build'])]),
+            $this->context()
+        );
+
+        $this->assertSame('Design & build', $result['actions'][0]['changes']['heading']);
+    }
+
     public function test_failure_reports_the_offending_path()
     {
         try {

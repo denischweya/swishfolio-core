@@ -1,0 +1,12 @@
+The site owner has asked for one page.
+
+What they said:
+{{instruction}}
+
+Facts about this site:
+{{site}}
+
+What is already known about this page:
+{{page}}
+
+Plan that single page. Give it a key, a title, a slug and its sections, and write the copy for every slot you fill.

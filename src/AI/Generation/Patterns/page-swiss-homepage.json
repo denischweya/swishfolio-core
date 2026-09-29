@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "id": "page-swiss-homepage",
+  "scope": "page",
+  "ref": "swishfolio/swiss-homepage",
+  "role": "home-page",
+  "summary": "A complete homepage body: hero with statistics, three-column services grid, philosophy statement, and a contact section. Composed verbatim, so its copy is the theme's own and cannot be personalised.",
+  "pageTypes": ["home", "landing"],
+  "styleVariations": [],
+  "capacity": {},
+  "requiresMedia": 0,
+  "ksesStable": true,
+  "slots": {}
+}

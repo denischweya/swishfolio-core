@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "id": "section-logos",
+  "scope": "section",
+  "ref": "swishfolio/section-logos",
+  "role": "logos",
+  "summary": "Client or partner logo marquee using the Swish Slider block. Composed verbatim from the theme pattern, so its copy is the theme's own and cannot be personalised.",
+  "pageTypes": [
+    "home",
+    "about",
+    "services"
+  ],
+  "styleVariations": [],
+  "capacity": {},
+  "requiresMedia": 0,
+  "ksesStable": true,
+  "slots": {}
+}

@@ -1,0 +1,50 @@
+{
+  "name": "edit-unsupported-schema-version",
+  "track": "edit",
+  "why": "A response claiming a schema this build does not implement is refused whole.",
+  "expectStage": "envelope",
+  "instruction": "Improve this section.",
+  "selection": {
+    "clientId": "hero-1",
+    "blockName": "swishfolio-core/hero",
+    "attributes": {
+      "heading": "Placeholder",
+      "headingSize": "large"
+    },
+    "postType": "page",
+    "styleVariation": "Default",
+    "siblings": [],
+    "innerBlocks": []
+  },
+  "blockTree": {
+    "hero-1": {
+      "name": "swishfolio-core/hero",
+      "attributes": {
+        "heading": "Placeholder",
+        "headingSize": "large"
+      },
+      "parentClientId": null
+    },
+    "spacer-1": {
+      "name": "core/spacer",
+      "attributes": {
+        "height": "80px"
+      },
+      "parentClientId": null
+    }
+  },
+  "response": {
+    "schemaVersion": "9.9",
+    "summary": "Adversarial fixture.",
+    "actions": [
+      {
+        "type": "update_block_attributes",
+        "clientId": "hero-1",
+        "changes": {
+          "heading": "Fine on its own"
+        },
+        "reason": "Adversarial."
+      }
+    ]
+  }
+}

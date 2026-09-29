@@ -1,0 +1,189 @@
+{
+  "vertical": "agency-site",
+  "label": "Agency site: four pages, Swiss International variation, custom template on contact",
+  "scope": "site",
+  "instruction": "We are an eleven person brand and product agency called Marlow Grid. Build the site: home, services, a work archive and contact. Use the Swiss International look.",
+  "brief": {
+    "siteTitle": "Marlow Grid",
+    "styleVariation": "",
+    "styleVariations": [
+      "Default",
+      "Neo-Brutalist",
+      "Swiss International",
+      "Sasha",
+      "Terminal"
+    ],
+    "customTemplates": [
+      "page-no-title",
+      "page-landing",
+      "page-with-sidebar"
+    ],
+    "existingSlugs": {}
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "summary": "A four page site for a brand and digital agency, reskinned to the Swiss International variation, with a dedicated work archive and a contact page on the no-title template.",
+    "site": {
+      "title": "Marlow Grid",
+      "tagline": "Brand systems and digital product",
+      "styleVariation": "Swiss International",
+      "frontPage": "home",
+      "navigation": [
+        "home",
+        "services",
+        "work",
+        "contact"
+      ]
+    },
+    "pages": [
+      {
+        "key": "home",
+        "title": "Home",
+        "slug": "home",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "swiss-hero",
+            "content": {
+              "eyebrow": "01. Brand and digital",
+              "headline": "Systems, Not Logos",
+              "body": "Marlow Grid builds brand systems that survive contact with a product team: tokens, type scales and rules that designers and engineers can both hold.",
+              "primaryCtaLabel": "What we do",
+              "primaryCtaUrl": "{{page:services}}",
+              "secondaryCtaLabel": "Recent work",
+              "secondaryCtaUrl": "{{page:work}}",
+              "statsLabel": "Since 2014",
+              "stat1Value": "68",
+              "stat1Label": "Brand systems shipped",
+              "stat2Value": "11",
+              "stat2Label": "People in the studio",
+              "stat3Value": "3",
+              "stat3Label": "Cities we work from"
+            }
+          },
+          {
+            "pattern": "swiss-services-trio",
+            "content": {
+              "eyebrow": "02. Practice",
+              "headline": "Three Things, Done Properly",
+              "item1Title": "Brand systems",
+              "item1Body": "Naming, identity, type and colour delivered as a documented system rather than a folder of finished artwork.",
+              "item2Title": "Product design",
+              "item2Body": "Interface work built on the same tokens as the brand, so the marketing site and the product stop diverging.",
+              "item3Title": "Implementation",
+              "item3Body": "We hand over running code: design tokens, a component library and the documentation your team will actually read."
+            }
+          },
+          {
+            "pattern": "swiss-statement",
+            "content": {
+              "eyebrow": "03. Position",
+              "headline": "Consistency Is A Budget",
+              "body": "Every inconsistency in a brand costs somebody an hour later: a designer redrawing a button, an engineer guessing a spacing value, a marketer rebuilding a template.",
+              "bodySecondary": "We treat that as a budget to be spent deliberately, which is why our deliverable is a system with rules rather than a set of beautiful and unrepeatable pages."
+            }
+          },
+          {
+            "pattern": "swiss-contact-cta",
+            "content": {
+              "eyebrow": "04. Start",
+              "headline": "Tell us what is inconsistent",
+              "body": "Most engagements start with an audit of what already exists. Send us a link and we will tell you honestly whether you need us.",
+              "ctaLabel": "Book an audit",
+              "ctaUrl": "{{page:contact}}",
+              "detail1Label": "New business",
+              "detail1Value": "new@marlowgrid.test",
+              "detail2Label": "Studio",
+              "detail2Value": "Leeds, Lisbon and Berlin"
+            }
+          }
+        ]
+      },
+      {
+        "key": "services",
+        "title": "Services",
+        "slug": "services",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "swiss-services-trio",
+            "content": {
+              "eyebrow": "Services",
+              "headline": "How An Engagement Runs",
+              "item1Title": "Audit",
+              "item1Body": "Two weeks reading what you already have, ending in a written list of what is inconsistent and what it is costing.",
+              "item2Title": "System",
+              "item2Body": "Eight to twelve weeks building the brand or product system, reviewed with your team every Friday.",
+              "item3Title": "Handover",
+              "item3Body": "Tokens, components and documentation handed to your engineers, with a month of support while they adopt it."
+            }
+          },
+          {
+            "pattern": "swiss-statement",
+            "content": {
+              "eyebrow": "Engagement",
+              "headline": "We Work In The Open",
+              "body": "There is no big reveal. Work is reviewed weekly in whatever state it is in, because a system built without the team that has to use it is a system that quietly gets abandoned.",
+              "bodySecondary": "Pricing is fixed per phase and published in the proposal. If a phase runs long, that is our problem rather than an invoice."
+            }
+          }
+        ]
+      },
+      {
+        "key": "work",
+        "title": "Work",
+        "slug": "work",
+        "status": "draft",
+        "sections": [
+          {
+            "block": "swishfolio-core/portfolio",
+            "attributes": {
+              "layout": "grid",
+              "columns": 2,
+              "gap": 40,
+              "postsPerPage": 12,
+              "showFilters": true,
+              "showExcerpt": true,
+              "showCategory": true,
+              "showProjectType": true,
+              "showViewButton": true,
+              "viewButtonText": "Read the case study",
+              "cardStyle": "stacked",
+              "imageAspectRatio": "wide",
+              "hoverEffect": "reveal",
+              "taxonomyStyle": "border",
+              "imageBorderRadius": 0,
+              "taxonomyColor": "accent-2",
+              "cardContentBackground": "base",
+              "orderBy": "menu_order",
+              "order": "ASC"
+            }
+          }
+        ]
+      },
+      {
+        "key": "contact",
+        "title": "Contact",
+        "slug": "contact",
+        "status": "draft",
+        "template": "page-no-title",
+        "sections": [
+          {
+            "pattern": "swiss-contact-cta",
+            "content": {
+              "eyebrow": "Contact",
+              "headline": "Three studios, one inbox",
+              "body": "New business goes to one address wherever you are. We answer within a working day and will say no quickly if we are not right for it.",
+              "ctaLabel": "Email new business",
+              "ctaUrl": "mailto:new@marlowgrid.test",
+              "detail1Label": "New business",
+              "detail1Value": "new@marlowgrid.test",
+              "detail2Label": "Everything else",
+              "detail2Value": "studio@marlowgrid.test"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "id": "section-hero-block",
+  "scope": "section",
+  "ref": "swishfolio/section-hero-block",
+  "role": "hero",
+  "summary": "Full-bleed hero built from the single Hero block, so headline, background and both CTAs stay editable in one place. Composed verbatim from the theme pattern, so its copy is the theme's own and cannot be personalised.",
+  "pageTypes": [
+    "home",
+    "landing"
+  ],
+  "styleVariations": [],
+  "capacity": {},
+  "requiresMedia": 0,
+  "ksesStable": true,
+  "slots": {}
+}

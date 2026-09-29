@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "id": "section-pricing",
+  "scope": "section",
+  "ref": "swishfolio/section-pricing",
+  "role": "pricing",
+  "summary": "Pricing table with a monthly/yearly toggle using the Pricing block and plan children. Composed verbatim from the theme pattern, so its copy is the theme's own and cannot be personalised.",
+  "pageTypes": [
+    "pricing",
+    "services"
+  ],
+  "styleVariations": [],
+  "capacity": {},
+  "requiresMedia": 0,
+  "ksesStable": true,
+  "slots": {}
+}

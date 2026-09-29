@@ -6,5 +6,15 @@
         <testsuite name="unit">
             <directory suffix="Test.php">tests/Unit</directory>
         </testsuite>
+        <!--
+            The AI evaluation suite is separate from "unit" on purpose: it is
+            slower, it grades whole pipelines rather than classes, and its live
+            mode can reach a provider. Recorded mode runs offline and belongs in
+            CI; the live cases skip themselves unless SWISHFOLIO_AI_EVAL_LIVE=1
+            and an API key are both set.
+        -->
+        <testsuite name="evals">
+            <directory suffix="Test.php">tests/Evals</directory>
+        </testsuite>
     </testsuites>
 </phpunit>

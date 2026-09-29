@@ -1,0 +1,134 @@
+{
+  "vertical": "consultant-site",
+  "label": "Consultant site: one new page, one suffixed collision, one reused existing page",
+  "scope": "site",
+  "instruction": "I am an independent operations consultant. I already have a contact page I am happy with and an old about page. Build me a home page, a better about page, and keep using the contact page I have.",
+  "brief": {
+    "siteTitle": "Priya Raman",
+    "styleVariation": "",
+    "styleVariations": [
+      "Default",
+      "Neo-Brutalist",
+      "Swiss International",
+      "Sasha",
+      "Terminal"
+    ],
+    "customTemplates": [
+      "page-no-title",
+      "page-landing",
+      "page-with-sidebar"
+    ],
+    "existingSlugs": {
+      "about": 12,
+      "contact": 14
+    }
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "summary": "A three page site for an independent operations consultant, adding a new about page alongside the existing one and reusing the contact page already published.",
+    "site": {
+      "title": "Priya Raman",
+      "tagline": "Operations consulting",
+      "frontPage": "home",
+      "navigation": [
+        "home",
+        "about",
+        "contact"
+      ]
+    },
+    "pages": [
+      {
+        "key": "home",
+        "title": "Home",
+        "slug": "home",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "swiss-hero",
+            "content": {
+              "eyebrow": "01. Operations consulting",
+              "headline": "Fix The Process, Then Hire",
+              "body": "I help companies of fifty to five hundred people find the three operational bottlenecks costing them the most, and fix them before adding headcount.",
+              "primaryCtaLabel": "How I work",
+              "primaryCtaUrl": "{{page:about}}",
+              "secondaryCtaLabel": "Get in touch",
+              "secondaryCtaUrl": "{{page:contact}}",
+              "statsLabel": "Track record",
+              "stat1Value": "40+",
+              "stat1Label": "Engagements delivered",
+              "stat2Value": "9",
+              "stat2Label": "Years independent",
+              "stat3Value": "2",
+              "stat3Label": "Industries specialised"
+            }
+          },
+          {
+            "pattern": "swiss-statement",
+            "content": {
+              "eyebrow": "02. Method",
+              "headline": "Evidence Before Opinion",
+              "body": "The first two weeks are measurement only. I sit with the people doing the work, time what actually happens, and write down where the queue forms. No recommendations until then.",
+              "bodySecondary": "Most engagements end with fewer changes than the client expected, because three well chosen ones usually clear the bottleneck and a long list never survives contact with a busy team."
+            }
+          },
+          {
+            "pattern": "swiss-contact-cta",
+            "content": {
+              "eyebrow": "03. Enquiries",
+              "headline": "Start with a conversation",
+              "body": "A first call is free and usually enough to tell whether an engagement makes sense. If it does not, I will say so.",
+              "ctaLabel": "Book a call",
+              "ctaUrl": "{{page:contact}}",
+              "detail1Label": "Email",
+              "detail1Value": "priya@ramanops.test",
+              "detail2Label": "Based in",
+              "detail2Value": "Manchester, working remotely"
+            }
+          }
+        ]
+      },
+      {
+        "key": "about",
+        "title": "About Priya",
+        "slug": "about",
+        "status": "draft",
+        "onConflict": "suffix",
+        "sections": [
+          {
+            "pattern": "swiss-about-intro",
+            "content": {
+              "eyebrow": "About",
+              "headline": "Priya Raman",
+              "subhead": "Independent operations consultant",
+              "body": "Nine years independent, after eleven running operations inside manufacturing and logistics businesses. I work alone, on one engagement at a time, which keeps the advice specific.",
+              "bodySecondary": "Clients are usually between fifty and five hundred people: past the stage where somebody can hold the whole process in their head, and before the stage where a consultancy would sell them a transformation programme."
+            }
+          }
+        ]
+      },
+      {
+        "key": "contact",
+        "title": "Contact",
+        "slug": "contact",
+        "status": "draft",
+        "onConflict": "skip",
+        "sections": [
+          {
+            "pattern": "swiss-contact-cta",
+            "content": {
+              "eyebrow": "Contact",
+              "headline": "Enquiries and availability",
+              "body": "I take on roughly six engagements a year and book two to three months ahead. Email with a rough shape of the problem and when you would want to start.",
+              "ctaLabel": "Send an email",
+              "ctaUrl": "mailto:priya@ramanops.test",
+              "detail1Label": "Email",
+              "detail1Value": "priya@ramanops.test",
+              "detail2Label": "Telephone",
+              "detail2Value": "+44 161 496 0042"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

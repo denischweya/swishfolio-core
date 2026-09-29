@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "id": "swiss-contact-cta",
+  "scope": "section",
+  "file": "swiss-contact-cta.html",
+  "role": "contact",
+  "summary": "Closing contact section: headline, invitation paragraph and one call-to-action button on the left, with two labelled contact details such as email and location on the right.",
+  "pageTypes": ["home", "contact", "about", "services"],
+  "styleVariations": [],
+  "capacity": { "headline": 48, "body": 200, "details": 2 },
+  "requiresMedia": 0,
+  "ksesStable": true,
+  "slots": {
+    "eyebrow": { "type": "text", "maxLength": 40, "role": "eyebrow", "default": "04. Contact" },
+    "headline": { "type": "text", "maxLength": 48, "role": "headline", "default": "Let us work together" },
+    "body": { "type": "text", "maxLength": 200, "role": "supporting", "default": "Ready to create something with purpose? Get in touch and tell us about your project." },
+    "ctaLabel": { "type": "text", "maxLength": 28, "role": "primary-cta", "default": "Start a Project" },
+    "ctaUrl": { "type": "url", "role": "primary-cta", "default": "#" },
+    "detail1Label": { "type": "text", "maxLength": 24, "role": "label", "default": "Email" },
+    "detail1Value": { "type": "text", "maxLength": 60, "role": "detail", "default": "hello@example.com" },
+    "detail2Label": { "type": "text", "maxLength": 24, "role": "label", "default": "Location" },
+    "detail2Value": { "type": "text", "maxLength": 60, "role": "detail", "default": "Remote, worldwide" }
+  }
+}

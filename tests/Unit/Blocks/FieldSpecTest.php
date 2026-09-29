@@ -54,6 +54,18 @@ class FieldSpecTest extends TestCase
         $this->assertSame('boolean', $spec->getType());
     }
 
+    public function test_unit_is_parsed_and_exposed_for_number_fields()
+    {
+        $spec = FieldSpec::fromArray('minHeight', ['type' => 'number', 'min' => 320, 'max' => 1000, 'unit' => 'px']);
+
+        $this->assertSame('px', $spec->getUnit());
+    }
+
+    public function test_unit_is_null_when_absent()
+    {
+        $this->assertNull(FieldSpec::fromArray('heading', ['type' => 'text'])->getUnit());
+    }
+
     public function test_unknown_type_is_rejected()
     {
         $this->expectException(\InvalidArgumentException::class);

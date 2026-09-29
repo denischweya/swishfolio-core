@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "id": "section-latest-posts",
+  "scope": "section",
+  "ref": "swishfolio/section-latest-posts",
+  "role": "blog-list",
+  "summary": "Recent blog posts using the Swish Blog block. Composed verbatim from the theme pattern, so its copy is the theme's own and cannot be personalised.",
+  "pageTypes": [
+    "blog",
+    "home"
+  ],
+  "styleVariations": [],
+  "capacity": {},
+  "requiresMedia": 0,
+  "ksesStable": true,
+  "slots": {}
+}

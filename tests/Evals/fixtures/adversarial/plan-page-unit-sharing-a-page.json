@@ -1,0 +1,60 @@
+{
+  "name": "plan-page-unit-sharing-a-page",
+  "track": "plan",
+  "why": "A whole-page unit is an entire page body, so anything beside it is duplicated structure.",
+  "expectStage": "plan-reference",
+  "scope": "site",
+  "instruction": "Build me a small site.",
+  "brief": {
+    "siteTitle": "Baseline",
+    "styleVariation": "",
+    "styleVariations": [
+      "Default",
+      "Neo-Brutalist",
+      "Swiss International",
+      "Sasha",
+      "Terminal"
+    ],
+    "customTemplates": [
+      "page-no-title",
+      "page-landing",
+      "page-with-sidebar"
+    ],
+    "existingSlugs": {}
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "summary": "A one page site used as the baseline for a rejection fixture.",
+    "site": {
+      "title": "Baseline",
+      "frontPage": "home",
+      "navigation": [
+        "home"
+      ]
+    },
+    "pages": [
+      {
+        "key": "home",
+        "title": "Home",
+        "slug": "home",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "page-swiss-about",
+            "content": {}
+          },
+          {
+            "pattern": "swiss-hero",
+            "content": {
+              "eyebrow": "01. Studio",
+              "headline": "A Short Headline",
+              "body": "A supporting sentence that sits under the headline and explains what the studio does.",
+              "primaryCtaLabel": "See the work",
+              "primaryCtaUrl": "https://example.test/work"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

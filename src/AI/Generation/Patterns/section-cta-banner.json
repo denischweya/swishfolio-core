@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "id": "section-cta-banner",
+  "scope": "section",
+  "ref": "swishfolio/section-cta-banner",
+  "role": "cta",
+  "summary": "Full-width call-to-action banner with a headline and a single button. Composed verbatim from the theme pattern, so its copy is the theme's own and cannot be personalised.",
+  "pageTypes": [
+    "home",
+    "services",
+    "about",
+    "landing",
+    "pricing"
+  ],
+  "styleVariations": [],
+  "capacity": {},
+  "requiresMedia": 0,
+  "ksesStable": true,
+  "slots": {}
+}

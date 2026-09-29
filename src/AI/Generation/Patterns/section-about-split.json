@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "id": "section-about-split",
+  "scope": "section",
+  "ref": "swishfolio/section-about-split",
+  "role": "about",
+  "summary": "Two-column about section pairing narrative copy with an image. Composed verbatim from the theme pattern, so its copy is the theme's own and cannot be personalised.",
+  "pageTypes": [
+    "about",
+    "home"
+  ],
+  "styleVariations": [],
+  "capacity": {},
+  "requiresMedia": 0,
+  "ksesStable": true,
+  "slots": {}
+}

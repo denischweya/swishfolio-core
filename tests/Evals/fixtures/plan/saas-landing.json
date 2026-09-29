@@ -1,0 +1,96 @@
+{
+  "vertical": "saas-landing",
+  "label": "SaaS landing page: single page plan with proof numbers and a trial CTA",
+  "scope": "page",
+  "instruction": "Build me one landing page for Ledgerline, a bookkeeping reconciliation tool for small finance teams. It should explain what it does, why it is trustworthy, and push people to a free trial.",
+  "brief": {
+    "siteTitle": "Ledgerline",
+    "styleVariation": "",
+    "styleVariations": [
+      "Default",
+      "Neo-Brutalist",
+      "Swiss International",
+      "Sasha",
+      "Terminal"
+    ],
+    "customTemplates": [
+      "page-no-title",
+      "page-landing",
+      "page-with-sidebar"
+    ],
+    "existingSlugs": {},
+    "page": {
+      "purpose": "landing",
+      "audience": "finance managers at companies of 20 to 200 people"
+    }
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "summary": "A single landing page for a reconciliation product: hero with proof numbers, three capabilities, a positioning statement and a trial call to action.",
+    "pages": [
+      {
+        "key": "home",
+        "title": "Ledgerline",
+        "slug": "home",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "swiss-hero",
+            "content": {
+              "eyebrow": "01. Reconciliation, automated",
+              "headline": "Close The Books By Tuesday",
+              "body": "Ledgerline matches every transaction against your bank feed overnight, so month end is a review rather than a rebuild. Built for finance teams of three to thirty.",
+              "primaryCtaLabel": "Start a free trial",
+              "primaryCtaUrl": "https://app.ledgerline.test/signup",
+              "secondaryCtaLabel": "Book a walkthrough",
+              "secondaryCtaUrl": "https://ledgerline.test/demo",
+              "statsLabel": "Measured",
+              "stat1Value": "92%",
+              "stat1Label": "Matched automatically",
+              "stat2Value": "4 days",
+              "stat2Label": "Saved every month",
+              "stat3Value": "1,400",
+              "stat3Label": "Finance teams"
+            }
+          },
+          {
+            "pattern": "swiss-services-trio",
+            "content": {
+              "eyebrow": "02. What it does",
+              "headline": "Three Jobs, One Evening",
+              "item1Title": "Automatic matching",
+              "item1Body": "Bank feeds, invoices and expenses are reconciled overnight against rules your team writes in plain language.",
+              "item2Title": "Exception review",
+              "item2Body": "Only the transactions that need a human reach a person, ranked by value and by how long they have been open.",
+              "item3Title": "Audit trail",
+              "item3Body": "Every match, override and approval is recorded with who did it and why, exported to your accountant in one file."
+            }
+          },
+          {
+            "pattern": "swiss-statement",
+            "content": {
+              "eyebrow": "03. Why it is built this way",
+              "headline": "Software Should Not Guess",
+              "body": "Reconciliation tools that guess quietly are worse than doing it by hand, because nobody finds the error until the audit. Ledgerline never merges a transaction it cannot justify.",
+              "bodySecondary": "Every automatic decision shows the rule that produced it, and any rule can be turned off by the person it inconveniences. Confidence comes from being able to check."
+            }
+          },
+          {
+            "pattern": "swiss-contact-cta",
+            "content": {
+              "eyebrow": "04. Get started",
+              "headline": "See it on your own ledger",
+              "body": "Connect a read-only bank feed and Ledgerline will reconcile last month overnight. No card, no sales call, cancel in one click.",
+              "ctaLabel": "Start a free trial",
+              "ctaUrl": "https://app.ledgerline.test/signup",
+              "detail1Label": "Sales",
+              "detail1Value": "hello@ledgerline.test",
+              "detail2Label": "Support",
+              "detail2Value": "support@ledgerline.test"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

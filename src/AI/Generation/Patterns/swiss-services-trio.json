@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "id": "swiss-services-trio",
+  "scope": "section",
+  "file": "swiss-services-trio.html",
+  "role": "services",
+  "summary": "Three services, offerings or capabilities side by side in a ruled three-column grid on a yellow ground, under an eyebrow label and a large headline.",
+  "pageTypes": ["home", "services", "about"],
+  "styleVariations": [],
+  "capacity": { "headline": 48, "items": 3, "itemTitle": 32, "itemBody": 180 },
+  "requiresMedia": 0,
+  "ksesStable": true,
+  "slots": {
+    "eyebrow": { "type": "text", "maxLength": 40, "role": "eyebrow", "default": "02. Services" },
+    "headline": { "type": "text", "maxLength": 48, "role": "headline", "default": "What We Do" },
+    "item1Title": { "type": "text", "maxLength": 32, "role": "item-title", "default": "Brand Identity" },
+    "item1Body": { "type": "text", "maxLength": 180, "role": "item-body", "default": "Strategic visual systems that communicate your essence with clarity and impact." },
+    "item2Title": { "type": "text", "maxLength": 32, "role": "item-title", "default": "Digital Design" },
+    "item2Body": { "type": "text", "maxLength": 180, "role": "item-body", "default": "Interfaces and experiences built on principles of objectivity and function." },
+    "item3Title": { "type": "text", "maxLength": 32, "role": "item-title", "default": "Development" },
+    "item3Body": { "type": "text", "maxLength": 180, "role": "item-body", "default": "Clean, performant code that brings your vision to life across all platforms." }
+  }
+}

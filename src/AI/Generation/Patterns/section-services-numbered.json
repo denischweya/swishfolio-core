@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "id": "section-services-numbered",
+  "scope": "section",
+  "ref": "swishfolio/section-services-numbered",
+  "role": "services",
+  "summary": "Numbered services list, reading as a sequence rather than a grid. Composed verbatim from the theme pattern, so its copy is the theme's own and cannot be personalised.",
+  "pageTypes": [
+    "services",
+    "home",
+    "about"
+  ],
+  "styleVariations": [],
+  "capacity": {},
+  "requiresMedia": 0,
+  "ksesStable": true,
+  "slots": {}
+}

@@ -42,6 +42,9 @@ class FieldSpec
     /** @var string|null */
     private $tokenSet;
 
+    /** @var string|null */
+    private $unit;
+
     private function __construct($name)
     {
         $this->name = $name;
@@ -94,6 +97,7 @@ class FieldSpec
         $field->min       = isset($spec['min']) ? (float) $spec['min'] : null;
         $field->max       = isset($spec['max']) ? (float) $spec['max'] : null;
         $field->maxLength = isset($spec['maxLength']) ? (int) $spec['maxLength'] : null;
+        $field->unit      = isset($spec['unit']) ? (string) $spec['unit'] : null;
 
         return $field;
     }
@@ -141,5 +145,17 @@ class FieldSpec
     public function getTokenSet()
     {
         return $this->tokenSet;
+    }
+
+    /**
+     * Display unit for a number field (px, %, count, level, s, ms, weight, words).
+     *
+     * Presentation only — the value stage validates the number, not the unit.
+     *
+     * @return string|null
+     */
+    public function getUnit()
+    {
+        return $this->unit;
     }
 }

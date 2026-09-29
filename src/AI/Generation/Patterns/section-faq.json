@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "id": "section-faq",
+  "scope": "section",
+  "ref": "swishfolio/section-faq",
+  "role": "faq",
+  "summary": "Accordion FAQ using the FAQ block. Composed verbatim from the theme pattern, so its copy is the theme's own and cannot be personalised.",
+  "pageTypes": [
+    "faq",
+    "services",
+    "pricing",
+    "contact"
+  ],
+  "styleVariations": [],
+  "capacity": {},
+  "requiresMedia": 0,
+  "ksesStable": true,
+  "slots": {}
+}

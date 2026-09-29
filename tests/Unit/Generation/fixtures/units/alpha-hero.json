@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "id": "alpha-hero",
+  "scope": "section",
+  "file": "alpha-hero.html",
+  "role": "hero",
+  "summary": "Fixture hero with a headline, body, one button and one label stored inside a block comment.",
+  "pageTypes": ["home"],
+  "styleVariations": [],
+  "capacity": { "headline": 40 },
+  "requiresMedia": 0,
+  "ksesStable": true,
+  "slots": {
+    "label": { "type": "text", "maxLength": 30, "inComment": true, "default": "Hero" },
+    "headline": { "type": "text", "maxLength": 40, "default": "Fixture headline" },
+    "body": { "type": "text", "maxLength": 120, "default": "Fixture body copy." },
+    "ctaLabel": { "type": "text", "maxLength": 20, "default": "Go" },
+    "ctaUrl": { "type": "url", "default": "#" }
+  }
+}

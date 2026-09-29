@@ -1,0 +1,50 @@
+{
+  "name": "plan-unknown-unit",
+  "track": "plan",
+  "why": "A unit id that is not in the catalogue has no markup, so the page would compose to nothing.",
+  "expectStage": "plan-reference",
+  "scope": "site",
+  "instruction": "Build me a small site.",
+  "brief": {
+    "siteTitle": "Baseline",
+    "styleVariation": "",
+    "styleVariations": [
+      "Default",
+      "Neo-Brutalist",
+      "Swiss International",
+      "Sasha",
+      "Terminal"
+    ],
+    "customTemplates": [
+      "page-no-title",
+      "page-landing",
+      "page-with-sidebar"
+    ],
+    "existingSlugs": {}
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "summary": "A one page site used as the baseline for a rejection fixture.",
+    "site": {
+      "title": "Baseline",
+      "frontPage": "home",
+      "navigation": [
+        "home"
+      ]
+    },
+    "pages": [
+      {
+        "key": "home",
+        "title": "Home",
+        "slug": "home",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "swiss-nonexistent",
+            "content": {}
+          }
+        ]
+      }
+    ]
+  }
+}

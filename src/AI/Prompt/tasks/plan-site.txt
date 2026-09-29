@@ -1,0 +1,9 @@
+The site owner has asked for a website.
+
+What they said:
+{{instruction}}
+
+Facts about this site:
+{{site}}
+
+Plan the pages. Give every page a key, a title, a slug and its sections, choose the front page and the navigation order, and write the copy for every slot you fill.

@@ -1,0 +1,142 @@
+{
+  "vertical": "restaurant",
+  "label": "Restaurant: internal page links and an ampersand in composed copy",
+  "scope": "site",
+  "instruction": "We run a ten table restaurant in Newcastle called Saltbox. I want a home page, a page explaining the menu and how we source it, and a page with the address and booking details.",
+  "brief": {
+    "siteTitle": "Saltbox",
+    "styleVariation": "",
+    "styleVariations": [
+      "Default",
+      "Neo-Brutalist",
+      "Swiss International",
+      "Sasha",
+      "Terminal"
+    ],
+    "customTemplates": [
+      "page-no-title",
+      "page-landing",
+      "page-with-sidebar"
+    ],
+    "existingSlugs": {}
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "summary": "A three page site for a neighbourhood restaurant: a hero linking to the menu and to bookings, a menu page, and a contact page with the address and telephone number.",
+    "site": {
+      "title": "Saltbox",
+      "tagline": "Neighbourhood kitchen",
+      "frontPage": "home",
+      "navigation": [
+        "home",
+        "menu",
+        "contact"
+      ]
+    },
+    "pages": [
+      {
+        "key": "home",
+        "title": "Home",
+        "slug": "home",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "swiss-hero",
+            "content": {
+              "eyebrow": "01. Lunch & dinner",
+              "headline": "Ten Tables, One Menu",
+              "body": "Saltbox is a ten table kitchen on Bedford Street. One short menu, changed weekly, built from whatever the coast and the market gave us that morning.",
+              "primaryCtaLabel": "See this week",
+              "primaryCtaUrl": "{{page:menu}}",
+              "secondaryCtaLabel": "Book a table",
+              "secondaryCtaUrl": "{{page:contact}}",
+              "statsLabel": "The room",
+              "stat1Value": "10",
+              "stat1Label": "Tables",
+              "stat2Value": "6",
+              "stat2Label": "Dishes each week",
+              "stat3Value": "2019",
+              "stat3Label": "Open since"
+            }
+          },
+          {
+            "pattern": "swiss-services-trio",
+            "content": {
+              "eyebrow": "02. How it works",
+              "headline": "Short Menu, Long Lunch",
+              "item1Title": "Lunch",
+              "item1Body": "Wednesday to Saturday, noon until three. Two or three courses, no bookings, walk in and take whatever table is free.",
+              "item2Title": "Dinner",
+              "item2Body": "Wednesday to Saturday from six. One sitting a night, booked ahead, so the table is yours for the evening.",
+              "item3Title": "Sunday",
+              "item3Body": "One long table, one price, whatever the kitchen feels like cooking. Twenty seats, released a fortnight in advance."
+            }
+          },
+          {
+            "pattern": "swiss-contact-cta",
+            "content": {
+              "eyebrow": "03. Bookings",
+              "headline": "Dinner is booked ahead",
+              "body": "Dinner and Sunday lunch are booked by telephone or email. Lunch is walk in only, and there is usually a table by half past one.",
+              "ctaLabel": "Book a table",
+              "ctaUrl": "{{page:contact}}",
+              "detail1Label": "Telephone",
+              "detail1Value": "+44 191 496 0188",
+              "detail2Label": "Address",
+              "detail2Value": "14 Bedford Street, Newcastle"
+            }
+          }
+        ]
+      },
+      {
+        "key": "menu",
+        "title": "Menu",
+        "slug": "menu",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "swiss-about-intro",
+            "content": {
+              "eyebrow": "This week",
+              "headline": "Menu",
+              "subhead": "Changed every Wednesday",
+              "body": "Six dishes, written on Wednesday morning once the boat and the market are in. Three to start, three to follow, and one pudding that rarely changes because nobody will let us.",
+              "bodySecondary": "Everything is cooked to order in a small kitchen, so a full room takes its time. Tell us about allergies when you book and we will work around almost anything except shellfish."
+            }
+          },
+          {
+            "pattern": "swiss-statement",
+            "content": {
+              "eyebrow": "Sourcing",
+              "headline": "Two Vans, One Market",
+              "body": "Fish comes off the boats at North Shields, vegetables from two growers in Northumberland, and everything else from the market on Grainger Street. If it did not arrive, it is not on the menu.",
+              "bodySecondary": "That is the whole supply chain. It means the menu is short and occasionally disappointing, and it means we can tell you exactly where anything on your plate came from."
+            }
+          }
+        ]
+      },
+      {
+        "key": "contact",
+        "title": "Find us",
+        "slug": "contact",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "swiss-contact-cta",
+            "content": {
+              "eyebrow": "Find us",
+              "headline": "Bedford Street, Newcastle",
+              "body": "Five minutes from Central Station. Telephone between two and five if you would like to speak to somebody, otherwise email and we will answer the same day.",
+              "ctaLabel": "Email a booking",
+              "ctaUrl": "mailto:table@saltbox.test",
+              "detail1Label": "Telephone",
+              "detail1Value": "+44 191 496 0188",
+              "detail2Label": "Address",
+              "detail2Value": "14 Bedford Street, Newcastle NE1"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

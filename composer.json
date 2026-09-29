@@ -21,7 +21,9 @@
 		"yoast/phpunit-polyfills": "^2.0"
 	},
 	"scripts": {
-		"test": "phpunit --testsuite unit"
+		"test": "phpunit --testsuite unit",
+		"test:evals": "phpunit --testsuite evals",
+		"test:all": "phpunit"
 	},
 	"config": {
 		"optimize-autoloader": true

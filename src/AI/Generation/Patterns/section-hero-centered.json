@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "id": "section-hero-centered",
+  "scope": "section",
+  "ref": "swishfolio/section-hero-centered",
+  "role": "hero",
+  "summary": "Centred hero: eyebrow, large headline, supporting line and two calls to action over a flat colour. Composed verbatim from the theme pattern, so its copy is the theme's own and cannot be personalised.",
+  "pageTypes": [
+    "home",
+    "landing",
+    "about",
+    "services"
+  ],
+  "styleVariations": [],
+  "capacity": {},
+  "requiresMedia": 0,
+  "ksesStable": true,
+  "slots": {}
+}

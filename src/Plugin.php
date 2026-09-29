@@ -49,6 +49,9 @@ use SwishfolioCore\AI\UsageLogger;
 use SwishfolioCore\Services\EncryptionService;
 use SwishfolioCore\REST\AIController;
 use SwishfolioCore\REST\SettingsController;
+use SwishfolioCore\REST\GenerationController;
+use SwishfolioCore\AI\Generation\PatternLibrary;
+use SwishfolioCore\Admin\AISettingsPage;
 
 /**
  * Plugin orchestrator - boots and wires all components.
@@ -154,6 +157,27 @@ class Plugin
     private ?SettingsController $aiSettingsController = null;
 
     /**
+     * AI generation pattern library.
+     *
+     * @var PatternLibrary|null
+     */
+    private ?PatternLibrary $aiPatternLibrary = null;
+
+    /**
+     * AI generation REST controller.
+     *
+     * @var GenerationController|null
+     */
+    private ?GenerationController $aiGenerationController = null;
+
+    /**
+     * AI settings admin screen.
+     *
+     * @var AISettingsPage|null
+     */
+    private ?AISettingsPage $aiSettingsPage = null;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -205,6 +229,22 @@ class Plugin
             $aiLogger
         );
         $this->aiSettingsController = new SettingsController($aiSettings, $aiProviders);
+
+        $this->aiPatternLibrary = new PatternLibrary([
+            SFCORE_PLUGIN_DIR . 'src/AI/Generation/Patterns',
+        ]);
+
+        $this->aiGenerationController = new GenerationController(
+            $this->aiBlockRegistry,
+            $this->aiPatternLibrary,
+            $aiSettings,
+            $aiProviders,
+            $aiLogger
+        );
+
+        if (is_admin()) {
+            $this->aiSettingsPage = new AISettingsPage($aiSettings, $aiProviders, $aiLogger);
+        }
     }
 
     /**
@@ -298,6 +338,13 @@ class Plugin
 
         // AI block editing: REST routes and the AI capability.
         add_action('rest_api_init', [ $this, 'registerAIRoutes' ]);
+
+        // AI settings screen (consent and provider configuration surface).
+        if ($this->aiSettingsPage !== null) {
+            add_action('admin_menu', [ $this->aiSettingsPage, 'registerMenu' ]);
+            add_action('admin_init', [ $this->aiSettingsPage, 'registerPrivacyContent' ]);
+            add_action('admin_post_' . AISettingsPage::ACTION, [ $this->aiSettingsPage, 'handleSave' ]);
+        }
         add_filter('user_has_cap', [ $this, 'grantAICapability' ]);
 
         // Register WP-CLI commands.
@@ -455,6 +502,10 @@ class Plugin
 
         // Enqueue project sidebar script.
         $this->enqueueProjectSidebar();
+
+        // AI block editing UI. Not post-type gated: AI editing applies to
+        // every editable post type, unlike the project sidebar.
+        $this->enqueueAiSidebar();
     }
 
     /**
@@ -520,6 +571,120 @@ class Plugin
     }
 
     /**
+     * Enqueue the AI block editing UI for the block editor.
+     *
+     * Unlike enqueueProjectSidebar() this is not post-type gated: AI editing
+     * applies to every editable post type.
+     *
+     * @return void
+     */
+    private function enqueueAiSidebar(): void
+    {
+        if ($this->aiBlockRegistry === null || ! current_user_can(AIController::CAPABILITY)) {
+            return;
+        }
+
+        $asset_file = SFCORE_PLUGIN_DIR . 'assets/js/ai-sidebar.asset.php';
+
+        if (! file_exists($asset_file)) {
+            return;
+        }
+
+        $asset = require $asset_file;
+
+        wp_enqueue_script(
+            'sfcore-ai-sidebar',
+            SFCORE_PLUGIN_URL . 'assets/js/ai-sidebar.js',
+            $asset['dependencies'],
+            $asset['version'],
+            true
+        );
+
+        wp_set_script_translations(
+            'sfcore-ai-sidebar',
+            'swishfolio-core',
+            SFCORE_PLUGIN_DIR . 'languages'
+        );
+
+        // Must run before the bundle: the client reads window.sfcoreAiEditor.
+        wp_add_inline_script(
+            'sfcore-ai-sidebar',
+            'window.sfcoreAiEditor = ' . wp_json_encode($this->aiCapabilityPayload()) . ';',
+            'before'
+        );
+
+        wp_enqueue_style(
+            'sfcore-ai-sidebar',
+            SFCORE_PLUGIN_URL . 'assets/css/ai-sidebar.css',
+            [],
+            SFCORE_VERSION
+        );
+    }
+
+    /**
+     * The capability manifests the editor UI needs, flattened for JSON.
+     *
+     * Attribute ORDER IS SIGNIFICANT and is preserved by getFields(): the
+     * client resolves update_block_content to the first richtext field, which
+     * is the same rule AllowlistStage and ValueStage apply server-side.
+     *
+     * @return array
+     */
+    private function aiCapabilityPayload(): array
+    {
+        $capabilities = [];
+
+        foreach ($this->aiBlockRegistry->all() as $blockName => $capability) {
+            $fields = [];
+
+            foreach ($capability->getFields() as $attribute => $field) {
+                $spec = ['group' => $field->getGroup(), 'type' => $field->getType()];
+
+                if ($field->getRole() !== null) {
+                    $spec['role'] = $field->getRole();
+                }
+                if ($field->getEnum() !== []) {
+                    $spec['enum'] = $field->getEnum();
+                }
+                if ($field->getTokenSet() !== null) {
+                    $spec['tokenSet'] = $field->getTokenSet();
+                }
+                if ($field->getMin() !== null) {
+                    $spec['min'] = $field->getMin();
+                }
+                if ($field->getMax() !== null) {
+                    $spec['max'] = $field->getMax();
+                }
+                if ($field->getMaxLength() !== null) {
+                    $spec['maxLength'] = $field->getMaxLength();
+                }
+                if ($field->getUnit() !== null) {
+                    $spec['unit'] = $field->getUnit();
+                }
+
+                $fields[$attribute] = $spec;
+            }
+
+            $capabilities[$blockName] = [
+                'tier'     => $capability->getTier(),
+                'purpose'  => $capability->getPurpose(),
+                'summary'  => $capability->getSummary(),
+                'fields'   => $fields,
+                'children' => [
+                    'allowed' => $capability->getAllowedChildren(),
+                    'min'     => $capability->getChildMin(),
+                    'max'     => $capability->getChildMax(),
+                ],
+            ];
+        }
+
+        return [
+            'maxActions'   => (int) apply_filters('swishfolio_ai_max_actions', 25),
+            'capabilities' => $capabilities,
+        ];
+    }
+
+    /**
      * Register the AI REST routes.
      *
      * @return void
@@ -532,6 +697,10 @@ class Plugin
 
         if ($this->aiSettingsController !== null) {
             $this->aiSettingsController->registerRoutes();
+        }
+
+        if ($this->aiGenerationController !== null) {
+            $this->aiGenerationController->registerRoutes();
         }
     }
 

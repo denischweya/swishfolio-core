@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "id": "section-contact-details",
+  "scope": "section",
+  "ref": "swishfolio/section-contact-details",
+  "role": "contact",
+  "summary": "Contact details block: address, email, phone and social links, without a form. Composed verbatim from the theme pattern, so its copy is the theme's own and cannot be personalised.",
+  "pageTypes": [
+    "contact",
+    "about"
+  ],
+  "styleVariations": [],
+  "capacity": {},
+  "requiresMedia": 0,
+  "ksesStable": true,
+  "slots": {}
+}

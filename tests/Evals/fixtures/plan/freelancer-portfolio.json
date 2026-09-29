@@ -1,0 +1,150 @@
+{
+  "vertical": "freelancer-portfolio",
+  "label": "Freelancer portfolio: selected work, a journal listing and a contact page",
+  "scope": "site",
+  "instruction": "I am a freelance interface designer in Glasgow. I need a home page with a few selected projects, a journal for my writing, and a contact page. I only take two clients at a time.",
+  "brief": {
+    "siteTitle": "Tobias Reeve",
+    "styleVariation": "",
+    "styleVariations": [
+      "Default",
+      "Neo-Brutalist",
+      "Swiss International",
+      "Sasha",
+      "Terminal"
+    ],
+    "customTemplates": [
+      "page-no-title",
+      "page-landing",
+      "page-with-sidebar"
+    ],
+    "existingSlugs": {}
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "summary": "A three page site for a freelance interface designer: a hero-led home page with selected work, a journal listing recent writing, and a contact page.",
+    "site": {
+      "title": "Tobias Reeve",
+      "tagline": "Freelance interface design",
+      "frontPage": "home",
+      "blogPage": "journal",
+      "navigation": [
+        "home",
+        "journal",
+        "contact"
+      ]
+    },
+    "pages": [
+      {
+        "key": "home",
+        "title": "Home",
+        "slug": "home",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "swiss-hero",
+            "content": {
+              "eyebrow": "01. Interface design",
+              "headline": "Design That Ships",
+              "body": "I am a freelance interface designer working with small product teams. I draw in the browser, hand over components rather than pictures, and stay until it is live.",
+              "primaryCtaLabel": "Read the journal",
+              "primaryCtaUrl": "{{page:journal}}",
+              "secondaryCtaLabel": "Work with me",
+              "secondaryCtaUrl": "{{page:contact}}",
+              "statsLabel": "Currently",
+              "stat1Value": "2",
+              "stat1Label": "Clients at a time",
+              "stat2Value": "8",
+              "stat2Label": "Years freelance",
+              "stat3Value": "Q3",
+              "stat3Label": "Next availability"
+            }
+          },
+          {
+            "block": "swishfolio-core/portfolio",
+            "attributes": {
+              "layout": "list",
+              "columns": 1,
+              "gap": 48,
+              "postsPerPage": 6,
+              "showFilters": false,
+              "showExcerpt": true,
+              "showCategory": true,
+              "showViewButton": true,
+              "viewButtonText": "Read the write-up",
+              "cardStyle": "overlay",
+              "imageAspectRatio": "wide",
+              "hoverEffect": "lift",
+              "taxonomyStyle": "rounded",
+              "imageBorderRadius": 4,
+              "taxonomyColor": "accent-3",
+              "orderBy": "menu_order",
+              "order": "ASC"
+            }
+          },
+          {
+            "pattern": "swiss-contact-cta",
+            "content": {
+              "eyebrow": "03. Availability",
+              "headline": "Two clients at a time",
+              "body": "I take two engagements at once and book a quarter ahead. Tell me roughly what you are building and when it needs to be live.",
+              "ctaLabel": "Check availability",
+              "ctaUrl": "{{page:contact}}",
+              "detail1Label": "Email",
+              "detail1Value": "tobias@reeve.test",
+              "detail2Label": "Based in",
+              "detail2Value": "Glasgow, working remotely"
+            }
+          }
+        ]
+      },
+      {
+        "key": "journal",
+        "title": "Journal",
+        "slug": "journal",
+        "status": "draft",
+        "sections": [
+          {
+            "block": "swishfolio-core/latest-posts",
+            "attributes": {
+              "columns": 2,
+              "postsPerPage": 8,
+              "excerptLength": 32,
+              "showDate": true,
+              "showAuthor": false,
+              "showExcerpt": true,
+              "showFeaturedImage": true,
+              "imageAspectRatio": "landscape",
+              "imageBorderRadius": 4,
+              "titleColor": "contrast",
+              "excerptColor": "accent-5",
+              "metaColor": "accent-4"
+            }
+          }
+        ]
+      },
+      {
+        "key": "contact",
+        "title": "Contact",
+        "slug": "contact",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "swiss-contact-cta",
+            "content": {
+              "eyebrow": "Contact",
+              "headline": "Tell me what you are building",
+              "body": "Email is the fastest route. Include a sentence about the product, the team size and the date it has to be live, and I will reply with availability and a rough shape.",
+              "ctaLabel": "Email me",
+              "ctaUrl": "mailto:tobias@reeve.test",
+              "detail1Label": "Email",
+              "detail1Value": "tobias@reeve.test",
+              "detail2Label": "Elsewhere",
+              "detail2Value": "Glasgow, working remotely"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

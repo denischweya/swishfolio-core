@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "id": "section-features-grid",
+  "scope": "section",
+  "ref": "swishfolio/section-features-grid",
+  "role": "features",
+  "summary": "Feature grid built from the Features block with feature-card children. Composed verbatim from the theme pattern, so its copy is the theme's own and cannot be personalised.",
+  "pageTypes": [
+    "home",
+    "services",
+    "landing"
+  ],
+  "styleVariations": [],
+  "capacity": {},
+  "requiresMedia": 0,
+  "ksesStable": true,
+  "slots": {}
+}

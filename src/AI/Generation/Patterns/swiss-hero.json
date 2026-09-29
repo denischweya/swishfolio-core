@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "id": "swiss-hero",
+  "scope": "section",
+  "file": "swiss-hero.html",
+  "role": "hero",
+  "summary": "Opening section: an uppercase eyebrow label, one very large headline, a supporting paragraph, two call-to-action buttons, and a bordered column of three headline statistics.",
+  "pageTypes": ["home", "landing", "services"],
+  "styleVariations": [],
+  "capacity": { "headline": 60, "body": 260, "stats": 3 },
+  "requiresMedia": 0,
+  "ksesStable": true,
+  "slots": {
+    "eyebrow": { "type": "text", "maxLength": 40, "role": "eyebrow", "default": "01. Welcome" },
+    "headline": { "type": "text", "maxLength": 60, "role": "headline", "default": "Design With Purpose" },
+    "body": { "type": "text", "maxLength": 260, "role": "supporting", "default": "We create bold, objective solutions that communicate with clarity and precision." },
+    "primaryCtaLabel": { "type": "text", "maxLength": 28, "role": "primary-cta", "default": "View Work" },
+    "primaryCtaUrl": { "type": "url", "role": "primary-cta", "default": "#" },
+    "secondaryCtaLabel": { "type": "text", "maxLength": 28, "role": "secondary-cta", "default": "Contact" },
+    "secondaryCtaUrl": { "type": "url", "role": "secondary-cta", "default": "#" },
+    "statsLabel": { "type": "text", "maxLength": 24, "role": "label", "default": "Statistics" },
+    "stat1Value": { "type": "text", "maxLength": 10, "role": "stat", "default": "150+" },
+    "stat1Label": { "type": "text", "maxLength": 32, "role": "stat-label", "default": "Projects Completed" },
+    "stat2Value": { "type": "text", "maxLength": 10, "role": "stat", "default": "12" },
+    "stat2Label": { "type": "text", "maxLength": 32, "role": "stat-label", "default": "Years Experience" },
+    "stat3Value": { "type": "text", "maxLength": 10, "role": "stat", "default": "98%" },
+    "stat3Label": { "type": "text", "maxLength": 32, "role": "stat-label", "default": "Client Satisfaction" }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "name": "plan-static-block-section",
+  "track": "plan",
+  "why": "A static block serialised from attributes alone renders to nothing, because PHP cannot run its save().",
+  "expectStage": "plan-reference",
+  "scope": "site",
+  "instruction": "Build me a small site.",
+  "brief": {
+    "siteTitle": "Baseline",
+    "styleVariation": "",
+    "styleVariations": [
+      "Default",
+      "Neo-Brutalist",
+      "Swiss International",
+      "Sasha",
+      "Terminal"
+    ],
+    "customTemplates": [
+      "page-no-title",
+      "page-landing",
+      "page-with-sidebar"
+    ],
+    "existingSlugs": {}
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "summary": "A one page site used as the baseline for a rejection fixture.",
+    "site": {
+      "title": "Baseline",
+      "frontPage": "home",
+      "navigation": [
+        "home"
+      ]
+    },
+    "pages": [
+      {
+        "key": "home",
+        "title": "Home",
+        "slug": "home",
+        "status": "draft",
+        "sections": [
+          {
+            "block": "swishfolio-core/hero",
+            "attributes": {
+              "heading": "Never reachable"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

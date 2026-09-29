@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "id": "alpha-page",
+  "scope": "page",
+  "ref": "test/alpha-page",
+  "role": "home-page",
+  "summary": "Fixture whole-page unit resolved through a registered pattern.",
+  "pageTypes": ["home"],
+  "styleVariations": [],
+  "requiresMedia": 0,
+  "ksesStable": true,
+  "slots": {}
+}

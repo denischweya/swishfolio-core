@@ -1,0 +1,122 @@
+{
+  "vertical": "agency-site",
+  "label": "Agency site: sharpen the services grid and add the missing third service",
+  "instruction": "Our services grid is thin. Make each card say something concrete, tighten the layout, and add a third card for the implementation work we do.",
+  "selection": {
+    "clientId": "feat-grid",
+    "blockName": "swishfolio-core/features",
+    "attributes": {
+      "gridGap": "1rem",
+      "cardBorderStyle": "none"
+    },
+    "postType": "page",
+    "styleVariation": "Swiss International",
+    "siblings": [],
+    "innerBlocks": [
+      {
+        "clientId": "feat-a",
+        "blockName": "swishfolio-core/feature-card"
+      },
+      {
+        "clientId": "feat-b",
+        "blockName": "swishfolio-core/feature-card"
+      }
+    ]
+  },
+  "blockTree": {
+    "feat-grid": {
+      "name": "swishfolio-core/features",
+      "attributes": {
+        "gridGap": "1rem",
+        "cardBorderStyle": "none"
+      },
+      "parentClientId": null
+    },
+    "feat-a": {
+      "name": "swishfolio-core/feature-card",
+      "attributes": {
+        "title": "Branding",
+        "description": "We do branding.",
+        "cardSize": "small"
+      },
+      "parentClientId": "feat-grid"
+    },
+    "feat-b": {
+      "name": "swishfolio-core/feature-card",
+      "attributes": {
+        "title": "Websites",
+        "description": "We build websites.",
+        "cardSize": "small"
+      },
+      "parentClientId": "feat-grid"
+    }
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "summary": "Sharpened both service cards, ruled the grid, and added the implementation service that was missing.",
+    "actions": [
+      {
+        "type": "update_block_attributes",
+        "clientId": "feat-grid",
+        "changes": {
+          "gridGap": "3rem",
+          "cardBorderStyle": "solid",
+          "cardBorderColor": "contrast",
+          "cardBackgroundColor": "base",
+          "titleColor": "contrast",
+          "cardAccentColor": "accent-2"
+        },
+        "reason": "Ruled cards with wide gutters match the studio identity and separate three services cleanly."
+      },
+      {
+        "type": "update_block_attributes",
+        "clientId": "feat-a",
+        "changes": {
+          "title": "Brand systems",
+          "subheading": "01",
+          "description": "Naming, identity, type and colour delivered as a documented system rather than a folder of finished artwork.",
+          "ctaText": "How we run an audit",
+          "ctaUrl": "https://marlowgrid.test/services",
+          "ctaType": "link",
+          "titleTag": "h3",
+          "cardSize": "medium"
+        },
+        "reason": "Names the deliverable instead of the category, and points at the page that explains the engagement."
+      },
+      {
+        "type": "update_block_attributes",
+        "clientId": "feat-b",
+        "changes": {
+          "title": "Product design",
+          "subheading": "02",
+          "description": "Interface work built on the same tokens as the brand, so the marketing site and the product stop diverging.",
+          "ctaText": "See recent work",
+          "ctaUrl": "https://marlowgrid.test/work",
+          "ctaType": "link",
+          "titleTag": "h3",
+          "cardSize": "medium"
+        },
+        "reason": "Explains the connection to the brand system, which is what distinguishes this from generic UI work."
+      },
+      {
+        "type": "insert_block",
+        "parentClientId": "feat-grid",
+        "blockName": "swishfolio-core/feature-card",
+        "index": 2,
+        "attributes": {
+          "title": "Implementation",
+          "subheading": "03",
+          "description": "We hand over running code: design tokens, a component library and documentation your engineers will actually read.",
+          "ctaText": "What handover includes",
+          "ctaUrl": "https://marlowgrid.test/services",
+          "ctaType": "link",
+          "titleTag": "h3",
+          "cardSize": "medium",
+          "titleColor": "contrast",
+          "cardAccentColor": "accent-2"
+        },
+        "reason": "The third service was missing from the grid entirely."
+      }
+    ]
+  }
+}

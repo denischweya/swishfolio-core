@@ -1,0 +1,56 @@
+{
+  "name": "plan-slot-copy-too-long",
+  "track": "plan",
+  "why": "A headline far past its slot maximum does not fail, it wraps into four lines and ruins the section.",
+  "expectStage": "plan-value",
+  "scope": "site",
+  "instruction": "Build me a small site.",
+  "brief": {
+    "siteTitle": "Baseline",
+    "styleVariation": "",
+    "styleVariations": [
+      "Default",
+      "Neo-Brutalist",
+      "Swiss International",
+      "Sasha",
+      "Terminal"
+    ],
+    "customTemplates": [
+      "page-no-title",
+      "page-landing",
+      "page-with-sidebar"
+    ],
+    "existingSlugs": {}
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "summary": "A one page site used as the baseline for a rejection fixture.",
+    "site": {
+      "title": "Baseline",
+      "frontPage": "home",
+      "navigation": [
+        "home"
+      ]
+    },
+    "pages": [
+      {
+        "key": "home",
+        "title": "Home",
+        "slug": "home",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "swiss-hero",
+            "content": {
+              "eyebrow": "01. Studio",
+              "headline": "A headline so long that it cannot possibly fit the space the unit reserves for it on any screen",
+              "body": "A supporting sentence that sits under the headline and explains what the studio does.",
+              "primaryCtaLabel": "See the work",
+              "primaryCtaUrl": "https://example.test/work"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

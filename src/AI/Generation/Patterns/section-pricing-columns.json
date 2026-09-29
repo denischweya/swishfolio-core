@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "id": "section-pricing-columns",
+  "scope": "section",
+  "ref": "swishfolio/section-pricing-columns",
+  "role": "pricing",
+  "summary": "Simple pricing columns without a billing toggle. Composed verbatim from the theme pattern, so its copy is the theme's own and cannot be personalised.",
+  "pageTypes": [
+    "pricing",
+    "services",
+    "home"
+  ],
+  "styleVariations": [],
+  "capacity": {},
+  "requiresMedia": 0,
+  "ksesStable": true,
+  "slots": {}
+}

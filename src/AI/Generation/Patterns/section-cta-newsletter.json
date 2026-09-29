@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "id": "section-cta-newsletter",
+  "scope": "section",
+  "ref": "swishfolio/section-cta-newsletter",
+  "role": "cta",
+  "summary": "Newsletter sign-up call to action using the Swish Form block. Composed verbatim from the theme pattern, so its copy is the theme's own and cannot be personalised.",
+  "pageTypes": [
+    "home",
+    "blog",
+    "about"
+  ],
+  "styleVariations": [],
+  "capacity": {},
+  "requiresMedia": 0,
+  "ksesStable": true,
+  "slots": {}
+}

@@ -1,0 +1,50 @@
+{
+  "name": "edit-unknown-token-slug",
+  "track": "edit",
+  "why": "A slug that is not in this theme.json resolves to no CSS custom property at all.",
+  "expectStage": "value",
+  "instruction": "Improve this section.",
+  "selection": {
+    "clientId": "hero-1",
+    "blockName": "swishfolio-core/hero",
+    "attributes": {
+      "heading": "Placeholder",
+      "headingSize": "large"
+    },
+    "postType": "page",
+    "styleVariation": "Default",
+    "siblings": [],
+    "innerBlocks": []
+  },
+  "blockTree": {
+    "hero-1": {
+      "name": "swishfolio-core/hero",
+      "attributes": {
+        "heading": "Placeholder",
+        "headingSize": "large"
+      },
+      "parentClientId": null
+    },
+    "spacer-1": {
+      "name": "core/spacer",
+      "attributes": {
+        "height": "80px"
+      },
+      "parentClientId": null
+    }
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "summary": "Adversarial fixture.",
+    "actions": [
+      {
+        "type": "update_block_attributes",
+        "clientId": "hero-1",
+        "changes": {
+          "textColor": "accent-9"
+        },
+        "reason": "Adversarial."
+      }
+    ]
+  }
+}

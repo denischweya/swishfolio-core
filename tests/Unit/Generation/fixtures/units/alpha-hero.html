@@ -1,0 +1,17 @@
+<!-- wp:group {"align":"full","metadata":{"name":"{{slot:label}}"}} -->
+<div class="wp-block-group alignfull">
+	<!-- wp:heading -->
+	<h2 class="wp-block-heading">{{slot:headline}}</h2>
+	<!-- /wp:heading -->
+	<!-- wp:paragraph -->
+	<p>{{slot:body}}</p>
+	<!-- /wp:paragraph -->
+	<!-- wp:buttons -->
+	<div class="wp-block-buttons">
+		<!-- wp:button -->
+		<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="{{slot:ctaUrl}}">{{slot:ctaLabel}}</a></div>
+		<!-- /wp:button -->
+	</div>
+	<!-- /wp:buttons -->
+</div>
+<!-- /wp:group -->

@@ -1,0 +1,263 @@
+/**
+ * AI sidebar and toolbar button.
+ *
+ * Editor-only. Everything is scoped under .sfcore-ai-sidebar (the class name
+ * passed to PluginSidebar, which lands on the complementary area panel) or
+ * .sfcore-ai-toolbar-button, so nothing here reaches a block or the front end.
+ */
+
+.sfcore-ai-sidebar__body {
+	padding: 16px;
+	font-size: 13px;
+	line-height: 1.5;
+}
+
+.sfcore-ai-sidebar__empty,
+.sfcore-ai-sidebar__unsupported {
+	margin: 0;
+	color: #757575;
+}
+
+.sfcore-ai-sidebar__unsupported p {
+	margin: 0 0 8px;
+}
+
+.sfcore-ai-sidebar__hint {
+	color: #757575;
+}
+
+/* Selection ------------------------------------------------------------- */
+
+.sfcore-ai-sidebar__selection {
+	margin-bottom: 16px;
+	padding-bottom: 12px;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+.sfcore-ai-sidebar__selection-head {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 8px;
+}
+
+.sfcore-ai-sidebar__selection-block {
+	font-size: 13px;
+}
+
+.sfcore-ai-sidebar__selection-count {
+	flex: 0 0 auto;
+	color: #757575;
+	font-size: 12px;
+}
+
+.sfcore-ai-sidebar__selection-summary,
+.sfcore-ai-sidebar__selection-tier {
+	margin: 6px 0 0;
+	color: #757575;
+	font-size: 12px;
+}
+
+/* Prompt ---------------------------------------------------------------- */
+
+.sfcore-ai-sidebar__chips {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px;
+	margin: 12px 0;
+}
+
+.sfcore-ai-sidebar__chips-label {
+	color: #757575;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.sfcore-ai-sidebar__chip.components-button {
+	height: auto;
+	min-height: 24px;
+	padding: 2px 8px;
+	border-radius: 12px;
+	font-size: 12px;
+	white-space: normal;
+	text-align: left;
+}
+
+.sfcore-ai-sidebar__prompt-actions {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-top: 12px;
+}
+
+/* Preview --------------------------------------------------------------- */
+
+.sfcore-ai-sidebar__summary {
+	margin: 0 0 8px;
+	font-weight: 600;
+}
+
+.sfcore-ai-sidebar__count {
+	margin: 0 0 8px;
+	color: #757575;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.sfcore-ai-sidebar__rows {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.sfcore-ai-sidebar__row {
+	margin: 0 0 8px;
+	padding: 10px;
+	border: 1px solid #e0e0e0;
+	border-radius: 4px;
+	background: #fff;
+}
+
+.sfcore-ai-sidebar__row .sfcore-ai-sidebar__row-check {
+	margin-bottom: 0;
+}
+
+.sfcore-ai-sidebar__row-head {
+	display: inline-flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 6px;
+}
+
+.sfcore-ai-sidebar__row-type {
+	padding: 1px 6px;
+	border-radius: 2px;
+	background: #f0f0f0;
+	color: #1e1e1e;
+	font-size: 11px;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+
+.sfcore-ai-sidebar__row-block {
+	font-weight: 600;
+}
+
+.sfcore-ai-sidebar__fields {
+	margin: 8px 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.sfcore-ai-sidebar__field {
+	margin: 0 0 6px;
+}
+
+.sfcore-ai-sidebar__field:last-child {
+	margin-bottom: 0;
+}
+
+.sfcore-ai-sidebar__field-label {
+	display: block;
+	color: #757575;
+	font-size: 11px;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+
+.sfcore-ai-sidebar__field-values {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px;
+	margin-top: 2px;
+}
+
+.sfcore-ai-sidebar__value {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	max-width: 100%;
+	overflow-wrap: anywhere;
+}
+
+.sfcore-ai-sidebar__value--before .sfcore-ai-sidebar__value-text {
+	color: #757575;
+}
+
+.sfcore-ai-sidebar__value--after .sfcore-ai-sidebar__value-text {
+	color: #1e1e1e;
+	font-weight: 600;
+}
+
+.sfcore-ai-sidebar__swatch {
+	display: inline-block;
+	flex: 0 0 auto;
+	width: 14px;
+	height: 14px;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 2px;
+}
+
+.sfcore-ai-sidebar__arrow {
+	color: #757575;
+}
+
+.sfcore-ai-sidebar__row-note,
+.sfcore-ai-sidebar__row-reason {
+	margin: 6px 0 0;
+	color: #757575;
+	font-size: 12px;
+	font-style: italic;
+}
+
+.sfcore-ai-sidebar__preview-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-top: 12px;
+}
+
+/* Errors ---------------------------------------------------------------- */
+
+.sfcore-ai-sidebar__error.components-notice {
+	margin: 0 0 16px;
+}
+
+.sfcore-ai-sidebar__error-message {
+	margin: 0;
+	font-weight: 600;
+}
+
+.sfcore-ai-sidebar__error-hint {
+	margin: 6px 0 0;
+}
+
+.sfcore-ai-sidebar__error-details {
+	margin-top: 8px;
+}
+
+.sfcore-ai-sidebar__error-details summary {
+	cursor: pointer;
+	font-size: 12px;
+}
+
+.sfcore-ai-sidebar__error-details pre {
+	margin: 6px 0 0;
+	padding: 8px;
+	overflow-x: auto;
+	border-radius: 2px;
+	background: rgba(0, 0, 0, 0.06);
+	font-size: 11px;
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+}
+
+/* Toolbar --------------------------------------------------------------- */
+
+.sfcore-ai-toolbar-button svg {
+	fill: currentcolor;
+}

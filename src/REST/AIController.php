@@ -102,6 +102,16 @@ class AIController
             return new \WP_Error('sfcore_ai_forbidden', __('You cannot use AI editing.', 'swishfolio-core'), ['status' => 403]);
         }
 
+        // The site owner's off switch. Without this check the setting is
+        // decorative: the routes stay live however it is set.
+        if (! $this->settings->get()['enabled']) {
+            return new \WP_Error(
+                'sfcore_ai_disabled',
+                __('AI features are turned off for this site.', 'swishfolio-core'),
+                ['status' => 403]
+            );
+        }
+
         $postId = (int) $request->get_param('postId');
 
         if ($postId <= 0 || ! current_user_can('edit_post', $postId)) {

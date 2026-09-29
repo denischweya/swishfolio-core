@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "id": "section-faq-details",
+  "scope": "section",
+  "ref": "swishfolio/section-faq-details",
+  "role": "faq",
+  "summary": "FAQ built from core details blocks, for when no plugin block is wanted. Composed verbatim from the theme pattern, so its copy is the theme's own and cannot be personalised.",
+  "pageTypes": [
+    "faq",
+    "services",
+    "about"
+  ],
+  "styleVariations": [],
+  "capacity": {},
+  "requiresMedia": 0,
+  "ksesStable": true,
+  "slots": {}
+}

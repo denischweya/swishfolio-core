@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "id": "page-swiss-contact",
+  "scope": "page",
+  "ref": "swishfolio/page-swiss-contact",
+  "role": "contact-page",
+  "summary": "A complete contact page body: contact details, a bordered enquiry layout and a frequently-asked-questions block. Composed verbatim, so its copy is the theme's own and cannot be personalised.",
+  "pageTypes": ["contact"],
+  "styleVariations": [],
+  "capacity": {},
+  "requiresMedia": 0,
+  "ksesStable": true,
+  "slots": {}
+}

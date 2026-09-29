@@ -16,7 +16,7 @@ if (! defined('SFCORE_PLUGIN_DIR')) {
 }
 
 if (! defined('SFCORE_VERSION')) {
-    define('SFCORE_VERSION', '1.0.3');
+    define('SFCORE_VERSION', '1.1.0');
 }
 
 $GLOBALS['sfcore_test_transients'] = [];

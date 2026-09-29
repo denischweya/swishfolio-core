@@ -95,7 +95,29 @@ Selection-based AI editing: the editor sends a selection, the AI returns structu
 - **`REST/`** — on the existing `swishfolio/v1` namespace: `POST /ai/edit`, `POST /ai/test-provider`, `GET /ai/usage`, `GET|POST /ai/settings`. The post ID is read from the request and **verified** with `current_user_can('edit_post', $id)`. Capability `swishfolio_use_ai` is granted through a `user_has_cap` filter (not written to roles). Rate limit 30/hour/user, filter `swishfolio_ai_rate_limit`.
 - **Tests** — `tests/Unit/` via PHPUnit 9.6 (`vendor/bin/phpunit --testsuite unit`), WP functions stubbed in `tests/stubs/`. No automated test touches the network. `ManifestConformanceTest` proves every manifest attribute exists in its `block.json`.
 
-Not yet built: the Gutenberg sidebar/toolbar UI, change preview, batched apply, Playwright E2E and the AI eval suite. Spec and plan in `docs/superpowers/`.
+### Editor UI (`src/js/ai/`, `src/js/ai-sidebar/`)
+
+Entry `src/js/ai-sidebar.js` → `assets/js/ai-sidebar.js`, enqueued by `Plugin::enqueueAiSidebar()` (not post-type gated) with `window.sfcoreAiEditor = {maxActions, capabilities}` localised from `Plugin::aiCapabilityPayload()`. **Field order in that payload is significant** — the client resolves `update_block_content` to the first richtext field, matching AllowlistStage/ValueStage.
+
+`PluginSidebar` + `PluginSidebarMoreMenuItem` from `@wordpress/editor`; toolbar "Ask AI" via `addFilter('editor.BlockEdit')` + `BlockControls`. Apply re-checks every returned clientId against the set that was sent, then dispatches inside `registry.batch()` from `useRegistry()` — one `updateBlockAttributes(clientIds, attrsByClientId, {uniqueByBlock:true})`, one `insertBlocks` per insertion, one `removeBlocks` — so an AI change is **one undo step**.
+
+### Generation engine (`src/AI/Generation/`, `src/Actions/Handlers/`)
+
+Two-stage per plan §9: `POST /ai/plan` returns a validated site plan for review, `POST /ai/generate` re-validates and executes it. Unlike in-editor editing, generation **does** write server-side, through `ActionExecutor` + `Actions/Handlers/*` with a per-action-type capability check; `canGenerate()` requires `swishfolio_use_ai` AND `edit_pages`.
+
+`PatternLibrary` reads sidecar units from `src/AI/Generation/Patterns/*.json` (34: 9 slot-bearing/page units + 25 `ref` units pointing at the theme's `section-*` patterns), cached in transient `sfcore_generation_units_{SFCORE_VERSION}_{dirhash}` — **adding sidecars requires a version bump or the cache serves stale units**.
+
+`PlanExecutor` composes page content, creates pages as drafts, then makes a second pass resolving `{{page:key}}` links to permalinks. Both `createActions()` and `relinkActions()` skip pages carrying `existingPostId` (set only by `PlanCollisionStage` when `onConflict === 'skip'`) — a missing guard there overwrote pages the owner asked to keep.
+
+### Consent and settings (`src/Admin/AISettingsPage.php`)
+
+`enabled` defaults to **false**: `/ai/edit` and the generation routes return 403 `sfcore_ai_disabled` until someone enables AI on the settings screen, and enabling requires ticking a separate acknowledgement of what leaves the site. Also registers `wp_add_privacy_policy_content`. `uninstall.php` removes plugin options and version-keyed transients on every site of a multisite, and deliberately leaves form entries and generated pages alone.
+
+### Tests
+
+`--testsuite unit` (309) and `--testsuite evals` (172, 12 live-mode cases skipped unless `SWISHFOLIO_AI_EVAL_LIVE=1` and `SWISHFOLIO_AI_EVAL_API_KEY` are both set — never in CI). Jest via `npm run test:unit` (110 tests, 14 suites). Playwright in `tests/e2e/` against a stubbed provider. Source must stay PHP 7.4-parseable.
+
+Not yet verified: no live provider call has been made, so prompt quality is unmeasured; no browser has rendered the sidebar or the 25 new patterns; no REST-layer PHP tests exist.
 
 ---
 

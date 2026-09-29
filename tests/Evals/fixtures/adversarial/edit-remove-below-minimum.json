@@ -1,0 +1,50 @@
+{
+  "name": "edit-remove-below-minimum",
+  "track": "edit",
+  "why": "Testimonials declares a minimum of one card; emptying it leaves a container that renders as nothing.",
+  "expectStage": "allowlist",
+  "instruction": "Improve this section.",
+  "selection": {
+    "clientId": "tst-root",
+    "blockName": "swishfolio-core/testimonials",
+    "attributes": {
+      "columns": 3
+    },
+    "postType": "page",
+    "styleVariation": "Default",
+    "siblings": [],
+    "innerBlocks": [
+      {
+        "clientId": "tst-1",
+        "blockName": "swishfolio-core/testimonial-card"
+      }
+    ]
+  },
+  "blockTree": {
+    "tst-root": {
+      "name": "swishfolio-core/testimonials",
+      "attributes": {
+        "columns": 3
+      },
+      "parentClientId": null
+    },
+    "tst-1": {
+      "name": "swishfolio-core/testimonial-card",
+      "attributes": {
+        "name": "A"
+      },
+      "parentClientId": "tst-root"
+    }
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "summary": "Adversarial fixture.",
+    "actions": [
+      {
+        "type": "remove_block",
+        "clientId": "tst-1",
+        "reason": "Adversarial."
+      }
+    ]
+  }
+}
