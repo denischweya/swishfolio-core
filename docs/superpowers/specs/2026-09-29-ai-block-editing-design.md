@@ -1,7 +1,7 @@
 # Selection-Based AI Block Editing — Design Spec
 
 **Date:** 2026-09-29
-**Status:** Approved, not yet implemented
+**Status:** Approved; §1–§9, §11, §13 implemented (see Amendments)
 **Scope:** Sub-project A+B+C of the AI Website Builder plan — Block Capability Registry, AI provider abstraction, action engine, and the Gutenberg "Ask AI" editing surface.
 
 ---
@@ -402,3 +402,20 @@ Also in scope because the work touches it: bump `Requires at least` from 6.4 to 
 ## 15. Out of scope
 
 Page and site generation; template, template-part and global-styles mutation; image generation or selection; SEO; the hosted Laravel API, credits and subscriptions; Google and Anthropic providers (Anthropic is second, not first); the AI history panel — native undo covers this slice, a history UI arrives with server-side actions; WordPress.org submission and plugin repositioning; theme generalization.
+
+
+---
+
+## 16. Amendments found during implementation
+
+Four things in this spec were wrong or incomplete when checked against the real codebase and a running site. The implementation follows the corrected version.
+
+1. **`FieldSpec` needs a `boolean` type.** §4.2's table omitted it, but show/hide attributes (`showDate`, `showFilters`, `highlighted`, `pauseOnHover`) are among the most natural things to ask AI to change. Added.
+
+2. **Hero's `headingSize` enum is `medium | large | xlarge`.** §4.3's worked example guessed `medium | large | x-large | display`. Real enum values are declared in each block's editor `SelectControl`, not in `block.json`, and were extracted from there for every manifest.
+
+3. **`core/list` does not hold its text.** On WordPress 7.0 list content lives in `core/list-item` children; the legacy `values` attribute is not what modern lists use. Both are manifested — `core/list` for `ordered`, `core/list-item` for content — giving five core manifests rather than four.
+
+4. **`wp_get_global_settings()` returns presets keyed by origin.** §4.4 assumed the flat list shape of a raw `theme.json`. The live call returns `['default' => [...], 'theme' => [...]]`, so `TokenResolver` resolved every set to empty against a real site. It now handles both shapes, and **excludes the `default` origin when the theme disables default presets** — this theme does, and WordPress emits no CSS custom property for disabled defaults, so offering those slugs would produce colours that resolve to nothing.
+
+**Known limitation:** attributes stored as arrays (`faq.items`, `swish-links.links`, `swish-cv.rows`, `swish-socials.socialLinks`, `swish-gallery.images`, `swish-form.fields`) are excluded from every manifest. "Add an FAQ entry" therefore does not work yet. These predate the InnerBlocks precedent in ADR-0001/0002; supporting them needs either an array field type or conversion to InnerBlocks, and is deliberately out of this slice.

@@ -79,6 +79,26 @@ Card, Hero, Heading, Portfolio, LatestPosts, Testimonials, TestimonialCard, Faq,
 
 ---
 
+## 3b. AI block editing subsystem
+
+Selection-based AI editing: the editor sends a selection, the AI returns structured actions, PHP validates them and sends them back. **PHP never mutates post content** — actions are applied client-side through the block editor store, so native undo reverses them and WordPress revisions are the history. The only DB write is the usage-counter option.
+
+- **Capability manifests** — one `blocks/<name>/ai.json` per block (23) plus `src/AI/Manifests/core/*.json` (5: paragraph, heading, list, list-item, button). Schema v1: `tier` (`full`|`content`), `purpose`, `summary`, `capabilities.{content,layout,style}`, optional `children`, `excluded`. Field types: `text, url, richtext, number, boolean, enum, token`. Colours/spacing/font sizes are **`token` fields carrying theme.json slugs, never literal values** — the theme's five style variations re-skin the whole palette, so a literal would break on a variation switch. The manifest is simultaneously the AI's description and the validator's allowlist.
+- **`Blocks/BlockRegistry`** — lazy discovery of `*/ai.json` and flat `*.json`, cached in transient `sfcore_ai_manifests_{SFCORE_VERSION}` (raw arrays, not objects), extensible via filter `swishfolio_ai_block_manifests`.
+- **`AI/Context/TokenResolver`** — reads `theme.json` presets. Handles both the flat list of a raw theme.json and the origin-keyed shape of `wp_get_global_settings()`, excluding the `default` origin when the theme disables default presets. `fromTheme()` is the live factory.
+- **`AI/Context/ContextAssembler`** — builds the `AIRequest`. Only manifests for blocks in play are sent; neighbours contribute name + purpose, never attributes. System prompt is byte-stable for cache reuse; selection and instruction go in the user message. A hero selection costs ~1,535 tokens (~1,420 cacheable).
+- **`AI/Prompt/PromptManager`** — file-based prompts in `src/AI/Prompt/{system,tasks}/*.txt`, `{{placeholder}}` substitution, raises on an unreplaced placeholder.
+- **`AI/Providers/`** — `AbstractAIProvider` wraps `wp_remote_post()` (no vendored SDK; zero runtime Composer deps) with retry on 429/5xx and a single overridable `post()` seam. `OpenAIProvider` + `OpenAICompatibleProvider`. `ProviderRegistry` applies stored credentials; filter `swishfolio_ai_providers`.
+- **`Actions/`** — `ActionSchema` (schemaVersion 1.0; types `update_block_attributes`, `update_block_content`, `insert_block`, `remove_block`). `ActionValidator` runs five **all-or-nothing** stages: envelope → target → allowlist → value → sanitize. Value expands token slugs to `var(--wp--preset--*)`; sanitize applies `wp_kses_post`/`esc_url_raw`/`sanitize_text_field`. Any failure rejects the entire response.
+- **`AI/Settings`** — option `swishfolio_ai_settings`, key encrypted via the existing `EncryptionService`; `get()` never returns the key, an empty `api_key` on save preserves the stored one.
+- **`AI/UsageLogger`** — option `swishfolio_ai_usage`: lifetime counters + 100-entry rolling window. No prompt or content text is stored.
+- **`REST/`** — on the existing `swishfolio/v1` namespace: `POST /ai/edit`, `POST /ai/test-provider`, `GET /ai/usage`, `GET|POST /ai/settings`. The post ID is read from the request and **verified** with `current_user_can('edit_post', $id)`. Capability `swishfolio_use_ai` is granted through a `user_has_cap` filter (not written to roles). Rate limit 30/hour/user, filter `swishfolio_ai_rate_limit`.
+- **Tests** — `tests/Unit/` via PHPUnit 9.6 (`vendor/bin/phpunit --testsuite unit`), WP functions stubbed in `tests/stubs/`. No automated test touches the network. `ManifestConformanceTest` proves every manifest attribute exists in its `block.json`.
+
+Not yet built: the Gutenberg sidebar/toolbar UI, change preview, batched apply, Playwright E2E and the AI eval suite. Spec and plan in `docs/superpowers/`.
+
+---
+
 ## 4. Content model
 
 ### Project CPT (`src/PostTypes/ProjectPostType.php`)
