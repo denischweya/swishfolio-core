@@ -1,0 +1,10 @@
+{
+  "blockName": "test/beta",
+  "version": 1,
+  "tier": "content",
+  "purpose": "body-text",
+  "summary": "Fixture block beta.",
+  "capabilities": {
+    "content": { "content": { "type": "richtext", "maxLength": 500 } }
+  }
+}

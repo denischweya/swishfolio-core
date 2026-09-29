@@ -1,0 +1,10 @@
+{
+  "blockName": "test/alpha",
+  "version": 1,
+  "tier": "full",
+  "purpose": "hero",
+  "summary": "Fixture block alpha.",
+  "capabilities": {
+    "content": { "title": { "type": "text", "maxLength": 100 } }
+  }
+}
