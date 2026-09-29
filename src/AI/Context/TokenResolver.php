@@ -22,10 +22,16 @@ class TokenResolver
      * Token set => [CSS preset path segment, theme.json path].
      */
     const SETS = [
-        'color'    => ['color', ['settings', 'color', 'palette']],
-        'spacing'  => ['spacing', ['settings', 'spacing', 'spacingSizes']],
-        'fontSize' => ['font-size', ['settings', 'typography', 'fontSizes']],
+        'color'    => ['color', ['settings', 'color', 'palette'], ['settings', 'color', 'defaultPalette']],
+        'spacing'  => ['spacing', ['settings', 'spacing', 'spacingSizes'], ['settings', 'spacing', 'defaultSpacingSizes']],
+        'fontSize' => ['font-size', ['settings', 'typography', 'fontSizes'], ['settings', 'typography', 'defaultFontSizes']],
     ];
+
+    /**
+     * Origin precedence, weakest first. A later origin overrides a slug of the
+     * same name declared by an earlier one.
+     */
+    const ORIGINS = ['default', 'theme', 'custom'];
 
     /** @var array Token set => list of slugs. */
     private $slugs = [];
@@ -45,26 +51,90 @@ class TokenResolver
         $slugs = [];
 
         foreach (self::SETS as $set => $config) {
-            $node = $themeJson;
+            $node            = self::dig($themeJson, $config[1]);
+            $defaultsEnabled = self::dig($themeJson, $config[2]);
 
-            foreach ($config[1] as $segment) {
-                $node = isset($node[$segment]) ? $node[$segment] : null;
+            $slugs[$set] = self::extractSlugs($node, $defaultsEnabled !== false);
+        }
 
-                if ($node === null) {
-                    break;
-                }
+        return new self($slugs);
+    }
+
+    /**
+     * Build from the live site, merging theme.json with user global styles.
+     *
+     * @return self
+     */
+    public static function fromTheme()
+    {
+        return self::fromArray(['settings' => wp_get_global_settings()]);
+    }
+
+    /**
+     * @param array $node            Preset node: a flat list, or keyed by origin.
+     * @param bool  $defaultsEnabled Whether the "default" origin actually renders.
+     *
+     * @return string[]
+     */
+    private static function extractSlugs($node, $defaultsEnabled)
+    {
+        if (! is_array($node)) {
+            return [];
+        }
+
+        // A raw theme.json file holds a flat list; wp_get_global_settings()
+        // returns the same presets keyed by origin (default/theme/custom).
+        $keys     = array_keys($node);
+        $isFlat   = $keys === [] || $keys === range(0, count($node) - 1);
+        $byOrigin = $isFlat ? ['theme' => $node] : $node;
+
+        $slugs = [];
+
+        foreach (self::ORIGINS as $origin) {
+            if ($origin === 'default' && ! $defaultsEnabled) {
+                // The theme disabled default presets, so WordPress emits no CSS
+                // custom property for them. Offering those slugs to the AI would
+                // produce values that resolve to nothing.
+                continue;
             }
 
-            $slugs[$set] = [];
+            if (! isset($byOrigin[$origin]) || ! is_array($byOrigin[$origin])) {
+                continue;
+            }
 
-            foreach ((array) $node as $preset) {
+            foreach ($byOrigin[$origin] as $preset) {
                 if (is_array($preset) && isset($preset['slug'])) {
-                    $slugs[$set][] = (string) $preset['slug'];
+                    $slug = (string) $preset['slug'];
+
+                    if (! in_array($slug, $slugs, true)) {
+                        $slugs[] = $slug;
+                    }
                 }
             }
         }
 
-        return new self($slugs);
+        return $slugs;
+    }
+
+    /**
+     * @param array $data Source array.
+     * @param array $path Path segments.
+     *
+     * @return mixed|null
+     */
+    private static function dig(array $data, array $path)
+    {
+        $node = $data;
+
+        foreach ($path as $segment) {
+            if (! is_array($node) || ! array_key_exists($segment, $node)) {
+                return null;
+            }
+
+            $node = $node[$segment];
+        }
+
+        return $node;
     }
 
     /**

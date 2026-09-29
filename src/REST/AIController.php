@@ -149,7 +149,7 @@ class AIController
             $blockTree,
             $selection['clientId'],
             $this->registry,
-            TokenResolver::fromArray(['settings' => wp_get_global_settings()]),
+            TokenResolver::fromTheme(),
             (int) apply_filters('swishfolio_ai_max_actions', 25)
         );
 
@@ -215,7 +215,7 @@ class AIController
             $this->providers->configured(),
             new ContextAssembler(
                 $this->registry,
-                TokenResolver::fromArray(['settings' => wp_get_global_settings()]),
+                TokenResolver::fromTheme(),
                 new PromptManager(SFCORE_PLUGIN_DIR . 'src/AI/Prompt')
             ),
             ActionValidator::withDefaultStages(),
