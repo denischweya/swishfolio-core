@@ -111,3 +111,24 @@ if (! function_exists('wp_remote_retrieve_body')) {
         return isset($response['body']) ? $response['body'] : '';
     }
 }
+
+if (! function_exists('get_option')) {
+    function get_option($key, $default = false)
+    {
+        return isset($GLOBALS['sfcore_test_options'][$key])
+            ? $GLOBALS['sfcore_test_options'][$key]
+            : $default;
+    }
+}
+
+if (! function_exists('update_option')) {
+    function update_option($key, $value, $autoload = null)
+    {
+        if (! isset($GLOBALS['sfcore_test_options'])) {
+            $GLOBALS['sfcore_test_options'] = [];
+        }
+        $GLOBALS['sfcore_test_options'][$key] = $value;
+
+        return true;
+    }
+}
