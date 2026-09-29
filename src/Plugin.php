@@ -42,6 +42,13 @@ use SwishfolioCore\Services\SvgSupport;
 use SwishfolioCore\Extensions\ColumnsExtension;
 use SwishfolioCore\Extensions\ButtonExtension;
 use SwishfolioCore\Extensions\NavigationExtension;
+use SwishfolioCore\Blocks\BlockRegistry;
+use SwishfolioCore\AI\Settings as AISettings;
+use SwishfolioCore\AI\ProviderRegistry;
+use SwishfolioCore\AI\UsageLogger;
+use SwishfolioCore\Services\EncryptionService;
+use SwishfolioCore\REST\AIController;
+use SwishfolioCore\REST\SettingsController;
 
 /**
  * Plugin orchestrator - boots and wires all components.
@@ -126,6 +133,27 @@ class Plugin
     private ?NavigationExtension $navigationExtension = null;
 
     /**
+     * AI capability registry.
+     *
+     * @var BlockRegistry|null
+     */
+    private ?BlockRegistry $aiBlockRegistry = null;
+
+    /**
+     * AI REST controller.
+     *
+     * @var AIController|null
+     */
+    private ?AIController $aiController = null;
+
+    /**
+     * AI settings REST controller.
+     *
+     * @var SettingsController|null
+     */
+    private ?SettingsController $aiSettingsController = null;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -159,6 +187,24 @@ class Plugin
 
         // Initialize navigation extension.
         $this->navigationExtension = new NavigationExtension();
+
+        // AI block editing.
+        $this->aiBlockRegistry = new BlockRegistry([
+            SFCORE_PLUGIN_DIR . 'blocks',
+            SFCORE_PLUGIN_DIR . 'src/AI/Manifests/core',
+        ]);
+
+        $aiSettings  = new AISettings(new EncryptionService());
+        $aiProviders = new ProviderRegistry($aiSettings);
+        $aiLogger    = new UsageLogger();
+
+        $this->aiController         = new AIController(
+            $this->aiBlockRegistry,
+            $aiSettings,
+            $aiProviders,
+            $aiLogger
+        );
+        $this->aiSettingsController = new SettingsController($aiSettings, $aiProviders);
     }
 
     /**
@@ -249,6 +295,10 @@ class Plugin
 
         // Enqueue design token defaults (frontend + editor iframe).
         add_action('enqueue_block_assets', [ $this, 'enqueueTokenStyles' ]);
+
+        // AI block editing: REST routes and the AI capability.
+        add_action('rest_api_init', [ $this, 'registerAIRoutes' ]);
+        add_filter('user_has_cap', [ $this, 'grantAICapability' ]);
 
         // Register WP-CLI commands.
         if (defined('WP_CLI') && \WP_CLI) {
@@ -467,5 +517,40 @@ class Plugin
             'swishfolio-core',
             SFCORE_PLUGIN_DIR . 'languages'
         );
+    }
+
+    /**
+     * Register the AI REST routes.
+     *
+     * @return void
+     */
+    public function registerAIRoutes(): void
+    {
+        if ($this->aiController !== null) {
+            $this->aiController->registerRoutes();
+        }
+
+        if ($this->aiSettingsController !== null) {
+            $this->aiSettingsController->registerRoutes();
+        }
+    }
+
+    /**
+     * Grant the AI capability to anyone who can already edit posts.
+     *
+     * Applied as a filter rather than written to roles, so site owners can
+     * revoke it with a higher-priority filter and nothing is persisted.
+     *
+     * @param array $allcaps Capabilities for the current user.
+     *
+     * @return array
+     */
+    public function grantAICapability(array $allcaps): array
+    {
+        if (! empty($allcaps['edit_posts'])) {
+            $allcaps[AIController::CAPABILITY] = true;
+        }
+
+        return $allcaps;
     }
 }

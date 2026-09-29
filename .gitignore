@@ -33,3 +33,6 @@ npm-debug.log*
 
 # Composer dev dependencies (require-dev only; never shipped)
 /vendor/
+
+# PHPUnit
+.phpunit.result.cache
