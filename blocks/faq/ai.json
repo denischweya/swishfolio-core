@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "tier": "full",
+  "purpose": "faq",
+  "summary": "Accordion of question and answer pairs.",
+  "capabilities": {
+    "layout": {
+      "iconPosition": {
+        "enum": [
+          "left",
+          "right"
+        ]
+      },
+      "allowMultipleOpen": {
+        "type": "boolean"
+      },
+      "defaultOpenFirst": {
+        "type": "boolean"
+      }
+    },
+    "style": {
+      "iconStyle": {
+        "enum": [
+          "plus",
+          "chevron",
+          "arrow"
+        ]
+      },
+      "questionColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "answerColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "headerBackgroundColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "contentBackgroundColor": {
+        "type": "token",
+        "tokenSet": "color"
+      }
+    }
+  },
+  "excluded": [
+    "items"
+  ]
+}

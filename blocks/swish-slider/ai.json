@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "tier": "full",
+  "purpose": "logo-marquee",
+  "summary": "Infinite marquee of image slides.",
+  "capabilities": {
+    "content": {
+      "ariaLabel": {
+        "type": "text",
+        "maxLength": 120
+      }
+    },
+    "layout": {
+      "slideWidth": {
+        "type": "number",
+        "min": 120,
+        "max": 800,
+        "unit": "px"
+      },
+      "slideHeight": {
+        "type": "number",
+        "min": 120,
+        "max": 800,
+        "unit": "px"
+      },
+      "gap": {
+        "type": "number",
+        "min": 0,
+        "max": 80,
+        "unit": "px"
+      },
+      "direction": {
+        "enum": [
+          "left",
+          "right"
+        ]
+      },
+      "secondsPerSlide": {
+        "type": "number",
+        "min": 1,
+        "max": 60,
+        "unit": "s"
+      },
+      "pauseOnHover": {
+        "type": "boolean"
+      },
+      "revealOnHover": {
+        "type": "boolean"
+      }
+    },
+    "style": {
+      "textColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "scrimColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "ctaColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "accentColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "scrimOpacity": {
+        "type": "number",
+        "min": 0,
+        "max": 100,
+        "unit": "%"
+      }
+    }
+  },
+  "children": {
+    "allowed": [
+      "swishfolio-core/swish-slide"
+    ],
+    "min": 1,
+    "max": 24
+  }
+}

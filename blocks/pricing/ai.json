@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "tier": "full",
+  "purpose": "pricing",
+  "summary": "Pricing table container with a monthly/yearly billing toggle.",
+  "capabilities": {
+    "content": {
+      "toggleMonthlyLabel": {
+        "type": "text",
+        "maxLength": 30
+      },
+      "toggleYearlyLabel": {
+        "type": "text",
+        "maxLength": 30
+      },
+      "yearlyDiscount": {
+        "type": "text",
+        "maxLength": 30
+      },
+      "monthlyPeriodLabel": {
+        "type": "text",
+        "maxLength": 30
+      },
+      "yearlyPeriodLabel": {
+        "type": "text",
+        "maxLength": 30
+      }
+    },
+    "layout": {
+      "showToggle": {
+        "type": "boolean"
+      },
+      "defaultBilling": {
+        "enum": [
+          "monthly",
+          "yearly"
+        ]
+      }
+    },
+    "style": {
+      "borderColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "highlightedBackgroundColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "highlightedTextColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "textColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "toggleBackgroundColor": {
+        "type": "token",
+        "tokenSet": "color"
+      }
+    }
+  },
+  "children": {
+    "allowed": [
+      "swishfolio-core/pricing-plan"
+    ],
+    "min": 1,
+    "max": 4
+  }
+}

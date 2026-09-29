@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "tier": "full",
+  "purpose": "testimonial",
+  "summary": "One quote with author name and role.",
+  "capabilities": {
+    "content": {
+      "quote": {
+        "type": "richtext",
+        "maxLength": 600,
+        "role": "body"
+      },
+      "name": {
+        "type": "text",
+        "maxLength": 80,
+        "role": "attribution"
+      },
+      "role": {
+        "type": "text",
+        "maxLength": 120,
+        "role": "supporting"
+      },
+      "roleUrl": {
+        "type": "url"
+      }
+    },
+    "style": {
+      "avatarColor": {
+        "type": "token",
+        "tokenSet": "color"
+      }
+    }
+  },
+  "excluded": [
+    "avatarImageId",
+    "avatarImageUrl"
+  ]
+}

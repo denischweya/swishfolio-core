@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "tier": "full",
+  "purpose": "link-list",
+  "summary": "List of labelled links, horizontal or vertical.",
+  "capabilities": {
+    "layout": {
+      "direction": {
+        "enum": [
+          "horizontal",
+          "vertical"
+        ]
+      },
+      "gap": {
+        "type": "number",
+        "min": 0,
+        "max": 60,
+        "unit": "px"
+      }
+    },
+    "style": {
+      "hoverStyle": {
+        "enum": [
+          "none",
+          "underline",
+          "underline-grow",
+          "color"
+        ]
+      },
+      "hoverColor": {
+        "type": "token",
+        "tokenSet": "color"
+      }
+    }
+  },
+  "excluded": [
+    "links",
+    "linksAlign"
+  ]
+}

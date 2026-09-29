@@ -47,6 +47,13 @@ class FieldSpecTest extends TestCase
         $this->assertSame('style', $spec->getGroup());
     }
 
+    public function test_boolean_spec_is_supported()
+    {
+        $spec = FieldSpec::fromArray('showDate', ['type' => 'boolean', 'group' => 'layout']);
+
+        $this->assertSame('boolean', $spec->getType());
+    }
+
     public function test_unknown_type_is_rejected()
     {
         $this->expectException(\InvalidArgumentException::class);

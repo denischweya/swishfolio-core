@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "tier": "full",
+  "purpose": "content-card",
+  "summary": "Single card with an icon, title, description and a link or button.",
+  "capabilities": {
+    "content": {
+      "title": {
+        "type": "text",
+        "maxLength": 120,
+        "role": "headline"
+      },
+      "description": {
+        "type": "richtext",
+        "maxLength": 400,
+        "role": "body"
+      },
+      "linkText": {
+        "type": "text",
+        "maxLength": 40,
+        "role": "primary-cta"
+      },
+      "linkUrl": {
+        "type": "url"
+      }
+    },
+    "layout": {
+      "iconPosition": {
+        "enum": [
+          "top",
+          "left",
+          "right"
+        ]
+      }
+    },
+    "style": {
+      "iconSize": {
+        "enum": [
+          "small",
+          "medium",
+          "large"
+        ]
+      },
+      "iconShape": {
+        "enum": [
+          "square",
+          "rounded",
+          "circle"
+        ]
+      },
+      "linkStyle": {
+        "enum": [
+          "text",
+          "button"
+        ]
+      },
+      "cardBorderStyle": {
+        "enum": [
+          "solid",
+          "dashed",
+          "none"
+        ]
+      },
+      "decorativeShape": {
+        "enum": [
+          "none",
+          "circle",
+          "square",
+          "triangle"
+        ]
+      },
+      "iconColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "iconBackgroundColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "cardBorderColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "cardShadowColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "decorativeColor": {
+        "type": "token",
+        "tokenSet": "color"
+      }
+    }
+  },
+  "excluded": [
+    "icon"
+  ]
+}

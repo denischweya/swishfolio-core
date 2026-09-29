@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "tier": "full",
+  "purpose": "section-heading",
+  "summary": "Stacked pre-heading, heading and sub-heading with optional icons and background pattern.",
+  "capabilities": {
+    "content": {
+      "preHeading": {
+        "type": "text",
+        "maxLength": 100,
+        "role": "eyebrow"
+      },
+      "heading": {
+        "type": "text",
+        "maxLength": 200,
+        "role": "headline"
+      },
+      "subHeading": {
+        "type": "text",
+        "maxLength": 400,
+        "role": "supporting"
+      }
+    },
+    "layout": {
+      "contentAlign": {
+        "enum": [
+          "left",
+          "center",
+          "right"
+        ]
+      },
+      "headingTag": {
+        "enum": [
+          "h1",
+          "h2",
+          "h3",
+          "h4",
+          "h5",
+          "h6"
+        ]
+      },
+      "showPreHeading": {
+        "type": "boolean"
+      },
+      "showHeading": {
+        "type": "boolean"
+      },
+      "showSubHeading": {
+        "type": "boolean"
+      }
+    },
+    "style": {
+      "headingStyle": {
+        "enum": [
+          "normal",
+          "outline",
+          "shadow"
+        ]
+      },
+      "headingBorderStyle": {
+        "enum": [
+          "none",
+          "solid",
+          "dashed"
+        ]
+      },
+      "headingShadowSize": {
+        "enum": [
+          "none",
+          "small",
+          "medium",
+          "large"
+        ]
+      },
+      "subHeadingFontSize": {
+        "enum": [
+          "small",
+          "medium",
+          "large"
+        ]
+      },
+      "preHeadingTextColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "preHeadingBackgroundColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "headingTextColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "headingBackgroundColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "subHeadingTextColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "subHeadingBackgroundColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "blockBackgroundColor": {
+        "type": "token",
+        "tokenSet": "color"
+      }
+    }
+  },
+  "excluded": [
+    "leftIcon",
+    "rightIcon",
+    "backgroundPattern",
+    "headingRotation"
+  ]
+}

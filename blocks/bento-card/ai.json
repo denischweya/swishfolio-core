@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "tier": "full",
+  "purpose": "bento-item",
+  "summary": "One bento grid cell with a title, subtitle and description.",
+  "capabilities": {
+    "content": {
+      "subtitle": {
+        "type": "richtext",
+        "maxLength": 120,
+        "role": "eyebrow"
+      },
+      "title": {
+        "type": "richtext",
+        "maxLength": 120,
+        "role": "headline"
+      },
+      "description": {
+        "type": "richtext",
+        "maxLength": 400,
+        "role": "body"
+      }
+    },
+    "style": {
+      "titleColor": {
+        "type": "token",
+        "tokenSet": "color"
+      }
+    }
+  },
+  "excluded": [
+    "image",
+    "cardSize",
+    "layeredImageWidth"
+  ]
+}

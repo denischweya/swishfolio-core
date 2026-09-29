@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "tier": "full",
+  "purpose": "stats",
+  "summary": "Row of animated stat counters; owns shared counter styling.",
+  "capabilities": {
+    "layout": {
+      "columns": {
+        "type": "number",
+        "min": 1,
+        "max": 6,
+        "unit": "count"
+      },
+      "align": {
+        "enum": [
+          "left",
+          "center",
+          "right"
+        ]
+      },
+      "counterTitleGap": {
+        "type": "number",
+        "min": 0,
+        "max": 40,
+        "unit": "px"
+      }
+    },
+    "style": {
+      "counterFontWeight": {
+        "type": "number",
+        "min": 100,
+        "max": 900,
+        "unit": "weight"
+      },
+      "counterColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "titleColor": {
+        "type": "token",
+        "tokenSet": "color"
+      }
+    }
+  },
+  "children": {
+    "allowed": [
+      "swishfolio-core/swish-counter-item"
+    ],
+    "min": 1,
+    "max": 6
+  },
+  "excluded": [
+    "counterFontSize",
+    "titleFontSize"
+  ]
+}

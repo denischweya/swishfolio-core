@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "tier": "full",
+  "purpose": "feature",
+  "summary": "One feature: subheading, title, description, icon and optional CTA.",
+  "capabilities": {
+    "content": {
+      "subheading": {
+        "type": "text",
+        "maxLength": 120,
+        "role": "eyebrow"
+      },
+      "title": {
+        "type": "text",
+        "maxLength": 120,
+        "role": "headline"
+      },
+      "description": {
+        "type": "richtext",
+        "maxLength": 400,
+        "role": "body"
+      },
+      "ctaText": {
+        "type": "text",
+        "maxLength": 40,
+        "role": "primary-cta"
+      },
+      "ctaUrl": {
+        "type": "url"
+      }
+    },
+    "layout": {
+      "titleTag": {
+        "enum": [
+          "h2",
+          "h3",
+          "h4",
+          "h5"
+        ]
+      },
+      "cardSize": {
+        "enum": [
+          "small",
+          "medium",
+          "large"
+        ]
+      },
+      "ctaType": {
+        "enum": [
+          "link",
+          "button",
+          "none"
+        ]
+      }
+    },
+    "style": {
+      "cardStyle": {
+        "enum": [
+          "default",
+          "accent",
+          "highlight"
+        ]
+      },
+      "overlayOpacity": {
+        "type": "number",
+        "min": 0,
+        "max": 100,
+        "unit": "%"
+      },
+      "titleColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "iconColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "iconBackgroundColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "ctaTextColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "ctaBackgroundColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "cardBackgroundColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "cardAccentColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "overlayColor": {
+        "type": "token",
+        "tokenSet": "color"
+      }
+    }
+  },
+  "excluded": [
+    "icon",
+    "backgroundImage",
+    "titleFontSize",
+    "subheadingFontSize"
+  ]
+}

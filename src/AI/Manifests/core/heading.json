@@ -1,0 +1,24 @@
+{
+  "blockName": "core/heading",
+  "version": 1,
+  "tier": "content",
+  "purpose": "heading",
+  "summary": "A section heading.",
+  "capabilities": {
+    "content": {
+      "content": {
+        "type": "richtext",
+        "maxLength": 300,
+        "role": "headline"
+      }
+    },
+    "layout": {
+      "level": {
+        "type": "number",
+        "min": 1,
+        "max": 6,
+        "unit": "level"
+      }
+    }
+  }
+}

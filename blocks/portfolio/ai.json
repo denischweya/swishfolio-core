@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "tier": "full",
+  "purpose": "portfolio",
+  "summary": "Queries and lists project posts in a filterable grid.",
+  "capabilities": {
+    "content": {
+      "viewButtonText": {
+        "type": "text",
+        "maxLength": 40,
+        "role": "primary-cta"
+      }
+    },
+    "layout": {
+      "layout": {
+        "enum": [
+          "grid",
+          "masonry",
+          "list"
+        ]
+      },
+      "columns": {
+        "type": "number",
+        "min": 1,
+        "max": 4,
+        "unit": "count"
+      },
+      "gap": {
+        "type": "number",
+        "min": 0,
+        "max": 80,
+        "unit": "px"
+      },
+      "postsPerPage": {
+        "type": "number",
+        "min": 1,
+        "max": 24,
+        "unit": "count"
+      },
+      "showFilters": {
+        "type": "boolean"
+      },
+      "showExcerpt": {
+        "type": "boolean"
+      },
+      "showCategory": {
+        "type": "boolean"
+      },
+      "showProjectType": {
+        "type": "boolean"
+      },
+      "showViewButton": {
+        "type": "boolean"
+      }
+    },
+    "style": {
+      "cardStyle": {
+        "enum": [
+          "default",
+          "minimal",
+          "overlay",
+          "stacked"
+        ]
+      },
+      "imageAspectRatio": {
+        "enum": [
+          "square",
+          "landscape",
+          "wide",
+          "portrait"
+        ]
+      },
+      "hoverEffect": {
+        "enum": [
+          "none",
+          "lift",
+          "zoom",
+          "reveal"
+        ]
+      },
+      "taxonomyStyle": {
+        "enum": [
+          "plain",
+          "rounded",
+          "border",
+          "underline"
+        ]
+      },
+      "imageBorderRadius": {
+        "type": "number",
+        "min": 0,
+        "max": 50,
+        "unit": "px"
+      },
+      "taxonomyColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "cardContentBackground": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "orderBy": {
+        "enum": [
+          "date",
+          "title",
+          "modified",
+          "rand",
+          "menu_order"
+        ]
+      },
+      "order": {
+        "enum": [
+          "DESC",
+          "ASC"
+        ]
+      }
+    }
+  },
+  "excluded": [
+    "categories",
+    "projectTypes",
+    "featuredProjectId",
+    "titleFontSize",
+    "titleFontWeight"
+  ]
+}

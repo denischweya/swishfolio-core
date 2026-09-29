@@ -13,7 +13,7 @@ namespace SwishfolioCore\Blocks;
  */
 class FieldSpec
 {
-    const TYPES = ['text', 'url', 'richtext', 'number', 'enum', 'token'];
+    const TYPES = ['text', 'url', 'richtext', 'number', 'boolean', 'enum', 'token'];
 
     /** @var string */
     private $name;

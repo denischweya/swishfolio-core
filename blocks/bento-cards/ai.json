@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "tier": "full",
+  "purpose": "bento-grid",
+  "summary": "Asymmetric bento grid container; owns shared card styling and an optional CTA.",
+  "capabilities": {
+    "content": {
+      "ctaText": {
+        "type": "text",
+        "maxLength": 40,
+        "role": "primary-cta"
+      },
+      "ctaUrl": {
+        "type": "url"
+      }
+    },
+    "layout": {
+      "gridGap": {
+        "enum": [
+          "1rem",
+          "1.5rem",
+          "2rem",
+          "3rem"
+        ]
+      },
+      "ctaType": {
+        "enum": [
+          "none",
+          "link",
+          "button"
+        ]
+      },
+      "layeredImages": {
+        "type": "boolean"
+      }
+    },
+    "style": {
+      "cardOverlayOpacity": {
+        "type": "number",
+        "min": 0,
+        "max": 100,
+        "unit": "%"
+      },
+      "accentColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "cardTitleColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "cardSubtitleColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "cardDescriptionColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "cardTextBg": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "cardOverlayColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "layeredBgColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "ctaTextColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "ctaBgColor": {
+        "type": "token",
+        "tokenSet": "color"
+      }
+    }
+  },
+  "children": {
+    "allowed": [
+      "swishfolio-core/bento-card"
+    ],
+    "min": 1,
+    "max": 8
+  },
+  "excluded": [
+    "cardTitleFontSize"
+  ]
+}

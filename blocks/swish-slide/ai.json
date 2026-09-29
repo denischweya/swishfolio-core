@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "tier": "full",
+  "purpose": "slide",
+  "summary": "One marquee slide with a title, subtitle and up to two CTAs.",
+  "capabilities": {
+    "content": {
+      "title": {
+        "type": "richtext",
+        "maxLength": 120,
+        "role": "headline"
+      },
+      "subtitle": {
+        "type": "richtext",
+        "maxLength": 200,
+        "role": "supporting"
+      },
+      "cta1Text": {
+        "type": "text",
+        "maxLength": 40,
+        "role": "primary-cta"
+      },
+      "cta1Url": {
+        "type": "url"
+      },
+      "cta2Text": {
+        "type": "text",
+        "maxLength": 40,
+        "role": "secondary-cta"
+      },
+      "cta2Url": {
+        "type": "url"
+      }
+    },
+    "layout": {
+      "cta1NewTab": {
+        "type": "boolean"
+      },
+      "cta2NewTab": {
+        "type": "boolean"
+      }
+    }
+  },
+  "excluded": [
+    "image"
+  ]
+}

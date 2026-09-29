@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "tier": "full",
+  "purpose": "gallery",
+  "summary": "Image gallery in a grid, masonry or carousel layout.",
+  "capabilities": {
+    "layout": {
+      "layout": {
+        "enum": [
+          "grid",
+          "masonry",
+          "carousel"
+        ]
+      },
+      "columns": {
+        "type": "number",
+        "min": 1,
+        "max": 6,
+        "unit": "count"
+      },
+      "gap": {
+        "type": "number",
+        "min": 0,
+        "max": 80,
+        "unit": "px"
+      },
+      "enableLightbox": {
+        "type": "boolean"
+      },
+      "autoplay": {
+        "type": "boolean"
+      },
+      "showArrows": {
+        "type": "boolean"
+      },
+      "showDots": {
+        "type": "boolean"
+      },
+      "autoplaySpeed": {
+        "type": "number",
+        "min": 1000,
+        "max": 10000,
+        "unit": "ms"
+      }
+    },
+    "style": {
+      "imageSize": {
+        "enum": [
+          "thumbnail",
+          "medium",
+          "large",
+          "full"
+        ]
+      },
+      "aspectRatio": {
+        "enum": [
+          "original",
+          "square",
+          "landscape",
+          "portrait"
+        ]
+      },
+      "hoverEffect": {
+        "enum": [
+          "none",
+          "zoom",
+          "fade",
+          "lift"
+        ]
+      },
+      "imageShadow": {
+        "enum": [
+          "none",
+          "small",
+          "medium",
+          "large"
+        ]
+      },
+      "imageBorderRadius": {
+        "type": "number",
+        "min": 0,
+        "max": 50,
+        "unit": "px"
+      }
+    }
+  },
+  "excluded": [
+    "images"
+  ]
+}
