@@ -17,7 +17,7 @@ class ContextAssemblerTest extends TestCase
         $GLOBALS['sfcore_test_transients'] = [];
     }
 
-    private function assembler()
+    private function assembler(array $brand = [])
     {
         return new ContextAssembler(
             new BlockRegistry([
@@ -27,7 +27,8 @@ class ContextAssemblerTest extends TestCase
             TokenResolver::fromArray(
                 json_decode(file_get_contents(SFCORE_PLUGIN_DIR . 'tests/fixtures/theme.json'), true)
             ),
-            new PromptManager(SFCORE_PLUGIN_DIR . 'src/AI/Prompt')
+            new PromptManager(SFCORE_PLUGIN_DIR . 'src/AI/Prompt'),
+            $brand
         );
     }
 
@@ -101,6 +102,48 @@ class ContextAssemblerTest extends TestCase
         $request = $this->assembler()->forSelection($this->selection(), 'Make it feel premium', 'gpt-4o');
 
         $this->assertStringContainsString('Make it feel premium', $request->getUserPrompt());
+    }
+
+    public function test_brand_context_reaches_the_cache_stable_system_prompt()
+    {
+        $request = $this->assembler([
+            'siteName'        => 'Ramanops',
+            'siteDescription' => 'We help Nairobi SMEs grow online.',
+            'designStyle'     => 'minimalist',
+            'blockShapes'     => 'soft',
+            'copywritingTone' => 'professional',
+        ])->forSelection($this->selection(), 'Make it bolder', 'gpt-4o');
+
+        $system = $request->getSystemPrompt();
+
+        $this->assertStringContainsString('Ramanops', $system);
+        $this->assertStringContainsString('Nairobi SMEs', $system);
+        $this->assertStringContainsString('minimalist', $system);
+        $this->assertStringContainsString('professional', $system);
+
+        // Brand belongs in the prefix, not the volatile half — it changes far
+        // less often than the selection does.
+        $this->assertStringNotContainsString('Ramanops', $request->getUserPrompt());
+    }
+
+    public function test_empty_brand_fields_are_omitted_rather_than_sent_blank()
+    {
+        $system = $this->assembler(['siteName' => 'Ramanops'])
+            ->forSelection($this->selection(), 'Make it bolder', 'gpt-4o')
+            ->getSystemPrompt();
+
+        $this->assertStringContainsString('Ramanops', $system);
+        $this->assertStringNotContainsString('designStyle', $system);
+        $this->assertStringNotContainsString('copywritingTone', $system);
+    }
+
+    public function test_no_brand_section_appears_when_nothing_is_configured()
+    {
+        $system = $this->assembler()
+            ->forSelection($this->selection(), 'Make it bolder', 'gpt-4o')
+            ->getSystemPrompt();
+
+        $this->assertStringNotContainsString('About this business', $system);
     }
 
     public function test_unknown_block_type_raises()

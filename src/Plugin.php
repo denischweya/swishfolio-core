@@ -47,11 +47,13 @@ use SwishfolioCore\AI\Settings as AISettings;
 use SwishfolioCore\AI\ProviderRegistry;
 use SwishfolioCore\AI\UsageLogger;
 use SwishfolioCore\Services\EncryptionService;
+use SwishfolioCore\AI\Credentials\WordPressCredentialStore;
 use SwishfolioCore\REST\AIController;
 use SwishfolioCore\REST\SettingsController;
+use SwishfolioCore\REST\ConnectionsController;
 use SwishfolioCore\REST\GenerationController;
 use SwishfolioCore\AI\Generation\PatternLibrary;
-use SwishfolioCore\Admin\AISettingsPage;
+use SwishfolioCore\Admin\SwishAiMenu;
 
 /**
  * Plugin orchestrator - boots and wires all components.
@@ -171,11 +173,18 @@ class Plugin
     private ?GenerationController $aiGenerationController = null;
 
     /**
-     * AI settings admin screen.
+     * AI connections REST controller.
      *
-     * @var AISettingsPage|null
+     * @var ConnectionsController|null
      */
-    private ?AISettingsPage $aiSettingsPage = null;
+    private ?ConnectionsController $aiConnectionsController = null;
+
+    /**
+     * Swish AI admin menu.
+     *
+     * @var SwishAiMenu|null
+     */
+    private ?SwishAiMenu $swishAiMenu = null;
 
     /**
      * Constructor.
@@ -218,7 +227,7 @@ class Plugin
             SFCORE_PLUGIN_DIR . 'src/AI/Manifests/core',
         ]);
 
-        $aiSettings  = new AISettings(new EncryptionService());
+        $aiSettings  = new AISettings(new WordPressCredentialStore(new EncryptionService()));
         $aiProviders = new ProviderRegistry($aiSettings);
         $aiLogger    = new UsageLogger();
 
@@ -229,6 +238,7 @@ class Plugin
             $aiLogger
         );
         $this->aiSettingsController = new SettingsController($aiSettings, $aiProviders);
+        $this->aiConnectionsController = new ConnectionsController($aiSettings, $aiProviders);
 
         $this->aiPatternLibrary = new PatternLibrary([
             SFCORE_PLUGIN_DIR . 'src/AI/Generation/Patterns',
@@ -243,7 +253,7 @@ class Plugin
         );
 
         if (is_admin()) {
-            $this->aiSettingsPage = new AISettingsPage($aiSettings, $aiProviders, $aiLogger);
+            $this->swishAiMenu = new SwishAiMenu($aiSettings, $aiProviders, $aiLogger);
         }
     }
 
@@ -339,11 +349,19 @@ class Plugin
         // AI block editing: REST routes and the AI capability.
         add_action('rest_api_init', [ $this, 'registerAIRoutes' ]);
 
-        // AI settings screen (consent and provider configuration surface).
-        if ($this->aiSettingsPage !== null) {
-            add_action('admin_menu', [ $this->aiSettingsPage, 'registerMenu' ]);
-            add_action('admin_init', [ $this->aiSettingsPage, 'registerPrivacyContent' ]);
-            add_action('admin_post_' . AISettingsPage::ACTION, [ $this->aiSettingsPage, 'handleSave' ]);
+        // Swish AI: its own top-level menu, not a Swish Forms submenu — AI is a
+        // product surface in its own right.
+        if ($this->swishAiMenu !== null) {
+            add_action('admin_menu', [ $this->swishAiMenu, 'registerMenu' ]);
+            add_action('admin_enqueue_scripts', [ $this->swishAiMenu, 'enqueueAssets' ]);
+            add_action('admin_init', [ $this->swishAiMenu, 'registerPrivacyContent' ]);
+
+            add_action('admin_post_' . SwishAiMenu::ACTION_CONNECT, [ $this->swishAiMenu, 'handleConnect' ]);
+            add_action('admin_post_' . SwishAiMenu::ACTION_TEST, [ $this->swishAiMenu, 'handleTest' ]);
+            add_action('admin_post_' . SwishAiMenu::ACTION_DISCONNECT, [ $this->swishAiMenu, 'handleDisconnect' ]);
+            add_action('admin_post_' . SwishAiMenu::ACTION_ACTIVATE, [ $this->swishAiMenu, 'handleActivate' ]);
+            add_action('admin_post_' . SwishAiMenu::ACTION_TOGGLE, [ $this->swishAiMenu, 'handleToggle' ]);
+            add_action('admin_post_' . SwishAiMenu::ACTION_BRAND, [ $this->swishAiMenu, 'handleBrand' ]);
         }
         add_filter('user_has_cap', [ $this, 'grantAICapability' ]);
 
@@ -702,6 +720,10 @@ class Plugin
 
         if ($this->aiSettingsController !== null) {
             $this->aiSettingsController->registerRoutes();
+        }
+
+        if ($this->aiConnectionsController !== null) {
+            $this->aiConnectionsController->registerRoutes();
         }
 
         if ($this->aiGenerationController !== null) {

@@ -165,7 +165,8 @@ class GenerationController
             $this->library,
             $this->registry,
             TokenResolver::fromTheme(),
-            new PromptManager(SFCORE_PLUGIN_DIR . 'src/AI/Prompt')
+            new PromptManager(SFCORE_PLUGIN_DIR . 'src/AI/Prompt'),
+            $this->settings->getBrand()
         );
 
         $brief = [

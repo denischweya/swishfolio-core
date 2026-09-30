@@ -42,16 +42,21 @@ class PlanAssembler
     /** @var PromptManager */
     private $prompts;
 
+    /** @var array Brand context from Swish AI settings. */
+    private $brand = [];
+
     public function __construct(
         PatternLibrary $library,
         BlockRegistry $registry,
         TokenResolver $tokens,
-        PromptManager $prompts
+        PromptManager $prompts,
+        array $brand = []
     ) {
         $this->library  = $library;
         $this->registry = $registry;
         $this->tokens   = $tokens;
         $this->prompts  = $prompts;
+        $this->brand    = $brand;
     }
 
     /**
@@ -121,12 +126,55 @@ class PlanAssembler
             'conflictStrategies'  => PlanSchema::CONFLICT_STRATEGIES,
         ];
 
-        return implode("\n\n", [
+        $segments = [
             $this->prompts->system($systemPrompt),
             "What you may compose pages out of:\n" . $this->encode($catalogue),
             "Design tokens available in this theme. Use these slugs, never literal values:\n" . $this->encode($this->describeTokens()),
             "Limits you must respect:\n" . $this->encode($limits),
-        ]);
+        ];
+
+        // Generation is where brand context earns its keep: without it every
+        // generated site reads like the same anonymous filler.
+        $brand = $this->describeBrand();
+
+        if ($brand !== '') {
+            $segments[] = $brand;
+        }
+
+        return implode("\n\n", $segments);
+    }
+
+    /**
+     * The site's brand context, as prose. Empty fields are omitted.
+     *
+     * @return string
+     */
+    private function describeBrand()
+    {
+        $labels = [
+            'siteName'        => 'Business name',
+            'siteDescription' => 'What the business does',
+            'designStyle'     => 'Preferred design style',
+            'blockShapes'     => 'Preferred corner treatment',
+            'copywritingTone' => 'Copywriting tone',
+        ];
+
+        $lines = [];
+
+        foreach ($labels as $key => $label) {
+            $value = isset($this->brand[$key]) ? trim((string) $this->brand[$key]) : '';
+
+            if ($value !== '') {
+                $lines[] = $label . ': ' . $value;
+            }
+        }
+
+        if ($lines === []) {
+            return '';
+        }
+
+        return "About this business. Write copy for it specifically — never generic placeholder text — and respect these preferences:\n"
+            . implode("\n", $lines);
     }
 
     /**

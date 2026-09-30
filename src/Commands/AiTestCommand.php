@@ -87,13 +87,17 @@ class AiTestCommand
             \WP_CLI::error(sprintf('Block "%s" has no AI capability manifest.', $blockName));
         }
 
-        $settings = new Settings(new \SwishfolioCore\Services\EncryptionService());
+        $settings = new Settings(
+            new \SwishfolioCore\AI\Credentials\WordPressCredentialStore(
+                new \SwishfolioCore\Services\EncryptionService()
+            )
+        );
         $stored   = $settings->get();
         $model    = isset($assoc_args['model']) ? (string) $assoc_args['model'] : $stored['model'];
 
         $tokens    = TokenResolver::fromTheme();
         $prompts   = new PromptManager(SFCORE_PLUGIN_DIR . 'src/AI/Prompt');
-        $assembler = new ContextAssembler($registry, $tokens, $prompts);
+        $assembler = new ContextAssembler($registry, $tokens, $prompts, $settings->getBrand());
 
         $selection = $this->syntheticSelection($blockName, $capability);
 
@@ -113,7 +117,7 @@ class AiTestCommand
         }
 
         if (! $stored['hasKey']) {
-            \WP_CLI::error('No API key stored. Set one under Swish Forms → AI Settings, or with: wp option patch ...');
+            \WP_CLI::error('No API key stored. Connect a provider under Swish AI → Connections, or with: wp option patch ...');
         }
 
         try {

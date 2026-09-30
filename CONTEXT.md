@@ -109,9 +109,16 @@ Two-stage per plan §9: `POST /ai/plan` returns a validated site plan for review
 
 `PlanExecutor` composes page content, creates pages as drafts, then makes a second pass resolving `{{page:key}}` links to permalinks. Both `createActions()` and `relinkActions()` skip pages carrying `existingPostId` (set only by `PlanCollisionStage` when `onConflict === 'skip'`) — a missing guard there overwrote pages the owner asked to keep.
 
-### Consent and settings (`src/Admin/AISettingsPage.php`)
+### BYOK connections and the Swish AI menu
 
-`enabled` defaults to **false**: `/ai/edit` and the generation routes return 403 `sfcore_ai_disabled` until someone enables AI on the settings screen, and enabling requires ticking a separate acknowledgement of what leaves the site. Also registers `wp_add_privacy_policy_content`. `uninstall.php` removes plugin options and version-keyed transients on every site of a multisite, and deliberately leaves form entries and generated pages alone.
+**BYOK (bring your own key).** The plugin ships no AI credits and no backend of its own: the site owner connects their own OpenAI and/or Anthropic account and pays that provider directly. Both can be connected at once; `active` picks which one requests use.
+
+- **`src/AI/Credentials/`** — `CredentialStoreInterface` + `WordPressCredentialStore`. Keys live in their **own** option `swishfolio_ai_credentials`, encrypted via `EncryptionService`, deliberately separate from settings so a settings export/dump cannot leak one. Provider slugs are validated before use as array keys.
+- **`src/AI/Settings`** — option `swishfolio_ai_settings`: `active`, `enabled`, `providers.<slug>.{model,base_url,status,last_validated_at}`, `brand`. `get()` never returns a key and keeps flat `provider`/`model`/`base_url`/`hasKey` keys describing the active provider for pre-BYOK callers. Migrates the old flat single-provider option, moving the inline `api_key` into the credential store and removing it. `setEnabled(true)` is refused with no connected provider; disconnecting the active provider falls back to another connected one, and disconnecting the last one forces `enabled` off.
+- **Brand context** — `siteName`, `siteDescription` (500 char cap), `designStyle`, `blockShapes`, `copywritingTone`, each validated against a closed vocabulary. Blended into the **cache-stable prefix** of both `ContextAssembler` (editing) and `PlanAssembler` (generation); empty fields are omitted rather than sent blank. Colours/spacing/fonts are NOT set here — those remain theme.json tokens.
+- **`src/Admin/SwishAiMenu`** — top-level **Swish AI** menu (`dashicons-superhero-alt`, position 31) with Connections / Brand & Context / Usage. Not a Swish Forms submenu: AI is its own product surface. Provider cards handle connect / test / activate / disconnect via `admin-post.php` with nonce + `manage_options`. `assets/admin/swish-ai.js` repopulates each card's model control from a localised provider→models map, so changing provider never leaves a stale model the provider would reject. Raw provider errors are mapped to human messages by `SwishAiMenu::noticeText()`.
+- **REST** — `SettingsController` (GET/POST `/ai/settings`, GET `/ai/models`) handles everything except credentials and **ignores any `api_key` sent to it**; `ConnectionsController` owns POST `/ai/connections`, POST `/ai/connections/test`, DELETE `/ai/connections/{provider}`. All on the existing `swishfolio/v1` namespace rather than a second one.
+- `enabled` defaults to **false** and is enforced by `/ai/edit` and the generation routes (403 `sfcore_ai_disabled`); turning it on requires a separate acknowledgement of what leaves the site. `uninstall.php` clears both options across a multisite and leaves user content alone.
 
 ### Tests
 

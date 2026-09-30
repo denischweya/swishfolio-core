@@ -34,11 +34,21 @@ class ContextAssembler
     /** @var PromptManager */
     private $prompts;
 
-    public function __construct(BlockRegistry $registry, TokenResolver $tokens, PromptManager $prompts)
+    /** @var array Brand context from Swish AI settings. */
+    private $brand;
+
+    /**
+     * @param BlockRegistry $registry Capability registry.
+     * @param TokenResolver $tokens   Live design tokens.
+     * @param PromptManager $prompts  Prompt loader.
+     * @param array         $brand    Brand context; empty when unconfigured.
+     */
+    public function __construct(BlockRegistry $registry, TokenResolver $tokens, PromptManager $prompts, array $brand = [])
     {
         $this->registry = $registry;
         $this->tokens   = $tokens;
         $this->prompts  = $prompts;
+        $this->brand    = $brand;
     }
 
     /**
@@ -96,11 +106,57 @@ class ContextAssembler
             $tokens[$set] = $this->tokens->getSlugs($set);
         }
 
-        return implode("\n\n", [
+        $segments = [
             $this->prompts->system('block-editing'),
             "Available blocks and the attributes you may change:\n" . $this->encode($manifests),
             "Design tokens available in this theme. Use these slugs, never literal values:\n" . $this->encode($tokens),
-        ]);
+        ];
+
+        // Brand context belongs in the stable prefix: it changes far less often
+        // than the selection, so it stays cacheable.
+        $brand = $this->describeBrand();
+
+        if ($brand !== '') {
+            $segments[] = $brand;
+        }
+
+        return implode("\n\n", $segments);
+    }
+
+    /**
+     * The site's brand context, as prose the model can actually use.
+     *
+     * Empty fields are omitted entirely rather than sent blank — a blank value
+     * reads as "no preference expressed" far less clearly than its absence.
+     *
+     * @return string
+     */
+    private function describeBrand()
+    {
+        $labels = [
+            'siteName'        => 'Business name',
+            'siteDescription' => 'What the business does',
+            'designStyle'     => 'Preferred design style',
+            'blockShapes'     => 'Preferred corner treatment',
+            'copywritingTone' => 'Copywriting tone',
+        ];
+
+        $lines = [];
+
+        foreach ($labels as $key => $label) {
+            $value = isset($this->brand[$key]) ? trim((string) $this->brand[$key]) : '';
+
+            if ($value !== '') {
+                $lines[] = $label . ': ' . $value;
+            }
+        }
+
+        if ($lines === []) {
+            return '';
+        }
+
+        return "About this business. Write for it specifically, and respect these preferences:\n"
+            . implode("\n", $lines);
     }
 
     /**

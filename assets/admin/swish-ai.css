@@ -1,0 +1,84 @@
+/* Swish AI settings screens. */
+
+.sfcore-ai__lede {
+	max-width: 46em;
+	font-size: 14px;
+}
+
+.sfcore-ai__cards {
+	display: grid;
+	gap: 20px;
+	grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+	margin: 20px 0 30px;
+	max-width: 1100px;
+}
+
+.sfcore-ai-card {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	padding: 16px 20px 20px;
+}
+
+.sfcore-ai-card.is-active {
+	border-color: #2271b1;
+	box-shadow: 0 0 0 1px #2271b1;
+}
+
+.sfcore-ai-card__head {
+	align-items: center;
+	border-bottom: 1px solid #f0f0f1;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-bottom: 12px;
+	padding-bottom: 10px;
+}
+
+.sfcore-ai-card__head h2 {
+	flex: 1 1 auto;
+	margin: 0;
+	font-size: 15px;
+}
+
+.sfcore-ai-badge {
+	background: #f0f0f1;
+	border-radius: 9999px;
+	color: #50575e;
+	font-size: 11px;
+	font-weight: 600;
+	padding: 2px 10px;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+}
+
+.sfcore-ai-badge--ok {
+	background: #edfaef;
+	color: #007017;
+}
+
+.sfcore-ai-badge--active {
+	background: #f0f6fc;
+	color: #2271b1;
+}
+
+.sfcore-ai-card__actions {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-bottom: 0;
+}
+
+.sfcore-ai-inline {
+	display: inline;
+}
+
+.sfcore-ai__disclosure {
+	max-width: 46em;
+}
+
+.sfcore-ai__disclosure ul {
+	list-style: disc;
+	margin: 0 0 1em 2em;
+}

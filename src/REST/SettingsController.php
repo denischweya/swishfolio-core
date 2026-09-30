@@ -1,6 +1,6 @@
 <?php
 /**
- * REST routes for AI provider settings.
+ * REST routes for AI settings and brand context.
  *
  * @package SwishfolioCore
  */
@@ -10,6 +10,11 @@ namespace SwishfolioCore\REST;
 use SwishfolioCore\AI\ProviderRegistry;
 use SwishfolioCore\AI\Settings;
 
+/**
+ * Reads and writes everything EXCEPT credentials. Connecting, testing and
+ * disconnecting a provider live in ConnectionsController, because handling a
+ * secret is a different responsibility from saving a preference.
+ */
 class SettingsController
 {
     const NAMESPACE_V1 = 'swishfolio/v1';
@@ -43,6 +48,12 @@ class SettingsController
                 'permission_callback' => [$this, 'canManage'],
             ],
         ]);
+
+        register_rest_route(self::NAMESPACE_V1, '/ai/models', [
+            'methods'             => 'GET',
+            'callback'            => [$this, 'models'],
+            'permission_callback' => [$this, 'canManage'],
+        ]);
     }
 
     /**
@@ -54,9 +65,9 @@ class SettingsController
     }
 
     /**
-     * Returns provider, model and whether a key is stored — never the key.
+     * Provider state, models and brand context — never a key.
      *
-     * @return \WP_REST_Response
+     * @return mixed
      */
     public function read()
     {
@@ -77,19 +88,75 @@ class SettingsController
     }
 
     /**
-     * @param \WP_REST_Request $request Request.
+     * Model lists keyed by provider, for populating a model control.
      *
-     * @return \WP_REST_Response
+     * @return mixed
+     */
+    public function models()
+    {
+        $models = [];
+
+        foreach ($this->providers->available() as $slug => $provider) {
+            $models[$slug] = $provider->getModels();
+        }
+
+        return rest_ensure_response(['models' => $models]);
+    }
+
+    /**
+     * Save non-credential settings.
+     *
+     * Accepts no api_key: a secret must go through ConnectionsController, which
+     * validates and encrypts it. Ignoring it here means a client cannot smuggle
+     * a key into the settings option by accident.
+     *
+     * @param object $request REST request.
+     *
+     * @return mixed
      */
     public function write($request)
     {
-        $this->settings->save([
-            'provider' => sanitize_text_field((string) $request->get_param('provider')),
-            'model'    => sanitize_text_field((string) $request->get_param('model')),
-            'base_url' => esc_url_raw((string) $request->get_param('base_url')),
-            'enabled'  => (bool) $request->get_param('enabled'),
-            'api_key'  => (string) $request->get_param('api_key'),
-        ]);
+        $active = $request->get_param('active');
+
+        if ($active !== null && (string) $active !== '') {
+            $slug = sanitize_key((string) $active);
+
+            if (! in_array($slug, Settings::PROVIDERS, true)) {
+                return new \WP_Error(
+                    'sfcore_ai_unknown_provider',
+                    __('Unknown AI provider.', 'swishfolio-core'),
+                    ['status' => 400]
+                );
+            }
+
+            if (! $this->settings->isConnected($slug)) {
+                return new \WP_Error(
+                    'sfcore_ai_not_connected',
+                    __('Connect that provider before selecting it.', 'swishfolio-core'),
+                    ['status' => 409]
+                );
+            }
+
+            $this->settings->setActive($slug);
+        }
+
+        $model = $request->get_param('model');
+
+        if ($model !== null && (string) $model !== '' && $this->settings->getActive() !== '') {
+            $this->settings->setModel($this->settings->getActive(), (string) $model);
+        }
+
+        $brand = $request->get_param('brand');
+
+        if (is_array($brand)) {
+            $this->settings->saveBrand($brand);
+        }
+
+        $enabled = $request->get_param('enabled');
+
+        if ($enabled !== null) {
+            $this->settings->setEnabled((bool) $enabled);
+        }
 
         return rest_ensure_response(['settings' => $this->settings->get()]);
     }

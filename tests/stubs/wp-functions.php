@@ -132,3 +132,113 @@ if (! function_exists('update_option')) {
         return true;
     }
 }
+
+// --- Minimal REST stubs, so controllers are unit-testable without WordPress ---
+
+if (! class_exists('WP_Error')) {
+    class WP_Error
+    {
+        public $code;
+        public $message;
+        public $data;
+
+        public function __construct($code = '', $message = '', $data = [])
+        {
+            $this->code    = $code;
+            $this->message = $message;
+            $this->data    = $data;
+        }
+
+        public function get_error_code()
+        {
+            return $this->code;
+        }
+
+        public function get_error_message()
+        {
+            return $this->message;
+        }
+
+        public function get_error_data()
+        {
+            return $this->data;
+        }
+    }
+}
+
+if (! function_exists('rest_ensure_response')) {
+    function rest_ensure_response($data)
+    {
+        return $data;
+    }
+}
+
+if (! function_exists('register_rest_route')) {
+    function register_rest_route($namespace, $route, $args = [])
+    {
+        if (! isset($GLOBALS['sfcore_test_routes'])) {
+            $GLOBALS['sfcore_test_routes'] = [];
+        }
+        $GLOBALS['sfcore_test_routes'][$namespace . $route] = $args;
+
+        return true;
+    }
+}
+
+if (! function_exists('current_user_can')) {
+    /**
+     * Permissive by default so tests that are not about permissions need no
+     * setup; set $GLOBALS['sfcore_test_caps'] to an explicit map to restrict.
+     *
+     * @param string $capability Capability being checked.
+     *
+     * @return bool
+     */
+    function current_user_can($capability, ...$args)
+    {
+        // One mechanism, shared with the generation stubs: true means "allow
+        // everything", an array is an allowlist, and "cap:object" entries let a
+        // test grant a capability for one specific object only.
+        $caps = isset($GLOBALS['sfcore_test_wp']['caps'])
+            ? $GLOBALS['sfcore_test_wp']['caps']
+            : true;
+
+        if ($caps === true) {
+            return true;
+        }
+
+        if ($args !== [] && in_array($capability . ':' . (string) $args[0], (array) $caps, true)) {
+            return true;
+        }
+
+        return in_array($capability, (array) $caps, true);
+    }
+}
+
+if (! function_exists('is_user_logged_in')) {
+    function is_user_logged_in()
+    {
+        return ! isset($GLOBALS['sfcore_test_logged_in']) || ! empty($GLOBALS['sfcore_test_logged_in']);
+    }
+}
+
+if (! function_exists('get_current_user_id')) {
+    function get_current_user_id()
+    {
+        return isset($GLOBALS['sfcore_test_user_id']) ? (int) $GLOBALS['sfcore_test_user_id'] : 0;
+    }
+}
+
+if (! function_exists('sanitize_key')) {
+    function sanitize_key($key)
+    {
+        return preg_replace('/[^a-z0-9_\-]/', '', strtolower((string) $key));
+    }
+}
+
+if (! function_exists('sanitize_textarea_field')) {
+    function sanitize_textarea_field($str)
+    {
+        return trim(strip_tags((string) $str));
+    }
+}
