@@ -164,7 +164,9 @@ class AiTestCommand
 
             return;
         } catch (ProviderException $e) {
-            \WP_CLI::error(sprintf('Provider error (HTTP %d): %s', $e->getStatusCode(), $e->getMessage()));
+            \WP_CLI::warning($e->getGuidance());
+            \WP_CLI::log(sprintf('Provider said (HTTP %d): %s', $e->getStatusCode(), $e->getMessage()));
+            \WP_CLI::error(sprintf('Stopped: %s. Nothing was changed.', $e->getGuidanceCode()));
 
             return;
         }

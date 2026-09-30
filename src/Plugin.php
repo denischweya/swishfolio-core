@@ -376,6 +376,11 @@ class Plugin
                 'swishfolio ai-test',
                 \SwishfolioCore\Commands\AiTestCommand::class
             );
+
+            \WP_CLI::add_command(
+                'swishfolio migrate-credentials',
+                \SwishfolioCore\Commands\MigrateCredentialsCommand::class
+            );
         }
     }
 

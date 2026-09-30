@@ -179,8 +179,12 @@ class AIController
         } catch (ProviderException $e) {
             return new \WP_Error(
                 'sfcore_ai_provider_error',
-                __('AI could not complete this request. Nothing was changed.', 'swishfolio-core'),
-                ['status' => 502, 'detail' => $e->getMessage()]
+                $e->getGuidance(),
+                [
+                    'status'   => 502,
+                    'guidance' => $e->getGuidanceCode(),
+                    'detail'   => $e->getMessage(),
+                ]
             );
         }
 
