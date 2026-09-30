@@ -12,7 +12,8 @@
 		"test:unit:watch": "wp-scripts test-unit-js --watch",
 		"test:e2e": "playwright test --config=playwright.flow.config.js",
 		"test:e2e:smoke": "playwright test --config=playwright.smoke.config.js",
-		"test:e2e:session": "bash bin/mint-e2e-session.sh"
+		"test:e2e:session": "bash bin/mint-e2e-session.sh",
+		"test:e2e:patterns": "bash bin/check-pattern-render.sh"
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "^28.0.0",

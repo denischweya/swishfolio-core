@@ -4,7 +4,7 @@
   "scope": "section",
   "ref": "swishfolio/section-gallery",
   "role": "gallery",
-  "summary": "Image gallery using the Swish Gallery block. Composed verbatim from the theme pattern, so its copy is the theme's own and cannot be personalised.",
+  "summary": "A three-column image gallery with a short heading, built from core image blocks. Composed verbatim from the theme pattern, so its copy is the theme's own and cannot be personalised.",
   "pageTypes": [
     "about",
     "portfolio",

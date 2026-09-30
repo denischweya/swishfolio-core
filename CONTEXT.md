@@ -128,7 +128,9 @@ Two-stage per plan §9: `POST /ai/plan` returns a validated site plan for review
 
 **Accept rate.** Applying happens client-side, so the editor reports the kept count to `POST /ai/applied`, which calls `UsageLogger::recordAccepted()` (capped at `swishfolio_ai_max_actions`). Without it the Usage screen's "Changes applied" would be permanently zero.
 
-Not yet verified: no live provider call has been made — the connected Anthropic key authenticates but the account has no credit, so `output_config.format` and prompt quality remain unproven. The 25 new theme patterns have not been rendered in a browser.
+`npm run test:e2e:patterns` proves every theme section pattern renders: it parses each with the real block registry (catching `save()`/markup mismatches the way Gutenberg does), then builds a throwaway draft of all 25, measures the height each occupies on the front end, and deletes the draft. `UnitSummaryAccuracyTest` additionally asserts no generation unit's summary names a block its pattern does not contain — two shipped summaries did, having been written from slug names rather than from the patterns.
+
+Not yet verified: no live provider call has been made — the connected Anthropic key authenticates but the account has no credit, so `output_config.format` and prompt quality remain unproven.
 
 ---
 
