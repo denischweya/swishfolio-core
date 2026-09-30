@@ -78,6 +78,15 @@ class AIController
             'permission_callback' => [$this, 'canManage'],
         ]);
 
+        register_rest_route(self::NAMESPACE_V1, '/ai/applied', [
+            'methods'             => 'POST',
+            'callback'            => [$this, 'applied'],
+            'permission_callback' => [$this, 'canUseAi'],
+            'args'                => [
+                'count' => ['type' => 'integer', 'required' => true],
+            ],
+        ]);
+
         register_rest_route(self::NAMESPACE_V1, '/ai/usage', [
             'methods'             => 'GET',
             'callback'            => [$this, 'usage'],
@@ -127,6 +136,45 @@ class AIController
     public function canManage()
     {
         return current_user_can('manage_options');
+    }
+
+    /**
+     * Whether the current user may use AI at all.
+     *
+     * Lighter than canEditPost(): reporting how many changes were kept needs no
+     * particular post, only that the user is entitled to use the feature.
+     *
+     * @return bool
+     */
+    public function canUseAi()
+    {
+        return is_user_logged_in() && current_user_can(self::CAPABILITY);
+    }
+
+    /**
+     * Record how many proposed changes the user actually applied.
+     *
+     * Applying happens client-side, so without this the "Changes applied"
+     * figure would be permanently zero and the accept rate — the most useful
+     * quality signal the plugin has — unmeasurable.
+     *
+     * @param \WP_REST_Request $request Request.
+     *
+     * @return \WP_REST_Response
+     */
+    public function applied($request)
+    {
+        $count = (int) $request->get_param('count');
+
+        // Bounded by the same cap the AI itself is held to, so a bad client
+        // cannot inflate the statistic.
+        $max = (int) apply_filters('swishfolio_ai_max_actions', 25);
+
+        if ($count > 0) {
+            $this->logger->recordAccepted(min($count, $max));
+        }
+
+        return rest_ensure_response(['recorded' => max(0, min($count, $max))]);
     }
 
     /**

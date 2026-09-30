@@ -320,4 +320,53 @@ test.describe( 'AI block editing', () => {
 			( await getBlockAttributes( page, cardsAfterUndo[ 1 ] ) ).name
 		).toBe( handEditedName );
 	} );
+
+	test( 'applying reports the kept count so the accept rate is measurable', async ( {
+		editor,
+		page,
+	} ) => {
+		await stubAiProvider( page, ( request ) => ( {
+			schemaVersion: '1.0',
+			summary: HERO_SUMMARY,
+			actions: [
+				{
+					type: 'update_block_attributes',
+					clientId: request.selection.clientId,
+					changes: { ...HERO_AFTER },
+					reason: 'A shorter headline reads faster.',
+				},
+			],
+		} ) );
+
+		// Applying happens entirely client-side, so the only way the server can
+		// know what was kept is if the editor tells it. Watch for that call.
+		const reported = [];
+		await page.route( '**/ai/applied**', async ( route ) => {
+			reported.push( route.request().postDataJSON() );
+			await route.fulfill( {
+				status: 200,
+				contentType: 'application/json',
+				body: JSON.stringify( { recorded: 1 } ),
+			} );
+		} );
+
+		await editor.insertBlock( { name: HERO, attributes: { ...HERO_BEFORE } } );
+		await selectBlockByName( page, HERO );
+		await editor.clickBlockToolbarButton( 'Ask AI' );
+
+		const sidebar = page.locator( '.sfcore-ai-sidebar__body' );
+		await sidebar.getByLabel( 'What should change?' ).fill( 'Tighten the headline' );
+		await sidebar.getByRole( 'button', { name: 'Ask AI', exact: true } ).click();
+		await expect( sidebar.locator( '.sfcore-ai-sidebar__count' ) ).toHaveText(
+			'1 proposed change'
+		);
+
+		// Nothing is reported for a change the user only looked at.
+		expect( reported ).toHaveLength( 0 );
+
+		await sidebar.getByRole( 'button', { name: 'Apply all' } ).click();
+
+		await expect.poll( () => reported.length ).toBe( 1 );
+		expect( reported[ 0 ].count ).toBe( 1 );
+	} );
 } );

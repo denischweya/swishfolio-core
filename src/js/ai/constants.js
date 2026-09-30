@@ -7,6 +7,9 @@
  * `@wordpress/interface` (which the build bundles rather than externalises).
  */
 
+/** Where the editor reports how many proposed changes were actually applied. */
+export const REST_APPLIED_PATH = '/swishfolio/v1/ai/applied';
+
 export const REST_EDIT_PATH = '/swishfolio/v1/ai/edit';
 
 export const PLUGIN_NAME = 'sfcore-ai';

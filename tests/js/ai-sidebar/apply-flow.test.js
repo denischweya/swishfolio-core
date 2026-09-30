@@ -325,7 +325,7 @@ describe( 'AI sidebar', () => {
 
 		expect(
 			screen.getByText(
-				'No AI provider is configured yet — add a key under Swish Forms → AI.'
+				'No AI provider is connected yet — connect one under Swish AI → Connections.'
 			)
 		).toBeTruthy();
 		expect( editor.dispatchCount() ).toBe( 0 );

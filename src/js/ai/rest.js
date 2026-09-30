@@ -15,7 +15,7 @@
 import apiFetch from '@wordpress/api-fetch';
 import { __, sprintf } from '@wordpress/i18n';
 
-import { REST_EDIT_PATH } from './constants';
+import { REST_APPLIED_PATH, REST_EDIT_PATH } from './constants';
 
 /** The one sentence every failure shows. */
 export const GENERIC_FAILURE = __(
@@ -30,7 +30,12 @@ export const GENERIC_FAILURE = __(
 const HINTS = {
 	sfcore_ai_not_configured: () =>
 		__(
-			'No AI provider is configured yet — add a key under Swish Forms → AI.',
+			'No AI provider is connected yet — connect one under Swish AI → Connections.',
+			'swishfolio-core'
+		),
+	sfcore_ai_disabled: () =>
+		__(
+			'AI is turned off for this site — enable it under Swish AI → Connections.',
 			'swishfolio-core'
 		),
 	sfcore_ai_invalid_response: () =>
@@ -65,6 +70,30 @@ export function requestEdit( payload ) {
 		method: 'POST',
 		data: payload,
 	} );
+}
+
+/**
+ * Report how many proposed changes the user actually kept.
+ *
+ * Without this the "Changes applied" figure on the Usage screen ispermanently
+ * zero, because applying happens entirely client-side and the server never
+ * learns the outcome. Deliberately fire-and-forget: a failed metric must never
+ * disturb an edit that already succeeded.
+ *
+ * @param {number} count How many actions were dispatched.
+ *
+ * @return {Promise<void>} Always resolves.
+ */
+export function reportApplied( count ) {
+	if ( ! count ) {
+		return Promise.resolve();
+	}
+
+	return apiFetch( {
+		path: REST_APPLIED_PATH,
+		method: 'POST',
+		data: { count },
+	} ).catch( () => {} );
 }
 
 function collectDetail( error ) {

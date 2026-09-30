@@ -21,7 +21,17 @@ const REST_ERRORS = [
 			message: 'No AI provider is configured.',
 			data: { status: 409 },
 		},
-		hint: 'No AI provider is configured yet — add a key under Swish Forms → AI.',
+		hint: 'No AI provider is connected yet — connect one under Swish AI → Connections.',
+	},
+	{
+		code: 'sfcore_ai_disabled',
+		status: 403,
+		rejection: {
+			code: 'sfcore_ai_disabled',
+			message: 'AI features are turned off for this site.',
+			data: { status: 403 },
+		},
+		hint: 'AI is turned off for this site — enable it under Swish AI → Connections.',
 	},
 	{
 		code: 'sfcore_ai_invalid_response',

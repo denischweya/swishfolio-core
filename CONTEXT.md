@@ -122,9 +122,13 @@ Two-stage per plan §9: `POST /ai/plan` returns a validated site plan for review
 
 ### Tests
 
-`--testsuite unit` (309) and `--testsuite evals` (172, 12 live-mode cases skipped unless `SWISHFOLIO_AI_EVAL_LIVE=1` and `SWISHFOLIO_AI_EVAL_API_KEY` are both set — never in CI). Jest via `npm run test:unit` (110 tests, 14 suites). Playwright in `tests/e2e/` against a stubbed provider. Source must stay PHP 7.4-parseable.
+**Browser suites.** `npm run test:e2e:session` mints a Playwright storage state for an existing admin (no password, no throwaway user), then `npm run test:e2e` drives the real editor flow against a stubbed provider — insert hero → Ask AI → preview → apply → one Ctrl+Z — and `npm run test:e2e:smoke` renders the three Swish AI screens and checks the editor bundle loads. Neither needs API credit. The stub intercepts at the network boundary, so PHP's five validation stages do NOT run there; they are covered by PHPUnit.
 
-Not yet verified: no live provider call has been made, so prompt quality is unmeasured; no browser has rendered the sidebar or the 25 new patterns; no REST-layer PHP tests exist.
+`--testsuite unit` (381) and `--testsuite evals` (172, 12 live-mode cases skipped unless `SWISHFOLIO_AI_EVAL_LIVE=1` and `SWISHFOLIO_AI_EVAL_API_KEY` are both set — never in CI). Jest via `npm run test:unit` (110 tests, 14 suites). Playwright in `tests/e2e/` against a stubbed provider. Source must stay PHP 7.4-parseable.
+
+**Accept rate.** Applying happens client-side, so the editor reports the kept count to `POST /ai/applied`, which calls `UsageLogger::recordAccepted()` (capped at `swishfolio_ai_max_actions`). Without it the Usage screen's "Changes applied" would be permanently zero.
+
+Not yet verified: no live provider call has been made — the connected Anthropic key authenticates but the account has no credit, so `output_config.format` and prompt quality remain unproven. The 25 new theme patterns have not been rendered in a browser.
 
 ---
 

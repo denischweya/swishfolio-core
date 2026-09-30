@@ -72,3 +72,4 @@ Thumbs.db
 /.playwright-mcp
 /artifacts
 /playwright.smoke.config.js
+/bin/mint-e2e-session.sh

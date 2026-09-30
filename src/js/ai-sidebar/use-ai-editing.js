@@ -25,7 +25,12 @@ import {
 	buildSelectionContext,
 	detectStyleVariation,
 } from '../ai/selection-context';
-import { describeError, localError, requestEdit } from '../ai/rest';
+import {
+	describeError,
+	localError,
+	reportApplied,
+	requestEdit,
+} from '../ai/rest';
 import { buildActionRows } from '../ai/preview';
 import {
 	buildApplyPlan,
@@ -350,6 +355,11 @@ export function useAiEditing() {
 					removeBlocks,
 					createBlock,
 				} );
+
+				// Applying happens entirely client-side, so the server only
+				// learns the outcome if we tell it. Fire-and-forget: a failed
+				// metric must never disturb an edit that already succeeded.
+				reportApplied( chosen.length );
 
 				createSuccessNotice(
 					appliedMessage( chosen.length, result.batched ),
