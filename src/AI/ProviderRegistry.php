@@ -8,6 +8,7 @@
 namespace SwishfolioCore\AI;
 
 use SwishfolioCore\AI\Contracts\AIProviderInterface;
+use SwishfolioCore\AI\Providers\AnthropicProvider;
 use SwishfolioCore\AI\Providers\OpenAICompatibleProvider;
 use SwishfolioCore\AI\Providers\OpenAIProvider;
 
@@ -28,7 +29,7 @@ class ProviderRegistry
     {
         $providers = [];
 
-        foreach ([new OpenAIProvider(), new OpenAICompatibleProvider()] as $provider) {
+        foreach ([new AnthropicProvider(), new OpenAIProvider(), new OpenAICompatibleProvider()] as $provider) {
             $providers[$provider->getSlug()] = $provider;
         }
 

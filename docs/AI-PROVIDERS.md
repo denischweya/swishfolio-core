@@ -342,3 +342,44 @@ for free; override the single `post()` seam if you need different transport.
 - **Want nothing to leave your network:** a local Ollama. Be realistic about
   schema compliance — verify with a real edit before committing to it, because
   `/ai/test-provider` cannot check a compatible endpoint (§6).
+
+## Anthropic (Claude)
+
+1. Create a key at <https://console.anthropic.com/settings/keys>.
+2. In WordPress: **Swish Forms → AI Settings**.
+3. Provider **Anthropic (Claude)**, model one of:
+
+   | Model | When |
+   |---|---|
+   | `claude-opus-5` | Best judgement. Default. |
+   | `claude-sonnet-5` | Faster and cheaper, still strong. |
+   | `claude-haiku-4-5` | Cheapest — good for a first smoke test. |
+
+4. Paste the key, tick **both** boxes (enable + acknowledgement), save.
+
+Notes specific to this provider:
+
+- Structured output uses `output_config.format` with a JSON Schema. The older `output_format` key is deprecated and `response_format` is OpenAI's.
+- Auth is `x-api-key` plus `anthropic-version`, not a bearer token.
+- The system prompt is a top-level field, which is also what keeps the cache prefix stable.
+- `output_config.effort` is sent only for `claude-opus-5` and `claude-sonnet-5`; **Haiku 4.5 rejects it**, so it is omitted there. Tune with the `swishfolio_ai_effort` filter (default `medium`, chosen for editor latency).
+- Adaptive thinking is on by default, so a thinking block can precede the text block. The JSON is read from the first *text* block.
+- HTTP timeout defaults to 120s (`swishfolio_ai_http_timeout`), because reasoning models routinely exceed 60s.
+
+### Testing from the command line
+
+Faster than clicking through the editor, and it prints the validated actions:
+
+```bash
+# Show the assembled prompt, make no request:
+wp swishfolio ai-test "make this feel more premium" --dry-run
+
+# Make a real, billed request:
+wp swishfolio ai-test "make this feel more premium and tighten the headline"
+
+# Cheap smoke test, or a different block:
+wp swishfolio ai-test "make it bolder" --model=claude-haiku-4-5
+wp swishfolio ai-test "rewrite this for a professional audience" --block=core/paragraph
+```
+
+Under DDEV, prefix with `ddev exec -d /var/www/html/wordpress` and add `--url=<your-site>`.

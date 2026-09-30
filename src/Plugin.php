@@ -353,6 +353,11 @@ class Plugin
                 'swishfolio migrate-colors',
                 \SwishfolioCore\Commands\MigrateColorsCommand::class
             );
+
+            \WP_CLI::add_command(
+                'swishfolio ai-test',
+                \SwishfolioCore\Commands\AiTestCommand::class
+            );
         }
     }
 

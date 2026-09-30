@@ -19,7 +19,7 @@ use SwishfolioCore\AI\ProviderException;
 abstract class AbstractAIProvider implements AIProviderInterface
 {
     const MAX_ATTEMPTS = 3;
-    const TIMEOUT      = 60;
+    const TIMEOUT      = 120;
 
     /** @var array */
     protected $credentials = [];
@@ -92,7 +92,16 @@ abstract class AbstractAIProvider implements AIProviderInterface
 
         for ($attempt = 0; $attempt < self::MAX_ATTEMPTS; $attempt++) {
             $response = $this->post($url, [
-                'timeout' => self::TIMEOUT,
+                /**
+                 * Filters the AI request HTTP timeout in seconds.
+                 *
+                 * Reasoning models routinely take longer than WordPress's
+                 * usual 5-second default, and longer than the 60s this used
+                 * to allow.
+                 *
+                 * @param int $timeout Seconds.
+                 */
+                'timeout' => (int) apply_filters('swishfolio_ai_http_timeout', self::TIMEOUT),
                 'headers' => array_merge(['Content-Type' => 'application/json'], $headers),
                 'body'    => wp_json_encode_compat($body),
             ]);
