@@ -36,3 +36,6 @@ npm-debug.log*
 
 # PHPUnit
 .phpunit.result.cache
+
+# Playwright artifacts (traces, screenshots, storage states)
+/artifacts/
