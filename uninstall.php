@@ -23,6 +23,7 @@ if (! defined('ABSPATH') || ! defined('WP_UNINSTALL_PLUGIN')) {
 $sfcore_options = [
     'swishfolio_ai_settings',
     'swishfolio_ai_usage',
+    'swishfolio_ai_journal_version',
     'swish_forms_email_settings',
     'swish_forms_esp_settings',
     'swishfolio_styles_cache_cleared_v2',
@@ -43,6 +44,10 @@ function sfcore_uninstall_delete_options(array $options)
 
     // Version-keyed caches; the suffix varies, so clear by pattern.
     global $wpdb;
+
+    // The AI journal is a record of what the AI did, not content the owner
+    // authored, so unlike pages and form entries it goes with the plugin.
+    $wpdb->query('DROP TABLE IF EXISTS ' . $wpdb->prefix . 'swishfolio_ai_journal');
 
     $wpdb->query(
         $wpdb->prepare(

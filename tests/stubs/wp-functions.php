@@ -37,8 +37,15 @@ if (! function_exists('wp_kses_post')) {
 }
 
 if (! function_exists('apply_filters')) {
-    function apply_filters($tag, $value)
+    function apply_filters($tag, $value, ...$args)
     {
+        // Filters are ignored unless a test registers one in
+        // $GLOBALS['sfcore_test_filters'], keyed by tag. Without this a filter
+        // is untestable, and several are part of the public contract.
+        if (isset($GLOBALS['sfcore_test_filters'][$tag]) && is_callable($GLOBALS['sfcore_test_filters'][$tag])) {
+            return call_user_func($GLOBALS['sfcore_test_filters'][$tag], $value, ...$args);
+        }
+
         return $value;
     }
 }

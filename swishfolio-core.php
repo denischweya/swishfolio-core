@@ -62,9 +62,18 @@ add_action('plugins_loaded', function () {
 register_activation_hook(__FILE__, function () {
     // Flush rewrite rules on activation.
     flush_rewrite_rules();
+
+    // The AI journal table. Plugin::boot() also installs it on admin_init,
+    // because an update from a version without the table never runs this.
+    Plugin::installJournalTable();
+    Plugin::scheduleJournalPrune();
 });
 
 // Deactivation hook.
 register_deactivation_hook(__FILE__, function () {
     flush_rewrite_rules();
+
+    // The table and its rows stay: deactivation is not deletion, and an owner
+    // who reactivates should still be able to undo what the AI did.
+    wp_clear_scheduled_hook(\SwishfolioCore\Admin\AuditLogPage::PRUNE_HOOK);
 });

@@ -8,6 +8,8 @@
 namespace SwishfolioCore\REST;
 
 use SwishfolioCore\Actions\ActionExecutor;
+use SwishfolioCore\Tools\ConfirmToken;
+use SwishfolioCore\Tools\ToolContext;
 use SwishfolioCore\Actions\Handlers\ExecutionException;
 use SwishfolioCore\Actions\ValidationException;
 use SwishfolioCore\AI\AIResponse;
@@ -216,9 +218,13 @@ class GenerationController
 
         $this->logger->record($response, count($plan['pages']), $duration, 'planned');
 
+        // The plan is what the owner reviews, so it is what the token approves.
+        // Generation's site-level actions publish a menu, repoint the front page
+        // and reskin the site, and the gate will refuse all three without it.
         return rest_ensure_response([
-            'scope' => $scope,
-            'plan'  => $plan,
+            'scope'        => $scope,
+            'plan'         => $plan,
+            'confirmToken' => ConfirmToken::issue([['name' => 'plan', 'input' => $plan]], get_current_user_id()),
         ]);
     }
 
@@ -235,17 +241,32 @@ class GenerationController
             return $limited;
         }
 
-        $scope = $this->scope($request);
-        $facts = $this->siteFacts();
+        $scope    = $this->scope($request);
+        $facts    = $this->siteFacts();
+        $sentPlan = (array) $request->get_param('plan');
 
         try {
             $plan = PlanValidator::withDefaultStages()->validate(
-                (array) $request->get_param('plan'),
+                $sentPlan,
                 $this->planContext($scope, $facts)
             );
         } catch (ValidationException $e) {
             return $this->validationError($e);
         }
+
+        // Verified against the plan exactly as sent, which is the plan /ai/plan
+        // returned and the owner approved. An edited plan fails here and has to
+        // be previewed again — which is the point: the approval was for the
+        // plan they saw, not for whatever arrives next.
+        $context = ToolContext::current();
+
+        $context->setConfirmed(
+            ConfirmToken::verify(
+                (string) $request->get_param('confirmToken'),
+                [['name' => 'plan', 'input' => $sentPlan]],
+                get_current_user_id()
+            )
+        );
 
         $executor = new PlanExecutor(
             new BlockComposer($this->library),
@@ -253,17 +274,18 @@ class GenerationController
         );
 
         try {
-            $report = $executor->execute($plan, get_current_user_id());
+            $report = $executor->execute($plan, get_current_user_id(), $context);
         } catch (ExecutionException $e) {
             return new \WP_Error(
                 'sfcore_ai_generation_failed',
                 __('Generation stopped before it finished.', 'swishfolio-core'),
                 [
-                    'status'     => $e->getReason() === 'forbidden' ? 403 : 500,
+                    'status'     => $this->statusForReason($e->getReason()),
                     'action'     => $e->getActionType(),
                     'reason'     => $e->getReason(),
                     'detail'     => $e->getMessage(),
                     'createdIds' => $e->getCreatedIds(),
+                    'runId'      => $context->getRunId(),
                 ]
             );
         } catch (\RuntimeException $e) {
@@ -281,7 +303,29 @@ class GenerationController
             'generated'
         );
 
+        // Without the run ID the owner has a changed site and no handle on the
+        // journal rows that would reverse it.
+        $report['runId'] = $context->getRunId();
+
         return rest_ensure_response($report);
+    }
+
+    /**
+     * @param string $reason ExecutionException reason, now a ToolError code.
+     *
+     * @return int
+     */
+    private function statusForReason($reason)
+    {
+        $statuses = [
+            'forbidden'        => 403,
+            'confirm_required' => 409,
+            'target_missing'   => 404,
+            'schema_invalid'   => 400,
+            'tool_not_found'   => 400,
+        ];
+
+        return isset($statuses[$reason]) ? $statuses[$reason] : 500;
     }
 
     /**

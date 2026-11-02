@@ -50,6 +50,14 @@ use SwishfolioCore\Services\EncryptionService;
 use SwishfolioCore\AI\Credentials\WordPressCredentialStore;
 use SwishfolioCore\REST\AIController;
 use SwishfolioCore\REST\SettingsController;
+use SwishfolioCore\REST\ToolsController;
+use SwishfolioCore\Admin\AuditLogPage;
+use SwishfolioCore\Tools\AbilitiesBridge;
+use SwishfolioCore\Tools\Journal\JournalTable;
+use SwishfolioCore\Tools\Journal\MutationJournal;
+use SwishfolioCore\Tools\Journal\WpdbJournalRepository;
+use SwishfolioCore\Tools\ToolRegistry;
+use SwishfolioCore\Tools\ToolRunner;
 use SwishfolioCore\REST\ConnectionsController;
 use SwishfolioCore\REST\GenerationController;
 use SwishfolioCore\AI\Generation\PatternLibrary;
@@ -173,6 +181,34 @@ class Plugin
     private ?GenerationController $aiGenerationController = null;
 
     /**
+     * Tool pipeline: every server-side site operation goes through it.
+     *
+     * @var ToolRunner|null
+     */
+    private ?ToolRunner $toolRunner = null;
+
+    /**
+     * Tool REST controller.
+     *
+     * @var ToolsController|null
+     */
+    private ?ToolsController $toolsController = null;
+
+    /**
+     * Audit log screen.
+     *
+     * @var AuditLogPage|null
+     */
+    private ?AuditLogPage $auditLogPage = null;
+
+    /**
+     * Abilities API bridge. Registers the tools; exposes none of them.
+     *
+     * @var AbilitiesBridge|null
+     */
+    private ?AbilitiesBridge $abilitiesBridge = null;
+
+    /**
      * AI connections REST controller.
      *
      * @var ConnectionsController|null
@@ -252,8 +288,24 @@ class Plugin
             $aiLogger
         );
 
+        // The tool layer. One registry, one runner, one journal: the REST
+        // routes, the audit screen's undo and the Abilities bridge all share
+        // them, so there is no second path that could write without a journal
+        // row or skip the confirmation gate.
+        $journalRepository = new WpdbJournalRepository();
+        $mutationJournal   = new MutationJournal($journalRepository);
+
+        $this->toolRunner = new ToolRunner(
+            ToolRegistry::withDefaultTools($mutationJournal, $this->aiBlockRegistry),
+            $mutationJournal
+        );
+
+        $this->toolsController = new ToolsController($this->toolRunner, $journalRepository, $aiSettings);
+        $this->abilitiesBridge = new AbilitiesBridge($this->toolRunner->registry(), $this->toolRunner);
+
         if (is_admin()) {
-            $this->swishAiMenu = new SwishAiMenu($aiSettings, $aiProviders, $aiLogger);
+            $this->swishAiMenu  = new SwishAiMenu($aiSettings, $aiProviders, $aiLogger);
+            $this->auditLogPage = new AuditLogPage($journalRepository, $this->toolRunner);
         }
     }
 
@@ -364,6 +416,22 @@ class Plugin
             add_action('admin_post_' . SwishAiMenu::ACTION_BRAND, [ $this->swishAiMenu, 'handleBrand' ]);
         }
         add_filter('user_has_cap', [ $this, 'grantAICapability' ]);
+
+        // Registers every tool with the Abilities API where it exists, and
+        // exposes none of them. On the 6.7 floor this is a no-op.
+        if ($this->abilitiesBridge !== null) {
+            $this->abilitiesBridge->boot();
+        }
+
+        if ($this->auditLogPage !== null) {
+            $this->auditLogPage->boot();
+        }
+
+        // The journal table is created on activation, but an update from a
+        // version without it never runs activation, so the version-guarded
+        // installer runs on admin_init too. It is one get_option when current.
+        add_action('admin_init', [ self::class, 'installJournalTable' ]);
+        add_action('admin_init', [ self::class, 'scheduleJournalPrune' ]);
 
         // Register WP-CLI commands.
         if (defined('WP_CLI') && \WP_CLI) {
@@ -734,6 +802,10 @@ class Plugin
         if ($this->aiGenerationController !== null) {
             $this->aiGenerationController->registerRoutes();
         }
+
+        if ($this->toolsController !== null) {
+            $this->toolsController->registerRoutes();
+        }
     }
 
     /**
@@ -746,6 +818,28 @@ class Plugin
      *
      * @return array
      */
+    /**
+     * Creates the AI journal table when the stored schema version is behind.
+     *
+     * @return void
+     */
+    public static function installJournalTable(): void
+    {
+        JournalTable::install();
+    }
+
+    /**
+     * Schedules the daily expiry of aged journal rows.
+     *
+     * @return void
+     */
+    public static function scheduleJournalPrune(): void
+    {
+        if (! wp_next_scheduled(AuditLogPage::PRUNE_HOOK)) {
+            wp_schedule_event(time() + HOUR_IN_SECONDS, 'daily', AuditLogPage::PRUNE_HOOK);
+        }
+    }
+
     public function grantAICapability(array $allcaps): array
     {
         if (! empty($allcaps['edit_posts'])) {
