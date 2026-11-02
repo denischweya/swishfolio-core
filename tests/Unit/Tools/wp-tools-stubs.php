@@ -17,21 +17,57 @@
 require_once __DIR__ . '/../Generation/wp-generation-stubs.php';
 
 if (! function_exists('sfcore_test_tools_reset')) {
+    /**
+     * The tool-suite state, on top of the generation suite's.
+     *
+     * The defaults live in sfcore_test_tools_defaults() rather than only here,
+     * because the evals suite resets through sfcore_test_wp_reset() and never
+     * calls this — and once this file is loaded anywhere in the process its
+     * stubs are live for every test. A stub that assumed its own reset had run
+     * failed exactly that way.
+     *
+     * @return void
+     */
     function sfcore_test_tools_reset()
     {
         sfcore_test_wp_reset();
 
-        $GLOBALS['sfcore_test_options']                     = [];
-        $GLOBALS['sfcore_test_wp']['revisions']             = [];
-        $GLOBALS['sfcore_test_wp']['nextRevisionId']        = 900;
-        $GLOBALS['sfcore_test_wp']['revisionsDisabled']     = false;
-        $GLOBALS['sfcore_test_wp']['missingRevisions']      = [];
-        $GLOBALS['sfcore_test_wp']['trashFails']            = [];
-        $GLOBALS['sfcore_test_wp']['blogId']                = 1;
-        $GLOBALS['sfcore_test_wp']['attachmentMeta']        = [];
-        $GLOBALS['sfcore_test_wp']['themeName']             = 'Swishfolio';
+        $GLOBALS['sfcore_test_options'] = [];
+
+        sfcore_test_tools_defaults();
+    }
+
+    /**
+     * Fills in any tool-suite state key that is missing, leaving set ones alone.
+     *
+     * @return void
+     */
+    function sfcore_test_tools_defaults()
+    {
+        $defaults = [
+            'revisions'         => [],
+            'nextRevisionId'    => 900,
+            'revisionsDisabled' => false,
+            'missingRevisions'  => [],
+            'trashFails'        => [],
+            'blogId'            => 1,
+            'attachmentMeta'    => [],
+            'themeName'         => 'Swishfolio',
+        ];
+
+        if (! isset($GLOBALS['sfcore_test_wp']) || ! is_array($GLOBALS['sfcore_test_wp'])) {
+            $GLOBALS['sfcore_test_wp'] = [];
+        }
+
+        foreach ($defaults as $key => $value) {
+            if (! array_key_exists($key, $GLOBALS['sfcore_test_wp'])) {
+                $GLOBALS['sfcore_test_wp'][$key] = $value;
+            }
+        }
     }
 }
+
+sfcore_test_tools_defaults();
 
 if (! function_exists('get_current_blog_id')) {
     function get_current_blog_id()
@@ -43,6 +79,8 @@ if (! function_exists('get_current_blog_id')) {
 if (! function_exists('wp_save_post_revision')) {
     function wp_save_post_revision($postId)
     {
+        sfcore_test_tools_defaults();
+
         if (! empty($GLOBALS['sfcore_test_wp']['revisionsDisabled'])) {
             return null;
         }
@@ -69,6 +107,8 @@ if (! function_exists('wp_save_post_revision')) {
 if (! function_exists('wp_restore_post_revision')) {
     function wp_restore_post_revision($revisionId)
     {
+        sfcore_test_tools_defaults();
+
         $revisionId = (int) $revisionId;
 
         if (in_array($revisionId, (array) ($GLOBALS['sfcore_test_wp']['missingRevisions'] ?? []), true)) {
@@ -96,6 +136,8 @@ if (! function_exists('wp_restore_post_revision')) {
 if (! function_exists('wp_trash_post')) {
     function wp_trash_post($postId)
     {
+        sfcore_test_tools_defaults();
+
         $postId = (int) $postId;
 
         if (in_array($postId, (array) ($GLOBALS['sfcore_test_wp']['trashFails'] ?? []), true)) {

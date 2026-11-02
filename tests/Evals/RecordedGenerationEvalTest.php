@@ -3,11 +3,6 @@
 namespace SwishfolioCore\Tests\Evals;
 
 use SwishfolioCore\Actions\ActionExecutor;
-use SwishfolioCore\Actions\Handlers\CreatePageHandler;
-use SwishfolioCore\Actions\Handlers\SetFrontPageHandler;
-use SwishfolioCore\Actions\Handlers\SetNavigationHandler;
-use SwishfolioCore\Actions\Handlers\SetStyleVariationHandler;
-use SwishfolioCore\Actions\Handlers\UpdatePageHandler;
 use SwishfolioCore\AI\Generation\BlockComposer;
 use SwishfolioCore\AI\Generation\PlanExecutor;
 use SwishfolioCore\AI\Generation\PlanSchema;
@@ -15,6 +10,16 @@ use SwishfolioCore\Tests\Evals\Support\BlockMarkup;
 use SwishfolioCore\Tests\Evals\Support\Corpus;
 use SwishfolioCore\Tests\Evals\Support\EvalTestCase;
 use SwishfolioCore\Tests\Evals\Support\RecordedProvider;
+use SwishfolioCore\Tests\Support\InMemoryJournalRepository;
+use SwishfolioCore\Tools\Journal\MutationJournal;
+use SwishfolioCore\Tools\ToolContext;
+use SwishfolioCore\Tools\ToolRegistry;
+use SwishfolioCore\Tools\ToolRunner;
+use SwishfolioCore\Tools\Write\CreatePageTool;
+use SwishfolioCore\Tools\Write\SetFrontPageTool;
+use SwishfolioCore\Tools\Write\SetNavigationTool;
+use SwishfolioCore\Tools\Write\SetStyleVariationTool;
+use SwishfolioCore\Tools\Write\UpdatePageTool;
 
 /**
  * The generation half of the evaluation suite, in recorded mode.
@@ -159,7 +164,7 @@ class RecordedGenerationEvalTest extends EvalTestCase
 
         $this->seedExistingPages($case);
 
-        $report = $this->executor()->execute($result['validated'], self::EVAL_USER_ID);
+        $report = $this->executor()->execute($result['validated'], self::EVAL_USER_ID, $this->approvedContext());
         $posts  = $GLOBALS['sfcore_test_wp']['posts'];
 
         $this->assertNotSame([], $report['createdIds'], 'The plan wrote nothing at all.');
@@ -197,7 +202,7 @@ class RecordedGenerationEvalTest extends EvalTestCase
 
         $this->seedExistingPages($case);
 
-        $report = $this->executor()->execute($result['validated'], self::EVAL_USER_ID);
+        $report = $this->executor()->execute($result['validated'], self::EVAL_USER_ID, $this->approvedContext());
         $posts  = $GLOBALS['sfcore_test_wp']['posts'];
 
         foreach ($report['pages'] as $page) {
@@ -261,7 +266,7 @@ class RecordedGenerationEvalTest extends EvalTestCase
 
         $before = $GLOBALS['sfcore_test_wp']['posts'];
 
-        $this->executor()->execute($result['validated'], self::EVAL_USER_ID);
+        $this->executor()->execute($result['validated'], self::EVAL_USER_ID, $this->approvedContext());
 
         foreach (array_keys($reused) as $postId) {
             $this->assertSame(
@@ -273,7 +278,7 @@ class RecordedGenerationEvalTest extends EvalTestCase
     }
 
     /**
-     * The style variation handler reads the theme's variation list and the user
+     * The style variation tool reads the theme's variation list and the user
      * global styles post, neither of which exists without WordPress, so both are
      * injected — exactly as the plan executor's own unit test does.
      *
@@ -281,14 +286,17 @@ class RecordedGenerationEvalTest extends EvalTestCase
      */
     private function executor()
     {
+        $journal = new MutationJournal(new InMemoryJournalRepository());
+
         return new PlanExecutor(
             new BlockComposer($this->library()),
-            new ActionExecutor([
-                new CreatePageHandler(),
-                new UpdatePageHandler(),
-                new SetFrontPageHandler(),
-                new SetNavigationHandler(),
-                new SetStyleVariationHandler(
+            new ActionExecutor(new ToolRunner(new ToolRegistry([
+                new CreatePageTool($journal),
+                new UpdatePageTool($journal),
+                new SetFrontPageTool($journal),
+                new SetNavigationTool($journal),
+                new SetStyleVariationTool(
+                    $journal,
                     function () {
                         return [
                             ['title' => 'Default', 'version' => 3, 'settings' => [], 'styles' => []],
@@ -299,8 +307,23 @@ class RecordedGenerationEvalTest extends EvalTestCase
                         return 23;
                     }
                 ),
-            ])
+            ]), $journal))
         );
+    }
+
+    /**
+     * A generation run carries the owner's approval of the plan, which the three
+     * site-level tools require.
+     *
+     * @return ToolContext
+     */
+    private function approvedContext()
+    {
+        $context = ToolContext::forUser(self::EVAL_USER_ID);
+
+        $context->setConfirmed(true);
+
+        return $context;
     }
 
     /**
