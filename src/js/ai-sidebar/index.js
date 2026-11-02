@@ -9,6 +9,7 @@
 import { registerPlugin } from '@wordpress/plugins';
 
 import { PLUGIN_NAME } from '../ai/constants';
+import AgentSidebar from './agent-sidebar';
 import AiIcon from './icon';
 import AiSidebar from './sidebar';
 import { registerAskAiToolbarButton } from './ask-ai-button';
@@ -30,7 +31,15 @@ export function initAiEditor() {
 		icon: <AiIcon />,
 	} );
 
+	// A second plugin, so the site agent gets its own sidebar: it has nothing
+	// to do with what is selected, and the block panel's empty state would be
+	// wrong for it.
+	registerPlugin( PLUGIN_NAME + '-agent', {
+		render: AgentSidebar,
+		icon: <AiIcon />,
+	} );
+
 	registerAskAiToolbarButton();
 }
 
-export { AiSidebar, registerAskAiToolbarButton };
+export { AgentSidebar, AiSidebar, registerAskAiToolbarButton };

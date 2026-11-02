@@ -261,3 +261,130 @@
 .sfcore-ai-toolbar-button svg {
 	fill: currentcolor;
 }
+
+/* Site agent ------------------------------------------------------------ */
+
+/*
+ * The agent lives in its own PluginSidebar, so it gets its own scope rather
+ * than inheriting the block panel's. Everything stays under .sfcore-ai-agent.
+ */
+
+.sfcore-ai-agent {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding: 16px;
+	font-size: 13px;
+	line-height: 1.5;
+}
+
+.sfcore-ai-agent__empty {
+	margin: 0;
+	color: #757575;
+}
+
+.sfcore-ai-agent__transcript {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.sfcore-ai-agent__turn {
+	margin: 0;
+}
+
+.sfcore-ai-agent__who {
+	display: block;
+	margin-bottom: 2px;
+	color: #757575;
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+
+.sfcore-ai-agent__turn.is-user .sfcore-ai-agent__text {
+	padding: 8px 10px;
+	border-radius: 4px;
+	background: #f0f0f0;
+}
+
+.sfcore-ai-agent__text {
+	margin: 0;
+	white-space: pre-wrap;
+}
+
+.sfcore-ai-agent__steps {
+	margin: 8px 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.sfcore-ai-agent__step {
+	display: flex;
+	gap: 6px;
+	margin-bottom: 2px;
+	color: #757575;
+	font-size: 12px;
+}
+
+.sfcore-ai-agent__step.is-error {
+	color: #b32d2e;
+}
+
+.sfcore-ai-agent__step-mark {
+	flex: 0 0 auto;
+	font-weight: 600;
+}
+
+.sfcore-ai-agent__step-text {
+	min-width: 0;
+	overflow-wrap: anywhere;
+}
+
+.sfcore-ai-agent__capped {
+	margin: 8px 0 0;
+	color: #757575;
+	font-size: 12px;
+}
+
+/* Approval -------------------------------------------------------------- */
+
+.sfcore-ai-agent__approval-title {
+	margin: 0 0 6px;
+	font-weight: 600;
+}
+
+.sfcore-ai-agent__approval-list {
+	margin: 0 0 6px;
+	padding-left: 18px;
+	font-size: 12px;
+}
+
+.sfcore-ai-agent__approval-list code {
+	font-size: 11px;
+}
+
+.sfcore-ai-agent__approval-note {
+	margin: 0 0 8px;
+	color: #757575;
+	font-size: 12px;
+}
+
+.sfcore-ai-agent__approval-actions {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+/* Prompt ---------------------------------------------------------------- */
+
+.sfcore-ai-agent__prompt-actions {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-top: 8px;
+}
