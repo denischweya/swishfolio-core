@@ -1,61 +1,87 @@
 <?php
 /**
- * Runs server-side actions, the ones that actually write.
+ * Runs the generation engine's server-side actions.
  *
  * @package SwishfolioCore
  */
 
 namespace SwishfolioCore\Actions;
 
-use SwishfolioCore\Actions\Handlers\CreatePageHandler;
 use SwishfolioCore\Actions\Handlers\ExecutionContext;
 use SwishfolioCore\Actions\Handlers\ExecutionException;
-use SwishfolioCore\Actions\Handlers\ServerActionHandlerInterface;
-use SwishfolioCore\Actions\Handlers\SetFrontPageHandler;
-use SwishfolioCore\Actions\Handlers\SetNavigationHandler;
-use SwishfolioCore\Actions\Handlers\SetStyleVariationHandler;
-use SwishfolioCore\Actions\Handlers\UpdatePageHandler;
+use SwishfolioCore\Tools\Journal\MutationJournal;
+use SwishfolioCore\Tools\Journal\WpdbJournalRepository;
+use SwishfolioCore\Tools\ToolContext;
+use SwishfolioCore\Tools\ToolException;
+use SwishfolioCore\Tools\ToolRegistry;
+use SwishfolioCore\Tools\ToolRunner;
+use SwishfolioCore\Tools\Write\CreatePageTool;
+use SwishfolioCore\Tools\Write\SetFrontPageTool;
+use SwishfolioCore\Tools\Write\SetNavigationTool;
+use SwishfolioCore\Tools\Write\SetStyleVariationTool;
+use SwishfolioCore\Tools\Write\UpdatePageTool;
 
 /**
- * The deliberate counterpart of ActionValidator, and kept separate from it.
+ * Now a façade over ToolRunner rather than its own dispatcher.
  *
- * ActionValidator serves in-editor edits, where PHP validates and the editor
- * applies, so native undo reverses everything and PHP never touches post
- * content. That invariant is not weakened here: this executor is only ever
- * reached by the generation endpoints, where there is no editor open to apply
- * anything and the user has approved a plan first.
+ * The five server-side handlers became tools, so there is one write path, one
+ * validator and one journal for every mutation whatever calls it. What this
+ * class still owns is the generation engine's vocabulary: plan actions are typed
+ * "create_page", not "swishfolio/create-page", and they arrive as one array with
+ * the type inside it rather than as a name and an input object.
  *
- * Every action is authorized immediately before it runs, by its own handler,
- * against the object it is about to write. The route-level capability check is
- * the outer door, not the only one.
+ * It also converts ToolException back to ExecutionException on the way out, so
+ * PlanExecutor and GenerationController keep the error handling they already
+ * have. The generation path reports one error shape; the tool path reports the
+ * other; neither had to learn the other's.
  */
 class ActionExecutor
 {
-    /** @var ServerActionHandlerInterface[] Keyed by action type. */
-    private $handlers = [];
+    /** Plan action type => tool name. */
+    const TOOL_FOR_TYPE = [
+        'create_page'         => 'swishfolio/create-page',
+        'update_page'         => 'swishfolio/update-page',
+        'set_front_page'      => 'swishfolio/set-front-page',
+        'set_navigation'      => 'swishfolio/set-navigation',
+        'set_style_variation' => 'swishfolio/set-style-variation',
+    ];
+
+    /** @var ToolRunner */
+    private $runner;
 
     /**
-     * @param ServerActionHandlerInterface[] $handlers Handlers to register.
+     * @param ToolRunner $runner Tool pipeline.
      */
-    public function __construct(array $handlers)
+    public function __construct(ToolRunner $runner)
     {
-        foreach ($handlers as $handler) {
-            $this->handlers[$handler->getType()] = $handler;
-        }
+        $this->runner = $runner;
     }
 
     /**
+     * The five write tools over the live journal. Read tools are absent on
+     * purpose: a plan cannot ask for one, and building the block registry to
+     * register them would make generation depend on manifest discovery.
+     *
      * @return self
      */
     public static function withDefaultHandlers()
     {
-        return new self([
-            new CreatePageHandler(),
-            new UpdatePageHandler(),
-            new SetFrontPageHandler(),
-            new SetNavigationHandler(),
-            new SetStyleVariationHandler(),
-        ]);
+        $journal = new MutationJournal(new WpdbJournalRepository());
+
+        return new self(
+            new ToolRunner(
+                new ToolRegistry(
+                    [
+                        new CreatePageTool($journal),
+                        new UpdatePageTool($journal),
+                        new SetFrontPageTool($journal),
+                        new SetNavigationTool($journal),
+                        new SetStyleVariationTool($journal),
+                    ]
+                ),
+                $journal
+            )
+        );
     }
 
     /**
@@ -63,7 +89,15 @@ class ActionExecutor
      */
     public function types()
     {
-        return array_keys($this->handlers);
+        $types = [];
+
+        foreach (self::TOOL_FOR_TYPE as $type => $name) {
+            if ($this->runner->registry()->has($name)) {
+                $types[] = $type;
+            }
+        }
+
+        return $types;
     }
 
     /**
@@ -73,19 +107,21 @@ class ActionExecutor
      */
     public function supports($type)
     {
-        return isset($this->handlers[$type]);
+        return isset(self::TOOL_FOR_TYPE[$type])
+            && $this->runner->registry()->has(self::TOOL_FOR_TYPE[$type]);
     }
 
     /**
      * Runs the actions in order, stopping at the first failure.
      *
-     * There is no transaction across wp_insert_post calls, so a failure part-way
-     * leaves earlier writes in place. Rather than pretend otherwise, the failure
-     * carries the IDs created so far: "trash exactly these" is the only honest
-     * undo available.
+     * A failure part-way still leaves earlier writes in place, but it is no
+     * longer true that "trash exactly these" is the only undo available: every
+     * write in the run is journalled, so the caller can reverse the whole run by
+     * its run ID. The created IDs stay on the exception because callers already
+     * read them.
      *
      * @param array            $actions Actions in execution order.
-     * @param ExecutionContext $context Run state.
+     * @param ExecutionContext $context Run state; must be a ToolContext.
      *
      * @throws ExecutionException When any action is refused or fails.
      *
@@ -93,10 +129,16 @@ class ActionExecutor
      */
     public function execute(array $actions, ExecutionContext $context)
     {
+        if (! $context instanceof ToolContext) {
+            throw new \LogicException(
+                'ActionExecutor needs a ToolContext: a run without a run ID cannot be journalled or reversed.'
+            );
+        }
+
         foreach ($actions as $action) {
             $type = isset($action['type']) ? (string) $action['type'] : '';
 
-            if (! isset($this->handlers[$type])) {
+            if (! isset(self::TOOL_FOR_TYPE[$type]) || ! $this->runner->registry()->has(self::TOOL_FOR_TYPE[$type])) {
                 throw new ExecutionException(
                     $type,
                     'unknown_action',
@@ -105,20 +147,50 @@ class ActionExecutor
                 );
             }
 
-            $handler = $this->handlers[$type];
-
             try {
-                $handler->authorize($action, $context);
-                $result = $handler->execute($action, $context);
-            } catch (ExecutionException $e) {
-                $e->setCreatedIds($context->getCreatedIds());
-
-                throw $e;
+                $result = $this->runner->run(
+                    self::TOOL_FOR_TYPE[$type],
+                    $this->inputFrom($action),
+                    $context
+                );
+            } catch (ToolException $e) {
+                throw new ExecutionException(
+                    $type,
+                    $e->getError()->getCode(),
+                    $e->getMessage(),
+                    $context->getCreatedIds()
+                );
             }
 
             $context->addResult($type, $result);
         }
 
         return $context;
+    }
+
+    /**
+     * Tool schemas are closed, and the plan builder emits optional keys as null
+     * rather than omitting them — "template" => null on every page without one.
+     * The handlers read those with empty(), so null and absent meant the same
+     * thing; stripping nulls here keeps that true instead of making every
+     * untemplated page a validation failure.
+     *
+     * @param array $action Plan action.
+     *
+     * @return array Tool input.
+     */
+    private function inputFrom(array $action)
+    {
+        $input = [];
+
+        foreach ($action as $key => $value) {
+            if ('type' === $key || null === $value) {
+                continue;
+            }
+
+            $input[$key] = $value;
+        }
+
+        return $input;
     }
 }

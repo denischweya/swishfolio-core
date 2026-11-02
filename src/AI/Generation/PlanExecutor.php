@@ -9,6 +9,7 @@ namespace SwishfolioCore\AI\Generation;
 
 use SwishfolioCore\Actions\ActionExecutor;
 use SwishfolioCore\Actions\Handlers\ExecutionContext;
+use SwishfolioCore\Tools\ToolContext;
 use SwishfolioCore\Actions\Handlers\ExecutionException;
 
 /**
@@ -49,9 +50,12 @@ class PlanExecutor
      *
      * @return array Report of what was written.
      */
-    public function execute(array $plan, $userId)
+    public function execute(array $plan, $userId, ToolContext $context = null)
     {
-        $context = new ExecutionContext($userId);
+        // A ToolContext, not a bare ExecutionContext: every write in the run is
+        // journalled under its run ID, and the three site-level actions are
+        // write_published, so the caller's confirmation has to travel with it.
+        $context = $context instanceof ToolContext ? $context : ToolContext::forUser($userId);
 
         // Pages the plan chose to leave alone already have IDs; seeding them now
         // is what lets navigation and the front page point at them.

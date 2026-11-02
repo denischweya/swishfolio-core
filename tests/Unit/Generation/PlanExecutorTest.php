@@ -2,38 +2,81 @@
 
 namespace SwishfolioCore\Tests\Unit\Generation;
 
+require_once __DIR__ . '/../Tools/wp-tools-stubs.php';
+
 use SwishfolioCore\Actions\ActionExecutor;
-use SwishfolioCore\Actions\Handlers\CreatePageHandler;
 use SwishfolioCore\Actions\Handlers\ExecutionException;
-use SwishfolioCore\Actions\Handlers\SetFrontPageHandler;
-use SwishfolioCore\Actions\Handlers\SetNavigationHandler;
-use SwishfolioCore\Actions\Handlers\SetStyleVariationHandler;
-use SwishfolioCore\Actions\Handlers\UpdatePageHandler;
 use SwishfolioCore\AI\Generation\BlockComposer;
 use SwishfolioCore\AI\Generation\PlanExecutor;
 use SwishfolioCore\AI\Generation\PlanValidator;
+use SwishfolioCore\Tests\Support\InMemoryJournalRepository;
+use SwishfolioCore\Tools\Journal\MutationJournal;
+use SwishfolioCore\Tools\ToolContext;
+use SwishfolioCore\Tools\ToolRegistry;
+use SwishfolioCore\Tools\ToolRunner;
+use SwishfolioCore\Tools\Write\CreatePageTool;
+use SwishfolioCore\Tools\Write\SetFrontPageTool;
+use SwishfolioCore\Tools\Write\SetNavigationTool;
+use SwishfolioCore\Tools\Write\SetStyleVariationTool;
+use SwishfolioCore\Tools\Write\UpdatePageTool;
 
 class PlanExecutorTest extends GenerationTestCase
 {
+    /** @var InMemoryJournalRepository */
+    private $repository;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        sfcore_test_tools_reset();
+
+        $this->repository = new InMemoryJournalRepository();
+    }
+
     private function executor()
     {
+        $journal = new MutationJournal($this->repository);
+
         return new PlanExecutor(
             new BlockComposer($this->library()),
-            new ActionExecutor([
-                new CreatePageHandler(),
-                new UpdatePageHandler(),
-                new SetFrontPageHandler(),
-                new SetNavigationHandler(),
-                new SetStyleVariationHandler(
-                    function () {
-                        return [['title' => 'Swiss International', 'version' => 3, 'styles' => []]];
-                    },
-                    function () {
-                        return 23;
-                    }
-                ),
-            ])
+            new ActionExecutor(
+                new ToolRunner(
+                    new ToolRegistry([
+                        new CreatePageTool($journal),
+                        new UpdatePageTool($journal),
+                        new SetFrontPageTool($journal),
+                        new SetNavigationTool($journal),
+                        new SetStyleVariationTool(
+                            $journal,
+                            function () {
+                                return [['title' => 'Swiss International', 'version' => 3, 'styles' => []]];
+                            },
+                            function () {
+                                return 23;
+                            }
+                        ),
+                    ]),
+                    $journal
+                )
+            )
         );
+    }
+
+    /**
+     * A generation run carries the user's approval of the plan, which the three
+     * site-level tools require: they publish a menu, repoint the front page and
+     * reskin the site.
+     *
+     * @return ToolContext
+     */
+    private function approvedContext()
+    {
+        $context = ToolContext::forUser(7);
+
+        $context->setConfirmed(true);
+
+        return $context;
     }
 
     /**
@@ -46,7 +89,7 @@ class PlanExecutorTest extends GenerationTestCase
     {
         $validated = PlanValidator::withDefaultStages()->validate($plan, $this->context('site', $existingSlugs));
 
-        return $this->executor()->execute($validated, 7);
+        return $this->executor()->execute($validated, 7, $this->approvedContext());
     }
 
     private function twoPagePlan(array $overrides = [])
@@ -277,7 +320,7 @@ class PlanExecutorTest extends GenerationTestCase
         unset($plan['site']);
 
         $validated = PlanValidator::withDefaultStages()->validate($plan, $this->context('page'));
-        $report    = $this->executor()->execute($validated, 7);
+        $report    = $this->executor()->execute($validated, 7, $this->approvedContext());
 
         $this->assertCount(1, $report['createdIds']);
         $this->assertCount(1, $report['actions']);
