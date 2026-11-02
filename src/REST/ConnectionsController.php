@@ -8,6 +8,7 @@
 namespace SwishfolioCore\REST;
 
 use SwishfolioCore\AI\ProviderRegistry;
+use SwishfolioCore\AI\Providers\ProviderCatalogue;
 use SwishfolioCore\AI\Settings;
 
 /**
@@ -189,7 +190,7 @@ class ConnectionsController
     {
         $provider = sanitize_key((string) $request->get_param('provider'));
 
-        if (! in_array($provider, Settings::PROVIDERS, true)) {
+        if (! ProviderCatalogue::has($provider)) {
             return new \WP_Error(
                 'sfcore_ai_unknown_provider',
                 __('Unknown AI provider.', 'swishfolio-core'),

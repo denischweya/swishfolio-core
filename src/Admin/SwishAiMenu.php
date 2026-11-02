@@ -8,6 +8,7 @@
 namespace SwishfolioCore\Admin;
 
 use SwishfolioCore\AI\ProviderRegistry;
+use SwishfolioCore\AI\Providers\ProviderCatalogue;
 use SwishfolioCore\AI\Settings;
 use SwishfolioCore\AI\UsageLogger;
 
@@ -362,7 +363,7 @@ class SwishAiMenu
 
         $provider = isset($_POST['provider']) ? sanitize_key(wp_unslash($_POST['provider'])) : '';
 
-        if (! in_array($provider, Settings::PROVIDERS, true)) {
+        if (! ProviderCatalogue::has($provider)) {
             wp_die(esc_html__('Unknown AI provider.', 'swishfolio-core'), '', ['response' => 400]);
         }
 

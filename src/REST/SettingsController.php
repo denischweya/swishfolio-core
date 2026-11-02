@@ -8,6 +8,7 @@
 namespace SwishfolioCore\REST;
 
 use SwishfolioCore\AI\ProviderRegistry;
+use SwishfolioCore\AI\Providers\ProviderCatalogue;
 use SwishfolioCore\AI\Settings;
 
 /**
@@ -121,7 +122,7 @@ class SettingsController
         if ($active !== null && (string) $active !== '') {
             $slug = sanitize_key((string) $active);
 
-            if (! in_array($slug, Settings::PROVIDERS, true)) {
+            if (! ProviderCatalogue::has($slug)) {
                 return new \WP_Error(
                     'sfcore_ai_unknown_provider',
                     __('Unknown AI provider.', 'swishfolio-core'),

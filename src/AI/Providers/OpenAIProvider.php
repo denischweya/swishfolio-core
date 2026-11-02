@@ -58,7 +58,10 @@ class OpenAIProvider extends AbstractAIProvider
             $this->request(
                 $this->getBaseUrl() . '/chat/completions',
                 [
-                    'model'      => key($this->getModels()),
+                    // The configured model first: for a custom endpoint
+                    // getModels() is empty, so key() was null and the test
+                    // could never pass however good the credentials were.
+                    'model'      => $this->pingModel(),
                     'max_tokens' => 1,
                     'messages'   => [['role' => 'user', 'content' => 'ping']],
                 ],
@@ -121,6 +124,24 @@ class OpenAIProvider extends AbstractAIProvider
     protected function authHeaders()
     {
         return ['Authorization' => 'Bearer ' . $this->credential('api_key')];
+    }
+
+    /**
+     * A model to send a one-token ping as.
+     *
+     * @return string
+     */
+    protected function pingModel()
+    {
+        $configured = $this->credential('model');
+
+        if ('' !== $configured) {
+            return $configured;
+        }
+
+        $models = $this->getModels();
+
+        return $models === [] ? '' : (string) key($models);
     }
 
     public function supportsTools()

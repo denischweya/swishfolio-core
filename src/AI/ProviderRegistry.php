@@ -8,9 +8,7 @@
 namespace SwishfolioCore\AI;
 
 use SwishfolioCore\AI\Contracts\AIProviderInterface;
-use SwishfolioCore\AI\Providers\AnthropicProvider;
-use SwishfolioCore\AI\Providers\OpenAICompatibleProvider;
-use SwishfolioCore\AI\Providers\OpenAIProvider;
+use SwishfolioCore\AI\Providers\ProviderCatalogue;
 
 class ProviderRegistry
 {
@@ -27,18 +25,7 @@ class ProviderRegistry
      */
     public function available()
     {
-        $providers = [];
-
-        foreach ([new AnthropicProvider(), new OpenAIProvider(), new OpenAICompatibleProvider()] as $provider) {
-            $providers[$provider->getSlug()] = $provider;
-        }
-
-        /**
-         * Filters the AI providers available to this site.
-         *
-         * @param AIProviderInterface[] $providers Keyed by slug.
-         */
-        return apply_filters('swishfolio_ai_providers', $providers);
+        return ProviderCatalogue::providers();
     }
 
     /**

@@ -7,6 +7,8 @@
 
 namespace SwishfolioCore\AI;
 
+use SwishfolioCore\AI\Providers\ProviderCatalogue;
+
 use SwishfolioCore\AI\Credentials\CredentialStoreInterface;
 
 /**
@@ -23,7 +25,14 @@ class Settings
     const OPTION = 'swishfolio_ai_settings';
 
     /** Providers this plugin knows how to connect. */
-    const PROVIDERS = ['anthropic', 'openai', 'openai-compatible'];
+    /**
+     * The providers that existed before the catalogue, kept only so migrate()
+     * can recognise a pre-catalogue option. Everything else asks
+     * ProviderCatalogue, so adding a provider is one change in one place.
+     *
+     * @var string[]
+     */
+    const LEGACY_PROVIDERS = ['anthropic', 'openai', 'openai-compatible'];
 
     /** Brand vocabularies. Free text would reach the prompt unvalidated. */
     const DESIGN_STYLES = ['minimalist', 'tech-modern', 'corporate', 'brutalist', 'luxury', 'organic'];
@@ -113,7 +122,7 @@ class Settings
 
             // Fall back to any provider that still has a credential rather than
             // leaving AI pointed at one that cannot answer.
-            foreach (self::PROVIDERS as $candidate) {
+            foreach (ProviderCatalogue::slugs() as $candidate) {
                 if ($this->credentials->has($candidate)) {
                     $stored['active'] = $candidate;
                     break;
@@ -174,7 +183,7 @@ class Settings
         $stored = $this->raw();
         $active = isset($stored['active']) ? (string) $stored['active'] : '';
 
-        return in_array($active, self::PROVIDERS, true) ? $active : '';
+        return ProviderCatalogue::has($active) ? $active : '';
     }
 
     /**
@@ -330,7 +339,7 @@ class Settings
         $active    = $this->getActive();
         $providers = [];
 
-        foreach (self::PROVIDERS as $slug) {
+        foreach (ProviderCatalogue::slugs() as $slug) {
             $entry = isset($stored['providers'][$slug]) && is_array($stored['providers'][$slug])
                 ? $stored['providers'][$slug]
                 : [];
@@ -407,7 +416,7 @@ class Settings
             return;
         }
 
-        $provider = isset($stored['provider']) && in_array($stored['provider'], self::PROVIDERS, true)
+        $provider = isset($stored['provider']) && ProviderCatalogue::has($stored['provider'])
             ? (string) $stored['provider']
             : 'openai';
 
@@ -498,7 +507,7 @@ class Settings
     {
         $provider = (string) $provider;
 
-        if (! in_array($provider, self::PROVIDERS, true)) {
+        if (! ProviderCatalogue::has($provider)) {
             throw new \InvalidArgumentException(
                 sprintf('"%s" is not a supported AI provider.', $provider)
             );
