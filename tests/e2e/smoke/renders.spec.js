@@ -39,9 +39,23 @@ test.describe( 'Swish AI admin', () => {
 
 		await expect( page.getByRole( 'heading', { name: 'Swish AI', level: 1 } ) ).toBeVisible();
 
-		// One card per registered provider.
-		await expect( page.locator( '.sfcore-ai-card' ) ).toHaveCount( 3 );
-		await expect( page.getByRole( 'heading', { name: 'Anthropic (Claude)' } ) ).toBeVisible();
+		// One card per registered provider. Hardcoded on purpose: this count is
+		// what catches a provider silently failing to render, and it caught the
+		// jump from three to seven.
+		await expect( page.locator( '.sfcore-ai-card' ) ).toHaveCount( 7 );
+
+		for ( const name of [
+			'Anthropic (Claude)',
+			'Google Gemini',
+			'Mistral AI',
+			'OpenRouter',
+			'Groq',
+		] ) {
+			await expect(
+				page.getByRole( 'heading', { name } )
+			).toBeVisible();
+		}
+
 		await expect( page.getByRole( 'heading', { name: 'OpenAI', exact: true } ) ).toBeVisible();
 
 		await expectNoPhpNotices( page );
