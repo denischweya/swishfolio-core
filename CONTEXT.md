@@ -270,6 +270,123 @@ deferred too: the provider adapter has no tool-calling support yet, so
 
 ---
 
+## 3d. Agent layer (`src/AI/Conversation/`, `src/AI/Agent/`, `src/Jobs/`, `src/AI/Onboarding/`)
+
+Specced in `docs/superpowers/specs/2026-11-02-agent-loop-design.md`. §3c built the tool surface and
+nothing could reach it: no provider supported tool calling, nothing in `src/AI/` referenced
+`ToolRunner`, and no UI called the tool routes.
+
+**Provider tool-calling.** `converse()` is a second method on `AIProviderInterface`, not an overload
+of `generate()` — structured output constrains one reply to a schema, tool calling is a multi-turn
+exchange, and the structured path is load-bearing for editing and generation. `AbstractAIProvider`
+answers `supportsTools()` false and raises, so a third-party provider from the
+`swishfolio_ai_providers` filter is never handed a conversation it cannot answer.
+
+- **`Conversation/ToolNameMap`** — both providers require `^[a-zA-Z0-9_-]{1,64}$`, so every
+  registered name is illegal as-is. Only the slash is replaced (`swishfolio/site-info` →
+  `swishfolio__site-info`); hyphens survive. Reversal splits on the first `__`, unambiguous because
+  no tool name contains one — **asserted, not assumed**.
+- **The two wire formats differ in a way that bites.** Anthropic carries tool results as
+  `tool_result` blocks inside **one** user message; splitting a parallel batch across messages does
+  not error, it teaches the model to stop issuing parallel calls. OpenAI wants one `role: tool`
+  message per `tool_call_id` and has **no `is_error` flag**, so a failure must be legible in the
+  content or it reads as a successful empty result.
+- `Message` is one class for user/assistant/tool-result, because providers interleave them in one
+  ordered list and a tool result that does not immediately follow its call is a protocol error.
+
+**`Agent/AgentLoop`** — resolve → converse → run calls → feed back → repeat. Three decisions:
+
+1. **A tool failure goes back to the model, not up as an exception.** Stable error codes and field
+   paths exist so a model can correct its own call; aborting on a `schema_invalid` throws that away.
+2. **`confirm_required` pauses the turn.** Reads and drafts proceed; the first call that would
+   change what visitors see ends the turn with the proposal and a `ConfirmToken` for exactly it.
+   The model is never told which tools are gated, so it proposes work rather than planning around
+   the gate. On resume the approved calls are **replayed from the history's last assistant turn**,
+   not from the request body, so a client cannot pair a token with different calls.
+3. **Iterations are capped** (8, `swishfolio_ai_agent_max_iterations`). A model that keeps calling
+   tools is an unbounded bill against the owner's own key.
+
+**REST** — `POST /ai/agent` (`{instruction, history, confirmToken, async}`) and
+`GET /ai/jobs/{id}`. History lives on the **client**, which keeps the plugin stateless and
+multisite-safe, and is only safe because nothing in it is trusted: every replayed call is
+re-validated, re-authorised and re-checked against the token. Capped at 60 turns, **oldest dropped**
+— the newest carry the calls a token must match. `POST /ai/onboarding/extract` is the CV import.
+
+**`src/Jobs/`** — a correction to the original premise: generation's *execution* is a handful of fast
+database writes and was never the timeout risk. An agent turn makes **up to eight provider calls**,
+which on a typical host outlives PHP's execution limit, so that is what moved off the request.
+
+- Jobs live in **transients**, not a table: a job is a progress record and the durable record of what
+  the work did is the journal. Losing one costs a progress bar, not history.
+- The turn **runs as the user who queued it** — cron has no current user, and a tool authorising
+  against nobody would either refuse everything or be made to refuse nothing.
+- `wp_schedule_single_event` is nudged with `spawn_cron()`, since WP-Cron otherwise waits for a page
+  load a single-admin session may not produce for minutes.
+- Three failure modes are handled because each otherwise leaves a spinner turning forever: a
+  provider exception, an unexpected `Throwable`, and **cron firing the same event twice** (which
+  would double the turn's writes — guarded by refusing to run a job that is not `queued`).
+
+**UI** (`src/js/agent/`, `src/js/ai-sidebar/agent-*.js`) — its **own** `PluginSidebar`, registered as
+a second plugin. The block panel is meaningless without a selection and says so; "add a contact
+page" has nothing to do with what is selected, and one panel would have an empty state that is wrong
+half the time. The **transcript the user reads and the history the server needs are kept
+separately** — deriving either from the other means showing raw tool JSON or discarding what the next
+turn replays. The approval prompt lists the **whole batch**, because that is what the token approves.
+Declining sends nothing: those calls never ran. Failure copy differs from the block editor's on
+purpose — there nothing was changed and it can say so; here the loop may have completed journalled
+calls before the provider dropped, so it points at the audit log.
+
+**`AI/Onboarding/ProfileExtractor`** — the differentiator, in the version that works. The product
+idea was a LinkedIn URL; LinkedIn serves a login wall to server-side requests and forbids scraping,
+so a URL field fails for almost everyone and fails confusingly. **Pasted text** works for every
+source and asks for consent by construction. The result is a proposal (`"saved": false`) the owner
+corrects before anything is stored — a CV is full of things nobody wants on their website — and it
+reports what the CV **did not** give it. Style and tone enums are read from `Settings` rather than
+restated, or a model suggesting "elegant-modern" would produce an answer `saveBrand` silently
+discarded.
+
+### Tool catalogue (18)
+
+Reads: `site-info` (now including each post type's taxonomies), `list-content`, `read-page`,
+`get-global-styles`, `list-media`, `list-navigation`, `get-block-capabilities`.
+Writes: `create-content`, `update-content`, `set-front-page`, `set-navigation`,
+`update-navigation`, `set-style-variation`, `set-terms`, `upload-media`, `set-alt-text`,
+`update-site-settings`, `rollback-run`.
+
+- `create-content`/`update-content` replaced the page-only pair over a **closed enum** of
+  `page|post|sfcore_project` — a closed set, not free text, so no model output can create a
+  revision, a menu item or an attachment through them. `postType` defaults to `page`, which is why
+  `ActionExecutor` needed only a name change.
+- `upload-media` is the one genuinely dangerous operation: scheme checked before any fetch,
+  `download_url()` → `wp_safe_remote_get()` → `wp_http_validate_url()` refusing loopback,
+  link-local and private addresses, and `wp_handle_sideload()` admitting the file only on its own
+  bytes. Both media tools are `write_draft` — an attachment is invisible until referenced, and a
+  prompt per image would make the gate noise.
+- `set-terms` takes **names**, not IDs, because a model made to supply IDs invents them. Creating
+  missing terms is off by default and needs the taxonomy's own `edit_terms`.
+- `update-site-settings` is an **allowlist of two**; the options table holds the home URL, the admin
+  email and the active theme, so a free-text option name would be privilege escalation.
+- `update-navigation` is what `set-navigation` was missing: on any existing site "add the page to my
+  menu" is the request and a second menu is the wrong answer. It replaces wholesale, which is why
+  `list-navigation` exists.
+
+**Journal target types are now four.** `post`, `option`, `meta` and `terms`. Meta and terms need
+their own rows because **a post revision does not carry them**: restoring the revision would put the
+content back and silently leave the alt text or the categorisation changed. Prior terms are stored as
+**IDs**, since a rollback matching names would fail or duplicate after a rename.
+
+**Tests** — `tests/Unit/Agent/`, `tests/Unit/Jobs/`, `tests/Unit/Onboarding/`, `tests/js/agent/`.
+The tool-selection eval the §3c spec deferred now exists in both halves: `ToolSelectionEvalTest`
+(recorded) proves everything downstream of the choice, because **a recording cannot measure
+selection — the recording is the selection**; `LiveToolSelectionEvalTest` (`@group live`,
+self-skipping) makes the measurement, each case naming a set of defensible first moves.
+
+**Still not built**: credits, subscription entitlements and analytics (need the hosted backend,
+deliberately deferred), external MCP exposure (two flags per tool when wanted), theme.json token
+editing (an arbitrary patch there has no undo, as `SetStyleVariationHandler` originally argued).
+
+---
+
 ## 4. Content model
 
 ### Project CPT (`src/PostTypes/ProjectPostType.php`)
