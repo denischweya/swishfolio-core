@@ -52,6 +52,7 @@ use SwishfolioCore\REST\AIController;
 use SwishfolioCore\REST\SettingsController;
 use SwishfolioCore\REST\ToolsController;
 use SwishfolioCore\REST\AgentController;
+use SwishfolioCore\REST\OnboardingController;
 use SwishfolioCore\Admin\AuditLogPage;
 use SwishfolioCore\Tools\AbilitiesBridge;
 use SwishfolioCore\Jobs\AgentJobRunner;
@@ -219,6 +220,13 @@ class Plugin
     private ?AgentJobRunner $agentJobRunner = null;
 
     /**
+     * CV and profile import REST controller.
+     *
+     * @var OnboardingController|null
+     */
+    private ?OnboardingController $onboardingController = null;
+
+    /**
      * Abilities API bridge. Registers the tools; exposes none of them.
      *
      * @var AbilitiesBridge|null
@@ -334,6 +342,8 @@ class Plugin
                 );
             }
         );
+
+        $this->onboardingController = new OnboardingController($aiSettings, $aiProviders, $aiLogger);
 
         $this->agentController = new AgentController(
             $this->toolRunner,
@@ -855,6 +865,10 @@ class Plugin
 
         if ($this->agentController !== null) {
             $this->agentController->registerRoutes();
+        }
+
+        if ($this->onboardingController !== null) {
+            $this->onboardingController->registerRoutes();
         }
     }
 
