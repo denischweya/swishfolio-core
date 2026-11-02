@@ -157,10 +157,26 @@ class ToolRunner
             $tool  = $this->resolve($name);
             $clean = $this->validateInput($tool, $input);
 
-            $this->authorize($tool, $clean, $context);
-
             $requires = $this->requiresConfirmation($tool);
-            $needs    = $needs || $requires;
+
+            // A tool whose side-effect class depends on its target says so from
+            // authorize(), and update-page does: rewriting a draft is harmless,
+            // rewriting a published page is not. During a preview that refusal
+            // is the answer to the question being asked, not a failure — so it
+            // becomes "this one needs confirming" rather than an error. Every
+            // other refusal still propagates, because a preview that promises
+            // something the gate will refuse is worse than no preview.
+            try {
+                $this->authorize($tool, $clean, $context);
+            } catch (ToolException $e) {
+                if (ToolError::CONFIRM_REQUIRED !== $e->getError()->getCode()) {
+                    throw $e;
+                }
+
+                $requires = true;
+            }
+
+            $needs = $needs || $requires;
 
             $previews[] = [
                 'name'                 => $name,

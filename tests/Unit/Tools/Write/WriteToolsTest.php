@@ -195,6 +195,68 @@ class WriteToolsTest extends ToolsTestCase
         }
     }
 
+    public function test_previewing_an_update_to_a_published_page_asks_for_confirmation_rather_than_failing()
+    {
+        // update-page is the one tool whose enforced side-effect class depends
+        // on its target, and it reports that from authorize(). A preview that
+        // let the refusal through would make "change my published About page"
+        // an error instead of a prompt.
+        $this->givenPost(50, ['post_status' => 'publish', 'post_title' => 'About']);
+
+        $runner = $this->runner([new UpdatePageTool($this->journal)]);
+
+        $preview = $runner->preview(
+            [['name' => 'swishfolio/update-page', 'input' => ['postId' => 50, 'content' => 'new']]],
+            $this->context()
+        );
+
+        $this->assertTrue($preview['requiresConfirmation']);
+        $this->assertTrue($preview['previews'][0]['requiresConfirmation']);
+        $this->assertStringContainsString('About', $preview['previews'][0]['summary']);
+        $this->assertSame('publish', $this->post(50)['post_status'], 'A preview must change nothing.');
+        $this->assertSame('', $this->post(50)['post_content']);
+    }
+
+    public function test_previewing_an_update_to_a_draft_needs_no_confirmation()
+    {
+        $this->givenPost(50, ['post_status' => 'draft']);
+
+        $preview = $this->runner([new UpdatePageTool($this->journal)])->preview(
+            [['name' => 'swishfolio/update-page', 'input' => ['postId' => 50, 'content' => 'new']]],
+            $this->context()
+        );
+
+        $this->assertFalse($preview['requiresConfirmation']);
+    }
+
+    public function test_a_preview_still_refuses_a_call_the_user_may_never_make()
+    {
+        $this->givenPost(50, ['post_status' => 'draft']);
+
+        $GLOBALS['sfcore_test_wp']['caps'] = ['edit_posts'];
+
+        $this->expectException(ToolException::class);
+
+        $this->runner([new UpdatePageTool($this->journal)])->preview(
+            [['name' => 'swishfolio/update-page', 'input' => ['postId' => 50, 'content' => 'new']]],
+            $this->context()
+        );
+    }
+
+    public function test_a_confirmed_token_then_lets_the_published_update_through()
+    {
+        $this->givenPost(50, ['post_status' => 'publish', 'post_content' => 'before']);
+
+        $runner = $this->runner([new UpdatePageTool($this->journal)]);
+        $calls  = [['name' => 'swishfolio/update-page', 'input' => ['postId' => 50, 'content' => 'after']]];
+
+        $token = $runner->preview($calls, $this->context())['confirmToken'];
+
+        $runner->runPlan($calls, $this->context(), $token);
+
+        $this->assertSame('after', $this->post(50)['post_content']);
+    }
+
     public function test_update_page_captures_a_revision_before_overwriting()
     {
         $this->givenPost(50, ['post_status' => 'draft', 'post_content' => 'old']);
