@@ -124,7 +124,7 @@ class ToolSelectionEvalTest extends TestCase
         $this->loop($provider)->run('hello', $this->context());
 
         $this->assertCount(
-            12,
+            14,
             $provider->conversations()[0]->getTools(),
             'A tool missing from the catalogue is a capability the model cannot reach.'
         );

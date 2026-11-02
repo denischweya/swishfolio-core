@@ -18,10 +18,12 @@ use SwishfolioCore\Tools\Read\ReadPageTool;
 use SwishfolioCore\Tools\Read\SiteInfoTool;
 use SwishfolioCore\Tools\Write\CreatePageTool;
 use SwishfolioCore\Tools\Write\RollbackRunTool;
+use SwishfolioCore\Tools\Write\SetAltTextTool;
 use SwishfolioCore\Tools\Write\SetFrontPageTool;
 use SwishfolioCore\Tools\Write\SetNavigationTool;
 use SwishfolioCore\Tools\Write\SetStyleVariationTool;
 use SwishfolioCore\Tools\Write\UpdatePageTool;
+use SwishfolioCore\Tools\Write\UploadMediaTool;
 
 /**
  * Mirrors ActionExecutor::withDefaultHandlers(), which it replaces: the same
@@ -68,6 +70,8 @@ class ToolRegistry
             new SetFrontPageTool($journal),
             new SetNavigationTool($journal),
             new SetStyleVariationTool($journal),
+            new UploadMediaTool($journal),
+            new SetAltTextTool($journal),
             new RollbackRunTool(new Rollback($journal->repository()), $journal->repository()),
         ];
 

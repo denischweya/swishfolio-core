@@ -11,10 +11,10 @@ namespace SwishfolioCore\Tools\Journal;
  * Three kinds of row share this table, distinguished by targetType.
  *
  * A "call" row is the audit record of one tool call: what was asked, what the
- * tool reported, whether it failed. A "post" or "option" row is an undo record
- * for one object the call actually wrote, carrying the prior state. One call row
- * can therefore have several target rows beneath it — SetFrontPage writes three
- * options — and rollback walks only the target rows.
+ * tool reported, whether it failed. A "post", "option" or "meta" row is an undo
+ * record for one object the call actually wrote, carrying the prior state. One
+ * call row can therefore have several target rows beneath it — SetFrontPage
+ * writes three options — and rollback walks only the target rows.
  *
  * Reads are never journalled. The table exists to answer "what changed and how
  * do I undo it", and read volume would bury that for no accountability gain.
@@ -24,6 +24,7 @@ class JournalEntry
     const TARGET_CALL   = 'call';
     const TARGET_POST   = 'post';
     const TARGET_OPTION = 'option';
+    const TARGET_META   = 'meta';
 
     const RESULT_OK    = 'ok';
     const RESULT_ERROR = 'error';

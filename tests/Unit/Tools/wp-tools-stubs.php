@@ -154,6 +154,15 @@ if (! function_exists('wp_trash_post')) {
     }
 }
 
+if (! function_exists('delete_post_meta')) {
+    function delete_post_meta($postId, $key, $value = '')
+    {
+        unset($GLOBALS['sfcore_test_wp']['meta'][(int) $postId][$key]);
+
+        return true;
+    }
+}
+
 if (! function_exists('delete_option')) {
     function delete_option($key)
     {

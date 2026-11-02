@@ -114,6 +114,10 @@ class Rollback
             return $this->revertPost($entry);
         }
 
+        if (JournalEntry::TARGET_META === $entry->getTargetType()) {
+            return $this->revertMeta($entry);
+        }
+
         return sprintf('Unknown target type "%s".', $entry->getTargetType());
     }
 
@@ -143,6 +147,37 @@ class Rollback
         }
 
         update_option($name, isset($prior['prior']) ? $prior['prior'] : null);
+
+        return '';
+    }
+
+    /**
+     * Meta that did not exist is deleted rather than written back as an empty
+     * string, for the same reason an absent option is deleted: get_post_meta
+     * cannot tell an empty value from an absent key, and the next read would
+     * see a value the owner never set.
+     *
+     * @param JournalEntry $entry Meta row.
+     *
+     * @return string
+     */
+    private function revertMeta(JournalEntry $entry)
+    {
+        $prior  = $entry->getPrior();
+        $postId = isset($prior['postId']) ? (int) $prior['postId'] : 0;
+        $key    = isset($prior['key']) ? (string) $prior['key'] : '';
+
+        if ($postId <= 0 || '' === $key) {
+            return 'The journal row names no meta field.';
+        }
+
+        if (empty($prior['existed'])) {
+            delete_post_meta($postId, $key);
+
+            return '';
+        }
+
+        update_post_meta($postId, $key, isset($prior['prior']) ? $prior['prior'] : '');
 
         return '';
     }

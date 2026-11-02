@@ -197,6 +197,78 @@ class MutationJournal
     }
 
     /**
+     * Records a post some other WordPress API created.
+     *
+     * The narrow exception to "the journal is the only writer". An attachment is
+     * created by wp_insert_attachment plus metadata generation plus a file on
+     * disk, and wrapping that sequence here would put the media stack inside the
+     * journal. The invariant the gateway exists to protect is that prior state
+     * is captured before a write, and for a creation there is no prior state —
+     * so the undo record is complete either way.
+     *
+     * @param ToolContext $context  Run state.
+     * @param string      $toolName Tool that created it.
+     * @param int         $postId   Post that now exists.
+     * @param string      $summary  Description for the audit log.
+     *
+     * @return int Row ID.
+     */
+    public function recordCreated(ToolContext $context, $toolName, $postId, $summary = '')
+    {
+        $postId = (int) $postId;
+
+        $context->recordCreated($postId);
+
+        return $this->appendTarget(
+            $context,
+            $toolName,
+            JournalEntry::TARGET_POST,
+            (string) $postId,
+            ['created' => $postId],
+            $summary
+        );
+    }
+
+    /**
+     * Writes one post meta value, capturing the prior one first.
+     *
+     * Meta gets its own target type rather than riding on the post's, because a
+     * post revision does not carry meta: restoring the revision would put the
+     * content back and silently leave the meta changed.
+     *
+     * @param ToolContext $context  Run state.
+     * @param string      $toolName Tool performing the write.
+     * @param int         $postId   Post the meta belongs to.
+     * @param string      $key      Meta key.
+     * @param mixed       $value    New value.
+     * @param string      $summary  Description for the audit log.
+     *
+     * @return void
+     */
+    public function updateMeta(ToolContext $context, $toolName, $postId, $key, $value, $summary = '')
+    {
+        $postId  = (int) $postId;
+        $current = get_post_meta($postId, $key, true);
+        $existed = '' !== $current && null !== $current && false !== $current;
+
+        update_post_meta($postId, $key, $value);
+
+        $this->appendTarget(
+            $context,
+            $toolName,
+            JournalEntry::TARGET_META,
+            $postId . ':' . $key,
+            [
+                'postId'  => $postId,
+                'key'     => (string) $key,
+                'prior'   => $existed ? $current : null,
+                'existed' => $existed,
+            ],
+            $summary
+        );
+    }
+
+    /**
      * Captures enough of a post to put it back.
      *
      * wp_save_post_revision() returns null when the post is unchanged since its

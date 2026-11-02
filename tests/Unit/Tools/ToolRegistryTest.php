@@ -27,11 +27,13 @@ class ToolRegistryTest extends ToolsTestCase
                 'swishfolio/list-media',
                 'swishfolio/read-page',
                 'swishfolio/rollback-run',
+                'swishfolio/set-alt-text',
                 'swishfolio/set-front-page',
                 'swishfolio/set-navigation',
                 'swishfolio/set-style-variation',
                 'swishfolio/site-info',
                 'swishfolio/update-page',
+                'swishfolio/upload-media',
             ],
             $names
         );
