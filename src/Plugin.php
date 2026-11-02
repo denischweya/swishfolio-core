@@ -51,6 +51,7 @@ use SwishfolioCore\AI\Credentials\WordPressCredentialStore;
 use SwishfolioCore\REST\AIController;
 use SwishfolioCore\REST\SettingsController;
 use SwishfolioCore\REST\ToolsController;
+use SwishfolioCore\REST\AgentController;
 use SwishfolioCore\Admin\AuditLogPage;
 use SwishfolioCore\Tools\AbilitiesBridge;
 use SwishfolioCore\Tools\Journal\JournalTable;
@@ -202,6 +203,13 @@ class Plugin
     private ?AuditLogPage $auditLogPage = null;
 
     /**
+     * Conversational site management REST controller.
+     *
+     * @var AgentController|null
+     */
+    private ?AgentController $agentController = null;
+
+    /**
      * Abilities API bridge. Registers the tools; exposes none of them.
      *
      * @var AbilitiesBridge|null
@@ -301,6 +309,7 @@ class Plugin
         );
 
         $this->toolsController = new ToolsController($this->toolRunner, $journalRepository, $aiSettings);
+        $this->agentController = new AgentController($this->toolRunner, $aiSettings, $aiProviders, $aiLogger);
         $this->abilitiesBridge = new AbilitiesBridge($this->toolRunner->registry(), $this->toolRunner);
 
         if (is_admin()) {
@@ -805,6 +814,10 @@ class Plugin
 
         if ($this->toolsController !== null) {
             $this->toolsController->registerRoutes();
+        }
+
+        if ($this->agentController !== null) {
+            $this->agentController->registerRoutes();
         }
     }
 

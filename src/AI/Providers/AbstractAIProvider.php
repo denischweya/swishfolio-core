@@ -8,6 +8,7 @@
 namespace SwishfolioCore\AI\Providers;
 
 use SwishfolioCore\AI\Contracts\AIProviderInterface;
+use SwishfolioCore\AI\Conversation\ConversationRequest;
 use SwishfolioCore\AI\ProviderException;
 
 /**
@@ -35,6 +36,36 @@ abstract class AbstractAIProvider implements AIProviderInterface
     public function getLastError()
     {
         return $this->lastError;
+    }
+
+    /**
+     * Providers opt in. A third-party provider registered through the
+     * swishfolio_ai_providers filter predates tool calling and would otherwise
+     * be handed a conversation it cannot answer.
+     *
+     * @return bool
+     */
+    public function supportsTools()
+    {
+        return false;
+    }
+
+    /**
+     * @param ConversationRequest $request Conversation and tools.
+     *
+     * @throws ProviderException Always, unless a subclass overrides this.
+     *
+     * @return \SwishfolioCore\AI\Conversation\ConversationReply
+     */
+    public function converse(ConversationRequest $request)
+    {
+        $this->lastError = sprintf(
+            /* translators: %s: provider label. */
+            __('%s cannot run tool-based conversations.', 'swishfolio-core'),
+            $this->getLabel()
+        );
+
+        throw new ProviderException($this->lastError, 0);
     }
 
     /**

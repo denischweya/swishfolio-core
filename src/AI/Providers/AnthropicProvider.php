@@ -8,6 +8,12 @@
 namespace SwishfolioCore\AI\Providers;
 
 use SwishfolioCore\AI\AIRequest;
+use SwishfolioCore\AI\Conversation\ConversationReply;
+use SwishfolioCore\AI\Conversation\ConversationRequest;
+use SwishfolioCore\AI\Conversation\Message;
+use SwishfolioCore\AI\Conversation\ToolCall;
+use SwishfolioCore\AI\Conversation\ToolDefinition;
+use SwishfolioCore\AI\Conversation\ToolNameMap;
 use SwishfolioCore\AI\AIResponse;
 use SwishfolioCore\AI\ProviderException;
 
@@ -199,5 +205,179 @@ class AnthropicProvider extends AbstractAIProvider
             'x-api-key'         => $this->credential('api_key'),
             'anthropic-version' => self::API_VERSION,
         ];
+    }
+
+    public function supportsTools()
+    {
+        return true;
+    }
+
+    /**
+     * One turn of a tool-using conversation.
+     *
+     * @param ConversationRequest $request Conversation and tools.
+     *
+     * @throws ProviderException On transport or provider failure.
+     *
+     * @return ConversationReply
+     */
+    public function converse(ConversationRequest $request)
+    {
+        $body = [
+            'model'      => $request->getModel(),
+            'max_tokens' => $request->getMaxTokens(),
+            'system'     => $request->getSystemPrompt(),
+            'messages'   => $this->mapMessages($request->getMessages()),
+            'tools'      => $this->mapTools($request->getTools()),
+        ];
+
+        $effort = apply_filters('swishfolio_ai_agent_effort', 'medium');
+
+        if (is_string($effort) && $effort !== '' && $this->supportsEffort($request->getModel())) {
+            $body['output_config'] = ['effort' => $effort];
+        }
+
+        $decoded = $this->request(self::BASE_URL . '/messages', $body, $this->authHeaders());
+
+        $stopReason = isset($decoded['stop_reason']) ? (string) $decoded['stop_reason'] : '';
+
+        // A refusal arrives as HTTP 200, so stop_reason has to be read before
+        // the content blocks or a declined request looks like an empty reply.
+        if ($stopReason === 'refusal') {
+            $category = isset($decoded['stop_details']['category'])
+                ? (string) $decoded['stop_details']['category']
+                : '';
+
+            $this->lastError = $category === ''
+                ? __('The AI declined this request.', 'swishfolio-core')
+                : sprintf(
+                    /* translators: %s: refusal category reported by the provider. */
+                    __('The AI declined this request (%s).', 'swishfolio-core'),
+                    $category
+                );
+
+            throw new ProviderException($this->lastError, 200);
+        }
+
+        $text  = '';
+        $calls = [];
+
+        foreach ((array) (isset($decoded['content']) ? $decoded['content'] : []) as $block) {
+            if (! is_array($block) || ! isset($block['type'])) {
+                continue;
+            }
+
+            if ($block['type'] === 'text') {
+                $text .= isset($block['text']) ? (string) $block['text'] : '';
+
+                continue;
+            }
+
+            if ($block['type'] === 'tool_use') {
+                $calls[] = new ToolCall(
+                    isset($block['id']) ? (string) $block['id'] : '',
+                    ToolNameMap::fromProvider(isset($block['name']) ? $block['name'] : ''),
+                    isset($block['input']) && is_array($block['input']) ? $block['input'] : []
+                );
+            }
+        }
+
+        return new ConversationReply(
+            $text,
+            $calls,
+            $stopReason,
+            isset($decoded['usage']['input_tokens']) ? $decoded['usage']['input_tokens'] : 0,
+            isset($decoded['usage']['output_tokens']) ? $decoded['usage']['output_tokens'] : 0,
+            isset($decoded['model']) ? $decoded['model'] : $request->getModel(),
+            $this->getSlug()
+        );
+    }
+
+    /**
+     * @param ToolDefinition[] $tools Tools to advertise.
+     *
+     * @return array
+     */
+    private function mapTools(array $tools)
+    {
+        $mapped = [];
+
+        foreach ($tools as $tool) {
+            $mapped[] = [
+                'name'         => ToolNameMap::toProvider($tool->getName()),
+                'description'  => $tool->getDescription(),
+                'input_schema' => $tool->getInputSchema(),
+            ];
+        }
+
+        return $mapped;
+    }
+
+    /**
+     * Maps the conversation to Anthropic's content blocks.
+     *
+     * Consecutive tool results are merged into one user message carrying several
+     * tool_result blocks. That is not a tidiness choice: splitting the results
+     * of one parallel batch across several user messages teaches the model to
+     * stop issuing parallel calls, so the merge preserves a capability rather
+     * than saving bytes.
+     *
+     * @param Message[] $messages Conversation.
+     *
+     * @return array
+     */
+    private function mapMessages(array $messages)
+    {
+        $out     = [];
+        $pending = [];
+
+        foreach ($messages as $message) {
+            if ($message->getRole() === Message::ROLE_TOOL) {
+                $pending[] = [
+                    'type'        => 'tool_result',
+                    'tool_use_id' => $message->getToolCallId(),
+                    'content'     => $message->getText(),
+                    'is_error'    => $message->isError(),
+                ];
+
+                continue;
+            }
+
+            if ($pending !== []) {
+                $out[]   = ['role' => 'user', 'content' => $pending];
+                $pending = [];
+            }
+
+            if ($message->getRole() === Message::ROLE_USER) {
+                $out[] = ['role' => 'user', 'content' => $message->getText()];
+
+                continue;
+            }
+
+            $blocks = [];
+
+            if ($message->getText() !== '') {
+                $blocks[] = ['type' => 'text', 'text' => $message->getText()];
+            }
+
+            foreach ($message->getToolCalls() as $call) {
+                $blocks[] = [
+                    'type'  => 'tool_use',
+                    'id'    => $call->getId(),
+                    'name'  => ToolNameMap::toProvider($call->getName()),
+                    'input' => $call->getInput() === [] ? new \stdClass() : $call->getInput(),
+                ];
+            }
+
+            if ($blocks !== []) {
+                $out[] = ['role' => 'assistant', 'content' => $blocks];
+            }
+        }
+
+        if ($pending !== []) {
+            $out[] = ['role' => 'user', 'content' => $pending];
+        }
+
+        return $out;
     }
 }
