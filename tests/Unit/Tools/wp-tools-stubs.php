@@ -45,6 +45,14 @@ if (! function_exists('sfcore_test_tools_reset')) {
     function sfcore_test_tools_defaults()
     {
         $defaults = [
+            'terms'             => [],
+            'objectTerms'       => [],
+            'nextTermId'        => 300,
+            'taxonomies'        => [
+                'sfcore_project_cat'  => ['sfcore_project'],
+                'sfcore_project_type' => ['sfcore_project'],
+                'category'            => ['post'],
+            ],
             'revisions'         => [],
             'nextRevisionId'    => 900,
             'revisionsDisabled' => false,
@@ -151,6 +159,121 @@ if (! function_exists('wp_trash_post')) {
         $GLOBALS['sfcore_test_wp']['posts'][$postId]['post_status'] = 'trash';
 
         return $GLOBALS['sfcore_test_wp']['posts'][$postId];
+    }
+}
+
+if (! function_exists('get_object_taxonomies')) {
+    function get_object_taxonomies($object, $output = 'names')
+    {
+        sfcore_test_tools_defaults();
+
+        $postType = is_string($object) ? $object : '';
+        $found    = [];
+
+        foreach ((array) $GLOBALS['sfcore_test_wp']['taxonomies'] as $taxonomy => $types) {
+            if (in_array($postType, (array) $types, true)) {
+                $found[] = $taxonomy;
+            }
+        }
+
+        return $found;
+    }
+}
+
+if (! function_exists('get_taxonomy')) {
+    function get_taxonomy($taxonomy)
+    {
+        sfcore_test_tools_defaults();
+
+        if (! isset($GLOBALS['sfcore_test_wp']['taxonomies'][$taxonomy])) {
+            return false;
+        }
+
+        return (object) [
+            'name'        => $taxonomy,
+            'object_type' => $GLOBALS['sfcore_test_wp']['taxonomies'][$taxonomy],
+            'cap'         => (object) [
+                'assign_terms' => 'edit_posts',
+                'edit_terms'   => 'manage_categories',
+            ],
+        ];
+    }
+}
+
+if (! function_exists('is_object_in_taxonomy')) {
+    function is_object_in_taxonomy($objectType, $taxonomy)
+    {
+        sfcore_test_tools_defaults();
+
+        $types = $GLOBALS['sfcore_test_wp']['taxonomies'][$taxonomy] ?? [];
+
+        return in_array($objectType, (array) $types, true);
+    }
+}
+
+if (! function_exists('get_term_by')) {
+    function get_term_by($field, $value, $taxonomy = '', $output = 'OBJECT', $filter = 'raw')
+    {
+        sfcore_test_tools_defaults();
+
+        foreach ((array) $GLOBALS['sfcore_test_wp']['terms'] as $id => $term) {
+            if ($term['taxonomy'] !== $taxonomy) {
+                continue;
+            }
+
+            if ('name' === $field && $term['name'] === $value) {
+                return (object) ($term + ['term_id' => $id]);
+            }
+
+            if ('slug' === $field && $term['slug'] === $value) {
+                return (object) ($term + ['term_id' => $id]);
+            }
+        }
+
+        return false;
+    }
+}
+
+if (! function_exists('wp_insert_term')) {
+    function wp_insert_term($term, $taxonomy, $args = [])
+    {
+        sfcore_test_tools_defaults();
+
+        $id = ++$GLOBALS['sfcore_test_wp']['nextTermId'];
+
+        $GLOBALS['sfcore_test_wp']['terms'][$id] = [
+            'name'     => (string) $term,
+            'slug'     => sanitize_title((string) $term),
+            'taxonomy' => (string) $taxonomy,
+        ];
+
+        return ['term_id' => $id, 'term_taxonomy_id' => $id];
+    }
+}
+
+if (! function_exists('wp_get_object_terms')) {
+    function wp_get_object_terms($objectIds, $taxonomies, $args = [])
+    {
+        sfcore_test_tools_defaults();
+
+        $postId = (int) (is_array($objectIds) ? reset($objectIds) : $objectIds);
+        $tax    = is_array($taxonomies) ? reset($taxonomies) : $taxonomies;
+
+        return $GLOBALS['sfcore_test_wp']['objectTerms'][$postId][$tax] ?? [];
+    }
+}
+
+if (! function_exists('wp_set_object_terms')) {
+    function wp_set_object_terms($objectId, $terms, $taxonomy, $append = false)
+    {
+        sfcore_test_tools_defaults();
+
+        $GLOBALS['sfcore_test_wp']['objectTerms'][(int) $objectId][$taxonomy] = array_map(
+            'intval',
+            (array) $terms
+        );
+
+        return (array) $terms;
     }
 }
 

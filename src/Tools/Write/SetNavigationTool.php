@@ -24,8 +24,6 @@ use SwishfolioCore\Tools\ToolInterface;
  */
 class SetNavigationTool extends AbstractWriteTool
 {
-    const MAX_ITEMS = 30;
-
     public function getName()
     {
         return 'swishfolio/set-navigation';
@@ -60,21 +58,7 @@ class SetNavigationTool extends AbstractWriteTool
                     'maxLength' => 200,
                     'default'   => '',
                 ],
-                'items' => [
-                    'type'     => 'array',
-                    'minItems' => 1,
-                    'maxItems' => self::MAX_ITEMS,
-                    'items'    => [
-                        'type'                 => 'object',
-                        'additionalProperties' => false,
-                        'required'             => ['label', 'url'],
-                        'properties'           => [
-                            'label'  => ['type' => 'string', 'maxLength' => 100],
-                            'url'    => ['type' => 'string', 'maxLength' => 500],
-                            'postId' => ['type' => 'integer', 'minimum' => 0, 'default' => 0],
-                        ],
-                    ],
-                ],
+                'items' => NavigationLinks::schema(),
             ],
         ];
     }
@@ -88,37 +72,7 @@ class SetNavigationTool extends AbstractWriteTool
 
     public function execute(array $input, ToolContext $context)
     {
-        $links = [];
-
-        foreach ((array) $input['items'] as $item) {
-            $label = isset($item['label']) ? trim((string) $item['label']) : '';
-            $url   = isset($item['url']) ? trim((string) $item['url']) : '';
-
-            if ($label === '' || $url === '') {
-                continue;
-            }
-
-            $attributes = [
-                'label' => $label,
-                'url'   => $url,
-            ];
-
-            if (! empty($item['postId'])) {
-                $attributes['id']   = (int) $item['postId'];
-                $attributes['kind'] = 'post-type';
-                $attributes['type'] = 'page';
-            }
-
-            $links[] = serialize_block(
-                [
-                    'blockName'    => 'core/navigation-link',
-                    'attrs'        => $attributes,
-                    'innerBlocks'  => [],
-                    'innerHTML'    => '',
-                    'innerContent' => [],
-                ]
-            );
-        }
+        $links = NavigationLinks::serialise((array) $input['items']);
 
         if ($links === []) {
             throw ToolException::make(

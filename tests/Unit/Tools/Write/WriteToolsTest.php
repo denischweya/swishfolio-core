@@ -6,11 +6,11 @@ use SwishfolioCore\Tests\Unit\Tools\ToolsTestCase;
 use SwishfolioCore\Tools\Journal\JournalEntry;
 use SwishfolioCore\Tools\ToolError;
 use SwishfolioCore\Tools\ToolException;
-use SwishfolioCore\Tools\Write\CreatePageTool;
+use SwishfolioCore\Tools\Write\CreateContentTool;
 use SwishfolioCore\Tools\Write\SetFrontPageTool;
 use SwishfolioCore\Tools\Write\SetNavigationTool;
 use SwishfolioCore\Tools\Write\SetStyleVariationTool;
-use SwishfolioCore\Tools\Write\UpdatePageTool;
+use SwishfolioCore\Tools\Write\UpdateContentTool;
 
 /**
  * Ported from ServerActionHandlerTest when the five handlers became tools. The
@@ -62,7 +62,7 @@ class WriteToolsTest extends ToolsTestCase
     public function test_create_page_writes_a_draft_page_owned_by_the_current_user()
     {
         $context = $this->context();
-        $tool    = new CreatePageTool($this->journal);
+        $tool    = new CreateContentTool($this->journal);
 
         $tool->authorize($this->createInput(), $context);
         $result = $tool->execute($this->createInput(), $context);
@@ -79,7 +79,7 @@ class WriteToolsTest extends ToolsTestCase
 
     public function test_create_page_ignores_a_status_the_plan_tries_to_smuggle_in()
     {
-        $result = (new CreatePageTool($this->journal))->execute(
+        $result = (new CreateContentTool($this->journal))->execute(
             $this->createInput(['post_status' => 'publish', 'status' => 'publish']),
             $this->context()
         );
@@ -89,7 +89,7 @@ class WriteToolsTest extends ToolsTestCase
 
     public function test_create_page_writes_the_template_meta_when_one_is_given()
     {
-        $result = (new CreatePageTool($this->journal))->execute(
+        $result = (new CreateContentTool($this->journal))->execute(
             $this->createInput(['template' => 'page-no-title']),
             $this->context()
         );
@@ -102,7 +102,7 @@ class WriteToolsTest extends ToolsTestCase
 
     public function test_create_page_writes_no_meta_when_no_template_is_given()
     {
-        $result = (new CreatePageTool($this->journal))->execute($this->createInput(), $this->context());
+        $result = (new CreateContentTool($this->journal))->execute($this->createInput(), $this->context());
 
         $this->assertArrayNotHasKey($result['postId'], $GLOBALS['sfcore_test_wp']['meta']);
     }
@@ -112,7 +112,7 @@ class WriteToolsTest extends ToolsTestCase
         $GLOBALS['sfcore_test_wp']['caps'] = ['edit_posts'];
 
         $this->expectException(ToolException::class);
-        (new CreatePageTool($this->journal))->authorize($this->createInput(), $this->context());
+        (new CreateContentTool($this->journal))->authorize($this->createInput(), $this->context());
     }
 
     public function test_create_page_surfaces_a_wordpress_failure()
@@ -120,7 +120,7 @@ class WriteToolsTest extends ToolsTestCase
         $GLOBALS['sfcore_test_wp']['insertError'] = 'Database is on fire.';
 
         try {
-            (new CreatePageTool($this->journal))->execute($this->createInput(), $this->context());
+            (new CreateContentTool($this->journal))->execute($this->createInput(), $this->context());
             $this->fail('Expected ToolException');
         } catch (ToolException $e) {
             $this->assertSame(ToolError::WRITE_FAILED, $e->getError()->getCode());
@@ -130,7 +130,7 @@ class WriteToolsTest extends ToolsTestCase
 
     public function test_create_page_records_the_new_id_as_its_undo()
     {
-        $result = (new CreatePageTool($this->journal))->execute($this->createInput(), $this->context());
+        $result = (new CreateContentTool($this->journal))->execute($this->createInput(), $this->context());
 
         $targets = $this->repository->ofType(JournalEntry::TARGET_POST);
 
@@ -138,16 +138,70 @@ class WriteToolsTest extends ToolsTestCase
         $this->assertSame(['created' => $result['postId']], $targets[0]->getPrior());
     }
 
-    public function test_update_page_refuses_anything_that_is_not_a_page()
+    public function test_update_content_refuses_a_type_outside_the_closed_set()
     {
-        $this->givenPost(50, ['post_type' => 'post']);
+        // Widened from pages to pages, posts and projects — but no further. A
+        // navigation menu, a revision or an attachment is not editable content,
+        // and accepting one here would let a model rewrite site plumbing.
+        foreach (['wp_navigation', 'wp_global_styles', 'attachment', 'revision'] as $type) {
+            $this->givenPost(50, ['post_type' => $type]);
 
-        try {
-            (new UpdatePageTool($this->journal))->authorize(['postId' => 50], $this->context());
-            $this->fail('Expected ToolException');
-        } catch (ToolException $e) {
-            $this->assertSame(ToolError::TARGET_MISSING, $e->getError()->getCode());
+            try {
+                (new UpdateContentTool($this->journal))->authorize(['postId' => 50], $this->context());
+                $this->fail('Accepted ' . $type);
+            } catch (ToolException $e) {
+                $this->assertSame(ToolError::TARGET_MISSING, $e->getError()->getCode());
+            }
         }
+    }
+
+    public function test_update_content_accepts_posts_and_projects_as_well_as_pages()
+    {
+        foreach (['page', 'post', 'sfcore_project'] as $index => $type) {
+            $postId = 70 + $index;
+
+            $this->givenPost($postId, ['post_type' => $type, 'post_status' => 'draft']);
+
+            (new UpdateContentTool($this->journal))->execute(
+                ['postId' => $postId, 'content' => 'new body'],
+                $this->context()
+            );
+
+            $this->assertSame('new body', $this->post($postId)['post_content'], $type . ' was not updated.');
+        }
+    }
+
+    public function test_create_content_creates_the_type_it_was_asked_for()
+    {
+        foreach (['page', 'post', 'sfcore_project'] as $type) {
+            $result = (new CreateContentTool($this->journal))->execute(
+                $this->createInput(['postType' => $type, 'key' => 'k-' . $type]),
+                $this->context()
+            );
+
+            $this->assertSame($type, $this->post($result['postId'])['post_type']);
+            $this->assertSame('draft', $this->post($result['postId'])['post_status'], 'Still never published.');
+        }
+    }
+
+    public function test_create_content_defaults_to_a_page_so_generation_needs_no_change()
+    {
+        $result = (new CreateContentTool($this->journal))->execute($this->createInput(), $this->context());
+
+        $this->assertSame('page', $this->post($result['postId'])['post_type']);
+    }
+
+    public function test_a_template_is_written_only_for_a_page()
+    {
+        // Templates are a page concept; storing one on a project would be meta
+        // the theme never reads.
+        $result = (new CreateContentTool($this->journal))->execute(
+            $this->createInput(['postType' => 'sfcore_project', 'template' => 'page-no-title']),
+            $this->context()
+        );
+
+        $this->assertNull($result['template']);
+        $this->assertArrayNotHasKey($result['postId'], $GLOBALS['sfcore_test_wp']['meta']);
     }
 
     public function test_update_page_checks_the_capability_against_that_specific_post()
@@ -157,7 +211,7 @@ class WriteToolsTest extends ToolsTestCase
 
         $GLOBALS['sfcore_test_wp']['caps'] = ['edit_post:50'];
 
-        $tool = new UpdatePageTool($this->journal);
+        $tool = new UpdateContentTool($this->journal);
 
         $tool->authorize(['postId' => 50], $this->context());
 
@@ -169,7 +223,7 @@ class WriteToolsTest extends ToolsTestCase
     {
         $this->givenPost(50, ['post_status' => 'publish', 'post_content' => 'old']);
 
-        (new UpdatePageTool($this->journal))->execute(
+        (new UpdateContentTool($this->journal))->execute(
             ['postId' => 50, 'content' => 'new'],
             $this->context(true)
         );
@@ -183,7 +237,7 @@ class WriteToolsTest extends ToolsTestCase
         $this->givenPost(50, ['post_status' => 'draft']);
         $this->givenPost(51, ['post_status' => 'publish']);
 
-        $tool = new UpdatePageTool($this->journal);
+        $tool = new UpdateContentTool($this->journal);
 
         $tool->authorize(['postId' => 50], $this->context());
 
@@ -203,10 +257,10 @@ class WriteToolsTest extends ToolsTestCase
         // an error instead of a prompt.
         $this->givenPost(50, ['post_status' => 'publish', 'post_title' => 'About']);
 
-        $runner = $this->runner([new UpdatePageTool($this->journal)]);
+        $runner = $this->runner([new UpdateContentTool($this->journal)]);
 
         $preview = $runner->preview(
-            [['name' => 'swishfolio/update-page', 'input' => ['postId' => 50, 'content' => 'new']]],
+            [['name' => 'swishfolio/update-content', 'input' => ['postId' => 50, 'content' => 'new']]],
             $this->context()
         );
 
@@ -221,8 +275,8 @@ class WriteToolsTest extends ToolsTestCase
     {
         $this->givenPost(50, ['post_status' => 'draft']);
 
-        $preview = $this->runner([new UpdatePageTool($this->journal)])->preview(
-            [['name' => 'swishfolio/update-page', 'input' => ['postId' => 50, 'content' => 'new']]],
+        $preview = $this->runner([new UpdateContentTool($this->journal)])->preview(
+            [['name' => 'swishfolio/update-content', 'input' => ['postId' => 50, 'content' => 'new']]],
             $this->context()
         );
 
@@ -237,8 +291,8 @@ class WriteToolsTest extends ToolsTestCase
 
         $this->expectException(ToolException::class);
 
-        $this->runner([new UpdatePageTool($this->journal)])->preview(
-            [['name' => 'swishfolio/update-page', 'input' => ['postId' => 50, 'content' => 'new']]],
+        $this->runner([new UpdateContentTool($this->journal)])->preview(
+            [['name' => 'swishfolio/update-content', 'input' => ['postId' => 50, 'content' => 'new']]],
             $this->context()
         );
     }
@@ -247,8 +301,8 @@ class WriteToolsTest extends ToolsTestCase
     {
         $this->givenPost(50, ['post_status' => 'publish', 'post_content' => 'before']);
 
-        $runner = $this->runner([new UpdatePageTool($this->journal)]);
-        $calls  = [['name' => 'swishfolio/update-page', 'input' => ['postId' => 50, 'content' => 'after']]];
+        $runner = $this->runner([new UpdateContentTool($this->journal)]);
+        $calls  = [['name' => 'swishfolio/update-content', 'input' => ['postId' => 50, 'content' => 'after']]];
 
         $token = $runner->preview($calls, $this->context())['confirmToken'];
 
@@ -261,7 +315,7 @@ class WriteToolsTest extends ToolsTestCase
     {
         $this->givenPost(50, ['post_status' => 'draft', 'post_content' => 'old']);
 
-        (new UpdatePageTool($this->journal))->execute(
+        (new UpdateContentTool($this->journal))->execute(
             ['postId' => 50, 'content' => 'new'],
             $this->context()
         );
@@ -443,7 +497,7 @@ class WriteToolsTest extends ToolsTestCase
         $content = '<!-- wp:swishfolio-core/portfolio '
             . '{"taxonomyColor":"var(--wp--preset--color--accent-1)"} /-->';
 
-        $result = (new CreatePageTool($this->journal))->execute(
+        $result = (new CreateContentTool($this->journal))->execute(
             $this->createInput(['content' => $content]),
             $this->context()
         );
@@ -457,7 +511,7 @@ class WriteToolsTest extends ToolsTestCase
 
         $content = '<!-- wp:swishfolio-core/latest-posts {"titleColor":"var(--wp--preset--color--base)"} /-->';
 
-        (new UpdatePageTool($this->journal))->execute(
+        (new UpdateContentTool($this->journal))->execute(
             ['postId' => 50, 'content' => $content],
             $this->context()
         );

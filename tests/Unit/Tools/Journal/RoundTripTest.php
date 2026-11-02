@@ -4,11 +4,11 @@ namespace SwishfolioCore\Tests\Unit\Tools\Journal;
 
 use SwishfolioCore\Tests\Unit\Tools\ToolsTestCase;
 use SwishfolioCore\Tools\Journal\Rollback;
-use SwishfolioCore\Tools\Write\CreatePageTool;
+use SwishfolioCore\Tools\Write\CreateContentTool;
 use SwishfolioCore\Tools\Write\SetFrontPageTool;
 use SwishfolioCore\Tools\Write\SetNavigationTool;
 use SwishfolioCore\Tools\Write\SetStyleVariationTool;
-use SwishfolioCore\Tools\Write\UpdatePageTool;
+use SwishfolioCore\Tools\Write\UpdateContentTool;
 
 /**
  * The keystone.
@@ -30,8 +30,8 @@ class RoundTripTest extends ToolsTestCase
     {
         return $this->runner(
             [
-                new CreatePageTool($this->journal),
-                new UpdatePageTool($this->journal),
+                new CreateContentTool($this->journal),
+                new UpdateContentTool($this->journal),
                 new SetFrontPageTool($this->journal),
                 new SetNavigationTool($this->journal),
                 new SetStyleVariationTool(
@@ -80,7 +80,7 @@ class RoundTripTest extends ToolsTestCase
         $runner  = $this->siteRunner();
 
         $home = $runner->run(
-            'swishfolio/create-page',
+            'swishfolio/create-content',
             [
                 'key'     => 'home',
                 'title'   => 'Home',
@@ -91,7 +91,7 @@ class RoundTripTest extends ToolsTestCase
         );
 
         $runner->run(
-            'swishfolio/update-page',
+            'swishfolio/update-content',
             [
                 'postId'  => 10,
                 'content' => '<!-- wp:paragraph --><p>Rewritten by the AI.</p><!-- /wp:paragraph -->',
@@ -155,11 +155,11 @@ class RoundTripTest extends ToolsTestCase
         $runner  = $this->siteRunner();
 
         $runner->run(
-            'swishfolio/create-page',
+            'swishfolio/create-content',
             ['key' => 'home', 'title' => 'Home', 'slug' => 'home', 'content' => 'x'],
             $context
         );
-        $runner->run('swishfolio/update-page', ['postId' => 10, 'content' => 'after'], $context);
+        $runner->run('swishfolio/update-content', ['postId' => 10, 'content' => 'after'], $context);
 
         $rows = $this->repository->findRun($context->getRunId());
         $seqs = [];

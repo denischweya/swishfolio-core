@@ -269,6 +269,48 @@ class MutationJournal
     }
 
     /**
+     * Replaces a post's terms in one taxonomy, capturing the prior set first.
+     *
+     * Terms get their own target type for the same reason meta does: they live
+     * outside the post row, so a revision restore puts the content back and
+     * leaves the categorisation changed.
+     *
+     * The prior set is stored as term IDs rather than names. Names can be
+     * edited afterwards, and a rollback that re-assigned by name would either
+     * fail or quietly create a duplicate term.
+     *
+     * @param ToolContext $context  Run state.
+     * @param string      $toolName Tool performing the write.
+     * @param int         $postId   Post being categorised.
+     * @param string      $taxonomy Taxonomy name.
+     * @param int[]       $termIds  Term IDs to assign.
+     * @param string      $summary  Description for the audit log.
+     *
+     * @return void
+     */
+    public function setTerms(ToolContext $context, $toolName, $postId, $taxonomy, array $termIds, $summary = '')
+    {
+        $postId = (int) $postId;
+        $prior  = wp_get_object_terms($postId, $taxonomy, ['fields' => 'ids']);
+        $prior  = is_array($prior) ? array_map('intval', $prior) : [];
+
+        wp_set_object_terms($postId, array_map('intval', $termIds), $taxonomy, false);
+
+        $this->appendTarget(
+            $context,
+            $toolName,
+            JournalEntry::TARGET_TERMS,
+            $postId . ':' . $taxonomy,
+            [
+                'postId'   => $postId,
+                'taxonomy' => (string) $taxonomy,
+                'prior'    => $prior,
+            ],
+            $summary
+        );
+    }
+
+    /**
      * Captures enough of a post to put it back.
      *
      * wp_save_post_revision() returns null when the post is unchanged since its

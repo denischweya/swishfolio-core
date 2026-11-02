@@ -124,7 +124,7 @@ class ToolSelectionEvalTest extends TestCase
         $this->loop($provider)->run('hello', $this->context());
 
         $this->assertCount(
-            14,
+            18,
             $provider->conversations()[0]->getTools(),
             'A tool missing from the catalogue is a capability the model cannot reach.'
         );
@@ -217,7 +217,7 @@ class ToolSelectionEvalTest extends TestCase
             [
                 [
                     'calls' => [
-                        ['id' => 'c1', 'name' => 'swishfolio/update-page', 'input' => ['postId' => 10, 'content' => 'x']],
+                        ['id' => 'c1', 'name' => 'swishfolio/update-content', 'input' => ['postId' => 10, 'content' => 'x']],
                     ],
                 ],
                 ['text' => 'Updated.'],

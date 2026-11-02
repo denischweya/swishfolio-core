@@ -14,11 +14,11 @@ use SwishfolioCore\Tools\Journal\MutationJournal;
 use SwishfolioCore\Tools\ToolContext;
 use SwishfolioCore\Tools\ToolRegistry;
 use SwishfolioCore\Tools\ToolRunner;
-use SwishfolioCore\Tools\Write\CreatePageTool;
+use SwishfolioCore\Tools\Write\CreateContentTool;
 use SwishfolioCore\Tools\Write\SetFrontPageTool;
 use SwishfolioCore\Tools\Write\SetNavigationTool;
 use SwishfolioCore\Tools\Write\SetStyleVariationTool;
-use SwishfolioCore\Tools\Write\UpdatePageTool;
+use SwishfolioCore\Tools\Write\UpdateContentTool;
 
 class PlanExecutorTest extends GenerationTestCase
 {
@@ -43,8 +43,8 @@ class PlanExecutorTest extends GenerationTestCase
             new ActionExecutor(
                 new ToolRunner(
                     new ToolRegistry([
-                        new CreatePageTool($journal),
-                        new UpdatePageTool($journal),
+                        new CreateContentTool($journal),
+                        new UpdateContentTool($journal),
                         new SetFrontPageTool($journal),
                         new SetNavigationTool($journal),
                         new SetStyleVariationTool(

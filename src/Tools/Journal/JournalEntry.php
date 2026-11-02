@@ -25,6 +25,7 @@ class JournalEntry
     const TARGET_POST   = 'post';
     const TARGET_OPTION = 'option';
     const TARGET_META   = 'meta';
+    const TARGET_TERMS  = 'terms';
 
     const RESULT_OK    = 'ok';
     const RESULT_ERROR = 'error';

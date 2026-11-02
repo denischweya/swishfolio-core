@@ -20,19 +20,23 @@ class ToolRegistryTest extends ToolsTestCase
 
         $this->assertSame(
             [
-                'swishfolio/create-page',
+                'swishfolio/create-content',
                 'swishfolio/get-block-capabilities',
                 'swishfolio/get-global-styles',
                 'swishfolio/list-content',
                 'swishfolio/list-media',
+                'swishfolio/list-navigation',
                 'swishfolio/read-page',
                 'swishfolio/rollback-run',
                 'swishfolio/set-alt-text',
                 'swishfolio/set-front-page',
                 'swishfolio/set-navigation',
                 'swishfolio/set-style-variation',
+                'swishfolio/set-terms',
                 'swishfolio/site-info',
-                'swishfolio/update-page',
+                'swishfolio/update-content',
+                'swishfolio/update-navigation',
+                'swishfolio/update-site-settings',
                 'swishfolio/upload-media',
             ],
             $names

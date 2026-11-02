@@ -43,8 +43,9 @@ class SiteInfoTool extends AbstractReadTool
     public function getDescription()
     {
         return 'Read the site\'s name, tagline, locale, active theme, the style variations the theme ships, '
-            . 'which post types exist, how the front page is configured, and how many pages, posts and projects '
-            . 'there are. Call this first when you do not already know what the site contains.';
+            . 'which post types exist and which taxonomies each one uses, how the front page is configured, and '
+            . 'how many pages, posts and projects there are. Call this first when you do not already know what '
+            . 'the site contains.';
     }
 
     public function execute(array $input, ToolContext $context)
@@ -122,12 +123,29 @@ class SiteInfoTool extends AbstractReadTool
             }
 
             $out[] = [
-                'slug'  => $slug,
-                'label' => isset($object->labels->name) ? (string) $object->labels->name : $slug,
+                'slug'       => $slug,
+                'label'      => isset($object->labels->name) ? (string) $object->labels->name : $slug,
+                // set-terms tells the model to get taxonomy names from here, so
+                // they have to actually be here.
+                'taxonomies' => $this->taxonomiesFor($slug),
             ];
         }
 
         return $out;
+    }
+
+    /**
+     * @param string $postType Post type slug.
+     *
+     * @return string[]
+     */
+    private function taxonomiesFor($postType)
+    {
+        if (! function_exists('get_object_taxonomies')) {
+            return [];
+        }
+
+        return array_values(array_map('strval', (array) get_object_taxonomies($postType)));
     }
 
     /**

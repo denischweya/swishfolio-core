@@ -15,11 +15,11 @@ use SwishfolioCore\Tools\ToolContext;
 use SwishfolioCore\Tools\ToolException;
 use SwishfolioCore\Tools\ToolRegistry;
 use SwishfolioCore\Tools\ToolRunner;
-use SwishfolioCore\Tools\Write\CreatePageTool;
+use SwishfolioCore\Tools\Write\CreateContentTool;
 use SwishfolioCore\Tools\Write\SetFrontPageTool;
 use SwishfolioCore\Tools\Write\SetNavigationTool;
 use SwishfolioCore\Tools\Write\SetStyleVariationTool;
-use SwishfolioCore\Tools\Write\UpdatePageTool;
+use SwishfolioCore\Tools\Write\UpdateContentTool;
 
 /**
  * Now a façade over ToolRunner rather than its own dispatcher.
@@ -39,8 +39,8 @@ class ActionExecutor
 {
     /** Plan action type => tool name. */
     const TOOL_FOR_TYPE = [
-        'create_page'         => 'swishfolio/create-page',
-        'update_page'         => 'swishfolio/update-page',
+        'create_page'         => 'swishfolio/create-content',
+        'update_page'         => 'swishfolio/update-content',
         'set_front_page'      => 'swishfolio/set-front-page',
         'set_navigation'      => 'swishfolio/set-navigation',
         'set_style_variation' => 'swishfolio/set-style-variation',
@@ -72,8 +72,8 @@ class ActionExecutor
             new ToolRunner(
                 new ToolRegistry(
                     [
-                        new CreatePageTool($journal),
-                        new UpdatePageTool($journal),
+                        new CreateContentTool($journal),
+                        new UpdateContentTool($journal),
                         new SetFrontPageTool($journal),
                         new SetNavigationTool($journal),
                         new SetStyleVariationTool($journal),
@@ -169,6 +169,9 @@ class ActionExecutor
     }
 
     /**
+     * The plan's page-only vocabulary still maps cleanly: create-content's
+     * postType defaults to "page", so a create_page action needs nothing added.
+     *
      * Tool schemas are closed, and the plan builder emits optional keys as null
      * rather than omitting them — "template" => null on every page without one.
      * The handlers read those with empty(), so null and absent meant the same

@@ -118,6 +118,10 @@ class Rollback
             return $this->revertMeta($entry);
         }
 
+        if (JournalEntry::TARGET_TERMS === $entry->getTargetType()) {
+            return $this->revertTerms($entry);
+        }
+
         return sprintf('Unknown target type "%s".', $entry->getTargetType());
     }
 
@@ -147,6 +151,33 @@ class Rollback
         }
 
         update_option($name, isset($prior['prior']) ? $prior['prior'] : null);
+
+        return '';
+    }
+
+    /**
+     * An empty prior set is restored as empty, which clears the terms the run
+     * assigned. That is the correct undo: the post had none before.
+     *
+     * @param JournalEntry $entry Terms row.
+     *
+     * @return string
+     */
+    private function revertTerms(JournalEntry $entry)
+    {
+        $prior    = $entry->getPrior();
+        $postId   = isset($prior['postId']) ? (int) $prior['postId'] : 0;
+        $taxonomy = isset($prior['taxonomy']) ? (string) $prior['taxonomy'] : '';
+
+        if ($postId <= 0 || '' === $taxonomy) {
+            return 'The journal row names no taxonomy.';
+        }
+
+        $termIds = isset($prior['prior']) && is_array($prior['prior'])
+            ? array_map('intval', $prior['prior'])
+            : [];
+
+        wp_set_object_terms($postId, $termIds, $taxonomy, false);
 
         return '';
     }

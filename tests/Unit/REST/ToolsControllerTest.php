@@ -211,7 +211,7 @@ class ToolsControllerTest extends TestCase
                     [
                         'calls' => [
                             [
-                                'name'  => 'swishfolio/create-page',
+                                'name'  => 'swishfolio/create-content',
                                 'input' => ['key' => 'home', 'title' => 'Home', 'content' => 'x'],
                             ],
                         ],
