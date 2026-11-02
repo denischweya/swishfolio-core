@@ -14,7 +14,7 @@
 import apiFetch from '@wordpress/api-fetch';
 import { __ } from '@wordpress/i18n';
 
-import { REST_AGENT_PATH } from './constants';
+import { REST_AGENT_PATH, REST_JOB_PATH } from './constants';
 
 /** Shown when the request itself failed. */
 export const GENERIC_FAILURE = __(
@@ -50,6 +50,16 @@ const HINTS = {
 		),
 	sfcore_ai_bad_request: () =>
 		__( 'Say what you would like changed.', 'swishfolio-core' ),
+	sfcore_job_failed: () =>
+		__(
+			'That request stopped unexpectedly. Anything it had already changed is listed under Swish AI → Audit Log.',
+			'swishfolio-core'
+		),
+	sfcore_job_not_found: () =>
+		__(
+			'That request expired before it finished. Ask again.',
+			'swishfolio-core'
+		),
 };
 
 /**
@@ -65,6 +75,17 @@ export function sendTurn( payload ) {
 		method: 'POST',
 		data: payload,
 	} );
+}
+
+/**
+ * Ask a queued turn how far along it is.
+ *
+ * @param {string} jobId Job identifier.
+ *
+ * @return {Promise<Object>} The job status.
+ */
+export function fetchJob( jobId ) {
+	return apiFetch( { path: REST_JOB_PATH + jobId } );
 }
 
 /**

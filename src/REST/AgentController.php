@@ -15,6 +15,8 @@ use SwishfolioCore\AI\ProviderException;
 use SwishfolioCore\AI\ProviderRegistry;
 use SwishfolioCore\AI\Settings;
 use SwishfolioCore\AI\UsageLogger;
+use SwishfolioCore\Jobs\AgentJobRunner;
+use SwishfolioCore\Jobs\JobStoreInterface;
 use SwishfolioCore\Tools\ToolContext;
 use SwishfolioCore\Tools\ToolRunner;
 
@@ -47,22 +49,34 @@ class AgentController
     /** @var UsageLogger */
     private $logger;
 
+    /** @var AgentJobRunner|null */
+    private $jobs;
+
+    /** @var JobStoreInterface|null */
+    private $jobStore;
+
     /**
      * @param ToolRunner       $runner    Tool pipeline.
      * @param Settings         $settings  AI settings.
      * @param ProviderRegistry $providers Provider registry.
-     * @param UsageLogger      $logger    Usage counters.
+     * @param UsageLogger            $logger   Usage counters.
+     * @param AgentJobRunner|null    $jobs     Background runner; when absent only synchronous turns are served.
+     * @param JobStoreInterface|null $jobStore Progress storage for polling.
      */
     public function __construct(
         ToolRunner $runner,
         Settings $settings,
         ProviderRegistry $providers,
-        UsageLogger $logger
+        UsageLogger $logger,
+        AgentJobRunner $jobs = null,
+        JobStoreInterface $jobStore = null
     ) {
         $this->runner    = $runner;
         $this->settings  = $settings;
         $this->providers = $providers;
         $this->logger    = $logger;
+        $this->jobs      = $jobs;
+        $this->jobStore  = $jobStore;
     }
 
     /**
@@ -81,9 +95,60 @@ class AgentController
                     'instruction'  => ['type' => 'string', 'required' => false],
                     'history'      => ['type' => 'array', 'required' => false],
                     'confirmToken' => ['type' => 'string', 'required' => false],
+                    'async'        => ['type' => 'boolean', 'required' => false],
                 ],
             ]
         );
+
+        register_rest_route(
+            self::NAMESPACE_V1,
+            '/ai/jobs/(?P<jobId>[A-Za-z0-9]{1,32})',
+            [
+                'methods'             => 'GET',
+                'callback'            => [$this, 'job'],
+                'permission_callback' => [$this, 'canUseAgent'],
+            ]
+        );
+    }
+
+    /**
+     * Progress for one queued turn.
+     *
+     * @param \WP_REST_Request $request Request.
+     *
+     * @return \WP_REST_Response|\WP_Error
+     */
+    public function job($request)
+    {
+        if (null === $this->jobStore) {
+            return new \WP_Error(
+                'sfcore_job_unavailable',
+                __('Background requests are not available on this site.', 'swishfolio-core'),
+                ['status' => 501]
+            );
+        }
+
+        $job = $this->jobStore->find((string) $request->get_param('jobId'));
+
+        if (null === $job) {
+            return new \WP_Error(
+                'sfcore_job_not_found',
+                __('That request has expired or never existed.', 'swishfolio-core'),
+                ['status' => 404]
+            );
+        }
+
+        // A job carries the identity it will run as, so letting one user poll
+        // another's would leak what their AI is doing to their site.
+        if ($job->getUserId() !== get_current_user_id()) {
+            return new \WP_Error(
+                'sfcore_job_forbidden',
+                __('That request belongs to someone else.', 'swishfolio-core'),
+                ['status' => 403]
+            );
+        }
+
+        return rest_ensure_response($job->toStatusArray());
     }
 
     /**
@@ -141,6 +206,14 @@ class AgentController
             $provider = $this->providers->configured();
         } catch (ProviderException $e) {
             return new \WP_Error('sfcore_ai_not_configured', $e->getMessage(), ['status' => 409]);
+        }
+
+        // Queued before the loop runs, not after, so a turn that would outlast
+        // PHP's execution limit never starts inside this request.
+        if ($request->get_param('async') && null !== $this->jobs) {
+            $job = $this->jobs->queue($instruction, (array) $request->get_param('history'), $token, get_current_user_id());
+
+            return rest_ensure_response(array_merge($job->toStatusArray(), ['queued' => true]));
         }
 
         $loop = new AgentLoop(

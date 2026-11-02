@@ -112,6 +112,7 @@ describe( 'useAgent', () => {
 		expect( sendTurn ).toHaveBeenLastCalledWith( {
 			instruction: 'again',
 			history: [ { role: 'user', text: 'hello' } ],
+			async: true,
 		} );
 	} );
 
@@ -151,6 +152,7 @@ describe( 'useAgent', () => {
 			instruction: '',
 			history: pendingRun().history,
 			confirmToken: '123.abc',
+			async: true,
 		} );
 		expect( result.current.pending ).toBeNull();
 	} );

@@ -9,17 +9,20 @@
  * throwing away what the next turn has to replay.
  */
 
-import { useCallback, useState } from '@wordpress/element';
+import { useCallback, useEffect, useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 import {
+	JOB_STATUS_DONE,
+	JOB_STATUS_FAILED,
+	POLL_INTERVAL_MS,
 	STATUS_DONE,
 	STATUS_ERROR,
 	STATUS_IDLE,
 	STATUS_PENDING,
 	STATUS_WORKING,
 } from './constants';
-import { describeError, sendTurn } from './rest';
+import { describeError, fetchJob, sendTurn } from './rest';
 
 /**
  * @return {Object} Panel state and the two actions that drive it.
@@ -30,8 +33,21 @@ export function useAgent() {
 	const [ status, setStatus ] = useState( STATUS_IDLE );
 	const [ error, setError ] = useState( null );
 	const [ pending, setPending ] = useState( null );
+	const [ jobId, setJobId ] = useState( null );
+	const [ liveSteps, setLiveSteps ] = useState( [] );
+	const mounted = useRef( true );
+
+	useEffect(
+		() => () => {
+			mounted.current = false;
+		},
+		[]
+	);
 
 	const applyRun = useCallback( ( run ) => {
+		setJobId( null );
+		setLiveSteps( [] );
+
 		setHistory( Array.isArray( run.history ) ? run.history : [] );
 		setStatus( run.status === STATUS_PENDING ? STATUS_PENDING : STATUS_DONE );
 		setPending(
@@ -57,7 +73,78 @@ export function useAgent() {
 		setError( described );
 		setStatus( STATUS_ERROR );
 		setPending( null );
+		setJobId( null );
+		setLiveSteps( [] );
 	}, [] );
+
+	/*
+	 * A turn runs as a background job because up to eight provider calls can
+	 * outlast PHP's execution limit. Polling is how its steps reach the panel
+	 * while it works, rather than all at once when it finishes.
+	 */
+	const settle = useCallback(
+		( queued ) => {
+			if ( ! queued || ! queued.queued ) {
+				applyRun( queued );
+
+				return Promise.resolve();
+			}
+
+			setJobId( queued.jobId );
+
+			return new Promise( ( resolve ) => {
+				const poll = () => {
+					if ( ! mounted.current ) {
+						resolve();
+
+						return;
+					}
+
+					fetchJob( queued.jobId )
+						.then( ( job ) => {
+							if ( ! mounted.current ) {
+								resolve();
+
+								return;
+							}
+
+							setLiveSteps( job.steps || [] );
+
+							if ( job.status === JOB_STATUS_FAILED ) {
+								fail( {
+									code:
+										( job.error && job.error.code ) ||
+										'sfcore_job_failed',
+									data: {
+										detail:
+											job.error && job.error.detail,
+									},
+								} );
+								resolve();
+
+								return;
+							}
+
+							if ( job.status === JOB_STATUS_DONE ) {
+								applyRun( job.result );
+								resolve();
+
+								return;
+							}
+
+							setTimeout( poll, POLL_INTERVAL_MS );
+						} )
+						.catch( ( rejection ) => {
+							fail( rejection );
+							resolve();
+						} );
+				};
+
+				setTimeout( poll, POLL_INTERVAL_MS );
+			} );
+		},
+		[ applyRun, fail ]
+	);
 
 	/**
 	 * @param {string} instruction What the user typed.
@@ -80,11 +167,11 @@ export function useAgent() {
 				{ role: 'user', text },
 			] );
 
-			return sendTurn( { instruction: text, history } )
-				.then( applyRun )
+			return sendTurn( { instruction: text, history, async: true } )
+				.then( settle )
 				.catch( fail );
 		},
-		[ history, applyRun, fail ]
+		[ history, settle, fail ]
 	);
 
 	/**
@@ -103,10 +190,15 @@ export function useAgent() {
 		setStatus( STATUS_WORKING );
 		setPending( null );
 
-		return sendTurn( { instruction: '', history, confirmToken: token } )
-			.then( applyRun )
+		return sendTurn( {
+			instruction: '',
+			history,
+			confirmToken: token,
+			async: true,
+		} )
+			.then( settle )
 			.catch( fail );
-	}, [ pending, history, applyRun, fail ] );
+	}, [ pending, history, settle, fail ] );
 
 	/**
 	 * Decline the proposal. Nothing is sent: the pending calls were never run,
@@ -132,6 +224,8 @@ export function useAgent() {
 		status,
 		error,
 		pending,
+		jobId,
+		liveSteps,
 		send,
 		approve,
 		decline,

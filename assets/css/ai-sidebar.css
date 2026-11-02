@@ -388,3 +388,12 @@
 	gap: 8px;
 	margin-top: 8px;
 }
+
+.sfcore-ai-agent__progress-label {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	margin: 0 0 4px;
+	color: #757575;
+	font-size: 12px;
+}

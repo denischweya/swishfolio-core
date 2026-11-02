@@ -45,6 +45,7 @@ if (! function_exists('sfcore_test_tools_reset')) {
     function sfcore_test_tools_defaults()
     {
         $defaults = [
+            'scheduled'         => [],
             'terms'             => [],
             'objectTerms'       => [],
             'nextTermId'        => 300,
@@ -159,6 +160,33 @@ if (! function_exists('wp_trash_post')) {
         $GLOBALS['sfcore_test_wp']['posts'][$postId]['post_status'] = 'trash';
 
         return $GLOBALS['sfcore_test_wp']['posts'][$postId];
+    }
+}
+
+if (! function_exists('wp_schedule_single_event')) {
+    function wp_schedule_single_event($timestamp, $hook, $args = [], $wpError = false)
+    {
+        $GLOBALS['sfcore_test_wp']['scheduled'][] = ['hook' => $hook, 'args' => $args];
+
+        return true;
+    }
+}
+
+if (! function_exists('wp_set_current_user')) {
+    function wp_set_current_user($id, $name = '')
+    {
+        $GLOBALS['sfcore_test_wp']['userId'] = (int) $id;
+
+        return (object) ['ID' => (int) $id];
+    }
+}
+
+if (! function_exists('delete_transient')) {
+    function delete_transient($key)
+    {
+        unset($GLOBALS['sfcore_test_transients'][$key]);
+
+        return true;
     }
 }
 

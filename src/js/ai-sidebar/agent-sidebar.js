@@ -9,13 +9,14 @@
  */
 
 import { PluginSidebar, PluginSidebarMoreMenuItem } from '@wordpress/editor';
-import { Button, Spinner, TextareaControl } from '@wordpress/components';
+import { Button, TextareaControl } from '@wordpress/components';
 import { Fragment, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 import { AGENT_SIDEBAR_NAME, MAX_INSTRUCTION_LENGTH } from '../agent/constants';
 import { useAgent } from '../agent/use-agent';
 import AgentApproval from './agent-approval';
+import AgentProgress from './agent-progress';
 import AgentTranscript from './agent-transcript';
 import ErrorPanel from './error-panel';
 import AiIcon from './icon';
@@ -47,6 +48,10 @@ const AgentBody = () => {
 	return (
 		<div className="sfcore-ai-agent">
 			<AgentTranscript transcript={ agent.transcript } />
+
+			{ agent.isWorking && (
+				<AgentProgress steps={ agent.liveSteps } />
+			) }
 
 			{ agent.error && <ErrorPanel error={ agent.error } /> }
 
@@ -85,7 +90,6 @@ const AgentBody = () => {
 							? __( 'Working…', 'swishfolio-core' )
 							: __( 'Send', 'swishfolio-core' ) }
 					</Button>
-					{ agent.isWorking && <Spinner /> }
 				</div>
 			</div>
 		</div>

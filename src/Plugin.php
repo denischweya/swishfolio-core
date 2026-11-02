@@ -54,6 +54,8 @@ use SwishfolioCore\REST\ToolsController;
 use SwishfolioCore\REST\AgentController;
 use SwishfolioCore\Admin\AuditLogPage;
 use SwishfolioCore\Tools\AbilitiesBridge;
+use SwishfolioCore\Jobs\AgentJobRunner;
+use SwishfolioCore\Jobs\TransientJobStore;
 use SwishfolioCore\Tools\Journal\JournalTable;
 use SwishfolioCore\Tools\Journal\MutationJournal;
 use SwishfolioCore\Tools\Journal\WpdbJournalRepository;
@@ -210,6 +212,13 @@ class Plugin
     private ?AgentController $agentController = null;
 
     /**
+     * Background runner for agent turns.
+     *
+     * @var AgentJobRunner|null
+     */
+    private ?AgentJobRunner $agentJobRunner = null;
+
+    /**
      * Abilities API bridge. Registers the tools; exposes none of them.
      *
      * @var AbilitiesBridge|null
@@ -309,7 +318,31 @@ class Plugin
         );
 
         $this->toolsController = new ToolsController($this->toolRunner, $journalRepository, $aiSettings);
-        $this->agentController = new AgentController($this->toolRunner, $aiSettings, $aiProviders, $aiLogger);
+        // The loop is built lazily: it needs a configured provider, and asking
+        // for one at boot would throw on every request of a site that has not
+        // connected an account yet.
+        $toolRunner           = $this->toolRunner;
+        $jobStore             = new TransientJobStore();
+        $this->agentJobRunner = new AgentJobRunner(
+            $jobStore,
+            static function () use ($toolRunner, $aiSettings, $aiProviders) {
+                return new \SwishfolioCore\AI\Agent\AgentLoop(
+                    $aiProviders->configured(),
+                    $toolRunner,
+                    new \SwishfolioCore\AI\Prompt\PromptManager(SFCORE_PLUGIN_DIR . 'src/AI/Prompt'),
+                    $aiSettings->get()['model']
+                );
+            }
+        );
+
+        $this->agentController = new AgentController(
+            $this->toolRunner,
+            $aiSettings,
+            $aiProviders,
+            $aiLogger,
+            $this->agentJobRunner,
+            $jobStore
+        );
         $this->abilitiesBridge = new AbilitiesBridge($this->toolRunner->registry(), $this->toolRunner);
 
         if (is_admin()) {
@@ -434,6 +467,10 @@ class Plugin
 
         if ($this->auditLogPage !== null) {
             $this->auditLogPage->boot();
+        }
+
+        if ($this->agentJobRunner !== null) {
+            $this->agentJobRunner->boot();
         }
 
         // The journal table is created on activation, but an update from a

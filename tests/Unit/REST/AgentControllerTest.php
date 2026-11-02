@@ -11,6 +11,11 @@ use SwishfolioCore\AI\Settings;
 use SwishfolioCore\AI\UsageLogger;
 use SwishfolioCore\Blocks\BlockRegistry;
 use SwishfolioCore\REST\AgentController;
+use SwishfolioCore\AI\Agent\AgentLoop;
+use SwishfolioCore\AI\Prompt\PromptManager;
+use SwishfolioCore\Jobs\AgentJobRunner;
+use SwishfolioCore\Jobs\Job;
+use SwishfolioCore\Tests\Support\InMemoryJobStore;
 use SwishfolioCore\Tests\Support\InMemoryJournalRepository;
 use SwishfolioCore\Tests\Unit\AI\FakeEncryptionService;
 use SwishfolioCore\Tests\Unit\AI\FakeProvider;
@@ -27,6 +32,9 @@ class AgentControllerTest extends TestCase
     /** @var InMemoryJournalRepository */
     private $repository;
 
+    /** @var InMemoryJobStore */
+    private $jobStore;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -38,6 +46,7 @@ class AgentControllerTest extends TestCase
 
         $this->provider   = new FakeProvider();
         $this->repository = new InMemoryJournalRepository();
+        $this->jobStore   = new InMemoryJobStore();
     }
 
     private function controller()
@@ -66,11 +75,28 @@ class AgentControllerTest extends TestCase
             }
         };
 
+        $toolRunner = new ToolRunner($registry, $journal);
+        $provider   = $this->provider;
+
+        $jobs = new AgentJobRunner(
+            $this->jobStore,
+            static function () use ($provider, $toolRunner) {
+                return new AgentLoop(
+                    $provider,
+                    $toolRunner,
+                    new PromptManager(SFCORE_PLUGIN_DIR . 'src/AI/Prompt'),
+                    'fake-model'
+                );
+            }
+        );
+
         return new AgentController(
-            new ToolRunner($registry, $journal),
+            $toolRunner,
             $settings,
             $providers,
-            new UsageLogger()
+            new UsageLogger(),
+            $jobs,
+            $this->jobStore
         );
     }
 
@@ -258,6 +284,65 @@ class AgentControllerTest extends TestCase
 
         $this->assertInstanceOf(\WP_Error::class, $result);
         $this->assertSame(429, $result->get_error_data()['status']);
+    }
+
+    public function test_an_async_turn_is_queued_without_calling_the_provider()
+    {
+        // The whole point: a turn that could outlast PHP's execution limit must
+        // not begin inside the request that asked for it.
+        $data = $this->data(
+            $this->controller()->run(
+                new FakeRestRequest(['instruction' => 'rebuild my site', 'async' => true])
+            )
+        );
+
+        $this->assertTrue($data['queued']);
+        $this->assertSame(Job::STATUS_QUEUED, $data['status']);
+        $this->assertNotSame('', $data['jobId']);
+        $this->assertSame([], $this->provider->conversations);
+    }
+
+    public function test_a_queued_job_can_be_polled_to_completion()
+    {
+        $this->provider->replies = [['text' => 'Finished.']];
+
+        $controller = $this->controller();
+
+        $queued = $this->data(
+            $controller->run(new FakeRestRequest(['instruction' => 'do it', 'async' => true]))
+        );
+
+        $polled = $this->data($controller->job(new FakeRestRequest(['jobId' => $queued['jobId']])));
+
+        $this->assertSame(Job::STATUS_QUEUED, $polled['status']);
+        $this->assertFalse($polled['finished']);
+
+        // Cron fires the scheduled event.
+        $this->jobStore->find($queued['jobId']);
+        $hook = $GLOBALS['sfcore_test_wp']['scheduled'][0];
+
+        $this->assertSame(AgentJobRunner::HOOK, $hook['hook']);
+        $this->assertSame($queued['jobId'], $hook['args'][0]);
+    }
+
+    public function test_polling_an_unknown_job_is_a_404()
+    {
+        $result = $this->controller()->job(new FakeRestRequest(['jobId' => 'nosuchjob']));
+
+        $this->assertInstanceOf(\WP_Error::class, $result);
+        $this->assertSame(404, $result->get_error_data()['status']);
+    }
+
+    public function test_one_user_cannot_poll_anothers_job()
+    {
+        // A job carries the identity it runs as, so leaking its progress would
+        // tell one user what another's AI is doing to their site.
+        $this->jobStore->save(Job::queued('someoneelsejob', 999, 'theirs', []));
+
+        $result = $this->controller()->job(new FakeRestRequest(['jobId' => 'someoneelsejob']));
+
+        $this->assertInstanceOf(\WP_Error::class, $result);
+        $this->assertSame(403, $result->get_error_data()['status']);
     }
 
     public function test_a_provider_failure_says_nothing_was_changed()
