@@ -10,6 +10,9 @@ namespace SwishfolioCore\Tests\Evals\Support;
 use SwishfolioCore\AI\AIRequest;
 use SwishfolioCore\AI\AIResponse;
 use SwishfolioCore\AI\Contracts\AIProviderInterface;
+use SwishfolioCore\AI\Conversation\ConversationReply;
+use SwishfolioCore\AI\Conversation\ConversationRequest;
+use SwishfolioCore\AI\Conversation\ToolCall;
 
 /**
  * Recorded mode is the mode that has to work every day: deterministic, free, and
@@ -32,6 +35,20 @@ final class RecordedProvider implements AIProviderInterface
     private $calls = 0;
 
     /**
+     * Recorded conversation turns, consumed one per converse() call.
+     *
+     * A tool-using turn is a sequence, so one canned answer cannot express
+     * "call a tool, read the result, then answer". Each entry is
+     * ['text' => string, 'calls' => [['id', 'name', 'input'], ...]].
+     *
+     * @var array[]
+     */
+    private $turns = [];
+
+    /** @var ConversationRequest[] */
+    private $conversations = [];
+
+    /**
      * @param array $payload Decoded response body, exactly as a provider would return it.
      */
     public function __construct(array $payload)
@@ -42,6 +59,62 @@ final class RecordedProvider implements AIProviderInterface
     public function getSlug()
     {
         return 'recorded';
+    }
+
+    /**
+     * @param array[] $turns Recorded conversation turns.
+     *
+     * @return self
+     */
+    public function withTurns(array $turns)
+    {
+        $this->turns = $turns;
+
+        return $this;
+    }
+
+    /**
+     * @return ConversationRequest[] Every conversation this was asked to answer.
+     */
+    public function conversations()
+    {
+        return $this->conversations;
+    }
+
+    public function supportsTools()
+    {
+        return true;
+    }
+
+    public function converse(ConversationRequest $request)
+    {
+        $this->conversations[] = $request;
+        ++$this->calls;
+
+        if ($this->turns === []) {
+            throw new \SwishfolioCore\AI\ProviderException('RecordedProvider ran out of recorded turns.', 0);
+        }
+
+        $turn  = array_shift($this->turns);
+        $calls = [];
+
+        foreach (isset($turn['calls']) ? $turn['calls'] : [] as $index => $call) {
+            $calls[] = new ToolCall(
+                isset($call['id']) ? $call['id'] : 'rec_' . $index,
+                isset($call['name']) ? $call['name'] : '',
+                isset($call['input']) && is_array($call['input']) ? $call['input'] : []
+            );
+        }
+
+        return new ConversationReply(
+            isset($turn['text']) ? (string) $turn['text'] : '',
+            $calls,
+            $calls === [] ? 'end_turn' : 'tool_use',
+            isset($turn['inputTokens']) ? (int) $turn['inputTokens'] : 0,
+            isset($turn['outputTokens']) ? (int) $turn['outputTokens'] : 0,
+            'recorded',
+            'recorded'
+        );
     }
 
     public function getLabel()
