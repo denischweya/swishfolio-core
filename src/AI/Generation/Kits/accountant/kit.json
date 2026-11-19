@@ -1,0 +1,549 @@
+{
+    "version": 2,
+    "slug": "accountant",
+    "name": "Clear Ledger",
+    "title": "Accountant",
+    "industry": "professional",
+    "description": "A calm, trustworthy WordPress template for accountants and bookkeepers, with clear monthly pricing, tax deadlines and a tax calculator.",
+    "look": "Type: Figtree. Colours: Paper #F7F3EC, Ink #0B2A33, Petrol #0F4C5C, Teal wash #E3EEEC, Amber #F2A93B, Secondary text #4B5F66.",
+    "demo": {
+        "business": "Ledgerline",
+        "tagline": "Chartered accountants for small businesses, freelancers and landlords"
+    },
+    "design": {
+        "file": "design.json",
+        "variation": "Default",
+        "classPrefix": "ll-",
+        "fingerprint": ".ll-foot",
+        "palette": {
+            "base": "Paper #F7F3EC",
+            "contrast": "Ink #0B2A33",
+            "accent-1": "Petrol #0F4C5C",
+            "accent-2": "Teal wash #E3EEEC",
+            "accent-3": "Amber #F2A93B",
+            "accent-4": "Secondary text #4B5F66",
+            "accent-5": "Surface #FFFFFF",
+            "accent-6": "Deep petrol #0A3540"
+        },
+        "fonts": [
+            "Figtree"
+        ],
+        "pageTemplate": "page-landing",
+        "header": "header",
+        "footer": "footer",
+        "assetsPath": "assets/kits/accountant"
+    },
+    "frontPage": "home",
+    "navigation": [
+        "services",
+        "pricing",
+        "about",
+        "contact"
+    ],
+    "pages": [
+        {
+            "key": "home",
+            "title": "Home",
+            "slug": "home",
+            "navLabel": "Home",
+            "inNav": false,
+            "type": "home",
+            "template": "page-landing",
+            "sections": [
+                "home-01-hero",
+                "home-02-content",
+                "home-03-services",
+                "home-04-schedule",
+                "home-05-schedule",
+                "home-06-calculator",
+                "home-07-testimonials",
+                "home-08-cta"
+            ]
+        },
+        {
+            "key": "services",
+            "title": "Services",
+            "slug": "services",
+            "navLabel": "Services",
+            "inNav": true,
+            "type": "services",
+            "template": "page-landing",
+            "sections": [
+                "services-01-page-header",
+                "services-02-services",
+                "services-03-process",
+                "services-04-process",
+                "services-05-faq",
+                "services-06-cta"
+            ]
+        },
+        {
+            "key": "pricing",
+            "title": "Pricing",
+            "slug": "pricing",
+            "navLabel": "Pricing",
+            "inNav": true,
+            "type": "pricing",
+            "template": "page-landing",
+            "sections": [
+                "pricing-01-page-header",
+                "pricing-02-pricing",
+                "pricing-03-pricing",
+                "pricing-04-faq",
+                "pricing-05-cta"
+            ]
+        },
+        {
+            "key": "about",
+            "title": "About",
+            "slug": "about",
+            "navLabel": "About",
+            "inNav": true,
+            "type": "about",
+            "template": "page-landing",
+            "sections": [
+                "about-01-page-header",
+                "about-02-features",
+                "about-03-team",
+                "about-04-portfolio",
+                "about-05-cta"
+            ]
+        },
+        {
+            "key": "contact",
+            "title": "Contact",
+            "slug": "contact",
+            "navLabel": "Contact",
+            "inNav": true,
+            "type": "contact",
+            "template": "page-landing",
+            "sections": [
+                "contact-01-page-header",
+                "contact-02-contact",
+                "contact-03-process"
+            ]
+        }
+    ],
+    "units": {
+        "home-01-hero": {
+            "scope": "section",
+            "role": "hero",
+            "summary": "Home page hero from the home page, headed (H1) \"Calm, clear accounts for people with better things to do.\": 2 paragraphs, 2 buttons, 9 drawn icons or graphics, 8 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 1,
+            "file": "units/home-01-hero.html",
+            "slots": 29,
+            "repeatable": 8,
+            "ksesStable": false
+        },
+        "home-02-content": {
+            "scope": "section",
+            "role": "content",
+            "summary": "Content section from the home page: 1 paragraph, 6 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 2,
+            "file": "units/home-02-content.html",
+            "slots": 7,
+            "repeatable": 6,
+            "ksesStable": true
+        },
+        "home-03-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the home page, headed (H2) \"Three kinds of client. One way of working.\": 4 headings, 2 paragraphs, 15 drawn icons or graphics, 12 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 3,
+            "file": "units/home-03-services.html",
+            "slots": 24,
+            "repeatable": 12,
+            "ksesStable": false
+        },
+        "home-04-schedule": {
+            "scope": "section",
+            "role": "schedule",
+            "summary": "Schedule section from the home page, headed (H2) \"Every deadline, watched for you.\": 7 headings, 2 paragraphs, 1 drawn icon or graphic, 5 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 4,
+            "file": "units/home-04-schedule.html",
+            "slots": 23,
+            "repeatable": 5,
+            "ksesStable": false
+        },
+        "home-05-schedule": {
+            "scope": "section",
+            "role": "schedule",
+            "summary": "Schedule section from the home page, headed (H2) \"From first call to fully handled in about a fortnight.\": 5 headings, 2 paragraphs, 1 button, 1 drawn icon or graphic, 3 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 5,
+            "file": "units/home-05-schedule.html",
+            "slots": 15,
+            "repeatable": 3,
+            "ksesStable": false
+        },
+        "home-06-calculator": {
+            "scope": "section",
+            "role": "calculator",
+            "summary": "Calculator section from the home page, headed (H2) \"See how the tax bill changes.\": 2 paragraphs, 1 button, 2 repeatable items. Has a small interactive widget.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 6,
+            "file": "units/home-06-calculator.html",
+            "needs": [
+                "script"
+            ],
+            "slots": 18,
+            "repeatable": 2,
+            "ksesStable": false
+        },
+        "home-07-testimonials": {
+            "scope": "section",
+            "role": "testimonials",
+            "summary": "Testimonials section from the home page: 20 drawn icons or graphics, 6 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 7,
+            "file": "units/home-07-testimonials.html",
+            "slots": 14,
+            "repeatable": 6,
+            "ksesStable": false
+        },
+        "home-08-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the home page, headed (H2) \"Know where you stand, every month.\": 1 paragraph, 2 buttons.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 8,
+            "file": "units/home-08-cta.html",
+            "slots": 4,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "services-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the services page, headed (H1) \"Everything your numbers need, under one fixed fee.\": 2 paragraphs, 6 drawn icons or graphics, 6 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 1,
+            "file": "units/services-01-page-header.html",
+            "slots": 10,
+            "repeatable": 6,
+            "ksesStable": false
+        },
+        "services-02-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the services page, headed (H3) \"Bookkeeping\": 6 headings, 24 drawn icons or graphics, 24 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 2,
+            "file": "units/services-02-services.html",
+            "slots": 36,
+            "repeatable": 24,
+            "ksesStable": false
+        },
+        "services-03-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the services page, headed (H2) \"Quarterly updates are here. We file every one.\": 2 paragraphs, 5 drawn icons or graphics, 7 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 3,
+            "file": "units/services-03-process.html",
+            "slots": 17,
+            "repeatable": 7,
+            "ksesStable": false
+        },
+        "services-04-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the services page, headed (H2) \"What actually happens after you sign up.\": 5 headings, 2 paragraphs, 4 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 4,
+            "file": "units/services-04-process.html",
+            "slots": 15,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "services-05-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ from the services page, headed (H2) \"The things people ask on the first call.\": 7 paragraphs, 1 button, 5 questions, 5 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 5,
+            "file": "units/services-05-faq.html",
+            "slots": 14,
+            "repeatable": 5,
+            "ksesStable": true
+        },
+        "services-06-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the services page, headed (H2) \"Not sure which services you need?\": 1 paragraph, 2 buttons.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 6,
+            "file": "units/services-06-cta.html",
+            "slots": 4,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "pricing-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the pricing page, headed (H1) \"Fixed monthly fees. No surprise invoices.\": 10 headings, 3 paragraphs, 46 drawn icons or graphics, 46 repeatable items.",
+            "pageTypes": [
+                "pricing"
+            ],
+            "sourcePage": "pricing",
+            "position": 1,
+            "file": "units/pricing-01-page-header.html",
+            "slots": 83,
+            "repeatable": 46,
+            "ksesStable": false
+        },
+        "pricing-02-pricing": {
+            "scope": "section",
+            "role": "pricing",
+            "summary": "Pricing section from the pricing page, headed (H2) \"What changes as you move up.\": 1 paragraph, 27 repeatable items.",
+            "pageTypes": [
+                "pricing"
+            ],
+            "sourcePage": "pricing",
+            "position": 2,
+            "file": "units/pricing-02-pricing.html",
+            "slots": 38,
+            "repeatable": 27,
+            "ksesStable": true
+        },
+        "pricing-03-pricing": {
+            "scope": "section",
+            "role": "pricing",
+            "summary": "Pricing section from the pricing page, headed (H2) \"Extras, priced up front.\": 2 paragraphs, 1 drawn icon or graphic, 6 repeatable items.",
+            "pageTypes": [
+                "pricing"
+            ],
+            "sourcePage": "pricing",
+            "position": 3,
+            "file": "units/pricing-03-pricing.html",
+            "slots": 11,
+            "repeatable": 6,
+            "ksesStable": false
+        },
+        "pricing-04-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ from the pricing page, headed (H2) \"About the money.\": 5 paragraphs, 4 questions, 4 repeatable items.",
+            "pageTypes": [
+                "pricing",
+                "any"
+            ],
+            "sourcePage": "pricing",
+            "position": 4,
+            "file": "units/pricing-04-faq.html",
+            "slots": 10,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "pricing-05-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the pricing page, headed (H2) \"Get your exact fee in 48 hours.\": 1 paragraph, 2 buttons.",
+            "pageTypes": [
+                "pricing",
+                "any"
+            ],
+            "sourcePage": "pricing",
+            "position": 5,
+            "file": "units/pricing-05-cta.html",
+            "slots": 4,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "about-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the about page, headed (H1) \"A small Manchester practice that answers the phone.\": 2 paragraphs, 4 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 1,
+            "file": "units/about-01-page-header.html",
+            "slots": 11,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "about-02-features": {
+            "scope": "section",
+            "role": "features",
+            "summary": "Features section from the about page, headed (H2) \"Four promises we put in writing.\": 5 headings, 2 paragraphs, 4 repeatable items.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 2,
+            "file": "units/about-02-features.html",
+            "slots": 15,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "about-03-team": {
+            "scope": "section",
+            "role": "team",
+            "summary": "Team section from the about page, headed (H2) \"Nine people. You’ll know them by name.\": 10 headings, 2 paragraphs, 9 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 3,
+            "file": "units/about-03-team.html",
+            "slots": 48,
+            "repeatable": 9,
+            "ksesStable": true
+        },
+        "about-04-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the about page, headed (H2) \"What changed after they switched.\": 2 paragraphs. Lists the site's portfolio projects.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 4,
+            "file": "units/about-04-portfolio.html",
+            "needs": [
+                "projects"
+            ],
+            "slots": 3,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "about-05-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the about page, headed (H2) \"We take on around eight new clients a month.\": 1 paragraph, 2 buttons.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 5,
+            "file": "units/about-05-cta.html",
+            "slots": 4,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "contact-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the contact page, headed (H1) \"Let’s talk about your numbers.\": 2 paragraphs, 9 drawn icons or graphics, 13 repeatable items. Has a demo form that does not send anything yet.",
+            "pageTypes": [
+                "contact"
+            ],
+            "sourcePage": "contact",
+            "position": 1,
+            "file": "units/contact-01-page-header.html",
+            "needs": [
+                "form"
+            ],
+            "slots": 25,
+            "repeatable": 13,
+            "ksesStable": false
+        },
+        "contact-02-contact": {
+            "scope": "section",
+            "role": "contact",
+            "summary": "Contact section from the contact page, headed (H2) \"In the Northern Quarter, five minutes from Piccadilly.\": 2 paragraphs, 3 drawn icons or graphics, 2 repeatable items.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "contact",
+            "position": 2,
+            "file": "units/contact-02-contact.html",
+            "slots": 8,
+            "repeatable": 2,
+            "ksesStable": false
+        },
+        "contact-03-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the contact page, headed (H3) \"Switching from another accountant?\": 1 paragraph, 1 button.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "contact",
+            "position": 3,
+            "file": "units/contact-03-process.html",
+            "slots": 3,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "header": {
+            "scope": "header",
+            "role": "header",
+            "summary": "Header template part.",
+            "file": "units/header.html",
+            "slots": 6,
+            "ksesStable": false
+        },
+        "footer": {
+            "scope": "footer",
+            "role": "footer",
+            "summary": "Footer template part.",
+            "file": "units/footer.html",
+            "slots": 21,
+            "ksesStable": false
+        }
+    },
+    "assets": [],
+    "source": {
+        "dir": "seed/sites/accountant",
+        "hash": "209c551828270c2b0a65053334cffc82"
+    }
+}

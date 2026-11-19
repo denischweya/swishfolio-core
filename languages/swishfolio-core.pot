@@ -1,0 +1,5714 @@
+# Copyright (C) 2026 Swishfolio
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Swishfolio Core 1.0.3\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/swishfolio-core\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-29T23:34:06+03:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: swishfolio-core\n"
+
+#. Plugin Name of the plugin
+#: swishfolio-core.php
+msgid "Swishfolio Core"
+msgstr ""
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+#: swishfolio-core.php
+msgid "https://swishfolio.com"
+msgstr ""
+
+#. Description of the plugin
+#: swishfolio-core.php
+msgid "Core functionality for Swishfolio theme - custom blocks, post types, and taxonomies for building stunning portfolios."
+msgstr ""
+
+#. Author of the plugin
+#: swishfolio-core.php
+#: src/Plugin.php:338
+#: src/Plugin.php:399
+msgid "Swishfolio"
+msgstr ""
+
+#: src/Admin/AdminMenu.php:41
+#: src/Admin/AdminMenu.php:42
+#: templates/admin/dashboard.php:19
+msgid "Swish Forms"
+msgstr ""
+
+#: src/Admin/AdminMenu.php:53
+#: src/Admin/AdminMenu.php:54
+msgid "Dashboard"
+msgstr ""
+
+#: src/Admin/AdminMenu.php:63
+#: src/Admin/AdminMenu.php:64
+#: templates/admin/entries.php:109
+msgid "Form Entries"
+msgstr ""
+
+#: src/Admin/AdminMenu.php:73
+#: src/Admin/AdminMenu.php:74
+#: templates/admin/dashboard.php:41
+#: templates/admin/email-settings.php:58
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:218
+#: blocks/swish-form/build/index.js:218
+msgid "Email Settings"
+msgstr ""
+
+#: src/Admin/AdminMenu.php:83
+#: src/Admin/AdminMenu.php:84
+#: templates/admin/dashboard.php:46
+msgid "Integrations"
+msgstr ""
+
+#: src/Admin/AdminMenu.php:127
+#: src/Email/EspManager.php:152
+msgid "Connection successful!"
+msgstr ""
+
+#: src/Admin/AdminMenu.php:128
+#: src/Email/EspManager.php:154
+msgid "Connection failed."
+msgstr ""
+
+#: src/Admin/AdminMenu.php:129
+msgid "Test email sent!"
+msgstr ""
+
+#: src/Admin/AdminMenu.php:130
+msgid "Failed to send test email."
+msgstr ""
+
+#: src/Admin/AdminMenu.php:131
+msgid "Are you sure you want to delete this entry?"
+msgstr ""
+
+#: src/Admin/AdminMenu.php:132
+msgid "Are you sure you want to delete the selected entries?"
+msgstr ""
+
+#: src/Admin/AdminMenu.php:145
+#: src/Admin/AdminMenu.php:158
+#: src/Admin/AdminMenu.php:171
+#: src/Admin/AdminMenu.php:184
+#: templates/admin/email-settings.php:17
+#: templates/admin/entries.php:19
+#: templates/admin/integrations.php:64
+msgid "You do not have permission to access this page."
+msgstr ""
+
+#: src/Admin/AdminMenu.php:202
+msgid "Page not found"
+msgstr ""
+
+#: src/AI/Providers/OpenAICompatibleProvider.php:19
+msgid "OpenAI-compatible API"
+msgstr ""
+
+#: src/AI/Providers/OpenAIProvider.php:25
+msgid "OpenAI"
+msgstr ""
+
+#: src/Blocks/LatestPostsBlock.php:131
+#: blocks/latest-posts/build/index.js:1
+#: blocks/latest-posts/src/edit.js:229
+#: blocks/latest-posts/build/index.js:229
+msgid "No posts found."
+msgstr ""
+
+#: src/Blocks/PortfolioBlock.php:147
+msgid "All"
+msgstr ""
+
+#: src/Blocks/PortfolioBlock.php:182
+#: src/PostTypes/ProjectPostType.php:47
+msgid "No projects found."
+msgstr ""
+
+#: src/Blocks/PortfolioBlock.php:213
+#: src/PostTypes/ProjectPostType.php:44
+msgid "View Project"
+msgstr ""
+
+#: src/Blocks/PortfolioBlock.php:349
+msgid "Client"
+msgstr ""
+
+#: src/Blocks/PortfolioBlock.php:357
+#: src/PostTypes/ProjectPostType.php:352
+#: assets/js/project-sidebar.js:1
+#: src/js/project-sidebar.js:24
+#: assets/js/project-sidebar.js:87
+msgid "Completed"
+msgstr ""
+
+#: src/Blocks/PortfolioBlock.php:383
+msgid "Live Site"
+msgstr ""
+
+#: src/Blocks/SwishFormBlock.php:34
+msgid "Submit"
+msgstr ""
+
+#: src/Blocks/SwishFormBlock.php:35
+msgid "Thank you for your submission!"
+msgstr ""
+
+#: src/Blocks/SwishFormBlock.php:36
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#: src/Blocks/SwishFormBlock.php:64
+msgid "Leave this field empty"
+msgstr ""
+
+#: src/Blocks/SwishFormBlock.php:80
+msgid "Sending..."
+msgstr ""
+
+#: src/Email/EmailService.php:176
+msgid "New Contact Form Submission"
+msgstr ""
+
+#. translators: 1: site name, 2: entry ID, 3: date/time
+#: src/Email/EmailService.php:196
+#, php-format
+msgid "Submitted via %1$s | Entry #%2$d | %3$s"
+msgstr ""
+
+#: src/Email/EmailService.php:256
+#: src/Email/EspManager.php:131
+#: src/Email/EspManager.php:167
+msgid "Permission denied."
+msgstr ""
+
+#: src/Email/EmailService.php:262
+msgid "Please enter a valid email address."
+msgstr ""
+
+#. translators: %s: site name
+#: src/Email/EmailService.php:270
+#, php-format
+msgid "Test Email from %s"
+msgstr ""
+
+#. translators: 1: site name, 2: date/time
+#: src/Email/EmailService.php:276
+#, php-format
+msgid "This is a test email from %1$s sent on %2$s. If you received this, your email settings are working correctly!"
+msgstr ""
+
+#: src/Email/EmailService.php:289
+msgid "Test email sent successfully!"
+msgstr ""
+
+#: src/Email/EmailService.php:291
+msgid "Failed to send test email. Please check your settings."
+msgstr ""
+
+#: src/Email/EspManager.php:138
+#: src/Email/EspManager.php:174
+msgid "Invalid provider."
+msgstr ""
+
+#: src/Email/EspManager.php:146
+#: src/Email/EspManager.php:182
+msgid "No credentials found. Please save your settings first."
+msgstr ""
+
+#: src/Email/Providers/ActiveCampaignProvider.php:40
+#: templates/admin/integrations.php:45
+msgid "API URL"
+msgstr ""
+
+#: src/Email/Providers/ActiveCampaignProvider.php:45
+#: src/Email/Providers/BrevoProvider.php:45
+#: src/Email/Providers/ConvertKitProvider.php:45
+#: src/Email/Providers/MailchimpProvider.php:47
+#: templates/admin/integrations.php:23
+#: templates/admin/integrations.php:30
+#: templates/admin/integrations.php:46
+#: templates/admin/integrations.php:53
+msgid "API Key"
+msgstr ""
+
+#: src/Email/Providers/ConvertKitProvider.php:50
+#: templates/admin/integrations.php:31
+msgid "API Secret"
+msgstr ""
+
+#: src/Email/Providers/KlaviyoProvider.php:45
+#: templates/admin/integrations.php:38
+msgid "Private API Key"
+msgstr ""
+
+#: src/Email/Providers/MailchimpProvider.php:77
+msgid "Invalid API key format."
+msgstr ""
+
+#: src/Extensions/NavigationExtension.php:96
+#: assets/js/columns-extension.js:1
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:225
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:167
+#: src/js/columns-extension.js:53
+#: assets/js/columns-extension.js:114
+#: blocks/feature-card/build/index.js:225
+#: blocks/portfolio/build/index.js:167
+msgid "Default"
+msgstr ""
+
+#: src/Extensions/NavigationExtension.php:101
+msgid "Centered Overlay"
+msgstr ""
+
+#: src/Extensions/NavigationExtension.php:106
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:168
+#: blocks/portfolio/build/index.js:168
+msgid "Minimal"
+msgstr ""
+
+#: src/Forms/FormEntryPostType.php:46
+msgctxt "Post type general name"
+msgid "Form Entries"
+msgstr ""
+
+#: src/Forms/FormEntryPostType.php:47
+msgctxt "Post type singular name"
+msgid "Form Entry"
+msgstr ""
+
+#: src/Forms/FormEntryPostType.php:48
+msgctxt "Admin Menu text"
+msgid "Form Entries"
+msgstr ""
+
+#: src/Forms/FormEntryPostType.php:49
+msgctxt "Add New on Toolbar"
+msgid "Form Entry"
+msgstr ""
+
+#: src/Forms/FormEntryPostType.php:50
+#: src/PostTypes/ProjectPostType.php:40
+msgid "Add New"
+msgstr ""
+
+#: src/Forms/FormEntryPostType.php:51
+msgid "Add New Entry"
+msgstr ""
+
+#: src/Forms/FormEntryPostType.php:52
+msgid "New Entry"
+msgstr ""
+
+#: src/Forms/FormEntryPostType.php:53
+#: src/Forms/FormEntryPostType.php:54
+msgid "View Entry"
+msgstr ""
+
+#: src/Forms/FormEntryPostType.php:55
+msgid "All Entries"
+msgstr ""
+
+#: src/Forms/FormEntryPostType.php:56
+msgid "Search Entries"
+msgstr ""
+
+#: src/Forms/FormEntryPostType.php:57
+msgid "No entries found."
+msgstr ""
+
+#: src/Forms/FormEntryPostType.php:58
+msgid "No entries found in Trash."
+msgstr ""
+
+#: src/Forms/FormEntryPostType.php:59
+msgid "Entry Archives"
+msgstr ""
+
+#: src/Forms/FormEntryPostType.php:60
+msgid "Filter entries list"
+msgstr ""
+
+#: src/Forms/FormEntryPostType.php:61
+msgid "Entries list navigation"
+msgstr ""
+
+#: src/Forms/FormEntryPostType.php:62
+msgid "Entries list"
+msgstr ""
+
+#. translators: %s: date/time
+#: src/Forms/FormEntryPostType.php:108
+#, php-format
+msgid "Submission on %s"
+msgstr ""
+
+#: src/Forms/FormProcessor.php:102
+#: src/Forms/FormProcessor.php:110
+msgid "Security check failed. Please refresh the page and try again."
+msgstr ""
+
+#: src/Forms/FormProcessor.php:137
+msgid "Too many submissions. Please try again later."
+msgstr ""
+
+#: src/Forms/FormProcessor.php:149
+msgid "Please correct the errors below."
+msgstr ""
+
+#: src/Forms/FormProcessor.php:172
+msgid "Failed to save submission. Please try again."
+msgstr ""
+
+#: src/Forms/FormProcessor.php:189
+msgid "Form submitted successfully."
+msgstr ""
+
+#: src/Forms/FormProcessor.php:207
+msgid "New Form Submission"
+msgstr ""
+
+#. translators: %s: field label
+#: src/Forms/ValidationService.php:41
+#, php-format
+msgid "%s is required."
+msgstr ""
+
+#. translators: %s: field label
+#: src/Forms/ValidationService.php:74
+#, php-format
+msgid "%s must be a valid email address."
+msgstr ""
+
+#. translators: %s: field label
+#: src/Forms/ValidationService.php:85
+#, php-format
+msgid "%s must be a valid phone number."
+msgstr ""
+
+#: src/Plugin.php:417
+msgid "Features: Showcase"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:37
+msgctxt "Post type general name"
+msgid "Projects"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:38
+msgctxt "Post type singular name"
+msgid "Project"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:39
+msgctxt "Admin Menu text"
+msgid "Projects"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:41
+msgid "Add New Project"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:42
+msgid "Edit Project"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:43
+msgid "New Project"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:45
+msgid "View Projects"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:46
+msgid "Search Projects"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:48
+msgid "No projects found in Trash."
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:49
+msgid "All Projects"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:50
+msgid "Project Archives"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:51
+msgid "Project Attributes"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:52
+msgid "Insert into project"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:53
+msgid "Uploaded to this project"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:54
+msgctxt "Overrides the \"Featured Image\""
+msgid "Project Image"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:55
+msgctxt "Overrides \"Set featured image\""
+msgid "Set project image"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:56
+msgctxt "Overrides \"Remove featured image\""
+msgid "Remove project image"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:57
+msgctxt "Overrides \"Use as featured image\""
+msgid "Use as project image"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:115
+#: assets/js/project-sidebar.js:1
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:385
+#: src/js/project-sidebar.js:75
+#: assets/js/project-sidebar.js:138
+#: blocks/portfolio/build/index.js:385
+msgid "Project Details"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:150
+#: assets/js/project-sidebar.js:1
+#: src/js/project-sidebar.js:79
+#: assets/js/project-sidebar.js:142
+msgid "Status"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:161
+#: assets/js/project-sidebar.js:1
+#: src/js/project-sidebar.js:87
+#: assets/js/project-sidebar.js:150
+msgid "Completion Date"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:166
+#: assets/js/project-sidebar.js:1
+#: src/js/project-sidebar.js:130
+#: assets/js/project-sidebar.js:193
+msgid "Client Name"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:171
+#: assets/js/project-sidebar.js:1
+#: src/js/project-sidebar.js:136
+#: assets/js/project-sidebar.js:199
+msgid "Project URL"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:176
+#: assets/js/project-sidebar.js:1
+#: src/js/project-sidebar.js:144
+#: assets/js/project-sidebar.js:207
+msgid "Skills / Technologies"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:178
+#: assets/js/project-sidebar.js:1
+#: src/js/project-sidebar.js:147
+#: assets/js/project-sidebar.js:210
+msgid "Comma-separated list (e.g., React, PHP, WordPress)"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:353
+#: assets/js/project-sidebar.js:1
+#: src/js/project-sidebar.js:23
+#: assets/js/project-sidebar.js:86
+msgid "In Progress"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:354
+#: assets/js/project-sidebar.js:1
+#: src/js/project-sidebar.js:25
+#: assets/js/project-sidebar.js:88
+msgid "Planned"
+msgstr ""
+
+#: src/PostTypes/ProjectPostType.php:355
+#: assets/js/project-sidebar.js:1
+#: src/js/project-sidebar.js:26
+#: assets/js/project-sidebar.js:89
+msgid "On Hold"
+msgstr ""
+
+#: src/REST/AIController.php:98
+msgid "You must be signed in."
+msgstr ""
+
+#: src/REST/AIController.php:102
+msgid "You cannot use AI editing."
+msgstr ""
+
+#: src/REST/AIController.php:108
+msgid "You cannot edit this post."
+msgstr ""
+
+#: src/REST/AIController.php:139
+msgid "No block was selected."
+msgstr ""
+
+#: src/REST/AIController.php:166
+#: src/REST/AIController.php:172
+msgid "AI could not complete this request. Nothing was changed."
+msgstr ""
+
+#: src/REST/AIController.php:196
+msgid "Connection successful."
+msgstr ""
+
+#: src/REST/AIController.php:269
+msgid "Too many AI requests. Try again later."
+msgstr ""
+
+#: src/Services/SvgSupport.php:89
+msgid "Sorry, you are not allowed to upload SVG files."
+msgstr ""
+
+#: src/Services/SvgSupport.php:99
+msgid "Could not decode compressed SVG file."
+msgstr ""
+
+#: src/Services/SvgSupport.php:108
+msgid "SVG file could not be sanitized for security reasons."
+msgstr ""
+
+#: src/Taxonomies/ProjectCategoryTaxonomy.php:58
+msgctxt "taxonomy general name"
+msgid "Project Categories"
+msgstr ""
+
+#: src/Taxonomies/ProjectCategoryTaxonomy.php:59
+msgctxt "taxonomy singular name"
+msgid "Project Category"
+msgstr ""
+
+#: src/Taxonomies/ProjectCategoryTaxonomy.php:60
+msgid "Search Categories"
+msgstr ""
+
+#: src/Taxonomies/ProjectCategoryTaxonomy.php:61
+msgid "All Categories"
+msgstr ""
+
+#: src/Taxonomies/ProjectCategoryTaxonomy.php:62
+msgid "Parent Category"
+msgstr ""
+
+#: src/Taxonomies/ProjectCategoryTaxonomy.php:63
+msgid "Parent Category:"
+msgstr ""
+
+#: src/Taxonomies/ProjectCategoryTaxonomy.php:64
+msgid "Edit Category"
+msgstr ""
+
+#: src/Taxonomies/ProjectCategoryTaxonomy.php:65
+msgid "Update Category"
+msgstr ""
+
+#: src/Taxonomies/ProjectCategoryTaxonomy.php:66
+msgid "Add New Category"
+msgstr ""
+
+#: src/Taxonomies/ProjectCategoryTaxonomy.php:67
+msgid "New Category Name"
+msgstr ""
+
+#: src/Taxonomies/ProjectCategoryTaxonomy.php:68
+msgid "Categories"
+msgstr ""
+
+#: src/Taxonomies/ProjectTypeTaxonomy.php:58
+msgctxt "taxonomy general name"
+msgid "Project Types"
+msgstr ""
+
+#: src/Taxonomies/ProjectTypeTaxonomy.php:59
+msgctxt "taxonomy singular name"
+msgid "Project Type"
+msgstr ""
+
+#: src/Taxonomies/ProjectTypeTaxonomy.php:60
+msgid "Search Types"
+msgstr ""
+
+#: src/Taxonomies/ProjectTypeTaxonomy.php:61
+msgid "All Types"
+msgstr ""
+
+#: src/Taxonomies/ProjectTypeTaxonomy.php:62
+msgid "Parent Type"
+msgstr ""
+
+#: src/Taxonomies/ProjectTypeTaxonomy.php:63
+msgid "Parent Type:"
+msgstr ""
+
+#: src/Taxonomies/ProjectTypeTaxonomy.php:64
+msgid "Edit Type"
+msgstr ""
+
+#: src/Taxonomies/ProjectTypeTaxonomy.php:65
+msgid "Update Type"
+msgstr ""
+
+#: src/Taxonomies/ProjectTypeTaxonomy.php:66
+msgid "Add New Type"
+msgstr ""
+
+#: src/Taxonomies/ProjectTypeTaxonomy.php:67
+msgid "New Type Name"
+msgstr ""
+
+#: src/Taxonomies/ProjectTypeTaxonomy.php:68
+msgid "Types"
+msgstr ""
+
+#: templates/admin/dashboard.php:26
+msgid "Total Submissions"
+msgstr ""
+
+#: templates/admin/dashboard.php:32
+msgid "Quick Links"
+msgstr ""
+
+#: templates/admin/dashboard.php:36
+msgid "View Entries"
+msgstr ""
+
+#: templates/admin/dashboard.php:37
+msgid "See all form submissions"
+msgstr ""
+
+#: templates/admin/dashboard.php:42
+msgid "Configure SMTP settings"
+msgstr ""
+
+#: templates/admin/dashboard.php:47
+msgid "Connect email providers"
+msgstr ""
+
+#: templates/admin/dashboard.php:54
+msgid "Recent Submissions"
+msgstr ""
+
+#: templates/admin/dashboard.php:59
+#: templates/admin/entries.php:173
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:37
+#: blocks/swish-form/src/edit.js:64
+#: blocks/swish-form/src/edit.js:74
+#: blocks/swish-form/build/index.js:37
+#: blocks/swish-form/build/index.js:64
+#: blocks/swish-form/build/index.js:74
+msgid "Email"
+msgstr ""
+
+#: templates/admin/dashboard.php:60
+#: templates/admin/entries.php:174
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:183
+#: blocks/swish-form/build/index.js:183
+msgid "Form Type"
+msgstr ""
+
+#: templates/admin/dashboard.php:61
+#: templates/admin/entries.php:176
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:316
+#: blocks/portfolio/build/index.js:316
+msgid "Date"
+msgstr ""
+
+#: templates/admin/dashboard.php:80
+msgid "View all entries →"
+msgstr ""
+
+#: templates/admin/dashboard.php:84
+msgid "No submissions yet. Add a Swish Form block to start collecting entries."
+msgstr ""
+
+#: templates/admin/dashboard.php:90
+msgid "Getting Started"
+msgstr ""
+
+#: templates/admin/dashboard.php:92
+msgid "Add a \"Swish Form\" block to any page or post"
+msgstr ""
+
+#: templates/admin/dashboard.php:93
+msgid "Choose form type: Contact or Subscription"
+msgstr ""
+
+#: templates/admin/dashboard.php:94
+msgid "Add your form fields"
+msgstr ""
+
+#: templates/admin/dashboard.php:95
+msgid "Configure email settings for contact forms"
+msgstr ""
+
+#: templates/admin/dashboard.php:96
+msgid "Connect an email provider for subscription forms"
+msgstr ""
+
+#: templates/admin/email-settings.php:44
+#: templates/admin/integrations.php:102
+msgid "Settings saved."
+msgstr ""
+
+#: templates/admin/email-settings.php:67
+msgid "From Email"
+msgstr ""
+
+#: templates/admin/email-settings.php:71
+msgid "Email address used as the sender for contact form emails."
+msgstr ""
+
+#: templates/admin/email-settings.php:76
+msgid "From Name"
+msgstr ""
+
+#: templates/admin/email-settings.php:80
+msgid "Name displayed as the sender."
+msgstr ""
+
+#: templates/admin/email-settings.php:86
+msgid "SMTP Configuration"
+msgstr ""
+
+#: templates/admin/email-settings.php:87
+msgid "Enable custom SMTP to improve email deliverability."
+msgstr ""
+
+#: templates/admin/email-settings.php:92
+msgid "Enable SMTP"
+msgstr ""
+
+#: templates/admin/email-settings.php:96
+msgid "Use custom SMTP server"
+msgstr ""
+
+#: templates/admin/email-settings.php:102
+msgid "SMTP Host"
+msgstr ""
+
+#: templates/admin/email-settings.php:110
+msgid "SMTP Port"
+msgstr ""
+
+#: templates/admin/email-settings.php:114
+msgid "Common ports: 25, 465 (SSL), 587 (TLS)"
+msgstr ""
+
+#: templates/admin/email-settings.php:119
+msgid "Encryption"
+msgstr ""
+
+#: templates/admin/email-settings.php:123
+#: templates/admin/integrations.php:123
+#: assets/js/button-extension.js:1
+#: assets/js/navigation-extension.js:1
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:278
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:378
+#: blocks/card/src/edit.js:425
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:255
+#: blocks/feature-card/src/edit.js:346
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:185
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:328
+#: blocks/heading/src/edit.js:492
+#: blocks/heading/src/edit.js:525
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:471
+#: blocks/hero/src/edit.js:533
+#: blocks/hero/src/edit.js:589
+#: blocks/hero/src/edit.js:741
+#: blocks/hero/src/edit.js:936
+#: blocks/hero/src/edit.js:974
+#: blocks/hero/src/edit.js:976
+#: blocks/hero/src/edit.js:1027
+#: blocks/hero/src/edit.js:1029
+#: blocks/hero/src/edit.js:1223
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:218
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:165
+#: blocks/swish-gallery/src/edit.js:185
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:35
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:259
+#: blocks/swish-socials/src/edit.js:272
+#: blocks/testimonials/build/index.js:1
+#: blocks/testimonials/src/edit.js:165
+#: src/js/button-extension.js:46
+#: src/js/navigation-extension.js:45
+#: assets/js/button-extension.js:108
+#: assets/js/navigation-extension.js:107
+#: blocks/bento-cards/build/index.js:441
+#: blocks/card/build/index.js:637
+#: blocks/card/build/index.js:684
+#: blocks/feature-card/build/index.js:255
+#: blocks/feature-card/build/index.js:346
+#: blocks/features/build/index.js:613
+#: blocks/heading/build/index.js:1052
+#: blocks/heading/build/index.js:1216
+#: blocks/heading/build/index.js:1249
+#: blocks/hero/build/index.js:1040
+#: blocks/hero/build/index.js:1102
+#: blocks/hero/build/index.js:1158
+#: blocks/hero/build/index.js:1310
+#: blocks/hero/build/index.js:1505
+#: blocks/hero/build/index.js:1543
+#: blocks/hero/build/index.js:1545
+#: blocks/hero/build/index.js:1596
+#: blocks/hero/build/index.js:1598
+#: blocks/hero/build/index.js:1792
+#: blocks/portfolio/build/index.js:218
+#: blocks/swish-gallery/build/index.js:165
+#: blocks/swish-gallery/build/index.js:185
+#: blocks/swish-links/build/index.js:35
+#: blocks/swish-socials/build/index.js:379
+#: blocks/swish-socials/build/index.js:392
+#: blocks/testimonials/build/index.js:230
+msgid "None"
+msgstr ""
+
+#: templates/admin/email-settings.php:131
+msgid "SMTP Username"
+msgstr ""
+
+#: templates/admin/email-settings.php:139
+msgid "SMTP Password"
+msgstr ""
+
+#: templates/admin/email-settings.php:144
+msgid "Password is set. Leave blank to keep current password."
+msgstr ""
+
+#: templates/admin/email-settings.php:151
+msgid "Test Email"
+msgstr ""
+
+#: templates/admin/email-settings.php:153
+msgid "Enter email address"
+msgstr ""
+
+#: templates/admin/email-settings.php:154
+msgid "Send Test Email"
+msgstr ""
+
+#: templates/admin/email-settings.php:159
+#: templates/admin/integrations.php:197
+msgid "Save Settings"
+msgstr ""
+
+#. translators: %d: number of entries deleted
+#: templates/admin/entries.php:43
+#, php-format
+msgid "%d entries deleted."
+msgstr ""
+
+#: templates/admin/entries.php:57
+msgid "Entry deleted."
+msgstr ""
+
+#: templates/admin/entries.php:113
+msgid "Export CSV"
+msgstr ""
+
+#: templates/admin/entries.php:121
+msgid "No form entries found."
+msgstr ""
+
+#: templates/admin/entries.php:131
+msgid "Bulk Actions"
+msgstr ""
+
+#: templates/admin/entries.php:132
+#: templates/admin/entries.php:209
+msgid "Delete"
+msgstr ""
+
+#: templates/admin/entries.php:134
+msgid "Apply"
+msgstr ""
+
+#. translators: %s: number of items
+#: templates/admin/entries.php:143
+#, php-format
+msgid "%s item"
+msgid_plural "%s items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/admin/entries.php:175
+msgid "ESP Synced"
+msgstr ""
+
+#: templates/admin/entries.php:177
+msgid "Actions"
+msgstr ""
+
+#: templates/admin/entries.php:195
+msgid "View details"
+msgstr ""
+
+#: templates/admin/entries.php:208
+msgid "Delete this entry?"
+msgstr ""
+
+#: templates/admin/entries.php:222
+msgid "Entry Details"
+msgstr ""
+
+#: templates/admin/integrations.php:108
+msgid "Email Provider Integrations"
+msgstr ""
+
+#: templates/admin/integrations.php:110
+msgid "Connect your email marketing platform to sync subscription form submissions."
+msgstr ""
+
+#: templates/admin/integrations.php:119
+msgid "Active Provider"
+msgstr ""
+
+#: templates/admin/integrations.php:130
+msgid "Select the email provider to use for subscription forms."
+msgstr ""
+
+#: templates/admin/integrations.php:145
+msgid "Documentation"
+msgstr ""
+
+#: templates/admin/integrations.php:164
+msgid "Value is set. Leave blank to keep current value."
+msgstr ""
+
+#: templates/admin/integrations.php:171
+msgid "Default List/Audience"
+msgstr ""
+
+#: templates/admin/integrations.php:176
+msgid "Fetch Lists"
+msgstr ""
+
+#: templates/admin/integrations.php:178
+msgid "Enter the list/audience ID or click Fetch Lists after saving credentials."
+msgstr ""
+
+#: templates/admin/integrations.php:183
+msgid "Connection Test"
+msgstr ""
+
+#: templates/admin/integrations.php:186
+msgid "Test Connection"
+msgstr ""
+
+#: assets/js/button-extension.js:1
+#: src/js/button-extension.js:33
+#: assets/js/button-extension.js:95
+msgid "— None —"
+msgstr ""
+
+#: assets/js/button-extension.js:1
+#: src/js/button-extension.js:34
+#: assets/js/button-extension.js:96
+msgid "Arrow right"
+msgstr ""
+
+#: assets/js/button-extension.js:1
+#: src/js/button-extension.js:35
+#: assets/js/button-extension.js:97
+msgid "Arrow left"
+msgstr ""
+
+#: assets/js/button-extension.js:1
+#: src/js/button-extension.js:36
+#: assets/js/button-extension.js:98
+msgid "Arrow up-right (external)"
+msgstr ""
+
+#: assets/js/button-extension.js:1
+#: src/js/button-extension.js:37
+#: assets/js/button-extension.js:99
+msgid "Arrow down (download)"
+msgstr ""
+
+#: assets/js/button-extension.js:1
+#: src/js/button-extension.js:38
+#: assets/js/button-extension.js:100
+msgid "Chevron right"
+msgstr ""
+
+#: assets/js/button-extension.js:1
+#: assets/js/navigation-extension.js:1
+#: blocks/faq/build/index.js:1
+#: blocks/faq/src/edit.js:120
+#: src/js/button-extension.js:39
+#: src/js/navigation-extension.js:40
+#: assets/js/button-extension.js:101
+#: assets/js/navigation-extension.js:102
+#: blocks/faq/build/index.js:240
+msgid "Plus"
+msgstr ""
+
+#: assets/js/button-extension.js:1
+#: src/js/button-extension.js:40
+#: assets/js/button-extension.js:102
+msgid "Check"
+msgstr ""
+
+#: assets/js/button-extension.js:1
+#: src/js/button-extension.js:41
+#: assets/js/button-extension.js:103
+msgid "Download"
+msgstr ""
+
+#: assets/js/button-extension.js:1
+#: src/js/button-extension.js:42
+#: assets/js/button-extension.js:104
+msgid "External"
+msgstr ""
+
+#: assets/js/button-extension.js:1
+#: src/js/button-extension.js:47
+#: assets/js/button-extension.js:109
+msgid "Lift — translate up + shadow"
+msgstr ""
+
+#: assets/js/button-extension.js:1
+#: src/js/button-extension.js:48
+#: assets/js/button-extension.js:110
+msgid "Scale — slight grow"
+msgstr ""
+
+#: assets/js/button-extension.js:1
+#: src/js/button-extension.js:49
+#: assets/js/button-extension.js:111
+msgid "Slide — background fills"
+msgstr ""
+
+#: assets/js/button-extension.js:1
+#: src/js/button-extension.js:50
+#: assets/js/button-extension.js:112
+msgid "Shift — translate right"
+msgstr ""
+
+#: assets/js/button-extension.js:1
+#: assets/js/navigation-extension.js:1
+#: src/js/button-extension.js:107
+#: src/js/navigation-extension.js:99
+#: assets/js/button-extension.js:169
+#: assets/js/navigation-extension.js:161
+msgid "Pick a color"
+msgstr ""
+
+#: assets/js/button-extension.js:1
+#: assets/js/navigation-extension.js:1
+#: src/js/button-extension.js:117
+#: src/js/navigation-extension.js:110
+#: assets/js/button-extension.js:179
+#: assets/js/navigation-extension.js:172
+msgid "Clear"
+msgstr ""
+
+#: assets/js/button-extension.js:1
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:246
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:1144
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:194
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:107
+#: src/js/button-extension.js:187
+#: src/js/button-extension.js:192
+#: assets/js/button-extension.js:249
+#: assets/js/button-extension.js:254
+#: blocks/feature-card/build/index.js:246
+#: blocks/hero/build/index.js:1713
+#: blocks/swish-links/build/index.js:194
+#: blocks/swish-socials/build/index.js:227
+msgid "Icon"
+msgstr ""
+
+#: assets/js/button-extension.js:1
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:202
+#: src/js/button-extension.js:203
+#: assets/js/button-extension.js:265
+#: blocks/swish-links/build/index.js:202
+msgid "Icon position"
+msgstr ""
+
+#: assets/js/button-extension.js:1
+#: src/js/button-extension.js:206
+#: assets/js/button-extension.js:268
+msgid "Before text"
+msgstr ""
+
+#: assets/js/button-extension.js:1
+#: src/js/button-extension.js:207
+#: assets/js/button-extension.js:269
+msgid "After text"
+msgstr ""
+
+#: assets/js/button-extension.js:1
+#: src/js/button-extension.js:226
+#: assets/js/button-extension.js:288
+msgid "Hover"
+msgstr ""
+
+#: assets/js/button-extension.js:1
+#: src/js/button-extension.js:230
+#: assets/js/button-extension.js:292
+msgid "Hover text color"
+msgstr ""
+
+#: assets/js/button-extension.js:1
+#: src/js/button-extension.js:237
+#: assets/js/button-extension.js:299
+msgid "Hover background"
+msgstr ""
+
+#: assets/js/button-extension.js:1
+#: src/js/button-extension.js:245
+#: assets/js/button-extension.js:307
+msgid "Hover animation"
+msgstr ""
+
+#: assets/js/button-extension.js:1
+#: src/js/button-extension.js:251
+#: assets/js/button-extension.js:313
+msgid "Animation plays when the visitor hovers the button. Frontend only."
+msgstr ""
+
+#: assets/js/columns-extension.js:1
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:322
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:534
+#: blocks/hero/src/edit.js:704
+#: src/js/columns-extension.js:54
+#: assets/js/columns-extension.js:115
+#: blocks/card/build/index.js:581
+#: blocks/hero/build/index.js:1103
+#: blocks/hero/build/index.js:1273
+msgid "Top"
+msgstr ""
+
+#: assets/js/columns-extension.js:1
+#: assets/js/navigation-extension.js:1
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:425
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:548
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:694
+#: blocks/hero/src/edit.js:705
+#: blocks/swish-counter/build/index.js:1
+#: blocks/swish-counter/src/edit.js:130
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:286
+#: src/js/columns-extension.js:55
+#: src/js/navigation-extension.js:264
+#: assets/js/columns-extension.js:116
+#: assets/js/navigation-extension.js:326
+#: blocks/feature-card/build/index.js:425
+#: blocks/heading/build/index.js:1272
+#: blocks/hero/build/index.js:1263
+#: blocks/hero/build/index.js:1274
+#: blocks/swish-counter/build/index.js:195
+#: blocks/swish-socials/build/index.js:406
+msgid "Center"
+msgstr ""
+
+#: assets/js/columns-extension.js:1
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:706
+#: src/js/columns-extension.js:56
+#: assets/js/columns-extension.js:117
+#: blocks/hero/build/index.js:1275
+msgid "Bottom"
+msgstr ""
+
+#: assets/js/columns-extension.js:1
+#: src/js/columns-extension.js:57
+#: assets/js/columns-extension.js:118
+msgid "Space Between"
+msgstr ""
+
+#: assets/js/columns-extension.js:1
+#: src/js/columns-extension.js:58
+#: assets/js/columns-extension.js:119
+msgid "Space Around"
+msgstr ""
+
+#: assets/js/columns-extension.js:1
+#: src/js/columns-extension.js:59
+#: assets/js/columns-extension.js:120
+msgid "Space Evenly"
+msgstr ""
+
+#: assets/js/columns-extension.js:1
+#: src/js/columns-extension.js:60
+#: assets/js/columns-extension.js:121
+msgid "Stretch"
+msgstr ""
+
+#: assets/js/columns-extension.js:1
+#: src/js/columns-extension.js:64
+#: assets/js/columns-extension.js:125
+msgid "Columns Vertical Alignment"
+msgstr ""
+
+#: assets/js/columns-extension.js:1
+#: src/js/columns-extension.js:65
+#: assets/js/columns-extension.js:126
+msgid "Column Content Alignment"
+msgstr ""
+
+#: assets/js/columns-extension.js:1
+#: src/js/columns-extension.js:68
+#: assets/js/columns-extension.js:129
+msgid "Align all columns vertically within the container."
+msgstr ""
+
+#: assets/js/columns-extension.js:1
+#: src/js/columns-extension.js:69
+#: assets/js/columns-extension.js:130
+msgid "Align content vertically within this column."
+msgstr ""
+
+#: assets/js/columns-extension.js:1
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:699
+#: src/js/columns-extension.js:80
+#: assets/js/columns-extension.js:141
+#: blocks/hero/build/index.js:1268
+msgid "Vertical Alignment"
+msgstr ""
+
+#: assets/js/navigation-extension.js:1
+#: src/js/navigation-extension.js:36
+#: assets/js/navigation-extension.js:98
+msgid "3 lines (default)"
+msgstr ""
+
+#: assets/js/navigation-extension.js:1
+#: src/js/navigation-extension.js:37
+#: assets/js/navigation-extension.js:99
+msgid "2 lines (minimal)"
+msgstr ""
+
+#: assets/js/navigation-extension.js:1
+#: src/js/navigation-extension.js:38
+#: assets/js/navigation-extension.js:100
+msgid "X"
+msgstr ""
+
+#: assets/js/navigation-extension.js:1
+#: src/js/navigation-extension.js:39
+#: assets/js/navigation-extension.js:101
+msgid "Dots"
+msgstr ""
+
+#: assets/js/navigation-extension.js:1
+#: src/js/navigation-extension.js:41
+#: assets/js/navigation-extension.js:103
+msgid "Grid (3×3)"
+msgstr ""
+
+#: assets/js/navigation-extension.js:1
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:287
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:36
+#: src/js/navigation-extension.js:46
+#: assets/js/navigation-extension.js:108
+#: blocks/portfolio/build/index.js:287
+#: blocks/swish-links/build/index.js:36
+msgid "Underline"
+msgstr ""
+
+#: assets/js/navigation-extension.js:1
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:37
+#: src/js/navigation-extension.js:47
+#: assets/js/navigation-extension.js:109
+#: blocks/swish-links/build/index.js:37
+msgid "Underline grow"
+msgstr ""
+
+#: assets/js/navigation-extension.js:1
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:38
+#: src/js/navigation-extension.js:48
+#: assets/js/navigation-extension.js:110
+#: blocks/swish-links/build/index.js:38
+msgid "Color shift"
+msgstr ""
+
+#: assets/js/navigation-extension.js:1
+#: src/js/navigation-extension.js:134
+#: assets/js/navigation-extension.js:196
+msgid "Hamburger icon"
+msgstr ""
+
+#: assets/js/navigation-extension.js:1
+#: src/js/navigation-extension.js:137
+#: assets/js/navigation-extension.js:199
+msgid "— Use core default —"
+msgstr ""
+
+#: assets/js/navigation-extension.js:1
+#: src/js/navigation-extension.js:165
+#: assets/js/navigation-extension.js:227
+msgid "Replace custom SVG"
+msgstr ""
+
+#: assets/js/navigation-extension.js:1
+#: src/js/navigation-extension.js:166
+#: assets/js/navigation-extension.js:228
+msgid "Upload custom SVG…"
+msgstr ""
+
+#: assets/js/navigation-extension.js:1
+#: src/js/navigation-extension.js:186
+#: assets/js/navigation-extension.js:248
+msgid "Remove custom SVG"
+msgstr ""
+
+#: assets/js/navigation-extension.js:1
+#: src/js/navigation-extension.js:242
+#: assets/js/navigation-extension.js:304
+msgid "Hamburger Style"
+msgstr ""
+
+#: assets/js/navigation-extension.js:1
+#: src/js/navigation-extension.js:247
+#: assets/js/navigation-extension.js:309
+msgid "Overlay alignment"
+msgstr ""
+
+#: assets/js/navigation-extension.js:1
+#: src/js/navigation-extension.js:253
+#: assets/js/navigation-extension.js:315
+msgid "Aligns items inside the mobile overlay only. Desktop alignment is set by the Layout panel above."
+msgstr ""
+
+#: assets/js/navigation-extension.js:1
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:323
+#: blocks/faq/build/index.js:1
+#: blocks/faq/src/edit.js:131
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:547
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:536
+#: blocks/hero/src/edit.js:654
+#: blocks/hero/src/edit.js:693
+#: blocks/swish-counter/build/index.js:1
+#: blocks/swish-counter/src/edit.js:126
+#: blocks/swish-slider/build/index.js:1
+#: blocks/swish-slider/src/edit.js:111
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:285
+#: src/js/navigation-extension.js:260
+#: assets/js/navigation-extension.js:322
+#: blocks/card/build/index.js:582
+#: blocks/faq/build/index.js:251
+#: blocks/heading/build/index.js:1271
+#: blocks/hero/build/index.js:1105
+#: blocks/hero/build/index.js:1223
+#: blocks/hero/build/index.js:1262
+#: blocks/swish-counter/build/index.js:191
+#: blocks/swish-slider/build/index.js:176
+#: blocks/swish-socials/build/index.js:405
+msgid "Left"
+msgstr ""
+
+#: assets/js/navigation-extension.js:1
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:324
+#: blocks/faq/build/index.js:1
+#: blocks/faq/src/edit.js:132
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:549
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:537
+#: blocks/hero/src/edit.js:655
+#: blocks/hero/src/edit.js:695
+#: blocks/swish-counter/build/index.js:1
+#: blocks/swish-counter/src/edit.js:134
+#: blocks/swish-slider/build/index.js:1
+#: blocks/swish-slider/src/edit.js:112
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:287
+#: src/js/navigation-extension.js:268
+#: assets/js/navigation-extension.js:330
+#: blocks/card/build/index.js:583
+#: blocks/faq/build/index.js:252
+#: blocks/heading/build/index.js:1273
+#: blocks/hero/build/index.js:1106
+#: blocks/hero/build/index.js:1224
+#: blocks/hero/build/index.js:1264
+#: blocks/swish-counter/build/index.js:199
+#: blocks/swish-slider/build/index.js:177
+#: blocks/swish-socials/build/index.js:407
+msgid "Right"
+msgstr ""
+
+#: assets/js/navigation-extension.js:1
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:173
+#: src/js/navigation-extension.js:274
+#: assets/js/navigation-extension.js:336
+#: blocks/swish-links/build/index.js:173
+msgid "Hover style"
+msgstr ""
+
+#: assets/js/navigation-extension.js:1
+#: src/js/navigation-extension.js:280
+#: assets/js/navigation-extension.js:342
+msgid "Applies to nav links in both inline (desktop) and overlay (mobile) modes."
+msgstr ""
+
+#: assets/js/navigation-extension.js:1
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:162
+#: blocks/swish-links/src/edit.js:168
+#: src/js/navigation-extension.js:287
+#: assets/js/navigation-extension.js:349
+#: blocks/swish-links/build/index.js:162
+#: blocks/swish-links/build/index.js:168
+msgid "Hover color"
+msgstr ""
+
+#: assets/js/project-sidebar.js:1
+#: src/js/project-sidebar.js:63
+#: assets/js/project-sidebar.js:126
+msgid "Select date"
+msgstr ""
+
+#: assets/js/project-sidebar.js:1
+#: src/js/project-sidebar.js:121
+#: assets/js/project-sidebar.js:184
+msgid "Clear date"
+msgstr ""
+
+#: blocks/bento-card/build/index.js:1
+#: blocks/bento-cards/build/index.js:1
+#: blocks/card/build/index.js:1
+#: blocks/feature-card/build/index.js:1
+#: blocks/features/build/index.js:1
+#: blocks/latest-posts/build/index.js:1
+#: blocks/portfolio/build/index.js:1
+#: blocks/pricing-plan/build/index.js:1
+#: blocks/pricing/build/index.js:1
+#: blocks/shared/components/inspector-tabs.js:18
+#: blocks/swish-counter/build/index.js:1
+#: blocks/swish-slide/build/index.js:1
+#: blocks/swish-slider/build/index.js:1
+#: blocks/testimonial-card/build/index.js:1
+#: blocks/testimonials/build/index.js:1
+#: blocks/bento-card/build/index.js:381
+#: blocks/bento-cards/build/index.js:749
+#: blocks/card/build/index.js:964
+#: blocks/feature-card/build/index.js:1040
+#: blocks/features/build/index.js:872
+#: blocks/latest-posts/build/index.js:275
+#: blocks/portfolio/build/index.js:544
+#: blocks/pricing/build/index.js:362
+#: blocks/swish-counter/build/index.js:18
+#: blocks/swish-slide/build/index.js:18
+#: blocks/swish-slider/build/index.js:18
+#: blocks/testimonial-card/build/index.js:18
+#: blocks/testimonials/build/index.js:18
+msgid "General"
+msgstr ""
+
+#: blocks/bento-card/build/index.js:1
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:141
+#: blocks/card/build/index.js:1
+#: blocks/feature-card/build/index.js:1
+#: blocks/features/build/index.js:1
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:714
+#: blocks/latest-posts/build/index.js:1
+#: blocks/portfolio/build/index.js:1
+#: blocks/pricing-plan/build/index.js:1
+#: blocks/pricing/build/index.js:1
+#: blocks/shared/components/inspector-tabs.js:19
+#: blocks/swish-counter/build/index.js:1
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:176
+#: blocks/swish-slide/build/index.js:1
+#: blocks/swish-slider/build/index.js:1
+#: blocks/testimonial-card/build/index.js:1
+#: blocks/testimonials/build/index.js:1
+#: blocks/bento-card/build/index.js:382
+#: blocks/bento-cards/build/index.js:304
+#: blocks/bento-cards/build/index.js:750
+#: blocks/card/build/index.js:965
+#: blocks/feature-card/build/index.js:1041
+#: blocks/features/build/index.js:873
+#: blocks/hero/build/index.js:1283
+#: blocks/latest-posts/build/index.js:276
+#: blocks/portfolio/build/index.js:545
+#: blocks/pricing/build/index.js:363
+#: blocks/swish-counter/build/index.js:19
+#: blocks/swish-links/build/index.js:176
+#: blocks/swish-slide/build/index.js:19
+#: blocks/swish-slider/build/index.js:19
+#: blocks/testimonial-card/build/index.js:19
+#: blocks/testimonials/build/index.js:19
+msgid "Style"
+msgstr ""
+
+#: blocks/bento-card/build/index.js:1
+#: blocks/bento-cards/build/index.js:1
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:466
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:610
+#: blocks/features/build/index.js:1
+#: blocks/latest-posts/build/index.js:1
+#: blocks/portfolio/build/index.js:1
+#: blocks/pricing-plan/build/index.js:1
+#: blocks/pricing/build/index.js:1
+#: blocks/shared/components/inspector-tabs.js:20
+#: blocks/swish-counter/build/index.js:1
+#: blocks/swish-slide/build/index.js:1
+#: blocks/swish-slider/build/index.js:1
+#: blocks/testimonial-card/build/index.js:1
+#: blocks/testimonials/build/index.js:1
+#: blocks/bento-card/build/index.js:383
+#: blocks/bento-cards/build/index.js:751
+#: blocks/card/build/index.js:725
+#: blocks/card/build/index.js:966
+#: blocks/feature-card/build/index.js:610
+#: blocks/feature-card/build/index.js:1042
+#: blocks/features/build/index.js:874
+#: blocks/latest-posts/build/index.js:277
+#: blocks/portfolio/build/index.js:546
+#: blocks/pricing/build/index.js:364
+#: blocks/swish-counter/build/index.js:20
+#: blocks/swish-slide/build/index.js:20
+#: blocks/swish-slider/build/index.js:20
+#: blocks/testimonial-card/build/index.js:20
+#: blocks/testimonials/build/index.js:20
+msgid "Advanced"
+msgstr ""
+
+#: blocks/bento-card/build/index.js:1
+#: blocks/bento-card/src/edit.js:35
+#: blocks/bento-card/build/index.js:35
+msgid "Full Width (3/3)"
+msgstr ""
+
+#: blocks/bento-card/build/index.js:1
+#: blocks/bento-card/src/edit.js:36
+#: blocks/bento-card/build/index.js:36
+msgid "Two Thirds (2/3)"
+msgstr ""
+
+#: blocks/bento-card/build/index.js:1
+#: blocks/bento-card/src/edit.js:37
+#: blocks/bento-card/build/index.js:37
+msgid "Half (1/2)"
+msgstr ""
+
+#: blocks/bento-card/build/index.js:1
+#: blocks/bento-card/src/edit.js:38
+#: blocks/bento-card/build/index.js:38
+msgid "One Third (1/3)"
+msgstr ""
+
+#: blocks/bento-card/build/index.js:1
+#: blocks/bento-card/src/edit.js:113
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:209
+#: blocks/testimonial-card/build/index.js:1
+#: blocks/testimonial-card/src/edit.js:82
+#: blocks/testimonials/build/index.js:1
+#: blocks/testimonials/src/edit.js:106
+#: blocks/bento-card/build/index.js:113
+#: blocks/feature-card/build/index.js:209
+#: blocks/testimonial-card/build/index.js:147
+#: blocks/testimonials/build/index.js:171
+msgid "Card"
+msgstr ""
+
+#: blocks/bento-card/build/index.js:1
+#: blocks/bento-card/src/edit.js:115
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:211
+#: blocks/bento-card/build/index.js:115
+#: blocks/feature-card/build/index.js:211
+msgid "Card Size"
+msgstr ""
+
+#: blocks/bento-card/build/index.js:1
+#: blocks/bento-card/src/edit.js:124
+#: blocks/bento-card/build/index.js:124
+msgid "Card Image"
+msgstr ""
+
+#: blocks/bento-card/build/index.js:1
+#: blocks/bento-card/src/edit.js:160
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:290
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:306
+#: blocks/feature-card/src/edit.js:392
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:367
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:494
+#: blocks/hero/src/edit.js:629
+#: blocks/hero/src/edit.js:818
+#: blocks/hero/src/edit.js:892
+#: blocks/hero/src/edit.js:1175
+#: blocks/swish-slide/build/index.js:1
+#: blocks/swish-slide/src/edit.js:95
+#: blocks/bento-card/build/index.js:160
+#: blocks/card/build/index.js:549
+#: blocks/feature-card/build/index.js:306
+#: blocks/feature-card/build/index.js:392
+#: blocks/heading/build/index.js:1091
+#: blocks/hero/build/index.js:1063
+#: blocks/hero/build/index.js:1198
+#: blocks/hero/build/index.js:1387
+#: blocks/hero/build/index.js:1461
+#: blocks/hero/build/index.js:1744
+#: blocks/swish-slide/build/index.js:160
+msgid "Replace"
+msgstr ""
+
+#: blocks/bento-card/build/index.js:1
+#: blocks/bento-card/src/edit.js:170
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:301
+#: blocks/faq/build/index.js:1
+#: blocks/faq/src/edit.js:227
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:318
+#: blocks/feature-card/src/edit.js:402
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:374
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:497
+#: blocks/hero/src/edit.js:632
+#: blocks/hero/src/edit.js:825
+#: blocks/hero/src/edit.js:899
+#: blocks/hero/src/edit.js:1138
+#: blocks/hero/src/edit.js:1183
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:292
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:291
+#: blocks/swish-slide/build/index.js:1
+#: blocks/swish-slide/src/edit.js:105
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:103
+#: blocks/testimonial-card/build/index.js:1
+#: blocks/testimonial-card/src/edit.js:178
+#: blocks/bento-card/build/index.js:170
+#: blocks/card/build/index.js:560
+#: blocks/faq/build/index.js:347
+#: blocks/feature-card/build/index.js:318
+#: blocks/feature-card/build/index.js:402
+#: blocks/heading/build/index.js:1098
+#: blocks/hero/build/index.js:1066
+#: blocks/hero/build/index.js:1201
+#: blocks/hero/build/index.js:1394
+#: blocks/hero/build/index.js:1468
+#: blocks/hero/build/index.js:1707
+#: blocks/hero/build/index.js:1752
+#: blocks/swish-form/build/index.js:292
+#: blocks/swish-gallery/build/index.js:291
+#: blocks/swish-slide/build/index.js:170
+#: blocks/swish-socials/build/index.js:223
+#: blocks/testimonial-card/build/index.js:243
+msgid "Remove"
+msgstr ""
+
+#: blocks/bento-card/build/index.js:1
+#: blocks/bento-card/src/edit.js:180
+#: blocks/swish-slide/build/index.js:1
+#: blocks/swish-slide/src/edit.js:115
+#: blocks/bento-card/build/index.js:180
+#: blocks/swish-slide/build/index.js:180
+msgid "Select Image"
+msgstr ""
+
+#: blocks/bento-card/build/index.js:1
+#: blocks/bento-card/src/edit.js:190
+#: blocks/bento-card/build/index.js:190
+msgid "Image Width (%)"
+msgstr ""
+
+#: blocks/bento-card/build/index.js:1
+#: blocks/bento-card/src/edit.js:191
+#: blocks/bento-card/build/index.js:191
+msgid "Width of the image within its backdrop."
+msgstr ""
+
+#: blocks/bento-card/build/index.js:1
+#: blocks/bento-card/src/edit.js:210
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:403
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:506
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:234
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:469
+#: blocks/heading/src/formats/text-color.js:44
+#: blocks/heading/src/formats/text-color.js:81
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:762
+#: blocks/hero/src/formats/text-color.js:44
+#: blocks/hero/src/formats/text-color.js:81
+#: blocks/pricing/build/index.js:1
+#: blocks/pricing/src/edit.js:183
+#: blocks/swish-slider/build/index.js:1
+#: blocks/swish-slider/src/edit.js:200
+#: blocks/testimonials/build/index.js:1
+#: blocks/testimonials/src/edit.js:182
+#: blocks/bento-card/build/index.js:210
+#: blocks/bento-cards/build/index.js:566
+#: blocks/feature-card/build/index.js:506
+#: blocks/features/build/index.js:662
+#: blocks/heading/build/index.js:1193
+#: blocks/heading/build/index.js:1576
+#: blocks/heading/build/index.js:1613
+#: blocks/hero/build/index.js:1331
+#: blocks/hero/build/index.js:1936
+#: blocks/hero/build/index.js:1973
+#: blocks/pricing/build/index.js:183
+#: blocks/swish-slider/build/index.js:265
+#: blocks/testimonials/build/index.js:247
+msgid "Text Color"
+msgstr ""
+
+#: blocks/bento-card/build/index.js:1
+#: blocks/bento-card/src/edit.js:212
+#: blocks/bento-card/build/index.js:212
+msgid "Title / Subtitle / Description"
+msgstr ""
+
+#: blocks/bento-card/build/index.js:1
+#: blocks/bento-card/src/edit.js:243
+#: blocks/swish-slide/build/index.js:1
+#: blocks/swish-slide/src/edit.js:213
+#: blocks/bento-card/build/index.js:243
+#: blocks/swish-slide/build/index.js:278
+msgid "Subtitle…"
+msgstr ""
+
+#: blocks/bento-card/build/index.js:1
+#: blocks/bento-card/src/edit.js:253
+#: blocks/bento-card/build/index.js:253
+msgid "Card title…"
+msgstr ""
+
+#: blocks/bento-card/build/index.js:1
+#: blocks/bento-card/src/edit.js:265
+#: blocks/bento-card/build/index.js:265
+msgid "Description…"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:44
+#: blocks/bento-cards/build/index.js:207
+msgid "Overlay (default)"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:45
+#: blocks/bento-cards/build/index.js:208
+msgid "Hover Reveal"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:46
+#: blocks/bento-cards/build/index.js:209
+msgid "Caption Below"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:47
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:170
+#: blocks/bento-cards/build/index.js:210
+#: blocks/portfolio/build/index.js:170
+msgid "Stacked"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:48
+#: blocks/pricing-plan/build/index.js:1
+#: blocks/pricing-plan/src/edit.js:151
+#: blocks/bento-cards/build/index.js:211
+msgid "CTA"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:139
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:414
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:222
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:162
+#: blocks/portfolio/src/edit.js:227
+#: blocks/bento-cards/build/index.js:302
+#: blocks/card/build/index.js:673
+#: blocks/feature-card/build/index.js:222
+#: blocks/portfolio/build/index.js:162
+#: blocks/portfolio/build/index.js:227
+msgid "Card Style"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:153
+#: blocks/bento-cards/build/index.js:316
+msgid "Layered Images"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:154
+#: blocks/bento-cards/build/index.js:317
+msgid "Display each image on a background color, bottom-aligned, at a configurable width."
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:168
+#: blocks/bento-cards/build/index.js:331
+msgid "Image Backdrop Color"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:180
+#: blocks/bento-cards/build/index.js:343
+msgid "Padding Top (%)"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:181
+#: blocks/bento-cards/build/index.js:344
+msgid "Extra breathing room above the image."
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:198
+#: blocks/bento-cards/build/index.js:361
+msgid "Tall Image (Hover to Scroll)"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:199
+#: blocks/bento-cards/build/index.js:362
+msgid "Allow taller images. Only the top is visible; hover reveals the rest with a scroll animation."
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:213
+#: blocks/bento-cards/build/index.js:376
+msgid "Viewport Height (px)"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:214
+#: blocks/bento-cards/build/index.js:377
+msgid "How much of the image is visible before hover."
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:230
+#: blocks/bento-cards/build/index.js:393
+msgid "Scroll Speed (s)"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:231
+#: blocks/bento-cards/build/index.js:394
+msgid "Duration of the hover reveal. Higher = slower scroll."
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:254
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:140
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:540
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:664
+#: blocks/latest-posts/build/index.js:1
+#: blocks/latest-posts/src/edit.js:87
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:135
+#: blocks/swish-counter/build/index.js:1
+#: blocks/swish-counter/src/edit.js:105
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:103
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:143
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:278
+#: blocks/testimonials/build/index.js:1
+#: blocks/testimonials/src/edit.js:92
+#: blocks/bento-cards/build/index.js:417
+#: blocks/features/build/index.js:568
+#: blocks/heading/build/index.js:1264
+#: blocks/hero/build/index.js:1233
+#: blocks/latest-posts/build/index.js:87
+#: blocks/portfolio/build/index.js:135
+#: blocks/swish-counter/build/index.js:170
+#: blocks/swish-gallery/build/index.js:103
+#: blocks/swish-links/build/index.js:143
+#: blocks/swish-socials/build/index.js:398
+#: blocks/testimonials/build/index.js:157
+msgid "Layout"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:258
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:142
+#: blocks/bento-cards/build/index.js:421
+#: blocks/features/build/index.js:570
+msgid "Grid Gap"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:261
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:145
+#: blocks/bento-cards/build/index.js:424
+#: blocks/features/build/index.js:573
+msgid "Small (1rem)"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:262
+#: blocks/bento-cards/build/index.js:425
+msgid "Medium (1.5rem)"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:263
+#: blocks/bento-cards/build/index.js:426
+msgid "Large (2rem)"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:264
+#: blocks/bento-cards/build/index.js:427
+msgid "Extra Large (3rem)"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:271
+#: blocks/bento-cards/build/index.js:434
+msgid "Section CTA"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:275
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:339
+#: blocks/bento-cards/build/index.js:438
+#: blocks/feature-card/build/index.js:339
+msgid "CTA Type"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:279
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:344
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:1131
+#: blocks/bento-cards/build/index.js:442
+#: blocks/feature-card/build/index.js:344
+#: blocks/hero/build/index.js:1700
+msgid "Link"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:280
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:366
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:345
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:427
+#: blocks/bento-cards/build/index.js:443
+#: blocks/card/build/index.js:625
+#: blocks/feature-card/build/index.js:345
+#: blocks/portfolio/build/index.js:427
+msgid "Button"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:288
+#: blocks/bento-cards/build/index.js:451
+msgid "CTA Text"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:293
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:351
+#: blocks/bento-cards/build/index.js:456
+#: blocks/feature-card/build/index.js:351
+msgid "CTA URL"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:305
+#: blocks/bento-cards/build/index.js:468
+msgid "Card Style Colours"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:307
+#: blocks/bento-cards/build/index.js:470
+msgid "Accent Color"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:319
+#: blocks/bento-cards/build/index.js:482
+msgid "Card Overlay Color"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:329
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:594
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:850
+#: blocks/bento-cards/build/index.js:492
+#: blocks/feature-card/build/index.js:594
+#: blocks/hero/build/index.js:1419
+msgid "Overlay Opacity"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:339
+#: blocks/bento-cards/build/index.js:502
+msgid "Subtitle Color"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:349
+#: blocks/bento-cards/build/index.js:512
+msgid "Title Color"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:359
+#: blocks/bento-cards/build/index.js:522
+msgid "Description Color"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:371
+#: blocks/bento-cards/build/index.js:534
+msgid "Text Background"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:384
+#: blocks/bento-cards/build/index.js:547
+msgid "Card Typography"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:388
+#: blocks/bento-cards/build/index.js:551
+msgid "Title Base Size"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:399
+#: blocks/bento-cards/build/index.js:562
+msgid "Section CTA Colours"
+msgstr ""
+
+#: blocks/bento-cards/build/index.js:1
+#: blocks/bento-cards/src/edit.js:415
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:459
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:786
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:227
+#: blocks/bento-cards/build/index.js:578
+#: blocks/heading/build/index.js:1183
+#: blocks/hero/build/index.js:1355
+#: blocks/swish-socials/build/index.js:347
+msgid "Background Color"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:230
+#: blocks/card/build/index.js:489
+msgid "Icon Settings"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:232
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:250
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:325
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:586
+#: blocks/card/build/index.js:491
+#: blocks/feature-card/build/index.js:250
+#: blocks/heading/build/index.js:1049
+#: blocks/hero/build/index.js:1155
+msgid "Icon Source"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:235
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:253
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:329
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:591
+#: blocks/card/build/index.js:494
+#: blocks/feature-card/build/index.js:253
+#: blocks/heading/build/index.js:1053
+#: blocks/hero/build/index.js:1160
+msgid "Icon Library"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:236
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:254
+#: blocks/card/build/index.js:495
+#: blocks/feature-card/build/index.js:254
+msgid "Custom Image"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:248
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:267
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:338
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:600
+#: blocks/card/build/index.js:507
+#: blocks/feature-card/build/index.js:267
+#: blocks/heading/build/index.js:1062
+#: blocks/hero/build/index.js:1169
+msgid "Select Icon"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:307
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:324
+#: blocks/card/build/index.js:566
+#: blocks/feature-card/build/index.js:324
+msgid "Upload Icon"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:317
+#: blocks/faq/build/index.js:1
+#: blocks/faq/src/edit.js:126
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:649
+#: blocks/card/build/index.js:576
+#: blocks/faq/build/index.js:246
+#: blocks/hero/build/index.js:1218
+msgid "Icon Position"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:328
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:392
+#: blocks/card/build/index.js:587
+#: blocks/heading/build/index.js:1116
+msgid "Icon Size"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:333
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:397
+#: blocks/heading/src/edit.js:526
+#: blocks/heading/src/edit.js:712
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:546
+#: blocks/hero/src/edit.js:937
+#: blocks/hero/src/edit.js:1003
+#: blocks/hero/src/edit.js:1056
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:186
+#: blocks/testimonials/build/index.js:1
+#: blocks/testimonials/src/edit.js:169
+#: blocks/card/build/index.js:592
+#: blocks/heading/build/index.js:1121
+#: blocks/heading/build/index.js:1250
+#: blocks/heading/build/index.js:1436
+#: blocks/hero/build/index.js:1115
+#: blocks/hero/build/index.js:1506
+#: blocks/hero/build/index.js:1572
+#: blocks/hero/build/index.js:1625
+#: blocks/swish-gallery/build/index.js:186
+#: blocks/testimonials/build/index.js:234
+msgid "S"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:334
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:398
+#: blocks/heading/src/edit.js:527
+#: blocks/heading/src/edit.js:713
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:547
+#: blocks/hero/src/edit.js:730
+#: blocks/hero/src/edit.js:938
+#: blocks/hero/src/edit.js:1004
+#: blocks/hero/src/edit.js:1057
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:187
+#: blocks/testimonials/build/index.js:1
+#: blocks/testimonials/src/edit.js:173
+#: blocks/card/build/index.js:593
+#: blocks/heading/build/index.js:1122
+#: blocks/heading/build/index.js:1251
+#: blocks/heading/build/index.js:1437
+#: blocks/hero/build/index.js:1116
+#: blocks/hero/build/index.js:1299
+#: blocks/hero/build/index.js:1507
+#: blocks/hero/build/index.js:1573
+#: blocks/hero/build/index.js:1626
+#: blocks/swish-gallery/build/index.js:187
+#: blocks/testimonials/build/index.js:238
+msgid "M"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:335
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:399
+#: blocks/heading/src/edit.js:528
+#: blocks/heading/src/edit.js:714
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:548
+#: blocks/hero/src/edit.js:731
+#: blocks/hero/src/edit.js:939
+#: blocks/hero/src/edit.js:1005
+#: blocks/hero/src/edit.js:1058
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:188
+#: blocks/testimonials/build/index.js:1
+#: blocks/testimonials/src/edit.js:177
+#: blocks/card/build/index.js:594
+#: blocks/heading/build/index.js:1123
+#: blocks/heading/build/index.js:1252
+#: blocks/heading/build/index.js:1438
+#: blocks/hero/build/index.js:1117
+#: blocks/hero/build/index.js:1300
+#: blocks/hero/build/index.js:1508
+#: blocks/hero/build/index.js:1574
+#: blocks/hero/build/index.js:1627
+#: blocks/swish-gallery/build/index.js:188
+#: blocks/testimonials/build/index.js:242
+msgid "L"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:339
+#: blocks/card/build/index.js:598
+msgid "Icon Shape"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:344
+#: blocks/card/src/edit.js:380
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:473
+#: blocks/hero/src/edit.js:1225
+#: blocks/latest-posts/build/index.js:1
+#: blocks/latest-posts/src/edit.js:112
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:193
+#: blocks/card/build/index.js:603
+#: blocks/card/build/index.js:639
+#: blocks/hero/build/index.js:1042
+#: blocks/hero/build/index.js:1794
+#: blocks/latest-posts/build/index.js:112
+#: blocks/swish-socials/build/index.js:313
+msgid "Square"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:345
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:285
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:194
+#: blocks/card/build/index.js:604
+#: blocks/portfolio/build/index.js:285
+#: blocks/swish-socials/build/index.js:314
+msgid "Rounded"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:346
+#: blocks/card/src/edit.js:379
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:472
+#: blocks/hero/src/edit.js:1224
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:195
+#: blocks/card/build/index.js:605
+#: blocks/card/build/index.js:638
+#: blocks/hero/build/index.js:1041
+#: blocks/hero/build/index.js:1793
+#: blocks/swish-socials/build/index.js:315
+msgid "Circle"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:351
+#: blocks/card/build/index.js:610
+msgid "Link Settings"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:355
+#: blocks/card/build/index.js:614
+msgid "Link URL"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:360
+#: blocks/card/build/index.js:619
+msgid "Link Style"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:365
+#: blocks/pricing-plan/build/index.js:1
+#: blocks/pricing-plan/src/edit.js:109
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:36
+#: blocks/swish-slide/build/index.js:1
+#: blocks/swish-slide/src/edit.js:129
+#: blocks/swish-slide/src/edit.js:154
+#: blocks/card/build/index.js:624
+#: blocks/swish-form/build/index.js:36
+#: blocks/swish-slide/build/index.js:194
+#: blocks/swish-slide/build/index.js:219
+msgid "Text"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:371
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:1218
+#: blocks/card/build/index.js:630
+#: blocks/hero/build/index.js:1787
+msgid "Decorative Shape"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:375
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:464
+#: blocks/hero/src/edit.js:968
+#: blocks/hero/src/edit.js:1021
+#: blocks/hero/src/edit.js:1220
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:188
+#: blocks/card/build/index.js:634
+#: blocks/hero/build/index.js:1033
+#: blocks/hero/build/index.js:1537
+#: blocks/hero/build/index.js:1590
+#: blocks/hero/build/index.js:1789
+#: blocks/swish-socials/build/index.js:308
+msgid "Shape"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:381
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:474
+#: blocks/hero/src/edit.js:1226
+#: blocks/card/build/index.js:640
+#: blocks/hero/build/index.js:1043
+#: blocks/hero/build/index.js:1795
+msgid "Triangle"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:391
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:519
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:245
+#: blocks/card/build/index.js:650
+#: blocks/feature-card/build/index.js:519
+#: blocks/features/build/index.js:673
+msgid "Icon Colors"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:393
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:523
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:249
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:403
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:219
+#: blocks/card/build/index.js:652
+#: blocks/feature-card/build/index.js:523
+#: blocks/features/build/index.js:677
+#: blocks/heading/build/index.js:1127
+#: blocks/swish-socials/build/index.js:339
+msgid "Icon Color"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:403
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:535
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:259
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:413
+#: blocks/card/build/index.js:662
+#: blocks/feature-card/build/index.js:535
+#: blocks/features/build/index.js:687
+#: blocks/heading/build/index.js:1137
+msgid "Icon Background"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:418
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:487
+#: blocks/card/build/index.js:677
+#: blocks/heading/build/index.js:1211
+msgid "Border Style"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:423
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:183
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:493
+#: blocks/card/build/index.js:682
+#: blocks/features/build/index.js:611
+#: blocks/heading/build/index.js:1217
+msgid "Solid"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:424
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:184
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:494
+#: blocks/card/build/index.js:683
+#: blocks/features/build/index.js:612
+#: blocks/heading/build/index.js:1218
+msgid "Dashed"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:429
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:508
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:922
+#: blocks/pricing/build/index.js:1
+#: blocks/pricing/src/edit.js:174
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:245
+#: blocks/testimonials/build/index.js:1
+#: blocks/testimonials/src/edit.js:122
+#: blocks/card/build/index.js:688
+#: blocks/heading/build/index.js:1232
+#: blocks/hero/build/index.js:1491
+#: blocks/pricing/build/index.js:174
+#: blocks/swish-socials/build/index.js:365
+#: blocks/testimonials/build/index.js:187
+msgid "Border Color"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:439
+#: blocks/card/build/index.js:698
+msgid "Shadow Color"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:451
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:1233
+#: blocks/card/build/index.js:710
+#: blocks/hero/build/index.js:1802
+msgid "Shape Color"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:468
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:612
+#: blocks/card/build/index.js:727
+#: blocks/feature-card/build/index.js:612
+msgid "Spacing, border, and typography are available in the editor’s native Styles tab for this block."
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:487
+#: blocks/card/build/index.js:746
+msgid "Card Title"
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:494
+#: blocks/card/build/index.js:753
+msgid "Card description goes here..."
+msgstr ""
+
+#: blocks/card/build/index.js:1
+#: blocks/card/src/edit.js:503
+#: blocks/card/build/index.js:762
+msgid "Learn more"
+msgstr ""
+
+#: blocks/faq/build/index.js:1
+#: blocks/faq/src/edit.js:100
+#: blocks/faq/build/index.js:220
+msgid "FAQ Settings"
+msgstr ""
+
+#: blocks/faq/build/index.js:1
+#: blocks/faq/src/edit.js:102
+#: blocks/faq/build/index.js:222
+msgid "Allow Multiple Open"
+msgstr ""
+
+#: blocks/faq/build/index.js:1
+#: blocks/faq/src/edit.js:103
+#: blocks/faq/build/index.js:223
+msgid "Allow multiple FAQ items to be open at the same time."
+msgstr ""
+
+#: blocks/faq/build/index.js:1
+#: blocks/faq/src/edit.js:109
+#: blocks/faq/build/index.js:229
+msgid "Open First Item by Default"
+msgstr ""
+
+#: blocks/faq/build/index.js:1
+#: blocks/faq/src/edit.js:115
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:186
+#: blocks/faq/build/index.js:235
+#: blocks/swish-socials/build/index.js:306
+msgid "Icon Style"
+msgstr ""
+
+#: blocks/faq/build/index.js:1
+#: blocks/faq/src/edit.js:121
+#: blocks/faq/build/index.js:241
+msgid "Chevron"
+msgstr ""
+
+#: blocks/faq/build/index.js:1
+#: blocks/faq/src/edit.js:122
+#: blocks/faq/build/index.js:242
+msgid "Arrow"
+msgstr ""
+
+#: blocks/faq/build/index.js:1
+#: blocks/faq/src/edit.js:136
+#: blocks/latest-posts/build/index.js:1
+#: blocks/latest-posts/src/edit.js:186
+#: blocks/pricing/build/index.js:1
+#: blocks/pricing/src/edit.js:161
+#: blocks/faq/build/index.js:256
+#: blocks/latest-posts/build/index.js:186
+#: blocks/pricing/build/index.js:161
+msgid "Colors"
+msgstr ""
+
+#: blocks/faq/build/index.js:1
+#: blocks/faq/src/edit.js:138
+#: blocks/faq/build/index.js:258
+msgid "Question Color"
+msgstr ""
+
+#: blocks/faq/build/index.js:1
+#: blocks/faq/src/edit.js:148
+#: blocks/faq/build/index.js:268
+msgid "Header Background"
+msgstr ""
+
+#: blocks/faq/build/index.js:1
+#: blocks/faq/src/edit.js:158
+#: blocks/faq/build/index.js:278
+msgid "Content Background"
+msgstr ""
+
+#: blocks/faq/build/index.js:1
+#: blocks/faq/src/edit.js:168
+#: blocks/faq/build/index.js:288
+msgid "Answer Color"
+msgstr ""
+
+#: blocks/faq/build/index.js:1
+#: blocks/faq/src/edit.js:200
+#: blocks/faq/build/index.js:320
+msgid "Add your question..."
+msgstr ""
+
+#: blocks/faq/build/index.js:1
+#: blocks/faq/src/edit.js:218
+#: blocks/faq/build/index.js:338
+msgid "Add your answer..."
+msgstr ""
+
+#: blocks/faq/build/index.js:1
+#: blocks/faq/src/edit.js:239
+#: blocks/faq/build/index.js:359
+msgid "Add FAQ Item"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:214
+#: blocks/feature-card/build/index.js:214
+msgid "Small (4 cols)"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:215
+#: blocks/feature-card/build/index.js:215
+msgid "Medium (6 cols)"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:216
+#: blocks/feature-card/build/index.js:216
+msgid "Large (8 cols)"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:226
+#: blocks/swish-cv/build/index.js:1
+#: blocks/swish-cv/src/edit.js:97
+#: blocks/feature-card/build/index.js:226
+#: blocks/swish-cv/build/index.js:97
+msgid "Accent"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:227
+#: blocks/pricing-plan/build/index.js:1
+#: blocks/pricing-plan/src/edit.js:129
+#: blocks/feature-card/build/index.js:227
+msgid "Highlight"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:233
+#: blocks/feature-card/build/index.js:233
+msgid "Title Tag"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:335
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:1073
+#: blocks/feature-card/build/index.js:335
+#: blocks/hero/build/index.js:1642
+msgid "Call to Action"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:359
+#: blocks/feature-card/build/index.js:359
+msgid "Background Image"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:408
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:831
+#: blocks/feature-card/build/index.js:408
+#: blocks/hero/build/index.js:1400
+msgid "Select Background Image"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:418
+#: blocks/feature-card/build/index.js:418
+msgid "Image Position"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:421
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:555
+#: blocks/feature-card/build/index.js:421
+#: blocks/hero/build/index.js:1124
+msgid "Top Left"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:422
+#: blocks/feature-card/build/index.js:422
+msgid "Top Center"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:423
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:556
+#: blocks/feature-card/build/index.js:423
+#: blocks/hero/build/index.js:1125
+msgid "Top Right"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:424
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:559
+#: blocks/feature-card/build/index.js:424
+#: blocks/hero/build/index.js:1128
+msgid "Center Left"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:426
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:560
+#: blocks/feature-card/build/index.js:426
+#: blocks/hero/build/index.js:1129
+msgid "Center Right"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:427
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:557
+#: blocks/feature-card/build/index.js:427
+#: blocks/hero/build/index.js:1126
+msgid "Bottom Left"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:428
+#: blocks/feature-card/build/index.js:428
+msgid "Bottom Center"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:429
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:558
+#: blocks/feature-card/build/index.js:429
+#: blocks/hero/build/index.js:1127
+msgid "Bottom Right"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:443
+#: blocks/feature-card/build/index.js:443
+msgid "Style Overrides"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:446
+#: blocks/feature-card/build/index.js:446
+msgid "Leave a field empty to inherit the parent block’s global style."
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:453
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:158
+#: blocks/feature-card/build/index.js:453
+#: blocks/features/build/index.js:586
+msgid "Card Background"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:465
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:168
+#: blocks/feature-card/build/index.js:465
+#: blocks/features/build/index.js:596
+msgid "Card Accent Color"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:478
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:210
+#: blocks/feature-card/build/index.js:478
+#: blocks/features/build/index.js:638
+msgid "Typography"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:482
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:214
+#: blocks/feature-card/build/index.js:482
+#: blocks/features/build/index.js:642
+msgid "Title Font Size"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:494
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:224
+#: blocks/feature-card/build/index.js:494
+#: blocks/features/build/index.js:652
+msgid "Subheading Font Size"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:548
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:270
+#: blocks/feature-card/build/index.js:548
+#: blocks/features/build/index.js:698
+msgid "CTA Colors"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:552
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:274
+#: blocks/feature-card/build/index.js:552
+#: blocks/features/build/index.js:702
+msgid "CTA Text Color"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:564
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:284
+#: blocks/feature-card/build/index.js:564
+#: blocks/features/build/index.js:712
+msgid "CTA Background Color"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:578
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:169
+#: blocks/feature-card/build/index.js:578
+#: blocks/portfolio/build/index.js:169
+msgid "Overlay"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:582
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:842
+#: blocks/feature-card/build/index.js:582
+#: blocks/hero/build/index.js:1411
+msgid "Overlay Color"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:648
+#: blocks/feature-card/build/index.js:648
+msgid "MODULE 01"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:663
+#: blocks/feature-card/build/index.js:663
+msgid "Feature Title"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:680
+#: blocks/feature-card/build/index.js:680
+msgid "Feature description..."
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:710
+#: blocks/feature-card/build/index.js:710
+msgid "Learn More"
+msgstr ""
+
+#: blocks/feature-card/build/index.js:1
+#: blocks/feature-card/src/edit.js:722
+#: blocks/feature-card/build/index.js:722
+msgid "Get Started"
+msgstr ""
+
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:146
+#: blocks/features/build/index.js:574
+msgid "Medium (2rem)"
+msgstr ""
+
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:147
+#: blocks/features/build/index.js:575
+msgid "Large (3rem)"
+msgstr ""
+
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:156
+#: blocks/features/build/index.js:584
+msgid "Card Colors"
+msgstr ""
+
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:178
+#: blocks/features/build/index.js:606
+msgid "Card Border Style"
+msgstr ""
+
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:189
+#: blocks/features/build/index.js:617
+msgid "Card Border Color"
+msgstr ""
+
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:199
+#: blocks/features/build/index.js:627
+msgid "Card Shadow Color"
+msgstr ""
+
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:297
+#: blocks/features/build/index.js:725
+msgid "Block Patterns"
+msgstr ""
+
+#: blocks/features/build/index.js:1
+#: blocks/features/src/edit.js:300
+#: blocks/features/build/index.js:728
+msgid "No patterns are registered for this block yet."
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/formats/text-color.js:56
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/formats/text-color.js:56
+#: blocks/heading/build/index.js:1588
+#: blocks/hero/build/index.js:1948
+msgid "Select Color"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/formats/text-color.js:70
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/formats/text-color.js:70
+#: blocks/heading/build/index.js:1602
+#: blocks/hero/build/index.js:1962
+msgid "Remove Color"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:320
+#: blocks/heading/build/index.js:1044
+msgid "Left Icon"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:320
+#: blocks/heading/build/index.js:1044
+msgid "Right Icon"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:330
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:475
+#: blocks/hero/src/edit.js:592
+#: blocks/heading/build/index.js:1054
+#: blocks/hero/build/index.js:1044
+#: blocks/hero/build/index.js:1161
+msgid "Custom SVG"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:380
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:503
+#: blocks/hero/src/edit.js:638
+#: blocks/heading/build/index.js:1104
+#: blocks/hero/build/index.js:1072
+#: blocks/hero/build/index.js:1207
+msgid "Upload SVG"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:451
+#: blocks/heading/build/index.js:1175
+msgid "Show Element"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:479
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:1008
+#: blocks/hero/src/edit.js:1061
+#: blocks/heading/build/index.js:1203
+#: blocks/hero/build/index.js:1577
+#: blocks/hero/build/index.js:1630
+msgid "Rotation"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:500
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:914
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:238
+#: blocks/heading/build/index.js:1224
+#: blocks/hero/build/index.js:1483
+#: blocks/swish-socials/build/index.js:358
+msgid "Border Width"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:520
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:931
+#: blocks/heading/build/index.js:1244
+#: blocks/hero/build/index.js:1500
+msgid "Shadow Size"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:542
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:688
+#: blocks/heading/build/index.js:1266
+#: blocks/hero/build/index.js:1257
+msgid "Content Alignment"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:553
+#: blocks/heading/build/index.js:1277
+msgid "Block Background"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:563
+#: blocks/heading/build/index.js:1287
+msgid "Show Background Pattern"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:570
+#: blocks/heading/build/index.js:1294
+msgid "Pattern Type"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:573
+#: blocks/heading/build/index.js:1297
+msgid "Halftone Dots"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:574
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:142
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:110
+#: blocks/heading/build/index.js:1298
+#: blocks/portfolio/build/index.js:142
+#: blocks/swish-gallery/build/index.js:110
+msgid "Grid"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:575
+#: blocks/heading/build/index.js:1299
+msgid "Large Dots"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:583
+#: blocks/heading/build/index.js:1307
+msgid "Pre-Heading"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:604
+#: blocks/heading/build/index.js:1328
+msgid "Heading"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:625
+#: blocks/heading/build/index.js:1349
+msgid "Heading Tag"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:673
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:712
+#: blocks/heading/build/index.js:1397
+#: blocks/hero/build/index.js:1281
+msgid "Heading Style"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:678
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:719
+#: blocks/heading/build/index.js:1402
+#: blocks/hero/build/index.js:1288
+msgid "Normal"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:679
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:720
+#: blocks/hero/src/edit.js:1087
+#: blocks/heading/build/index.js:1403
+#: blocks/hero/build/index.js:1289
+#: blocks/hero/build/index.js:1656
+msgid "Outline"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:680
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:721
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:180
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:254
+#: blocks/testimonials/build/index.js:1
+#: blocks/testimonials/src/edit.js:156
+#: blocks/heading/build/index.js:1404
+#: blocks/hero/build/index.js:1290
+#: blocks/swish-gallery/build/index.js:180
+#: blocks/swish-socials/build/index.js:374
+#: blocks/testimonials/build/index.js:221
+msgid "Shadow"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:687
+#: blocks/heading/build/index.js:1411
+msgid "Sub-Heading"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:707
+#: blocks/heading/build/index.js:1431
+msgid "Font Size"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:761
+#: blocks/heading/build/index.js:1485
+msgid "Pre-heading"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:777
+#: blocks/heading/build/index.js:1501
+msgid "Main Heading"
+msgstr ""
+
+#: blocks/heading/build/index.js:1
+#: blocks/heading/src/edit.js:793
+#: blocks/heading/build/index.js:1517
+msgid "Sub-heading text goes here..."
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:468
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:351
+#: blocks/hero/build/index.js:1037
+#: blocks/portfolio/build/index.js:351
+msgid "Type"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:517
+#: blocks/hero/src/edit.js:779
+#: blocks/hero/src/edit.js:990
+#: blocks/hero/src/edit.js:1043
+#: blocks/swish-counter/build/index.js:1
+#: blocks/swish-counter/src/edit.js:165
+#: blocks/swish-counter/src/edit.js:194
+#: blocks/swish-cv/build/index.js:1
+#: blocks/swish-cv/src/edit.js:90
+#: blocks/hero/build/index.js:1086
+#: blocks/hero/build/index.js:1348
+#: blocks/hero/build/index.js:1559
+#: blocks/hero/build/index.js:1612
+#: blocks/swish-counter/build/index.js:230
+#: blocks/swish-counter/build/index.js:259
+#: blocks/swish-cv/build/index.js:90
+msgid "Color"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:528
+#: blocks/hero/build/index.js:1097
+msgid "Gradient Fade"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:535
+#: blocks/hero/build/index.js:1104
+msgid "Btm"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:541
+#: blocks/hero/src/edit.js:725
+#: blocks/hero/src/edit.js:998
+#: blocks/hero/src/edit.js:1051
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:199
+#: blocks/hero/build/index.js:1110
+#: blocks/hero/build/index.js:1294
+#: blocks/hero/build/index.js:1567
+#: blocks/hero/build/index.js:1620
+#: blocks/swish-socials/build/index.js:319
+msgid "Size"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:552
+#: blocks/hero/build/index.js:1121
+msgid "Position"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:566
+#: blocks/hero/build/index.js:1135
+msgid "Opacity"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:590
+#: blocks/hero/build/index.js:1159
+msgid "Auto-detect External"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:666
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:137
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:105
+#: blocks/hero/build/index.js:1235
+#: blocks/portfolio/build/index.js:137
+#: blocks/swish-gallery/build/index.js:105
+msgid "Layout Style"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:669
+#: blocks/hero/build/index.js:1238
+msgid "Full Background"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:670
+#: blocks/hero/build/index.js:1239
+msgid "Split - Image Right"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:671
+#: blocks/hero/build/index.js:1240
+msgid "Split - Image Left"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:677
+#: blocks/hero/build/index.js:1246
+msgid "Minimum Height (px)"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:732
+#: blocks/hero/src/edit.js:940
+#: blocks/hero/build/index.js:1301
+#: blocks/hero/build/index.js:1509
+msgid "XL"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:736
+#: blocks/hero/build/index.js:1305
+msgid "Text Transform"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:742
+#: blocks/hero/build/index.js:1311
+msgid "UPPER"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:746
+#: blocks/hero/build/index.js:1315
+msgid "Full Width Heading"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:747
+#: blocks/hero/build/index.js:1316
+msgid "Stretch heading to 100% width"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:754
+#: blocks/hero/build/index.js:1323
+msgid "Overlay Image"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:755
+#: blocks/hero/build/index.js:1324
+msgid "Let heading extend over the image"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:772
+#: blocks/testimonials/build/index.js:1
+#: blocks/testimonials/src/edit.js:108
+#: blocks/hero/build/index.js:1341
+#: blocks/testimonials/build/index.js:173
+msgid "Background"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:774
+#: blocks/hero/build/index.js:1343
+msgid "Background Type"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:780
+#: blocks/latest-posts/build/index.js:1
+#: blocks/latest-posts/src/edit.js:176
+#: blocks/hero/build/index.js:1349
+#: blocks/latest-posts/build/index.js:176
+msgid "Image"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:862
+#: blocks/hero/build/index.js:1431
+msgid "Background Shapes"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:864
+#: blocks/hero/build/index.js:1433
+msgid "Add decorative shapes behind the hero content. Supports SVG upload."
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:872
+#: blocks/hero/build/index.js:1441
+msgid "Hero Image"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:905
+#: blocks/hero/build/index.js:1474
+msgid "Select Hero Image"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:944
+#: blocks/hero/build/index.js:1513
+msgid "Image Rotation"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:954
+#: blocks/hero/build/index.js:1523
+msgid "Image Blobs"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:956
+#: blocks/hero/build/index.js:1525
+msgid "Show Blobs"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:965
+#: blocks/hero/build/index.js:1534
+msgid "Blob 1"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:1018
+#: blocks/hero/build/index.js:1587
+msgid "Blob 2"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:1075
+#: blocks/hero/build/index.js:1644
+msgid "Primary Button URL"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:1080
+#: blocks/hero/build/index.js:1649
+msgid "Primary Button Style"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:1085
+#: blocks/hero/build/index.js:1654
+msgid "Primary"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:1086
+#: blocks/hero/build/index.js:1655
+msgid "Secondary"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:1091
+#: blocks/hero/build/index.js:1660
+msgid "Secondary Button URL"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:1097
+#: blocks/hero/build/index.js:1666
+msgid "Primary Button Icon"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:1105
+#: blocks/hero/build/index.js:1674
+msgid "Secondary Button Icon"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:1113
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:91
+#: blocks/hero/build/index.js:1682
+#: blocks/swish-socials/build/index.js:211
+msgid "Links"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:1115
+#: blocks/hero/build/index.js:1684
+msgid "Add social media links that appear after the buttons."
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:1189
+#: blocks/hero/build/index.js:1758
+msgid "Upload Custom Icon"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:1199
+#: blocks/pricing-plan/build/index.js:1
+#: blocks/pricing-plan/src/edit.js:120
+#: blocks/swish-slide/build/index.js:1
+#: blocks/swish-slide/src/edit.js:136
+#: blocks/swish-slide/src/edit.js:161
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:113
+#: blocks/hero/build/index.js:1768
+#: blocks/swish-slide/build/index.js:201
+#: blocks/swish-slide/build/index.js:226
+#: blocks/swish-socials/build/index.js:233
+msgid "URL"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:1213
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:182
+#: blocks/swish-socials/src/edit.js:308
+#: blocks/hero/build/index.js:1782
+#: blocks/swish-socials/build/index.js:302
+#: blocks/swish-socials/build/index.js:428
+msgid "Add Link"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:1260
+#: blocks/hero/build/index.js:1829
+msgid "Hero Heading"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:1268
+#: blocks/hero/build/index.js:1837
+msgid "Add a subheading..."
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:1279
+#: blocks/hero/build/index.js:1848
+msgid "Primary Button"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:1290
+#: blocks/hero/build/index.js:1859
+msgid "Secondary Button"
+msgstr ""
+
+#: blocks/hero/build/index.js:1
+#: blocks/hero/src/edit.js:448
+#: blocks/hero/build/index.js:1017
+msgid "Click to add image"
+msgstr ""
+
+#: blocks/latest-posts/build/index.js:1
+#: blocks/latest-posts/src/edit.js:74
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:311
+#: blocks/latest-posts/build/index.js:74
+#: blocks/portfolio/build/index.js:311
+msgid "Query"
+msgstr ""
+
+#: blocks/latest-posts/build/index.js:1
+#: blocks/latest-posts/src/edit.js:76
+#: blocks/latest-posts/build/index.js:76
+msgid "Inherit query from page"
+msgstr ""
+
+#: blocks/latest-posts/build/index.js:1
+#: blocks/latest-posts/src/edit.js:79
+#: blocks/latest-posts/build/index.js:79
+msgid "Posts come from the page’s main query (blog/archive pages). Pagination is shown automatically."
+msgstr ""
+
+#: blocks/latest-posts/build/index.js:1
+#: blocks/latest-posts/src/edit.js:80
+#: blocks/latest-posts/build/index.js:80
+msgid "Turn on to use this block on a blog or archive page with pagination."
+msgstr ""
+
+#: blocks/latest-posts/build/index.js:1
+#: blocks/latest-posts/src/edit.js:89
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:175
+#: blocks/swish-counter/build/index.js:1
+#: blocks/swish-counter/src/edit.js:107
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:117
+#: blocks/testimonials/build/index.js:1
+#: blocks/testimonials/src/edit.js:94
+#: blocks/latest-posts/build/index.js:89
+#: blocks/portfolio/build/index.js:175
+#: blocks/swish-counter/build/index.js:172
+#: blocks/swish-gallery/build/index.js:117
+#: blocks/testimonials/build/index.js:159
+msgid "Columns"
+msgstr ""
+
+#: blocks/latest-posts/build/index.js:1
+#: blocks/latest-posts/src/edit.js:98
+#: blocks/latest-posts/build/index.js:98
+msgid "Posts to Show"
+msgstr ""
+
+#: blocks/latest-posts/build/index.js:1
+#: blocks/latest-posts/src/edit.js:107
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:201
+#: blocks/latest-posts/build/index.js:107
+#: blocks/portfolio/build/index.js:201
+msgid "Image Aspect Ratio"
+msgstr ""
+
+#: blocks/latest-posts/build/index.js:1
+#: blocks/latest-posts/src/edit.js:113
+#: blocks/latest-posts/build/index.js:113
+msgid "Landscape"
+msgstr ""
+
+#: blocks/latest-posts/build/index.js:1
+#: blocks/latest-posts/src/edit.js:114
+#: blocks/latest-posts/build/index.js:114
+msgid "Portrait"
+msgstr ""
+
+#: blocks/latest-posts/build/index.js:1
+#: blocks/latest-posts/src/edit.js:118
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:374
+#: blocks/latest-posts/build/index.js:118
+#: blocks/portfolio/build/index.js:374
+msgid "Content"
+msgstr ""
+
+#: blocks/latest-posts/build/index.js:1
+#: blocks/latest-posts/src/edit.js:120
+#: blocks/latest-posts/build/index.js:120
+msgid "Show Featured Image"
+msgstr ""
+
+#: blocks/latest-posts/build/index.js:1
+#: blocks/latest-posts/src/edit.js:126
+#: blocks/latest-posts/build/index.js:126
+msgid "Show Date"
+msgstr ""
+
+#: blocks/latest-posts/build/index.js:1
+#: blocks/latest-posts/src/edit.js:132
+#: blocks/latest-posts/build/index.js:132
+msgid "Show Author"
+msgstr ""
+
+#: blocks/latest-posts/build/index.js:1
+#: blocks/latest-posts/src/edit.js:138
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:377
+#: blocks/latest-posts/build/index.js:138
+#: blocks/portfolio/build/index.js:377
+msgid "Show Excerpt"
+msgstr ""
+
+#: blocks/latest-posts/build/index.js:1
+#: blocks/latest-posts/src/edit.js:145
+#: blocks/latest-posts/build/index.js:145
+msgid "Excerpt Length (words)"
+msgstr ""
+
+#: blocks/latest-posts/build/index.js:1
+#: blocks/latest-posts/src/edit.js:155
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:444
+#: blocks/latest-posts/build/index.js:155
+#: blocks/portfolio/build/index.js:444
+msgid "Filter by Category"
+msgstr ""
+
+#: blocks/latest-posts/build/index.js:1
+#: blocks/latest-posts/src/edit.js:178
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:172
+#: blocks/testimonials/build/index.js:1
+#: blocks/testimonials/src/edit.js:146
+#: blocks/latest-posts/build/index.js:178
+#: blocks/swish-gallery/build/index.js:172
+#: blocks/testimonials/build/index.js:211
+msgid "Border Radius (px)"
+msgstr ""
+
+#: blocks/latest-posts/build/index.js:1
+#: blocks/latest-posts/src/edit.js:187
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:317
+#: blocks/swish-counter-item/build/index.js:1
+#: blocks/swish-counter-item/src/edit.js:52
+#: blocks/swish-counter/build/index.js:1
+#: blocks/swish-counter/src/edit.js:180
+#: blocks/swish-cv/build/index.js:1
+#: blocks/swish-cv/src/edit.js:103
+#: blocks/latest-posts/build/index.js:187
+#: blocks/portfolio/build/index.js:317
+#: blocks/swish-counter-item/build/index.js:52
+#: blocks/swish-counter/build/index.js:245
+#: blocks/swish-cv/build/index.js:103
+msgid "Title"
+msgstr ""
+
+#: blocks/latest-posts/build/index.js:1
+#: blocks/latest-posts/src/edit.js:196
+#: blocks/latest-posts/build/index.js:196
+msgid "Excerpt"
+msgstr ""
+
+#: blocks/latest-posts/build/index.js:1
+#: blocks/latest-posts/src/edit.js:205
+#: blocks/latest-posts/build/index.js:205
+msgid "Meta (Date & Author)"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:31
+#: blocks/portfolio/build/index.js:31
+msgid "Inherit"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:143
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:111
+#: blocks/portfolio/build/index.js:143
+#: blocks/swish-gallery/build/index.js:111
+msgid "Masonry"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:144
+#: blocks/portfolio/build/index.js:144
+msgid "List"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:149
+#: blocks/portfolio/build/index.js:149
+msgid "Featured Project (optional)"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:155
+#: blocks/portfolio/build/index.js:155
+msgid "When set, this project renders as a full-width hero above the grid (and is hidden from the grid itself). Leave empty for grid-only."
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:184
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:126
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:153
+#: blocks/portfolio/build/index.js:184
+#: blocks/swish-gallery/build/index.js:126
+#: blocks/swish-links/build/index.js:153
+msgid "Gap (px)"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:193
+#: blocks/portfolio/build/index.js:193
+msgid "Projects to Show"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:206
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:154
+#: blocks/portfolio/build/index.js:206
+#: blocks/swish-gallery/build/index.js:154
+msgid "1:1"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:207
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:155
+#: blocks/portfolio/build/index.js:207
+#: blocks/swish-gallery/build/index.js:155
+msgid "4:3"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:208
+#: blocks/portfolio/build/index.js:208
+msgid "16:9"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:209
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:156
+#: blocks/portfolio/build/index.js:209
+#: blocks/swish-gallery/build/index.js:156
+msgid "3:4"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:213
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:160
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:266
+#: blocks/portfolio/build/index.js:213
+#: blocks/swish-gallery/build/index.js:160
+#: blocks/swish-socials/build/index.js:386
+msgid "Hover Effect"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:219
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:168
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:269
+#: blocks/portfolio/build/index.js:219
+#: blocks/swish-gallery/build/index.js:168
+#: blocks/swish-socials/build/index.js:389
+msgid "Lift"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:220
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:166
+#: blocks/portfolio/build/index.js:220
+#: blocks/swish-gallery/build/index.js:166
+msgid "Zoom"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:221
+#: blocks/portfolio/build/index.js:221
+msgid "Reveal"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:239
+#: blocks/portfolio/build/index.js:239
+msgid "Title Font Weight"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:249
+#: blocks/portfolio/build/index.js:249
+msgid "Image Border Radius (px)"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:259
+#: blocks/portfolio/build/index.js:259
+msgid "Card Content Background"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:270
+#: blocks/portfolio/build/index.js:270
+msgid "Background color of the card body below the image. Applies to both the featured hero and the grid cards."
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:277
+#: blocks/portfolio/build/index.js:277
+msgid "Taxonomy Pills"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:279
+#: blocks/portfolio/build/index.js:279
+msgid "Pill Style"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:284
+#: blocks/portfolio/build/index.js:284
+msgid "Plain"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:286
+#: blocks/portfolio/build/index.js:286
+msgid "Border"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:291
+#: blocks/portfolio/build/index.js:291
+msgid "Pill Color"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:302
+#: blocks/portfolio/build/index.js:302
+msgid "Applies to category, project type, and skill pills. Leave empty to use the theme accent."
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:313
+#: blocks/portfolio/build/index.js:313
+msgid "Order By"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:318
+#: blocks/portfolio/build/index.js:318
+msgid "Modified"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:319
+#: blocks/portfolio/build/index.js:319
+msgid "Random"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:320
+#: blocks/portfolio/build/index.js:320
+msgid "Menu Order"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:326
+#: blocks/portfolio/build/index.js:326
+msgid "Order"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:331
+#: blocks/portfolio/build/index.js:331
+msgid "Descending"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:332
+#: blocks/portfolio/build/index.js:332
+msgid "Ascending"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:336
+#: blocks/portfolio/build/index.js:336
+msgid "Filters"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:338
+#: blocks/portfolio/build/index.js:338
+msgid "Show Filter Buttons"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:345
+#: blocks/portfolio/build/index.js:345
+msgid "Filter By"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:350
+#: blocks/portfolio/build/index.js:350
+msgid "Category"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:356
+#: blocks/portfolio/build/index.js:356
+msgid "Display Options"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:358
+#: blocks/portfolio/build/index.js:358
+msgid "Taxonomies"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:361
+#: blocks/portfolio/build/index.js:361
+msgid "Show Category"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:366
+#: blocks/portfolio/build/index.js:366
+msgid "Show Project Type"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:388
+#: blocks/portfolio/build/index.js:388
+msgid "Show Status"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:393
+#: blocks/portfolio/build/index.js:393
+msgid "Show Completion Date"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:398
+#: blocks/portfolio/build/index.js:398
+msgid "Show Skills"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:403
+#: blocks/portfolio/build/index.js:403
+msgid "Show Client"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:409
+#: blocks/portfolio/build/index.js:409
+msgid "Show \"Client\" label"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:412
+#: blocks/portfolio/build/index.js:412
+msgid "When off, only the client name renders (no \"Client:\" prefix)."
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:419
+#: blocks/portfolio/build/index.js:419
+msgid "Show Project URL"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:430
+#: blocks/portfolio/build/index.js:430
+msgid "Show View Button"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:436
+#: blocks/pricing-plan/build/index.js:1
+#: blocks/pricing-plan/src/edit.js:220
+#: blocks/portfolio/build/index.js:436
+msgid "Button Text"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:446
+#: blocks/portfolio/build/index.js:446
+msgid "Select categories to display. Leave empty to show all."
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:465
+#: blocks/portfolio/build/index.js:465
+msgid "Filter by Project Type"
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:467
+#: blocks/portfolio/build/index.js:467
+msgid "Select project types to display. Leave empty to show all."
+msgstr ""
+
+#: blocks/portfolio/build/index.js:1
+#: blocks/portfolio/src/edit.js:498
+#: blocks/portfolio/build/index.js:498
+msgid "No projects found. Add some projects to display them here."
+msgstr ""
+
+#: blocks/pricing-plan/build/index.js:1
+#: blocks/pricing-plan/src/edit.js:80
+msgid "Price"
+msgstr ""
+
+#: blocks/pricing-plan/build/index.js:1
+#: blocks/pricing-plan/src/edit.js:82
+msgid "Price Prefix"
+msgstr ""
+
+#: blocks/pricing-plan/build/index.js:1
+#: blocks/pricing-plan/src/edit.js:89
+msgid "Monthly Price"
+msgstr ""
+
+#: blocks/pricing-plan/build/index.js:1
+#: blocks/pricing-plan/src/edit.js:96
+msgid "Yearly Price"
+msgstr ""
+
+#: blocks/pricing-plan/build/index.js:1
+#: blocks/pricing-plan/src/edit.js:105
+msgid "Price Link"
+msgstr ""
+
+#: blocks/pricing-plan/build/index.js:1
+#: blocks/pricing-plan/src/edit.js:110
+msgid "Replaces the price in both billing modes, e.g. \"Contact Sales\"."
+msgstr ""
+
+#: blocks/pricing-plan/build/index.js:1
+#: blocks/pricing-plan/src/edit.js:133
+msgid "Highlighted (Featured)"
+msgstr ""
+
+#: blocks/pricing-plan/build/index.js:1
+#: blocks/pricing-plan/src/edit.js:141
+msgid "Badge Text"
+msgstr ""
+
+#: blocks/pricing-plan/build/index.js:1
+#: blocks/pricing-plan/src/edit.js:155
+msgid "Button URL"
+msgstr ""
+
+#: blocks/pricing-plan/build/index.js:1
+#: blocks/pricing-plan/src/edit.js:177
+msgid "Plan Title"
+msgstr ""
+
+#: blocks/pricing-plan/build/index.js:1
+#: blocks/pricing-plan/src/edit.js:184
+msgid "Plan description"
+msgstr ""
+
+#: blocks/pricing/build/index.js:1
+#: blocks/pricing/src/edit.js:99
+#: blocks/pricing/build/index.js:99
+msgid "Billing"
+msgstr ""
+
+#: blocks/pricing/build/index.js:1
+#: blocks/pricing/src/edit.js:101
+#: blocks/pricing/build/index.js:101
+msgid "Show Billing Toggle"
+msgstr ""
+
+#: blocks/pricing/build/index.js:1
+#: blocks/pricing/src/edit.js:109
+#: blocks/pricing/build/index.js:109
+msgid "Monthly Label"
+msgstr ""
+
+#: blocks/pricing/build/index.js:1
+#: blocks/pricing/src/edit.js:116
+#: blocks/pricing/build/index.js:116
+msgid "Yearly Label"
+msgstr ""
+
+#: blocks/pricing/build/index.js:1
+#: blocks/pricing/src/edit.js:123
+#: blocks/pricing/build/index.js:123
+msgid "Yearly Discount Badge"
+msgstr ""
+
+#: blocks/pricing/build/index.js:1
+#: blocks/pricing/src/edit.js:133
+#: blocks/pricing/build/index.js:133
+msgid "Default to Yearly"
+msgstr ""
+
+#: blocks/pricing/build/index.js:1
+#: blocks/pricing/src/edit.js:143
+#: blocks/pricing/build/index.js:143
+msgid "Monthly Period Label"
+msgstr ""
+
+#: blocks/pricing/build/index.js:1
+#: blocks/pricing/src/edit.js:144
+#: blocks/pricing/build/index.js:144
+msgid "Shown after the price, e.g. \"$5/month\"."
+msgstr ""
+
+#: blocks/pricing/build/index.js:1
+#: blocks/pricing/src/edit.js:151
+#: blocks/pricing/build/index.js:151
+msgid "Yearly Period Label"
+msgstr ""
+
+#: blocks/pricing/build/index.js:1
+#: blocks/pricing/src/edit.js:163
+#: blocks/pricing/build/index.js:163
+msgid "Toggle Background"
+msgstr ""
+
+#: blocks/pricing/build/index.js:1
+#: blocks/pricing/src/edit.js:192
+#: blocks/pricing/build/index.js:192
+msgid "Highlighted Background"
+msgstr ""
+
+#: blocks/pricing/build/index.js:1
+#: blocks/pricing/src/edit.js:203
+#: blocks/pricing/build/index.js:203
+msgid "Highlighted Text Color"
+msgstr ""
+
+#: blocks/swish-counter-item/build/index.js:1
+#: blocks/swish-counter-item/src/edit.js:26
+#: blocks/swish-counter-item/build/index.js:26
+msgid "$"
+msgstr ""
+
+#: blocks/swish-counter-item/build/index.js:1
+#: blocks/swish-counter-item/src/edit.js:34
+#: blocks/swish-counter-item/build/index.js:34
+msgid "0"
+msgstr ""
+
+#: blocks/swish-counter-item/build/index.js:1
+#: blocks/swish-counter-item/src/edit.js:42
+#: blocks/swish-counter-item/build/index.js:42
+msgid "+"
+msgstr ""
+
+#: blocks/swish-counter/build/index.js:1
+#: blocks/swish-counter/src/edit.js:117
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:280
+#: blocks/swish-counter/build/index.js:182
+#: blocks/swish-socials/build/index.js:400
+msgid "Alignment"
+msgstr ""
+
+#: blocks/swish-counter/build/index.js:1
+#: blocks/swish-counter/src/edit.js:142
+#: blocks/swish-counter/build/index.js:207
+msgid "Counter"
+msgstr ""
+
+#: blocks/swish-counter/build/index.js:1
+#: blocks/swish-counter/src/edit.js:154
+#: blocks/swish-counter/build/index.js:219
+msgid "Font Weight"
+msgstr ""
+
+#: blocks/swish-counter/build/index.js:1
+#: blocks/swish-counter/src/edit.js:209
+#: blocks/swish-counter/build/index.js:274
+msgid "Spacing"
+msgstr ""
+
+#: blocks/swish-counter/build/index.js:1
+#: blocks/swish-counter/src/edit.js:213
+#: blocks/swish-counter/build/index.js:278
+msgid "Counter ↔ Title Gap (px)"
+msgstr ""
+
+#: blocks/swish-cv/build/index.js:1
+#: blocks/swish-cv/src/edit.js:113
+#: blocks/swish-cv/build/index.js:113
+msgid "Move row up"
+msgstr ""
+
+#: blocks/swish-cv/build/index.js:1
+#: blocks/swish-cv/src/edit.js:119
+#: blocks/swish-cv/build/index.js:119
+msgid "Move row down"
+msgstr ""
+
+#: blocks/swish-cv/build/index.js:1
+#: blocks/swish-cv/src/edit.js:125
+#: blocks/swish-cv/build/index.js:125
+msgid "Remove row"
+msgstr ""
+
+#: blocks/swish-cv/build/index.js:1
+#: blocks/swish-cv/src/edit.js:147
+#: blocks/swish-cv/build/index.js:147
+msgid "2024 — Now"
+msgstr ""
+
+#: blocks/swish-cv/build/index.js:1
+#: blocks/swish-cv/src/edit.js:166
+#: blocks/swish-cv/build/index.js:166
+msgid "Role"
+msgstr ""
+
+#: blocks/swish-cv/build/index.js:1
+#: blocks/swish-cv/src/edit.js:181
+#: blocks/swish-cv/build/index.js:181
+msgid "— Company"
+msgstr ""
+
+#: blocks/swish-cv/build/index.js:1
+#: blocks/swish-cv/src/edit.js:193
+#: blocks/swish-cv/build/index.js:193
+msgid "What you did and the impact."
+msgstr ""
+
+#: blocks/swish-cv/build/index.js:1
+#: blocks/swish-cv/src/edit.js:210
+#: blocks/swish-cv/build/index.js:210
+msgid "City"
+msgstr ""
+
+#: blocks/swish-cv/build/index.js:1
+#: blocks/swish-cv/src/edit.js:218
+#: blocks/swish-cv/build/index.js:218
+msgid "Add CV row"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:38
+#: blocks/swish-form/src/edit.js:65
+#: blocks/swish-form/build/index.js:38
+#: blocks/swish-form/build/index.js:65
+msgid "Phone"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:39
+#: blocks/swish-form/build/index.js:39
+msgid "Textarea"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:40
+#: blocks/swish-form/build/index.js:40
+msgid "Select"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:41
+#: blocks/swish-form/build/index.js:41
+msgid "Checkbox"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:48
+#: blocks/swish-form/build/index.js:48
+msgid "Full Width"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:49
+#: blocks/swish-form/build/index.js:49
+msgid "Half Width"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:63
+#: blocks/swish-form/src/edit.js:73
+#: blocks/testimonial-card/build/index.js:1
+#: blocks/testimonial-card/src/edit.js:190
+#: blocks/swish-form/build/index.js:63
+#: blocks/swish-form/build/index.js:73
+#: blocks/testimonial-card/build/index.js:255
+msgid "Name"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:66
+#: blocks/swish-form/build/index.js:66
+msgid "Message"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:181
+#: blocks/swish-form/build/index.js:181
+msgid "Form Settings"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:186
+#: blocks/swish-form/src/edit.js:371
+#: blocks/swish-form/build/index.js:186
+#: blocks/swish-form/build/index.js:371
+msgid "Contact Form"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:187
+#: blocks/swish-form/src/edit.js:371
+#: blocks/swish-form/build/index.js:187
+#: blocks/swish-form/build/index.js:371
+msgid "Subscription Form"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:193
+#: blocks/swish-form/build/index.js:193
+msgid "Submit Button Text"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:199
+#: blocks/swish-form/build/index.js:199
+msgid "Success Message"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:205
+#: blocks/swish-form/build/index.js:205
+msgid "Error Message"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:211
+#: blocks/swish-form/build/index.js:211
+msgid "Enable Honeypot Spam Protection"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:220
+#: blocks/swish-form/build/index.js:220
+msgid "Recipient Email"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:221
+#: blocks/swish-form/src/edit.js:254
+#: blocks/swish-form/build/index.js:221
+#: blocks/swish-form/build/index.js:254
+msgid "Leave empty to use default from settings."
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:228
+#: blocks/swish-form/build/index.js:228
+msgid "Email Subject"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:236
+#: blocks/swish-form/build/index.js:236
+msgid "Email Provider"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:238
+#: blocks/swish-form/build/index.js:238
+msgid "Provider"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:241
+#: blocks/swish-form/build/index.js:241
+msgid "Use Default (from settings)"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:253
+#: blocks/swish-form/build/index.js:253
+msgid "List/Audience ID"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:262
+#: blocks/swish-form/build/index.js:262
+msgid "Form Fields"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:269
+#: blocks/swish-form/build/index.js:269
+msgid "Untitled Field"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:278
+#: blocks/swish-form/build/index.js:278
+msgid "Move Up"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:285
+#: blocks/swish-form/build/index.js:285
+msgid "Move Down"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:304
+#: blocks/swish-form/build/index.js:304
+msgid "Field Type"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:312
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:249
+#: blocks/swish-form/build/index.js:312
+#: blocks/swish-links/build/index.js:249
+msgid "Label"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:319
+#: blocks/swish-form/build/index.js:319
+msgid "Placeholder"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:327
+#: blocks/swish-form/build/index.js:327
+msgid "Width"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:334
+#: blocks/swish-form/build/index.js:334
+msgid "Required"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:343
+#: blocks/swish-form/build/index.js:343
+msgid "Options (one per line)"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:346
+#: blocks/swish-form/build/index.js:346
+msgid "Enter each option on a new line."
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:121
+#: blocks/swish-form/build/index.js:121
+msgid "New Field"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:361
+#: blocks/swish-form/build/index.js:361
+msgid "Add Field"
+msgstr ""
+
+#: blocks/swish-form/build/index.js:1
+#: blocks/swish-form/src/edit.js:393
+#: blocks/swish-form/build/index.js:393
+msgid "Select..."
+msgstr ""
+
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:112
+#: blocks/swish-gallery/build/index.js:112
+msgid "Carousel"
+msgstr ""
+
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:134
+#: blocks/swish-gallery/build/index.js:134
+msgid "Image Settings"
+msgstr ""
+
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:136
+#: blocks/swish-gallery/build/index.js:136
+msgid "Image Size"
+msgstr ""
+
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:139
+#: blocks/swish-gallery/build/index.js:139
+msgid "Thumbnail"
+msgstr ""
+
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:140
+#: blocks/swish-gallery/build/index.js:140
+msgid "Medium"
+msgstr ""
+
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:141
+#: blocks/swish-gallery/build/index.js:141
+msgid "Large"
+msgstr ""
+
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:142
+#: blocks/swish-gallery/build/index.js:142
+msgid "Full"
+msgstr ""
+
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:148
+#: blocks/swish-gallery/build/index.js:148
+msgid "Aspect Ratio"
+msgstr ""
+
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:153
+#: blocks/swish-gallery/build/index.js:153
+msgid "Auto"
+msgstr ""
+
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:167
+#: blocks/swish-gallery/build/index.js:167
+msgid "Fade"
+msgstr ""
+
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:192
+#: blocks/swish-gallery/build/index.js:192
+msgid "Lightbox"
+msgstr ""
+
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:194
+#: blocks/swish-gallery/build/index.js:194
+msgid "Enable Lightbox"
+msgstr ""
+
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:201
+#: blocks/swish-gallery/build/index.js:201
+msgid "Show Captions"
+msgstr ""
+
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:209
+#: blocks/swish-gallery/build/index.js:209
+msgid "Carousel Settings"
+msgstr ""
+
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:211
+#: blocks/swish-gallery/build/index.js:211
+msgid "Autoplay"
+msgstr ""
+
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:218
+#: blocks/swish-gallery/build/index.js:218
+msgid "Autoplay Speed (ms)"
+msgstr ""
+
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:228
+#: blocks/swish-gallery/build/index.js:228
+msgid "Show Arrows"
+msgstr ""
+
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:234
+#: blocks/swish-gallery/build/index.js:234
+msgid "Show Dots"
+msgstr ""
+
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:256
+#: blocks/swish-gallery/build/index.js:256
+msgid "Click to select images"
+msgstr ""
+
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:277
+#: blocks/swish-gallery/build/index.js:277
+msgid "Move left"
+msgstr ""
+
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:284
+#: blocks/swish-gallery/build/index.js:284
+msgid "Move right"
+msgstr ""
+
+#: blocks/swish-gallery/build/index.js:1
+#: blocks/swish-gallery/src/edit.js:313
+#: blocks/swish-gallery/build/index.js:313
+msgid "Edit Gallery"
+msgstr ""
+
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:42
+#: blocks/swish-links/build/index.js:42
+msgid "Horizontal"
+msgstr ""
+
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:43
+#: blocks/swish-links/build/index.js:43
+msgid "Vertical"
+msgstr ""
+
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:115
+#: blocks/swish-links/build/index.js:115
+msgid "Edit URL"
+msgstr ""
+
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:122
+#: blocks/swish-links/build/index.js:122
+msgid "Move earlier"
+msgstr ""
+
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:128
+#: blocks/swish-links/build/index.js:128
+msgid "Move later"
+msgstr ""
+
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:134
+#: blocks/swish-links/build/index.js:134
+msgid "Remove link"
+msgstr ""
+
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:146
+#: blocks/swish-slider/build/index.js:1
+#: blocks/swish-slider/src/edit.js:108
+#: blocks/swish-links/build/index.js:146
+#: blocks/swish-slider/build/index.js:173
+msgid "Direction"
+msgstr ""
+
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:180
+#: blocks/swish-links/build/index.js:180
+msgid "How each link reacts on hover. If an icon is set, it also shifts in its direction."
+msgstr ""
+
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:189
+#: blocks/swish-links/build/index.js:189
+msgid "Selected link"
+msgstr ""
+
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:205
+#: blocks/swish-links/build/index.js:205
+msgid "Before"
+msgstr ""
+
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:206
+#: blocks/swish-links/build/index.js:206
+msgid "After"
+msgstr ""
+
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:215
+#: blocks/swish-links/src/edit.js:292
+#: blocks/swish-slide/build/index.js:1
+#: blocks/swish-slide/src/edit.js:141
+#: blocks/swish-slide/src/edit.js:166
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:125
+#: blocks/swish-links/build/index.js:215
+#: blocks/swish-links/build/index.js:292
+#: blocks/swish-slide/build/index.js:206
+#: blocks/swish-slide/build/index.js:231
+#: blocks/swish-socials/build/index.js:245
+msgid "Open in new tab"
+msgstr ""
+
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:257
+#: blocks/swish-links/build/index.js:257
+msgid "/handle"
+msgstr ""
+
+#: blocks/swish-links/build/index.js:1
+#: blocks/swish-links/src/edit.js:271
+#: blocks/swish-links/build/index.js:271
+msgid "Add link"
+msgstr ""
+
+#: blocks/swish-slide/build/index.js:1
+#: blocks/swish-slide/src/edit.js:68
+#: blocks/swish-slide/build/index.js:133
+msgid "Slide Image"
+msgstr ""
+
+#: blocks/swish-slide/build/index.js:1
+#: blocks/swish-slide/src/edit.js:125
+#: blocks/swish-slide/build/index.js:190
+msgid "CTA 1"
+msgstr ""
+
+#: blocks/swish-slide/build/index.js:1
+#: blocks/swish-slide/src/edit.js:150
+#: blocks/swish-slide/build/index.js:215
+msgid "CTA 2"
+msgstr ""
+
+#: blocks/swish-slide/build/index.js:1
+#: blocks/swish-slide/src/edit.js:192
+#: blocks/swish-slide/build/index.js:257
+msgid "Add Image"
+msgstr ""
+
+#: blocks/swish-slide/build/index.js:1
+#: blocks/swish-slide/src/edit.js:206
+#: blocks/swish-slide/build/index.js:271
+msgid "Title…"
+msgstr ""
+
+#: blocks/swish-slider/build/index.js:1
+#: blocks/swish-slider/src/edit.js:106
+#: blocks/swish-slider/build/index.js:171
+msgid "Slider"
+msgstr ""
+
+#: blocks/swish-slider/build/index.js:1
+#: blocks/swish-slider/src/edit.js:120
+#: blocks/swish-slider/build/index.js:185
+msgid "Seconds per slide"
+msgstr ""
+
+#: blocks/swish-slider/build/index.js:1
+#: blocks/swish-slider/src/edit.js:121
+#: blocks/swish-slider/build/index.js:186
+msgid "How long each slide takes to cross the strip. Higher = slower."
+msgstr ""
+
+#: blocks/swish-slider/build/index.js:1
+#: blocks/swish-slider/src/edit.js:135
+#: blocks/swish-slider/build/index.js:200
+msgid "Pause on hover"
+msgstr ""
+
+#: blocks/swish-slider/build/index.js:1
+#: blocks/swish-slider/src/edit.js:136
+#: blocks/swish-slider/build/index.js:201
+msgid "Stop the slider while the pointer (or keyboard focus) is over it."
+msgstr ""
+
+#: blocks/swish-slider/build/index.js:1
+#: blocks/swish-slider/src/edit.js:147
+#: blocks/swish-slider/build/index.js:212
+msgid "Show text on hover"
+msgstr ""
+
+#: blocks/swish-slider/build/index.js:1
+#: blocks/swish-slider/src/edit.js:148
+#: blocks/swish-slider/build/index.js:213
+msgid "Hide the overlay and text until a slide is hovered or focused. Off = always visible."
+msgstr ""
+
+#: blocks/swish-slider/build/index.js:1
+#: blocks/swish-slider/src/edit.js:160
+#: blocks/swish-slider/build/index.js:225
+msgid "Slide Size"
+msgstr ""
+
+#: blocks/swish-slider/build/index.js:1
+#: blocks/swish-slider/src/edit.js:164
+#: blocks/swish-slider/build/index.js:229
+msgid "Width (px)"
+msgstr ""
+
+#: blocks/swish-slider/build/index.js:1
+#: blocks/swish-slider/src/edit.js:174
+#: blocks/swish-slider/build/index.js:239
+msgid "Height (px)"
+msgstr ""
+
+#: blocks/swish-slider/build/index.js:1
+#: blocks/swish-slider/src/edit.js:184
+#: blocks/swish-slider/build/index.js:249
+msgid "Gap (rem)"
+msgstr ""
+
+#: blocks/swish-slider/build/index.js:1
+#: blocks/swish-slider/src/edit.js:198
+#: blocks/swish-slider/build/index.js:263
+msgid "Slide Colours"
+msgstr ""
+
+#: blocks/swish-slider/build/index.js:1
+#: blocks/swish-slider/src/edit.js:212
+#: blocks/swish-slider/build/index.js:277
+msgid "Scrim Color"
+msgstr ""
+
+#: blocks/swish-slider/build/index.js:1
+#: blocks/swish-slider/src/edit.js:224
+#: blocks/swish-slider/build/index.js:289
+msgid "Scrim Opacity"
+msgstr ""
+
+#: blocks/swish-slider/build/index.js:1
+#: blocks/swish-slider/src/edit.js:234
+#: blocks/swish-slider/build/index.js:299
+msgid "CTA Color"
+msgstr ""
+
+#: blocks/swish-slider/build/index.js:1
+#: blocks/swish-slider/src/edit.js:246
+#: blocks/swish-slider/build/index.js:311
+msgid "Accent Color (arrow)"
+msgstr ""
+
+#: blocks/swish-slider/build/index.js:1
+#: blocks/swish-slider/src/edit.js:260
+#: blocks/swish-slider/build/index.js:325
+msgid "Accessibility"
+msgstr ""
+
+#: blocks/swish-slider/build/index.js:1
+#: blocks/swish-slider/src/edit.js:262
+#: blocks/swish-slider/build/index.js:327
+msgid "Aria Label"
+msgstr ""
+
+#: blocks/swish-slider/build/index.js:1
+#: blocks/swish-slider/src/edit.js:263
+#: blocks/swish-slider/build/index.js:328
+msgid "Announced to screen readers when entering the slider region."
+msgstr ""
+
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:119
+#: blocks/swish-socials/build/index.js:239
+msgid "Label (optional)"
+msgstr ""
+
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:147
+#: blocks/swish-socials/build/index.js:267
+msgid "Remove Icon"
+msgstr ""
+
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:168
+#: blocks/swish-socials/build/index.js:288
+msgid "Upload SVG Icon"
+msgstr ""
+
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:211
+#: blocks/swish-socials/build/index.js:331
+msgid "Use Brand Colors"
+msgstr ""
+
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:270
+#: blocks/swish-socials/build/index.js:390
+msgid "Scale"
+msgstr ""
+
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:271
+#: blocks/swish-socials/build/index.js:391
+msgid "Glow"
+msgstr ""
+
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:291
+#: blocks/swish-socials/build/index.js:411
+msgid "Gap"
+msgstr ""
+
+#: blocks/swish-socials/build/index.js:1
+#: blocks/swish-socials/src/edit.js:306
+#: blocks/swish-socials/build/index.js:426
+msgid "Add social links in the block settings panel →"
+msgstr ""
+
+#: blocks/testimonial-card/build/index.js:1
+#: blocks/testimonial-card/src/edit.js:84
+#: blocks/testimonial-card/build/index.js:149
+msgid "Role URL"
+msgstr ""
+
+#: blocks/testimonial-card/build/index.js:1
+#: blocks/testimonial-card/src/edit.js:95
+#: blocks/testimonial-card/build/index.js:160
+msgid "Avatar Color"
+msgstr ""
+
+#: blocks/testimonial-card/build/index.js:1
+#: blocks/testimonial-card/src/edit.js:128
+#: blocks/testimonial-card/build/index.js:193
+msgid "Add testimonial…"
+msgstr ""
+
+#: blocks/testimonial-card/build/index.js:1
+#: blocks/testimonial-card/src/edit.js:145
+#: blocks/testimonial-card/build/index.js:210
+msgid "Set avatar image"
+msgstr ""
+
+#: blocks/testimonial-card/build/index.js:1
+#: blocks/testimonial-card/src/edit.js:200
+#: blocks/testimonial-card/build/index.js:265
+msgid "Role, Company"
+msgstr ""
+
+#: blocks/testimonials/build/index.js:1
+#: blocks/testimonials/src/edit.js:136
+#: blocks/testimonials/build/index.js:201
+msgid "Border Width (px)"
+msgstr ""
+
+#: blocks/testimonials/build/index.js:1
+#: blocks/testimonials/src/edit.js:194
+#: blocks/testimonials/build/index.js:259
+msgid "Role Color"
+msgstr ""
+
+#: blocks/bento-card/block.json
+#: blocks/card/block.json
+msgctxt "block title"
+msgid "Card"
+msgstr ""
+
+#: blocks/bento-card/block.json
+msgctxt "block description"
+msgid "A single card inside Bento Cards. Image, subtitle, title, description, and layout size."
+msgstr ""
+
+#: blocks/bento-card/block.json
+#: blocks/bento-cards/block.json
+#: blocks/features/block.json
+msgctxt "block keyword"
+msgid "bento"
+msgstr ""
+
+#: blocks/bento-card/block.json
+#: blocks/card/block.json
+#: blocks/feature-card/block.json
+msgctxt "block keyword"
+msgid "card"
+msgstr ""
+
+#: blocks/bento-cards/block.json
+msgctxt "block title"
+msgid "Bento Cards"
+msgstr ""
+
+#: blocks/bento-cards/block.json
+msgctxt "block description"
+msgid "A bento-grid style card layout with images, titles, and CTAs for showcasing portfolio items or features."
+msgstr ""
+
+#: blocks/bento-cards/block.json
+#: blocks/features/block.json
+msgctxt "block keyword"
+msgid "cards"
+msgstr ""
+
+#: blocks/bento-cards/block.json
+#: blocks/features/block.json
+#: blocks/portfolio/block.json
+#: blocks/swish-gallery/block.json
+msgctxt "block keyword"
+msgid "grid"
+msgstr ""
+
+#: blocks/bento-cards/block.json
+#: blocks/portfolio/block.json
+msgctxt "block keyword"
+msgid "portfolio"
+msgstr ""
+
+#: blocks/bento-cards/block.json
+#: blocks/portfolio/block.json
+#: blocks/swish-gallery/block.json
+msgctxt "block keyword"
+msgid "gallery"
+msgstr ""
+
+#: blocks/bento-cards/block.json
+msgctxt "block keyword"
+msgid "showcase"
+msgstr ""
+
+#: blocks/card/block.json
+msgctxt "block description"
+msgid "A versatile card with icon, title, description, and link."
+msgstr ""
+
+#: blocks/card/block.json
+msgctxt "block keyword"
+msgid "service"
+msgstr ""
+
+#: blocks/card/block.json
+#: blocks/feature-card/block.json
+msgctxt "block keyword"
+msgid "feature"
+msgstr ""
+
+#: blocks/card/block.json
+msgctxt "block keyword"
+msgid "icon"
+msgstr ""
+
+#: blocks/faq/block.json
+msgctxt "block title"
+msgid "FAQ"
+msgstr ""
+
+#: blocks/faq/block.json
+msgctxt "block description"
+msgid "An accordion-style FAQ section."
+msgstr ""
+
+#: blocks/faq/block.json
+msgctxt "block keyword"
+msgid "faq"
+msgstr ""
+
+#: blocks/faq/block.json
+msgctxt "block keyword"
+msgid "accordion"
+msgstr ""
+
+#: blocks/faq/block.json
+msgctxt "block keyword"
+msgid "questions"
+msgstr ""
+
+#: blocks/faq/block.json
+msgctxt "block keyword"
+msgid "answers"
+msgstr ""
+
+#: blocks/feature-card/block.json
+msgctxt "block title"
+msgid "Feature Card"
+msgstr ""
+
+#: blocks/feature-card/block.json
+msgctxt "block description"
+msgid "A single card inside a Features block. Inherits the parent's global styles; per-card overrides win when set."
+msgstr ""
+
+#: blocks/feature-card/block.json
+msgctxt "block keyword"
+msgid "module"
+msgstr ""
+
+#: blocks/features/block.json
+msgctxt "block title"
+msgid "Features"
+msgstr ""
+
+#: blocks/features/block.json
+msgctxt "block description"
+msgid "A bento-grid features section. Each card is a child Feature Card block; the parent holds global styles inherited by its cards."
+msgstr ""
+
+#: blocks/features/block.json
+msgctxt "block keyword"
+msgid "features"
+msgstr ""
+
+#: blocks/features/block.json
+msgctxt "block keyword"
+msgid "modules"
+msgstr ""
+
+#: blocks/heading/block.json
+msgctxt "block title"
+msgid "Custom Heading"
+msgstr ""
+
+#: blocks/heading/block.json
+msgctxt "block description"
+msgid "A neo-brutalist heading block with pre-heading, heading, and sub-heading elements, each with full styling control."
+msgstr ""
+
+#: blocks/heading/block.json
+msgctxt "block keyword"
+msgid "heading"
+msgstr ""
+
+#: blocks/heading/block.json
+msgctxt "block keyword"
+msgid "title"
+msgstr ""
+
+#: blocks/heading/block.json
+msgctxt "block keyword"
+msgid "text"
+msgstr ""
+
+#: blocks/heading/block.json
+msgctxt "block keyword"
+msgid "brutalist"
+msgstr ""
+
+#: blocks/heading/block.json
+msgctxt "block keyword"
+msgid "badge"
+msgstr ""
+
+#: blocks/hero/block.json
+msgctxt "block title"
+msgid "Hero"
+msgstr ""
+
+#: blocks/hero/block.json
+msgctxt "block description"
+msgid "A full-width hero section with background, heading, subheading, and call-to-action."
+msgstr ""
+
+#: blocks/hero/block.json
+msgctxt "block keyword"
+msgid "hero"
+msgstr ""
+
+#: blocks/hero/block.json
+msgctxt "block keyword"
+msgid "banner"
+msgstr ""
+
+#: blocks/hero/block.json
+msgctxt "block keyword"
+msgid "header"
+msgstr ""
+
+#: blocks/hero/block.json
+msgctxt "block keyword"
+msgid "cta"
+msgstr ""
+
+#: blocks/latest-posts/block.json
+msgctxt "block title"
+msgid "Swish Blog"
+msgstr ""
+
+#: blocks/latest-posts/block.json
+msgctxt "block description"
+msgid "Display recent blog posts in a stylish grid."
+msgstr ""
+
+#: blocks/latest-posts/block.json
+msgctxt "block keyword"
+msgid "posts"
+msgstr ""
+
+#: blocks/latest-posts/block.json
+msgctxt "block keyword"
+msgid "blog"
+msgstr ""
+
+#: blocks/latest-posts/block.json
+msgctxt "block keyword"
+msgid "news"
+msgstr ""
+
+#: blocks/latest-posts/block.json
+msgctxt "block keyword"
+msgid "articles"
+msgstr ""
+
+#: blocks/portfolio/block.json
+msgctxt "block title"
+msgid "Portfolio"
+msgstr ""
+
+#: blocks/portfolio/block.json
+msgctxt "block description"
+msgid "Display projects in a dynamic, customizable layout with filtering options."
+msgstr ""
+
+#: blocks/portfolio/block.json
+msgctxt "block keyword"
+msgid "projects"
+msgstr ""
+
+#: blocks/portfolio/block.json
+msgctxt "block keyword"
+msgid "work"
+msgstr ""
+
+#: blocks/portfolio/block.json
+#: blocks/swish-gallery/block.json
+msgctxt "block keyword"
+msgid "masonry"
+msgstr ""
+
+#: blocks/pricing-plan/block.json
+msgctxt "block title"
+msgid "Plan"
+msgstr ""
+
+#: blocks/pricing-plan/block.json
+msgctxt "block description"
+msgid "A single pricing plan inside the Pricing Table. Title, prices, feature list, and CTA button."
+msgstr ""
+
+#: blocks/pricing-plan/block.json
+msgctxt "block keyword"
+msgid "plan"
+msgstr ""
+
+#: blocks/pricing-plan/block.json
+#: blocks/pricing/block.json
+msgctxt "block keyword"
+msgid "pricing"
+msgstr ""
+
+#: blocks/pricing-plan/block.json
+msgctxt "block keyword"
+msgid "tier"
+msgstr ""
+
+#: blocks/pricing/block.json
+msgctxt "block title"
+msgid "Pricing Table"
+msgstr ""
+
+#: blocks/pricing/block.json
+msgctxt "block description"
+msgid "Display pricing plans with a monthly/yearly toggle, features list, and customizable CTA buttons."
+msgstr ""
+
+#: blocks/pricing/block.json
+msgctxt "block keyword"
+msgid "plans"
+msgstr ""
+
+#: blocks/pricing/block.json
+msgctxt "block keyword"
+msgid "subscription"
+msgstr ""
+
+#: blocks/pricing/block.json
+msgctxt "block keyword"
+msgid "table"
+msgstr ""
+
+#: blocks/pricing/block.json
+msgctxt "block keyword"
+msgid "toggle"
+msgstr ""
+
+#: blocks/swish-counter-item/block.json
+msgctxt "block title"
+msgid "Counter Item"
+msgstr ""
+
+#: blocks/swish-counter-item/block.json
+msgctxt "block description"
+msgid "A single animated counter inside Swish Counter. Prefix, value, suffix, and title - all inline editable."
+msgstr ""
+
+#: blocks/swish-counter-item/block.json
+#: blocks/swish-counter/block.json
+msgctxt "block keyword"
+msgid "counter"
+msgstr ""
+
+#: blocks/swish-counter-item/block.json
+msgctxt "block keyword"
+msgid "stat"
+msgstr ""
+
+#: blocks/swish-counter-item/block.json
+msgctxt "block keyword"
+msgid "number"
+msgstr ""
+
+#: blocks/swish-counter/block.json
+msgctxt "block title"
+msgid "Swish Counter"
+msgstr ""
+
+#: blocks/swish-counter/block.json
+msgctxt "block description"
+msgid "Row of animated stat counters. Each counter tweens from 0 to its target on first viewport entry."
+msgstr ""
+
+#: blocks/swish-counter/block.json
+msgctxt "block keyword"
+msgid "stats"
+msgstr ""
+
+#: blocks/swish-counter/block.json
+msgctxt "block keyword"
+msgid "metrics"
+msgstr ""
+
+#: blocks/swish-counter/block.json
+msgctxt "block keyword"
+msgid "numbers"
+msgstr ""
+
+#: blocks/swish-cv/block.json
+msgctxt "block title"
+msgid "Swish CV"
+msgstr ""
+
+#: blocks/swish-cv/block.json
+msgctxt "block description"
+msgid "A timeline list of CV entries: year range, role at company, description, and location. Pair with the Custom Heading block above for a title + intro."
+msgstr ""
+
+#: blocks/swish-cv/block.json
+msgctxt "block keyword"
+msgid "cv"
+msgstr ""
+
+#: blocks/swish-cv/block.json
+msgctxt "block keyword"
+msgid "resume"
+msgstr ""
+
+#: blocks/swish-cv/block.json
+msgctxt "block keyword"
+msgid "timeline"
+msgstr ""
+
+#: blocks/swish-cv/block.json
+msgctxt "block keyword"
+msgid "experience"
+msgstr ""
+
+#: blocks/swish-cv/block.json
+msgctxt "block keyword"
+msgid "history"
+msgstr ""
+
+#: blocks/swish-form/block.json
+msgctxt "block title"
+msgid "Swish Form"
+msgstr ""
+
+#: blocks/swish-form/block.json
+msgctxt "block description"
+msgid "A flexible form block for contact forms and email subscriptions."
+msgstr ""
+
+#: blocks/swish-form/block.json
+msgctxt "block keyword"
+msgid "form"
+msgstr ""
+
+#: blocks/swish-form/block.json
+msgctxt "block keyword"
+msgid "contact"
+msgstr ""
+
+#: blocks/swish-form/block.json
+msgctxt "block keyword"
+msgid "email"
+msgstr ""
+
+#: blocks/swish-form/block.json
+msgctxt "block keyword"
+msgid "subscribe"
+msgstr ""
+
+#: blocks/swish-form/block.json
+msgctxt "block keyword"
+msgid "newsletter"
+msgstr ""
+
+#: blocks/swish-gallery/block.json
+msgctxt "block title"
+msgid "Swish Gallery"
+msgstr ""
+
+#: blocks/swish-gallery/block.json
+msgctxt "block description"
+msgid "Display images in a customizable gallery with lightbox and carousel features."
+msgstr ""
+
+#: blocks/swish-gallery/block.json
+msgctxt "block keyword"
+msgid "images"
+msgstr ""
+
+#: blocks/swish-gallery/block.json
+msgctxt "block keyword"
+msgid "lightbox"
+msgstr ""
+
+#: blocks/swish-gallery/block.json
+#: blocks/swish-slider/block.json
+msgctxt "block keyword"
+msgid "carousel"
+msgstr ""
+
+#: blocks/swish-links/block.json
+msgctxt "block title"
+msgid "Swish Links"
+msgstr ""
+
+#: blocks/swish-links/block.json
+msgctxt "block description"
+msgid "A row or column of styled text links with optional handle suffix, icon (before/after), and configurable hover style."
+msgstr ""
+
+#: blocks/swish-links/block.json
+#: blocks/swish-socials/block.json
+msgctxt "block keyword"
+msgid "links"
+msgstr ""
+
+#: blocks/swish-links/block.json
+msgctxt "block keyword"
+msgid "list"
+msgstr ""
+
+#: blocks/swish-links/block.json
+#: blocks/swish-socials/block.json
+msgctxt "block keyword"
+msgid "social"
+msgstr ""
+
+#: blocks/swish-links/block.json
+msgctxt "block keyword"
+msgid "navigation"
+msgstr ""
+
+#: blocks/swish-links/block.json
+msgctxt "block keyword"
+msgid "menu"
+msgstr ""
+
+#: blocks/swish-slide/block.json
+msgctxt "block title"
+msgid "Slide"
+msgstr ""
+
+#: blocks/swish-slide/block.json
+msgctxt "block description"
+msgid "A single slide inside Swish Slider. Image, title, subtitle, and up to two CTA links."
+msgstr ""
+
+#: blocks/swish-slide/block.json
+msgctxt "block keyword"
+msgid "slide"
+msgstr ""
+
+#: blocks/swish-slide/block.json
+#: blocks/swish-slider/block.json
+msgctxt "block keyword"
+msgid "slider"
+msgstr ""
+
+#: blocks/swish-slider/block.json
+msgctxt "block title"
+msgid "Swish Slider"
+msgstr ""
+
+#: blocks/swish-slider/block.json
+msgctxt "block description"
+msgid "A continuous horizontal marquee of image slides with hover-reveal text and CTAs."
+msgstr ""
+
+#: blocks/swish-slider/block.json
+msgctxt "block keyword"
+msgid "marquee"
+msgstr ""
+
+#: blocks/swish-slider/block.json
+msgctxt "block keyword"
+msgid "strip"
+msgstr ""
+
+#: blocks/swish-slider/block.json
+msgctxt "block keyword"
+msgid "scroll"
+msgstr ""
+
+#: blocks/swish-socials/block.json
+msgctxt "block title"
+msgid "Swish Socials"
+msgstr ""
+
+#: blocks/swish-socials/block.json
+msgctxt "block description"
+msgid "A customizable social media icon links block with extensive styling options."
+msgstr ""
+
+#: blocks/swish-socials/block.json
+msgctxt "block keyword"
+msgid "icons"
+msgstr ""
+
+#: blocks/swish-socials/block.json
+msgctxt "block keyword"
+msgid "media"
+msgstr ""
+
+#: blocks/testimonial-card/block.json
+msgctxt "block title"
+msgid "Testimonial Card"
+msgstr ""
+
+#: blocks/testimonial-card/block.json
+msgctxt "block description"
+msgid "A single testimonial inside the Testimonials block. Quote, attribution, and optional avatar."
+msgstr ""
+
+#: blocks/testimonial-card/block.json
+msgctxt "block keyword"
+msgid "testimonial"
+msgstr ""
+
+#: blocks/testimonial-card/block.json
+msgctxt "block keyword"
+msgid "quote"
+msgstr ""
+
+#: blocks/testimonial-card/block.json
+msgctxt "block keyword"
+msgid "review"
+msgstr ""
+
+#: blocks/testimonials/block.json
+msgctxt "block title"
+msgid "Testimonials"
+msgstr ""
+
+#: blocks/testimonials/block.json
+msgctxt "block description"
+msgid "Grid of testimonial cards. Add testimonials inline as child blocks."
+msgstr ""
+
+#: blocks/testimonials/block.json
+msgctxt "block keyword"
+msgid "testimonials"
+msgstr ""
+
+#: blocks/testimonials/block.json
+msgctxt "block keyword"
+msgid "reviews"
+msgstr ""
+
+#: blocks/testimonials/block.json
+msgctxt "block keyword"
+msgid "quotes"
+msgstr ""
+
+#: blocks/testimonials/block.json
+msgctxt "block keyword"
+msgid "feedback"
+msgstr ""

@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "tier": "full",
+  "purpose": "contact-form",
+  "summary": "Contact or subscription form with server-side submission.",
+  "capabilities": {
+    "content": {
+      "submitButtonText": {
+        "type": "text",
+        "maxLength": 40,
+        "role": "primary-cta"
+      },
+      "successMessage": {
+        "type": "text",
+        "maxLength": 200
+      },
+      "errorMessage": {
+        "type": "text",
+        "maxLength": 200
+      },
+      "emailSubject": {
+        "type": "text",
+        "maxLength": 120
+      }
+    },
+    "layout": {
+      "formType": {
+        "enum": [
+          "contact",
+          "subscription"
+        ]
+      }
+    }
+  },
+  "excluded": [
+    "fields",
+    "recipientEmail",
+    "espProvider",
+    "espListId",
+    "formId",
+    "enableHoneypot"
+  ]
+}

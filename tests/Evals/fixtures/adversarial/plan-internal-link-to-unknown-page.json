@@ -1,0 +1,61 @@
+{
+  "name": "plan-internal-link-to-unknown-page",
+  "track": "plan",
+  "why": "A button may only keep the page link its demo copy had; a link to a page key the kit does not route would land nowhere.",
+  "expectStage": "plan-value",
+  "scope": "site",
+  "instruction": "Build me a small site.",
+  "brief": {
+    "siteTitle": "Baseline",
+    "kit": "designer",
+    "customTemplates": [
+      "page-no-title",
+      "page-landing",
+      "page-with-sidebar"
+    ],
+    "existingSlugs": {}
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "kit": "designer",
+    "summary": "A one page site used as the baseline for a rejection fixture.",
+    "site": {
+      "title": "Baseline",
+      "frontPage": "home",
+      "navigation": [
+        "home"
+      ]
+    },
+    "pages": [
+      {
+        "key": "home",
+        "title": "Home",
+        "slug": "home",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "work-03-cta",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Next project"
+              },
+              {
+                "id": "t1",
+                "html": "Taking new work this spring."
+              },
+              {
+                "id": "t2",
+                "html": "Send a short note about what you are planning."
+              },
+              {
+                "id": "t3",
+                "html": "<a href=\"{{link:pricing}}\">Start a project →</a>"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

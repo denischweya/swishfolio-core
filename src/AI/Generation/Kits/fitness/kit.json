@@ -1,0 +1,708 @@
+{
+    "version": 2,
+    "slug": "fitness",
+    "name": "Momentum",
+    "title": "Fitness Studio",
+    "industry": "wellness",
+    "description": "An energetic WordPress template for gyms, fitness and wellness studios, with a weekly class timetable, memberships, coaches and a free-class offer.",
+    "look": "Type: Big Shoulders Display, Albert Sans. Colours: Chalk #F4F0EA, Ink #15110E, Volt coral #FF3D5A, Peach #FFD8C4, Amber #FFB020, Stone #5C524A.",
+    "demo": {
+        "business": "Volta",
+        "tagline": "Strength, reformer, yoga and recovery in Collingwood"
+    },
+    "design": {
+        "file": "design.json",
+        "variation": "Default",
+        "classPrefix": "ft-",
+        "fingerprint": ".ft-foot",
+        "palette": {
+            "base": "Chalk #F4F0EA",
+            "contrast": "Ink #15110E",
+            "accent-1": "Volt coral #FF3D5A",
+            "accent-2": "Peach #FFD8C4",
+            "accent-3": "Amber #FFB020",
+            "accent-4": "Stone #5C524A",
+            "accent-5": "White #FFFFFF",
+            "accent-6": "Night #1B1418"
+        },
+        "fonts": [
+            "Big Shoulders Display",
+            "Albert Sans"
+        ],
+        "pageTemplate": "page-landing",
+        "header": "header",
+        "footer": "footer",
+        "assetsPath": "assets/kits/fitness"
+    },
+    "frontPage": "home",
+    "navigation": [
+        "classes",
+        "memberships",
+        "coaches",
+        "join"
+    ],
+    "pages": [
+        {
+            "key": "home",
+            "title": "Home",
+            "slug": "home",
+            "navLabel": "Home",
+            "inNav": false,
+            "type": "home",
+            "template": "page-landing",
+            "sections": [
+                "home-01-hero",
+                "home-02-pricing",
+                "home-03-schedule",
+                "home-04-features",
+                "home-05-pricing",
+                "home-06-testimonials",
+                "home-07-team",
+                "home-08-services"
+            ]
+        },
+        {
+            "key": "classes",
+            "title": "Timetable",
+            "slug": "timetable",
+            "navLabel": "Timetable",
+            "inNav": true,
+            "type": "services",
+            "template": "page-landing",
+            "sections": [
+                "classes-01-page-header",
+                "classes-02-schedule",
+                "classes-03-gallery",
+                "classes-04-process",
+                "classes-05-services"
+            ]
+        },
+        {
+            "key": "memberships",
+            "title": "Memberships",
+            "slug": "memberships",
+            "navLabel": "Memberships",
+            "inNav": true,
+            "type": "pricing",
+            "template": "page-landing",
+            "sections": [
+                "memberships-01-page-header",
+                "memberships-02-pricing",
+                "memberships-03-pricing",
+                "memberships-04-pricing",
+                "memberships-05-faq",
+                "home-08-services"
+            ]
+        },
+        {
+            "key": "coaches",
+            "title": "Coaches",
+            "slug": "coaches",
+            "navLabel": "Coaches",
+            "inNav": true,
+            "type": "about",
+            "template": "page-landing",
+            "sections": [
+                "coaches-01-page-header",
+                "coaches-02-team",
+                "coaches-03-team",
+                "coaches-04-features",
+                "coaches-05-careers",
+                "coaches-06-services"
+            ]
+        },
+        {
+            "key": "join",
+            "title": "Join",
+            "slug": "join",
+            "navLabel": "Join",
+            "inNav": true,
+            "type": "contact",
+            "template": "page-landing",
+            "sections": [
+                "join-01-page-header",
+                "join-02-contact"
+            ]
+        }
+    ],
+    "units": {
+        "home-01-hero": {
+            "scope": "section",
+            "role": "hero",
+            "summary": "Home page hero from the home page, headed (H1) \"Stronger every week.\": 1 paragraph, 2 buttons, 1 photo, 1 drawn icon or graphic, 4 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 1,
+            "file": "units/home-01-hero.html",
+            "images": [
+                "hero-kettlebell"
+            ],
+            "slots": 15,
+            "repeatable": 4,
+            "ksesStable": false
+        },
+        "home-02-pricing": {
+            "scope": "section",
+            "role": "pricing",
+            "summary": "Pricing section from the home page, headed (H2) \"One membership. Every kind of strong.\": 6 headings, 2 paragraphs, 5 photos, 5 drawn icons or graphics.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 2,
+            "file": "units/home-02-pricing.html",
+            "images": [
+                "deadlift-coach",
+                "high-knee",
+                "reformer-plank",
+                "yoga-wall",
+                "sauna"
+            ],
+            "slots": 23,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "home-03-schedule": {
+            "scope": "section",
+            "role": "schedule",
+            "summary": "Schedule section from the home page, headed (H2) \"Tuesday, and there’s still room at 9:30.\": 2 paragraphs, 1 button, 1 drawn icon or graphic, 4 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 3,
+            "file": "units/home-03-schedule.html",
+            "slots": 12,
+            "repeatable": 4,
+            "ksesStable": false
+        },
+        "home-04-features": {
+            "scope": "section",
+            "role": "features",
+            "summary": "Features section from the home page, headed (H2) \"Heat. Cold. Repeat.\": 2 paragraphs, 1 button, 2 photos, 6 drawn icons or graphics, 4 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 4,
+            "file": "units/home-04-features.html",
+            "images": [
+                "sauna",
+                "ice"
+            ],
+            "slots": 12,
+            "repeatable": 4,
+            "ksesStable": false
+        },
+        "home-05-pricing": {
+            "scope": "section",
+            "role": "pricing",
+            "summary": "Pricing section from the home page, headed (H2) \"Simple prices. No joining fee.\": 2 paragraphs, 3 drawn icons or graphics, 2 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 5,
+            "file": "units/home-05-pricing.html",
+            "slots": 16,
+            "repeatable": 2,
+            "ksesStable": false
+        },
+        "home-06-testimonials": {
+            "scope": "section",
+            "role": "testimonials",
+            "summary": "Testimonials section from the home page, headed (H2) \"We track it, so you can see it.\": 1 paragraph, 15 drawn icons or graphics, 5 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 6,
+            "file": "units/home-06-testimonials.html",
+            "slots": 14,
+            "repeatable": 5,
+            "ksesStable": false
+        },
+        "home-07-team": {
+            "scope": "section",
+            "role": "team",
+            "summary": "Team section from the home page, headed (H2) \"Coached by people who’ve done the work.\": 5 headings, 1 paragraph, 1 button, 4 photos, 2 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 7,
+            "file": "units/home-07-team.html",
+            "images": [
+                "coach-marcus",
+                "barbell-focus",
+                "barre",
+                "high-knee"
+            ],
+            "slots": 15,
+            "repeatable": 2,
+            "ksesStable": true
+        },
+        "home-08-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the home page, headed (H2) \"Your first class is on us.\": 2 paragraphs, 1 drawn icon or graphic.",
+            "pageTypes": [
+                "home",
+                "pricing"
+            ],
+            "sourcePage": "home",
+            "position": 8,
+            "file": "units/home-08-services.html",
+            "slots": 8,
+            "repeatable": 0,
+            "ksesStable": false,
+            "alsoOn": [
+                "memberships"
+            ]
+        },
+        "classes-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the timetable page, headed (H1) \"Find your class.\": 2 paragraphs.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "classes",
+            "position": 1,
+            "file": "units/classes-01-page-header.html",
+            "slots": 9,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "classes-02-schedule": {
+            "scope": "section",
+            "role": "schedule",
+            "summary": "Schedule section from the timetable page, headed (H3) \"Mon16 Nov\": 7 headings, 25 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "classes",
+            "position": 2,
+            "file": "units/classes-02-schedule.html",
+            "slots": 59,
+            "repeatable": 25,
+            "ksesStable": false
+        },
+        "classes-03-gallery": {
+            "scope": "section",
+            "role": "gallery",
+            "summary": "Gallery section from the timetable page, headed (H2) \"Every class, explained.\": 6 headings, 6 paragraphs, 5 photos, 15 drawn icons or graphics, 15 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "classes",
+            "position": 3,
+            "file": "units/classes-03-gallery.html",
+            "images": [
+                "deadlift-coach",
+                "swings",
+                "reformer-studio",
+                "crunch-window",
+                "sauna-lounge"
+            ],
+            "slots": 32,
+            "repeatable": 15,
+            "ksesStable": false
+        },
+        "classes-04-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the timetable page, headed (H2) \"Nervous? Everyone was once.\": 5 headings, 1 paragraph, 4 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "classes",
+            "position": 4,
+            "file": "units/classes-04-process.html",
+            "slots": 14,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "classes-05-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the timetable page, headed (H2) \"Pick a class. The first one’s free.\": 2 paragraphs, 1 drawn icon or graphic.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "classes",
+            "position": 5,
+            "file": "units/classes-05-services.html",
+            "slots": 8,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "memberships-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the memberships page, headed (H1) \"Train more. Pay less per class.\": 2 paragraphs, 1 drawn icon or graphic.",
+            "pageTypes": [
+                "pricing"
+            ],
+            "sourcePage": "memberships",
+            "position": 1,
+            "file": "units/memberships-01-page-header.html",
+            "slots": 7,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "memberships-02-pricing": {
+            "scope": "section",
+            "role": "pricing",
+            "summary": "Pricing section from the memberships page, headed (H3) \"Starter\": 6 headings, 29 drawn icons or graphics, 29 repeatable items.",
+            "pageTypes": [
+                "pricing"
+            ],
+            "sourcePage": "memberships",
+            "position": 2,
+            "file": "units/memberships-02-pricing.html",
+            "slots": 55,
+            "repeatable": 29,
+            "ksesStable": false
+        },
+        "memberships-03-pricing": {
+            "scope": "section",
+            "role": "pricing",
+            "summary": "Pricing section from the memberships page, headed (H2) \"What each membership includes.\": 1 paragraph, 27 repeatable items.",
+            "pageTypes": [
+                "pricing"
+            ],
+            "sourcePage": "memberships",
+            "position": 3,
+            "file": "units/memberships-03-pricing.html",
+            "slots": 38,
+            "repeatable": 27,
+            "ksesStable": true
+        },
+        "memberships-04-pricing": {
+            "scope": "section",
+            "role": "pricing",
+            "summary": "Pricing section from the memberships page, headed (H2) \"Go further, one-to-one.\": 4 headings, 2 paragraphs, 3 photos, 3 drawn icons or graphics, 3 repeatable items.",
+            "pageTypes": [
+                "pricing"
+            ],
+            "sourcePage": "memberships",
+            "position": 4,
+            "file": "units/memberships-04-pricing.html",
+            "images": [
+                "pt-plan",
+                "spot-pushup",
+                "reformer-room"
+            ],
+            "slots": 12,
+            "repeatable": 3,
+            "ksesStable": false
+        },
+        "memberships-05-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ from the memberships page, headed (H2) \"Before you sign up.\": 7 paragraphs, 5 questions, 5 repeatable items.",
+            "pageTypes": [
+                "pricing",
+                "any"
+            ],
+            "sourcePage": "memberships",
+            "position": 5,
+            "file": "units/memberships-05-faq.html",
+            "slots": 13,
+            "repeatable": 5,
+            "ksesStable": true
+        },
+        "coaches-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the coaches page, headed (H1) \"A small studio with big standards.\": 2 paragraphs, 2 photos.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "coaches",
+            "position": 1,
+            "file": "units/coaches-01-page-header.html",
+            "images": [
+                "reformer-studio",
+                "squat-rack"
+            ],
+            "slots": 4,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "coaches-02-team": {
+            "scope": "section",
+            "role": "team",
+            "summary": "Team section from the coaches page, headed (H3) \"Max per class\": 4 headings, 4 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "coaches",
+            "position": 2,
+            "file": "units/coaches-02-team.html",
+            "slots": 12,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "coaches-03-team": {
+            "scope": "section",
+            "role": "team",
+            "summary": "Team section from the coaches page, headed (H2) \"Meet the people who’ll push you.\": 7 headings, 2 paragraphs, 6 photos, 20 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "coaches",
+            "position": 3,
+            "file": "units/coaches-03-team.html",
+            "images": [
+                "coach-marcus",
+                "barbell-focus",
+                "barre",
+                "high-knee",
+                "yoga-wall",
+                "swings"
+            ],
+            "slots": 45,
+            "repeatable": 20,
+            "ksesStable": true
+        },
+        "coaches-04-features": {
+            "scope": "section",
+            "role": "features",
+            "summary": "Features section from the coaches page, headed (H2) \"600 square metres, thoughtfully kitted out.\": 2 paragraphs, 6 drawn icons or graphics, 6 repeatable items.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "coaches",
+            "position": 4,
+            "file": "units/coaches-04-features.html",
+            "slots": 15,
+            "repeatable": 6,
+            "ksesStable": false
+        },
+        "coaches-05-careers": {
+            "scope": "section",
+            "role": "careers",
+            "summary": "Careers section from the coaches page, headed (H2) \"Coach with us.\": 1 drawn icon or graphic.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "coaches",
+            "position": 5,
+            "file": "units/coaches-05-careers.html",
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "coaches-06-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the coaches page, headed (H2) \"Train with the team.\": 2 paragraphs, 1 drawn icon or graphic.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "coaches",
+            "position": 6,
+            "file": "units/coaches-06-services.html",
+            "slots": 8,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "join-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the join page, headed (H1) \"Your first class is free.\": 2 paragraphs, 1 photo, 4 drawn icons or graphics, 19 repeatable items. Has a demo form that does not send anything yet.",
+            "pageTypes": [
+                "contact"
+            ],
+            "sourcePage": "join",
+            "position": 1,
+            "file": "units/join-01-page-header.html",
+            "images": [
+                "barre"
+            ],
+            "needs": [
+                "form"
+            ],
+            "slots": 29,
+            "repeatable": 19,
+            "ksesStable": false
+        },
+        "join-02-contact": {
+            "scope": "section",
+            "role": "contact",
+            "summary": "Contact section from the join page: 5 drawn icons or graphics, 12 repeatable items.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "join",
+            "position": 2,
+            "file": "units/join-02-contact.html",
+            "slots": 17,
+            "repeatable": 12,
+            "fixedText": [
+                "SMITH ST",
+                "WELLINGTON ST",
+                "JOHNSTON ST",
+                "PARK"
+            ],
+            "ksesStable": false
+        },
+        "header": {
+            "scope": "header",
+            "role": "header",
+            "summary": "Header template part.",
+            "file": "units/header.html",
+            "slots": 4,
+            "ksesStable": false
+        },
+        "footer": {
+            "scope": "footer",
+            "role": "footer",
+            "summary": "Footer template part.",
+            "file": "units/footer.html",
+            "slots": 14,
+            "ksesStable": false
+        }
+    },
+    "assets": {
+        "barbell-focus": {
+            "file": "images/barbell-focus.jpg",
+            "alt": "Athlete setting up a barbell lift",
+            "title": "Athlete setting up a barbell lift",
+            "width": 1400,
+            "height": 1280
+        },
+        "barre": {
+            "file": "images/barre.jpg",
+            "alt": "Coach guiding a stretch at the barre",
+            "title": "Coach guiding a stretch at the barre",
+            "width": 1400,
+            "height": 2105
+        },
+        "coach-marcus": {
+            "file": "images/coach-marcus.jpg",
+            "alt": "Strength coach portrait",
+            "title": "Strength coach portrait",
+            "width": 1200,
+            "height": 675
+        },
+        "crunch-window": {
+            "file": "images/crunch-window.jpg",
+            "alt": "Core work on a mat by the window",
+            "title": "Core work on a mat by the window",
+            "width": 1400,
+            "height": 933
+        },
+        "deadlift-coach": {
+            "file": "images/deadlift-coach.jpg",
+            "alt": "Coach watching a deadlift",
+            "title": "Coach watching a deadlift",
+            "width": 1400,
+            "height": 788
+        },
+        "hero-kettlebell": {
+            "file": "images/hero-kettlebell.jpg",
+            "alt": "Members pressing kettlebells overhead",
+            "title": "Members pressing kettlebells overhead",
+            "width": 1600,
+            "height": 900
+        },
+        "high-knee": {
+            "file": "images/high-knee.jpg",
+            "alt": "High-knee interval drill",
+            "title": "High-knee interval drill",
+            "width": 1400,
+            "height": 2100
+        },
+        "ice": {
+            "file": "images/ice.jpg",
+            "alt": "Ice for the cold plunge",
+            "title": "Ice for the cold plunge",
+            "width": 1200,
+            "height": 1600
+        },
+        "pt-plan": {
+            "file": "images/pt-plan.jpg",
+            "alt": "Coach and member planning",
+            "title": "Coach and member planning",
+            "width": 1400,
+            "height": 788
+        },
+        "reformer-plank": {
+            "file": "images/reformer-plank.jpg",
+            "alt": "Reformer plank",
+            "title": "Reformer plank",
+            "width": 1400,
+            "height": 990
+        },
+        "reformer-room": {
+            "file": "images/reformer-room.jpg",
+            "alt": "Reformer machines",
+            "title": "Reformer machines",
+            "width": 1400,
+            "height": 2100
+        },
+        "reformer-studio": {
+            "file": "images/reformer-studio.jpg",
+            "alt": "Reformer studio interior",
+            "title": "Reformer studio interior",
+            "width": 1600,
+            "height": 1032
+        },
+        "sauna": {
+            "file": "images/sauna.jpg",
+            "alt": "Modern timber sauna",
+            "title": "Modern timber sauna",
+            "width": 1400,
+            "height": 875
+        },
+        "sauna-lounge": {
+            "file": "images/sauna-lounge.jpg",
+            "alt": "Recovery loungers",
+            "title": "Recovery loungers",
+            "width": 1400,
+            "height": 875
+        },
+        "spot-pushup": {
+            "file": "images/spot-pushup.jpg",
+            "alt": "Coach spotting push-ups",
+            "title": "Coach spotting push-ups",
+            "width": 1400,
+            "height": 788
+        },
+        "squat-rack": {
+            "file": "images/squat-rack.jpg",
+            "alt": "Member squatting in the rack",
+            "title": "Member squatting in the rack",
+            "width": 1400,
+            "height": 933
+        },
+        "swings": {
+            "file": "images/swings.jpg",
+            "alt": "Kettlebell swings class",
+            "title": "Kettlebell swings class",
+            "width": 1400,
+            "height": 788
+        },
+        "yoga-wall": {
+            "file": "images/yoga-wall.jpg",
+            "alt": "Yoga class stretching",
+            "title": "Yoga class stretching",
+            "width": 1400,
+            "height": 788
+        }
+    },
+    "source": {
+        "dir": "seed/sites/fitness",
+        "hash": "ab0065e2e5f94a36f1c834532ad22b7b"
+    }
+}

@@ -1,0 +1,38 @@
+{
+    "phones": [
+        "+45 32 55 01 87",
+        "+52 55 5550 0142"
+    ],
+    "emails": [
+        "cdmx@vesper.example",
+        "cph@vesper.example",
+        "hola@vesper.example",
+        "jobs@vesper.example",
+        "press@vesper.example"
+    ],
+    "domains": [
+        "vesper.example"
+    ],
+    "addresses": [
+        "Calle Colima 214",
+        "Calle Colima 214, Roma Norte"
+    ],
+    "places": [
+        "Mexico City",
+        "Copenhagen",
+        "Roma Norte"
+    ],
+    "people": [
+        "Anders Holm",
+        "Daniela Ochoa",
+        "Emil Kragh",
+        "Halvard Gallery",
+        "Inés Robledo",
+        "Itzel Ramos",
+        "Jonas Berg",
+        "Koen Tea",
+        "Lucía Varela",
+        "Mateo Ruiz",
+        "Sofie Lind"
+    ]
+}

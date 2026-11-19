@@ -1,0 +1,151 @@
+{
+  "vertical": "consultant",
+  "label": "Consultant site: one new page, one suffixed collision, one reused existing page",
+  "scope": "site",
+  "instruction": "I am an independent operations consultant. I already have a contact page I am happy with and an old about page. Build me a home page, a better about page, and keep using the contact page I have.",
+  "brief": {
+    "siteTitle": "Priya Raman",
+    "kit": "consultancy",
+    "customTemplates": [
+      "page-no-title",
+      "page-landing",
+      "page-with-sidebar"
+    ],
+    "existingSlugs": {
+      "about": 12,
+      "contact": 14
+    }
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "kit": "consultancy",
+    "summary": "A home page and a new about page for an independent operations consultant, linked to the contact page that already exists.",
+    "site": {
+      "title": "Priya Raman",
+      "tagline": "Operations consulting",
+      "frontPage": "home",
+      "navigation": [
+        "home",
+        "about",
+        "contact"
+      ]
+    },
+    "pages": [
+      {
+        "key": "home",
+        "title": "Home",
+        "slug": "home",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "about-01-page-header",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Priya Raman"
+              },
+              {
+                "id": "t1",
+                "html": "Operations advice from someone who has run operations, and <span class=\"nf-grad\">stays until the change sticks</span>."
+              }
+            ],
+            "attrs": []
+          },
+          {
+            "pattern": "home-08-cta",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Bring me the problem you keep putting off."
+              },
+              {
+                "id": "t1",
+                "html": "A first conversation is free and takes about forty minutes. You will leave with a clearer version of the problem either way."
+              },
+              {
+                "id": "t2",
+                "html": "<a class=\"wp-block-button__link wp-element-button\" href=\"{{link:contact}}\">Start a conversation</a>"
+              },
+              {
+                "id": "t3",
+                "html": "<a class=\"wp-block-button__link wp-element-button\" href=\"{{link:services}}#models\">How I work</a>"
+              }
+            ],
+            "attrs": []
+          }
+        ]
+      },
+      {
+        "key": "about",
+        "title": "About",
+        "slug": "about",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "about-02-about",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "I work on operations problems: the gap between a plan that looks right and a Monday morning that goes wrong."
+              },
+              {
+                "id": "t1",
+                "html": "I take on one client at a time and stay through the change, not just the recommendation."
+              },
+              {
+                "id": "t2",
+                "html": "Most of the work happens on site, with the people who run the process every day."
+              },
+              {
+                "id": "t3",
+                "html": "How I work"
+              },
+              {
+                "id": "t4",
+                "html": "One client <span class=\"nf-sub\">at a time</span>"
+              }
+            ],
+            "attrs": [],
+            "remove": [
+              "u3",
+              "u4",
+              "u5"
+            ]
+          }
+        ],
+        "onConflict": "suffix"
+      },
+      {
+        "key": "contact",
+        "title": "Contact",
+        "slug": "contact",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "home-08-cta",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Get in touch."
+              },
+              {
+                "id": "t1",
+                "html": "Tell me a little about the problem and I will reply within two working days."
+              },
+              {
+                "id": "t2",
+                "html": "<a class=\"wp-block-button__link wp-element-button\" href=\"{{link:contact}}\">Send a note</a>"
+              },
+              {
+                "id": "t3",
+                "html": "<a class=\"wp-block-button__link wp-element-button\" href=\"{{link:services}}#models\">About me</a>"
+              }
+            ],
+            "attrs": []
+          }
+        ],
+        "onConflict": "skip"
+      }
+    ]
+  }
+}

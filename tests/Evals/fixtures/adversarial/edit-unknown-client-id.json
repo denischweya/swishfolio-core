@@ -1,0 +1,50 @@
+{
+  "name": "edit-unknown-client-id",
+  "track": "edit",
+  "why": "A clientId the editor never sent cannot be proved to exist, so it is refused before anything else.",
+  "expectStage": "target",
+  "instruction": "Improve this section.",
+  "selection": {
+    "clientId": "hero-1",
+    "blockName": "swishfolio-core/hero",
+    "attributes": {
+      "heading": "Placeholder",
+      "headingSize": "large"
+    },
+    "postType": "page",
+    "styleVariation": "Default",
+    "siblings": [],
+    "innerBlocks": []
+  },
+  "blockTree": {
+    "hero-1": {
+      "name": "swishfolio-core/hero",
+      "attributes": {
+        "heading": "Placeholder",
+        "headingSize": "large"
+      },
+      "parentClientId": null
+    },
+    "spacer-1": {
+      "name": "core/spacer",
+      "attributes": {
+        "height": "80px"
+      },
+      "parentClientId": null
+    }
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "summary": "Adversarial fixture.",
+    "actions": [
+      {
+        "type": "update_block_attributes",
+        "clientId": "ghost-1",
+        "changes": {
+          "heading": "Anything"
+        },
+        "reason": "Adversarial."
+      }
+    ]
+  }
+}

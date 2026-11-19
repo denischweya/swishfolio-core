@@ -30,3 +30,12 @@ npm-debug.log*
 
 # Playwright MCP session artifacts (admin a11y snapshots, console logs)
 .playwright-mcp/
+
+# Composer dev dependencies (require-dev only; never shipped)
+/vendor/
+
+# PHPUnit
+.phpunit.result.cache
+
+# Playwright artifacts (traces, screenshots, storage states)
+/artifacts/

@@ -1,0 +1,765 @@
+{
+    "version": 2,
+    "slug": "logistics",
+    "name": "Manifest",
+    "title": "Logistics Company",
+    "industry": "trades",
+    "description": "A bold WordPress template for freight, logistics and transport companies, with a freight price calculator, a route map, industries and a quote form.",
+    "look": "Type: Schibsted Grotesk, JetBrains Mono. Colours: Paper #F4F4F1, Graphite #141517, Safety yellow #FFD400, Concrete #E6E6E1, Steel #8A8D91, Secondary text #4B4E53.",
+    "demo": {
+        "business": "Meridian Freight",
+        "tagline": "Road, ocean and air freight, warehousing and customs"
+    },
+    "design": {
+        "file": "design.json",
+        "variation": "Default",
+        "classPrefix": "lg-",
+        "fingerprint": ".lg-foot",
+        "palette": {
+            "base": "Paper #F4F4F1",
+            "contrast": "Graphite #141517",
+            "accent-1": "Safety yellow #FFD400",
+            "accent-2": "Concrete #E6E6E1",
+            "accent-3": "Steel #8A8D91",
+            "accent-4": "Secondary text #4B4E53",
+            "accent-5": "White #FFFFFF",
+            "accent-6": "Black #0B0C0D"
+        },
+        "fonts": [
+            "Schibsted Grotesk",
+            "JetBrains Mono"
+        ],
+        "pageTemplate": "page-landing",
+        "header": "header",
+        "footer": "footer",
+        "assetsPath": "assets/kits/logistics"
+    },
+    "frontPage": "home",
+    "navigation": [
+        "services",
+        "industries",
+        "about",
+        "quote"
+    ],
+    "pages": [
+        {
+            "key": "home",
+            "title": "Home",
+            "slug": "home",
+            "navLabel": "Home",
+            "inNav": false,
+            "type": "home",
+            "template": "page-landing",
+            "sections": [
+                "home-01-hero",
+                "home-02-stats",
+                "home-03-services",
+                "home-04-map",
+                "home-05-process",
+                "home-06-services",
+                "home-07-features",
+                "home-08-portfolio",
+                "home-09-testimonials",
+                "home-10-cta"
+            ]
+        },
+        {
+            "key": "services",
+            "title": "Services",
+            "slug": "services",
+            "navLabel": "Services",
+            "inNav": true,
+            "type": "services",
+            "template": "page-landing",
+            "sections": [
+                "services-01-page-header",
+                "services-02-gallery",
+                "services-03-process",
+                "services-04-stats",
+                "services-05-faq",
+                "services-06-cta"
+            ]
+        },
+        {
+            "key": "industries",
+            "title": "Industries",
+            "slug": "industries",
+            "navLabel": "Industries",
+            "inNav": true,
+            "type": "services",
+            "template": "page-landing",
+            "sections": [
+                "industries-01-page-header",
+                "industries-02-gallery",
+                "industries-03-portfolio",
+                "industries-04-services",
+                "industries-05-cta"
+            ]
+        },
+        {
+            "key": "about",
+            "title": "About",
+            "slug": "about",
+            "navLabel": "About",
+            "inNav": true,
+            "type": "about",
+            "template": "page-landing",
+            "sections": [
+                "about-01-page-header",
+                "about-02-about",
+                "about-03-map",
+                "about-04-team",
+                "about-05-credentials",
+                "about-06-careers",
+                "about-07-cta"
+            ]
+        },
+        {
+            "key": "quote",
+            "title": "Get a quote",
+            "slug": "quote",
+            "navLabel": "Get a quote",
+            "inNav": true,
+            "type": "contact",
+            "template": "page-landing",
+            "sections": [
+                "quote-01-page-header",
+                "quote-02-contact",
+                "quote-03-calculator"
+            ]
+        }
+    ],
+    "units": {
+        "home-01-hero": {
+            "scope": "section",
+            "role": "hero",
+            "summary": "Home page hero from the home page, headed (H1) \"Freight that keeps its promises.\": 1 paragraph, 2 buttons, 1 photo, 2 drawn icons or graphics, 24 repeatable items. Has a demo form that does not send anything yet. Has a small interactive widget.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 1,
+            "file": "units/home-01-hero.html",
+            "images": [
+                "yard-top"
+            ],
+            "needs": [
+                "form",
+                "script"
+            ],
+            "slots": 51,
+            "repeatable": 24,
+            "ksesStable": false
+        },
+        "home-02-stats": {
+            "scope": "section",
+            "role": "stats",
+            "summary": "Stats section from the home page: 4 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 2,
+            "file": "units/home-02-stats.html",
+            "slots": 12,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "home-03-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the home page, headed (H2) \"Six services. One booking, one invoice.\": 2 paragraphs, 12 drawn icons or graphics, 6 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 3,
+            "file": "units/home-03-services.html",
+            "slots": 22,
+            "repeatable": 6,
+            "ksesStable": false
+        },
+        "home-04-map": {
+            "scope": "section",
+            "role": "map",
+            "summary": "Map section from the home page, headed (H2) \"One hub. Fourteen gateways. Every lane watched.\": 2 paragraphs, 1 drawn icon or graphic, 14 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 4,
+            "file": "units/home-04-map.html",
+            "slots": 20,
+            "repeatable": 14,
+            "fixedText": [
+                "RTM·HQ",
+                "ORD",
+                "EWR",
+                "LAX",
+                "GRU",
+                "DXB",
+                "BOM",
+                "SIN",
+                "SHA",
+                "JNB",
+                "SYD"
+            ],
+            "ksesStable": false
+        },
+        "home-05-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the home page, headed (H2) \"Built around how your sector actually ships.\": 1 paragraph, 12 drawn icons or graphics, 6 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 5,
+            "file": "units/home-05-process.html",
+            "slots": 20,
+            "repeatable": 6,
+            "ksesStable": false
+        },
+        "home-06-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the home page, headed (H2) \"Space when you need it, systems you can see into.\": 2 paragraphs, 1 button, 1 photo, 4 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 6,
+            "file": "units/home-06-services.html",
+            "images": [
+                "wh-racks"
+            ],
+            "slots": 13,
+            "repeatable": 4,
+            "ksesStable": false
+        },
+        "home-07-features": {
+            "scope": "section",
+            "role": "features",
+            "summary": "Features section from the home page, headed (H2) \"Lower-carbon freight, measured per shipment.\": 2 paragraphs, 1 drawn icon or graphic, 3 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 7,
+            "file": "units/home-07-features.html",
+            "slots": 8,
+            "repeatable": 3,
+            "ksesStable": false
+        },
+        "home-08-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the home page, headed (H2) \"Problems we have already solved.\": 1 paragraph, 1 button. Lists the site's portfolio projects.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 8,
+            "file": "units/home-08-portfolio.html",
+            "needs": [
+                "projects"
+            ],
+            "slots": 3,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "home-09-testimonials": {
+            "scope": "section",
+            "role": "testimonials",
+            "summary": "Testimonials section from the home page: 3 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 9,
+            "file": "units/home-09-testimonials.html",
+            "slots": 5,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "home-10-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the home page, headed (H2) \"Got a lane in mind?\": 2 paragraphs, 2 drawn icons or graphics.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 10,
+            "file": "units/home-10-cta.html",
+            "slots": 7,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "services-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the services page, headed (H1) \"Road, ocean, air, storage, customs, delivery.\": 2 paragraphs, 1 photo.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 1,
+            "file": "units/services-01-page-header.html",
+            "images": [
+                "yard-lanes"
+            ],
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "services-02-gallery": {
+            "scope": "section",
+            "role": "gallery",
+            "summary": "Gallery section from the services page, headed (H2) \"Road freight\": 6 headings, 12 paragraphs, 6 photos, 6 drawn icons or graphics, 30 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 2,
+            "file": "units/services-02-gallery.html",
+            "images": [
+                "truck-road",
+                "port-ship",
+                "air-cargo",
+                "wh-aisle",
+                "yard-grid",
+                "truck-snow"
+            ],
+            "slots": 78,
+            "repeatable": 30,
+            "ksesStable": false
+        },
+        "services-03-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the services page, headed (H2) \"Six steps, one reference number.\": 2 paragraphs, 6 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 3,
+            "file": "units/services-03-process.html",
+            "slots": 21,
+            "repeatable": 6,
+            "ksesStable": true
+        },
+        "services-04-stats": {
+            "scope": "section",
+            "role": "stats",
+            "summary": "Stats section from the services page, headed (H2) \"The departures board.\": 2 paragraphs, 7 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 4,
+            "file": "units/services-04-stats.html",
+            "slots": 12,
+            "repeatable": 7,
+            "ksesStable": true
+        },
+        "services-05-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ from the services page, headed (H2) \"Straight answers.\": 6 paragraphs, 4 questions, 4 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 5,
+            "file": "units/services-05-faq.html",
+            "slots": 11,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "services-06-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the services page, headed (H2) \"Not sure which mode is right?\": 2 paragraphs, 2 drawn icons or graphics.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 6,
+            "file": "units/services-06-cta.html",
+            "slots": 7,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "industries-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the industries page, headed (H1) \"Logistics that speaks your sector’s language.\": 2 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "industries",
+            "position": 1,
+            "file": "units/industries-01-page-header.html",
+            "slots": 6,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "industries-02-gallery": {
+            "scope": "section",
+            "role": "gallery",
+            "summary": "Gallery section from the industries page, headed (H3) \"Retail &amp; e-commerce\": 6 headings, 6 photos, 24 drawn icons or graphics, 54 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "industries",
+            "position": 2,
+            "file": "units/industries-02-gallery.html",
+            "images": [
+                "wh-aisle",
+                "truck-road",
+                "air-cargo",
+                "wh-forklift",
+                "port-cranes",
+                "air-dusk"
+            ],
+            "slots": 66,
+            "repeatable": 54,
+            "ksesStable": false
+        },
+        "industries-03-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the industries page, headed (H2) \"The work, sector by sector.\": 2 paragraphs. Lists the site's portfolio projects.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "industries",
+            "position": 3,
+            "file": "units/industries-03-portfolio.html",
+            "needs": [
+                "projects"
+            ],
+            "slots": 3,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "industries-04-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the industries page, headed (H2) \"Where your goods will live.\": 2 paragraphs, 12 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "industries",
+            "position": 4,
+            "file": "units/industries-04-services.html",
+            "slots": 17,
+            "repeatable": 12,
+            "ksesStable": true
+        },
+        "industries-05-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the industries page, headed (H2) \"Your sector, your lane.\": 2 paragraphs, 2 drawn icons or graphics.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "industries",
+            "position": 5,
+            "file": "units/industries-05-cta.html",
+            "slots": 7,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "about-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the about page, headed (H1) \"We started with three trucks and one rule: say when it will arrive, then make it so.\": 1 paragraph, 1 photo.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 1,
+            "file": "units/about-01-page-header.html",
+            "images": [
+                "yard-lanes"
+            ],
+            "slots": 2,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "about-02-about": {
+            "scope": "section",
+            "role": "about",
+            "summary": "About section from the about page, headed (H2) \"Still privately owned. Still answering the phone.\": 3 paragraphs, 6 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 2,
+            "file": "units/about-02-about.html",
+            "slots": 16,
+            "repeatable": 6,
+            "ksesStable": true
+        },
+        "about-03-map": {
+            "scope": "section",
+            "role": "map",
+            "summary": "Map section from the about page, headed (H2) \"4,800 people in 14 countries.\": 1 paragraph, 1 drawn icon or graphic, 4 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 3,
+            "file": "units/about-03-map.html",
+            "slots": 10,
+            "repeatable": 4,
+            "fixedText": [
+                "RTM·HQ",
+                "ORD",
+                "EWR",
+                "LAX",
+                "GRU",
+                "DXB",
+                "BOM",
+                "SIN",
+                "SHA",
+                "JNB",
+                "SYD"
+            ],
+            "ksesStable": false
+        },
+        "about-04-team": {
+            "scope": "section",
+            "role": "team",
+            "summary": "Team section from the about page, headed (H2) \"The people who answer for it.\": 2 paragraphs, 6 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 4,
+            "file": "units/about-04-team.html",
+            "slots": 27,
+            "repeatable": 6,
+            "ksesStable": true
+        },
+        "about-05-credentials": {
+            "scope": "section",
+            "role": "credentials",
+            "summary": "Credentials section from the about page: 8 repeatable items.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 5,
+            "file": "units/about-05-credentials.html",
+            "slots": 9,
+            "repeatable": 8,
+            "ksesStable": true
+        },
+        "about-06-careers": {
+            "scope": "section",
+            "role": "careers",
+            "summary": "Careers section from the about page, headed (H2) \"Drivers, planners, brokers, engineers. 140 open roles.\": 2 paragraphs, 1 photo, 1 drawn icon or graphic, 3 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 6,
+            "file": "units/about-06-careers.html",
+            "images": [
+                "port-sea"
+            ],
+            "slots": 8,
+            "repeatable": 3,
+            "ksesStable": false
+        },
+        "about-07-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the about page, headed (H2) \"Work with a forwarder that tells you first.\": 2 paragraphs, 2 drawn icons or graphics.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 7,
+            "file": "units/about-07-cta.html",
+            "slots": 7,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "quote-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the get a quote page, headed (H1) \"Tell us what is moving. We will price it today.\": 2 paragraphs, 7 drawn icons or graphics, 24 repeatable items. Has a demo form that does not send anything yet. Has a small interactive widget.",
+            "pageTypes": [
+                "contact"
+            ],
+            "sourcePage": "quote",
+            "position": 1,
+            "file": "units/quote-01-page-header.html",
+            "needs": [
+                "form",
+                "script"
+            ],
+            "slots": 45,
+            "repeatable": 24,
+            "ksesStable": false
+        },
+        "quote-02-contact": {
+            "scope": "section",
+            "role": "contact",
+            "summary": "Contact section from the get a quote page, headed (H2) \"Four desks, one control tower.\": 5 headings, 2 paragraphs, 4 repeatable items.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "quote",
+            "position": 2,
+            "file": "units/quote-02-contact.html",
+            "slots": 19,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "quote-03-calculator": {
+            "scope": "section",
+            "role": "calculator",
+            "summary": "Calculator section from the get a quote page, headed (H2) \"Price it in ten seconds.\": 2 paragraphs, 1 button.",
+            "pageTypes": [
+                "contact"
+            ],
+            "sourcePage": "quote",
+            "position": 3,
+            "file": "units/quote-03-calculator.html",
+            "slots": 4,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "header": {
+            "scope": "header",
+            "role": "header",
+            "summary": "Header template part.",
+            "file": "units/header.html",
+            "slots": 5,
+            "ksesStable": false
+        },
+        "footer": {
+            "scope": "footer",
+            "role": "footer",
+            "summary": "Footer template part.",
+            "file": "units/footer.html",
+            "slots": 12,
+            "ksesStable": false
+        }
+    },
+    "assets": {
+        "air-cargo": {
+            "file": "images/air-cargo.jpg",
+            "alt": "Freighter aircraft on the apron",
+            "title": "Freighter aircraft on the apron",
+            "width": 1365,
+            "height": 910
+        },
+        "air-dusk": {
+            "file": "images/air-dusk.jpg",
+            "alt": "Aircraft against an orange sky",
+            "title": "Aircraft against an orange sky",
+            "width": 1600,
+            "height": 1068
+        },
+        "port-cranes": {
+            "file": "images/port-cranes.jpg",
+            "alt": "Port cranes over a container yard",
+            "title": "Port cranes over a container yard",
+            "width": 1600,
+            "height": 1067
+        },
+        "port-sea": {
+            "file": "images/port-sea.jpg",
+            "alt": "Port by the sea",
+            "title": "Port by the sea",
+            "width": 1600,
+            "height": 1200
+        },
+        "port-ship": {
+            "file": "images/port-ship.jpg",
+            "alt": "Container ship at a terminal",
+            "title": "Container ship at a terminal",
+            "width": 1600,
+            "height": 900
+        },
+        "truck-road": {
+            "file": "images/truck-road.jpg",
+            "alt": "Trailer on a mountain highway",
+            "title": "Trailer on a mountain highway",
+            "width": 1600,
+            "height": 1067
+        },
+        "truck-snow": {
+            "file": "images/truck-snow.jpg",
+            "alt": "Truck on a snowy highway",
+            "title": "Truck on a snowy highway",
+            "width": 1600,
+            "height": 1200
+        },
+        "wh-aisle": {
+            "file": "images/wh-aisle.jpg",
+            "alt": "Warehouse aisle with racking",
+            "title": "Warehouse aisle with racking",
+            "width": 1600,
+            "height": 1067
+        },
+        "wh-forklift": {
+            "file": "images/wh-forklift.jpg",
+            "alt": "Reach truck in a warehouse aisle",
+            "title": "Reach truck in a warehouse aisle",
+            "width": 1600,
+            "height": 1507
+        },
+        "wh-racks": {
+            "file": "images/wh-racks.jpg",
+            "alt": "High-bay warehouse racking",
+            "title": "High-bay warehouse racking",
+            "width": 1600,
+            "height": 1067
+        },
+        "yard-grid": {
+            "file": "images/yard-grid.jpg",
+            "alt": "Rows of containers in a port",
+            "title": "Rows of containers in a port",
+            "width": 1600,
+            "height": 1067
+        },
+        "yard-lanes": {
+            "file": "images/yard-lanes.jpg",
+            "alt": "Aerial view of container lanes",
+            "title": "Aerial view of container lanes",
+            "width": 1600,
+            "height": 1067
+        },
+        "yard-top": {
+            "file": "images/yard-top.jpg",
+            "alt": "Container yard seen from above",
+            "title": "Container yard seen from above",
+            "width": 1600,
+            "height": 1067
+        }
+    },
+    "source": {
+        "dir": "seed/sites/logistics",
+        "hash": "cab5c72bef20132ca591d518cd01c904"
+    }
+}

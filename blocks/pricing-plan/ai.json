@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "tier": "full",
+  "purpose": "pricing-plan",
+  "summary": "One pricing tier: title, prices, badge and CTA.",
+  "capabilities": {
+    "content": {
+      "title": {
+        "type": "richtext",
+        "maxLength": 60,
+        "role": "headline"
+      },
+      "subtitle": {
+        "type": "richtext",
+        "maxLength": 120,
+        "role": "supporting"
+      },
+      "monthlyPrice": {
+        "type": "text",
+        "maxLength": 20
+      },
+      "yearlyPrice": {
+        "type": "text",
+        "maxLength": 20
+      },
+      "pricePrefix": {
+        "type": "text",
+        "maxLength": 10
+      },
+      "priceLinkText": {
+        "type": "text",
+        "maxLength": 40
+      },
+      "priceLinkUrl": {
+        "type": "url"
+      },
+      "badgeText": {
+        "type": "text",
+        "maxLength": 30
+      },
+      "buttonText": {
+        "type": "richtext",
+        "maxLength": 40,
+        "role": "primary-cta"
+      },
+      "buttonUrl": {
+        "type": "url"
+      }
+    },
+    "style": {
+      "highlighted": {
+        "type": "boolean"
+      }
+    }
+  }
+}

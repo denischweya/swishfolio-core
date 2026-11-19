@@ -1,0 +1,16 @@
+{
+  "blockName": "core/paragraph",
+  "version": 1,
+  "tier": "content",
+  "purpose": "body-text",
+  "summary": "A paragraph of body text.",
+  "capabilities": {
+    "content": {
+      "content": {
+        "type": "richtext",
+        "maxLength": 5000,
+        "role": "body"
+      }
+    }
+  }
+}

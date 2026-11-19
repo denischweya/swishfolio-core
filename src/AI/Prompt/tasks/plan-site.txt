@@ -1,0 +1,11 @@
+The site owner has asked for a website.
+
+What they said:
+{{instruction}}
+
+Facts about this site:
+{{site}}
+
+Plan the pages from the "{{kit}}" kit. Give every page a key, a title, a slug and its sections, choose the front page and the navigation order, and rewrite every demo slot of every section you use (or remove its unit).
+
+Never use an em dash, or an en dash or hyphen with spaces around it, as punctuation: write a comma, a colon or a full stop instead. Ranges such as 9:00–17:00 or Tue–Sun are fine.

@@ -1,0 +1,12 @@
+The user has selected a block and asked for a change.
+
+Selected block:
+{{selection}}
+
+Surrounding context:
+{{context}}
+
+The user's instruction:
+{{instruction}}
+
+Return actions that satisfy the instruction for the selected block.

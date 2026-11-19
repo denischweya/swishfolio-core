@@ -1,0 +1,604 @@
+{
+    "version": 2,
+    "slug": "law",
+    "name": "Counsel",
+    "title": "Law Firm",
+    "industry": "professional",
+    "description": "A refined WordPress template for law firms and solicitors, with practice areas, notable matters, a people directory and an enquiry form.",
+    "look": "Type: Newsreader, Instrument Sans. Colours: Ivory #F4F0E8, Ink green #131C18, Oxblood #7A2531, Parchment #EAE3D6, Brass #BFA06A, Secondary text #535D57.",
+    "demo": {
+        "business": "Ashcombe Vale",
+        "tagline": "Solicitors for business and private clients · Bristol & London"
+    },
+    "design": {
+        "file": "design.json",
+        "variation": "Default",
+        "classPrefix": "av-",
+        "fingerprint": ".av-foot",
+        "palette": {
+            "base": "Ivory #F4F0E8",
+            "contrast": "Ink green #131C18",
+            "accent-1": "Oxblood #7A2531",
+            "accent-2": "Parchment #EAE3D6",
+            "accent-3": "Brass #BFA06A",
+            "accent-4": "Secondary text #535D57",
+            "accent-5": "Paper #FBF9F4",
+            "accent-6": "Deep green #1C2823"
+        },
+        "fonts": [
+            "Newsreader",
+            "Instrument Sans"
+        ],
+        "pageTemplate": "page-landing",
+        "header": "header",
+        "footer": "footer",
+        "assetsPath": "assets/kits/law"
+    },
+    "frontPage": "home",
+    "navigation": [
+        "expertise",
+        "matters",
+        "people",
+        "contact"
+    ],
+    "pages": [
+        {
+            "key": "home",
+            "title": "Home",
+            "slug": "home",
+            "navLabel": "Home",
+            "inNav": false,
+            "type": "home",
+            "template": "page-landing",
+            "sections": [
+                "home-01-hero",
+                "home-02-credentials",
+                "home-03-intro",
+                "home-04-team",
+                "home-05-credentials",
+                "home-06-portfolio",
+                "home-07-contact",
+                "home-08-team",
+                "home-09-cta"
+            ]
+        },
+        {
+            "key": "expertise",
+            "title": "Expertise",
+            "slug": "expertise",
+            "navLabel": "Expertise",
+            "inNav": true,
+            "type": "services",
+            "template": "page-landing",
+            "sections": [
+                "expertise-01-page-header",
+                "expertise-02-services",
+                "expertise-03-cta",
+                "expertise-04-services",
+                "expertise-05-pricing",
+                "expertise-06-faq",
+                "expertise-07-cta"
+            ]
+        },
+        {
+            "key": "matters",
+            "title": "Notable matters",
+            "slug": "matters",
+            "navLabel": "Matters",
+            "inNav": true,
+            "type": "work",
+            "template": "page-landing",
+            "sections": [
+                "matters-01-page-header",
+                "matters-02-portfolio",
+                "matters-03-portfolio",
+                "matters-04-cta"
+            ]
+        },
+        {
+            "key": "people",
+            "title": "People",
+            "slug": "people",
+            "navLabel": "People",
+            "inNav": true,
+            "type": "about",
+            "template": "page-landing",
+            "sections": [
+                "people-01-page-header",
+                "people-02-team",
+                "people-03-team",
+                "people-04-careers"
+            ]
+        },
+        {
+            "key": "contact",
+            "title": "Contact",
+            "slug": "contact",
+            "navLabel": "Contact",
+            "inNav": true,
+            "type": "contact",
+            "template": "page-landing",
+            "sections": [
+                "contact-01-page-header",
+                "contact-02-contact",
+                "contact-03-credentials"
+            ]
+        }
+    ],
+    "units": {
+        "home-01-hero": {
+            "scope": "section",
+            "role": "hero",
+            "summary": "Home page hero from the home page, headed (H1) \"Counsel for the decisions that define a business, and a family.\": 2 paragraphs, 2 buttons, 1 photo, 4 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 1,
+            "file": "units/home-01-hero.html",
+            "images": [
+                "capital"
+            ],
+            "slots": 14,
+            "repeatable": 4,
+            "ksesStable": false
+        },
+        "home-02-credentials": {
+            "scope": "section",
+            "role": "credentials",
+            "summary": "Credentials section from the home page: 2 paragraphs, 4 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 2,
+            "file": "units/home-02-credentials.html",
+            "slots": 6,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "home-03-intro": {
+            "scope": "section",
+            "role": "intro",
+            "summary": "Intro band from the home page: 4 paragraphs, 2 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 3,
+            "file": "units/home-03-intro.html",
+            "slots": 5,
+            "repeatable": 2,
+            "ksesStable": true
+        },
+        "home-04-team": {
+            "scope": "section",
+            "role": "team",
+            "summary": "Team section from the home page, headed (H2) \"Six practices, one partnership.\": 2 paragraphs, 1 photo, 6 drawn icons or graphics, 6 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 4,
+            "file": "units/home-04-team.html",
+            "images": [
+                "law-reports"
+            ],
+            "slots": 28,
+            "repeatable": 6,
+            "ksesStable": false
+        },
+        "home-05-credentials": {
+            "scope": "section",
+            "role": "credentials",
+            "summary": "Credentials section from the home page, headed (H3) \"Boards, founders, investors and HR directors.\": 2 headings, 2 drawn icons or graphics, 10 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 5,
+            "file": "units/home-05-credentials.html",
+            "slots": 18,
+            "repeatable": 10,
+            "ksesStable": false
+        },
+        "home-06-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the home page, headed (H2) \"Recent work we are able to describe.\": 4 headings, 1 paragraph, 1 button, 3 drawn icons or graphics, 3 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 6,
+            "file": "units/home-06-portfolio.html",
+            "slots": 21,
+            "repeatable": 3,
+            "ksesStable": false
+        },
+        "home-07-contact": {
+            "scope": "section",
+            "role": "contact",
+            "summary": "Contact section from the home page.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 7,
+            "file": "units/home-07-contact.html",
+            "slots": 3,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "home-08-team": {
+            "scope": "section",
+            "role": "team",
+            "summary": "Team section from the home page, headed (H2) \"Notes from the partnership.\": 2 paragraphs.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 8,
+            "file": "units/home-08-team.html",
+            "slots": 4,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "home-09-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the home page, headed (H2) \"Speak to a partner, in confidence.\": 2 paragraphs, 2 buttons, 4 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 9,
+            "file": "units/home-09-cta.html",
+            "slots": 13,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "expertise-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the expertise page, headed (H1) \"Six practices. Advice that joins up.\": 2 paragraphs, 6 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "expertise",
+            "position": 1,
+            "file": "units/expertise-01-page-header.html",
+            "slots": 9,
+            "repeatable": 6,
+            "ksesStable": true
+        },
+        "expertise-02-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the expertise page, headed (H2) \"Corporate &amp; M&amp;A\": 6 headings, 24 paragraphs, 30 list items, 6 drawn icons or graphics, 60 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "expertise",
+            "position": 2,
+            "file": "units/expertise-02-services.html",
+            "slots": 96,
+            "repeatable": 60,
+            "ksesStable": false
+        },
+        "expertise-03-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the expertise page: 2 paragraphs, 1 photo.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "expertise",
+            "position": 3,
+            "file": "units/expertise-03-cta.html",
+            "images": [
+                "columns-up"
+            ],
+            "slots": 2,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "expertise-04-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the expertise page, headed (H2) \"Where our clients work.\": 2 paragraphs, 10 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "expertise",
+            "position": 4,
+            "file": "units/expertise-04-services.html",
+            "slots": 13,
+            "repeatable": 10,
+            "ksesStable": true
+        },
+        "expertise-05-pricing": {
+            "scope": "section",
+            "role": "pricing",
+            "summary": "Pricing section from the expertise page, headed (H2) \"Clear about cost from the first meeting.\": 4 headings, 2 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "expertise",
+            "position": 5,
+            "file": "units/expertise-05-pricing.html",
+            "slots": 15,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "expertise-06-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ from the expertise page, headed (H2) \"Common questions.\": 6 paragraphs, 4 questions, 4 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "expertise",
+            "position": 6,
+            "file": "units/expertise-06-faq.html",
+            "slots": 11,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "expertise-07-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the expertise page, headed (H2) \"Not sure which practice you need?\": 2 paragraphs, 2 buttons, 4 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "expertise",
+            "position": 7,
+            "file": "units/expertise-07-cta.html",
+            "slots": 13,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "matters-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the notable matters page, headed (H1) \"The work, with the names left out.\": 2 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "matters",
+            "position": 1,
+            "file": "units/matters-01-page-header.html",
+            "slots": 9,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "matters-02-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the notable matters page. Lists the site's portfolio projects.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "matters",
+            "position": 2,
+            "file": "units/matters-02-portfolio.html",
+            "needs": [
+                "projects"
+            ],
+            "slots": 0,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "matters-03-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the notable matters page, headed (H2) \"A selection from the last three years.\": 2 paragraphs, 8 repeatable items.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "matters",
+            "position": 3,
+            "file": "units/matters-03-portfolio.html",
+            "slots": 13,
+            "repeatable": 8,
+            "ksesStable": true
+        },
+        "matters-04-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the notable matters page, headed (H2) \"Facing something similar?\": 2 paragraphs, 2 buttons, 4 repeatable items.",
+            "pageTypes": [
+                "work",
+                "any"
+            ],
+            "sourcePage": "matters",
+            "position": 4,
+            "file": "units/matters-04-cta.html",
+            "slots": 13,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "people-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the people page, headed (H1) \"Sixty-two lawyers. Partners you will actually meet.\": 2 paragraphs, 5 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "people",
+            "position": 1,
+            "file": "units/people-01-page-header.html",
+            "slots": 8,
+            "repeatable": 5,
+            "ksesStable": true
+        },
+        "people-02-team": {
+            "scope": "section",
+            "role": "team",
+            "summary": "Team section from the people page, headed (H2) \"Eleanor Ashcombe\": 3 paragraphs, 1 photo, 3 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "people",
+            "position": 2,
+            "file": "units/people-02-team.html",
+            "images": [
+                "colonnade"
+            ],
+            "slots": 10,
+            "repeatable": 3,
+            "ksesStable": false
+        },
+        "people-03-team": {
+            "scope": "section",
+            "role": "team",
+            "summary": "Team section from the people page, headed (H2) \"Partners and senior lawyers.\": 12 headings, 1 paragraph, 1 drawn icon or graphic, 11 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "people",
+            "position": 3,
+            "file": "units/people-03-team.html",
+            "slots": 71,
+            "repeatable": 11,
+            "ksesStable": false
+        },
+        "people-04-careers": {
+            "scope": "section",
+            "role": "careers",
+            "summary": "Careers section from the people page, headed (H2) \"Six training contracts a year, split between Bristol and London.\": 2 paragraphs, 2 buttons, 3 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "people",
+            "position": 4,
+            "file": "units/people-04-careers.html",
+            "slots": 11,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "contact-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the contact page, headed (H1) \"Begin with a short, confidential enquiry.\": 2 paragraphs, 1 drawn icon or graphic, 14 repeatable items. Has a demo form that does not send anything yet.",
+            "pageTypes": [
+                "contact"
+            ],
+            "sourcePage": "contact",
+            "position": 1,
+            "file": "units/contact-01-page-header.html",
+            "needs": [
+                "form"
+            ],
+            "slots": 27,
+            "repeatable": 14,
+            "ksesStable": false
+        },
+        "contact-02-contact": {
+            "scope": "section",
+            "role": "contact",
+            "summary": "Contact section from the contact page, headed (H2) \"Bristol and London.\": 3 headings, 1 paragraph, 2 photos, 2 repeatable items.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "contact",
+            "position": 2,
+            "file": "units/contact-02-contact.html",
+            "images": [
+                "facade-grid",
+                "tower"
+            ],
+            "slots": 12,
+            "repeatable": 2,
+            "ksesStable": true
+        },
+        "contact-03-credentials": {
+            "scope": "section",
+            "role": "credentials",
+            "summary": "Credentials section from the contact page: 3 repeatable items.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "contact",
+            "position": 3,
+            "file": "units/contact-03-credentials.html",
+            "slots": 6,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "header": {
+            "scope": "header",
+            "role": "header",
+            "summary": "Header template part.",
+            "file": "units/header.html",
+            "slots": 4,
+            "ksesStable": false
+        },
+        "footer": {
+            "scope": "footer",
+            "role": "footer",
+            "summary": "Footer template part.",
+            "file": "units/footer.html",
+            "slots": 14,
+            "ksesStable": false
+        }
+    },
+    "assets": {
+        "capital": {
+            "file": "images/capital.jpg",
+            "alt": "Carved stone capital of a classical column in low light",
+            "title": "Column capital",
+            "width": 1200,
+            "height": 1500
+        },
+        "colonnade": {
+            "file": "images/colonnade.jpg",
+            "alt": "Stone columns framed by a dark portico",
+            "title": "Colonnade",
+            "width": 1400,
+            "height": 1600
+        },
+        "columns-up": {
+            "file": "images/columns-up.jpg",
+            "alt": "Looking up between fluted stone columns",
+            "title": "Columns",
+            "width": 1400,
+            "height": 1600
+        },
+        "facade-grid": {
+            "file": "images/facade-grid.jpg",
+            "alt": "Modern stone facade with a regular grid of windows",
+            "title": "Facade",
+            "width": 1600,
+            "height": 1100
+        },
+        "law-reports": {
+            "file": "images/law-reports.jpg",
+            "alt": "Bound law reports on a library shelf",
+            "title": "Law reports",
+            "width": 1600,
+            "height": 1100
+        },
+        "tower": {
+            "file": "images/tower.jpg",
+            "alt": "Dark modern tower against a pale sky",
+            "title": "Tower",
+            "width": 1200,
+            "height": 1500
+        }
+    },
+    "source": {
+        "dir": "seed/sites/law",
+        "hash": "b810e309b511faa33415b777071ed6c1"
+    }
+}

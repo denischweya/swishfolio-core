@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "tier": "full",
+  "purpose": "social-links",
+  "summary": "Row of social profile icons.",
+  "capabilities": {
+    "layout": {
+      "alignment": {
+        "enum": [
+          "left",
+          "center",
+          "right"
+        ]
+      },
+      "gapSize": {
+        "enum": [
+          "small",
+          "medium",
+          "large"
+        ]
+      }
+    },
+    "style": {
+      "iconShape": {
+        "enum": [
+          "square",
+          "rounded",
+          "circle"
+        ]
+      },
+      "iconSize": {
+        "enum": [
+          "small",
+          "medium",
+          "large",
+          "xlarge"
+        ]
+      },
+      "shadowSize": {
+        "enum": [
+          "none",
+          "small",
+          "medium",
+          "large"
+        ]
+      },
+      "hoverEffect": {
+        "enum": [
+          "lift",
+          "scale",
+          "glow",
+          "none"
+        ]
+      },
+      "borderWidth": {
+        "type": "number",
+        "min": 0,
+        "max": 12,
+        "unit": "px"
+      },
+      "borderColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "iconColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "backgroundColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "useBrandColors": {
+        "type": "boolean"
+      }
+    }
+  },
+  "excluded": [
+    "socialLinks"
+  ]
+}

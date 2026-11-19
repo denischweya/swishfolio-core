@@ -1,0 +1,80 @@
+{
+  "vertical": "saas",
+  "label": "SaaS landing page: single page plan with a trial call to action",
+  "scope": "page",
+  "instruction": "Build me one landing page for Ledgerline, a bookkeeping reconciliation tool for small finance teams. It should explain what it does, why it is trustworthy, and push people to a free trial.",
+  "brief": {
+    "siteTitle": "Ledgerline",
+    "kit": "accountant",
+    "customTemplates": [
+      "page-no-title",
+      "page-landing",
+      "page-with-sidebar"
+    ],
+    "existingSlugs": {}
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "kit": "accountant",
+    "summary": "One landing page for a reconciliation tool: what it connects to and a free trial call to action.",
+    "pages": [
+      {
+        "key": "home",
+        "title": "Ledgerline",
+        "slug": "home",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "home-02-content",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Ledgerline matches bank lines to the books you already keep"
+              },
+              {
+                "id": "t1",
+                "html": "Bank feeds"
+              },
+              {
+                "id": "t2",
+                "html": "Invoices"
+              },
+              {
+                "id": "t3",
+                "html": "Receipts"
+              }
+            ],
+            "attrs": [],
+            "remove": [
+              "u4",
+              "u5",
+              "u6"
+            ]
+          },
+          {
+            "pattern": "home-08-cta",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Close the month without the spreadsheet."
+              },
+              {
+                "id": "t1",
+                "html": "Start a free trial and connect your first bank feed in minutes. No card needed to try it."
+              },
+              {
+                "id": "t2",
+                "html": "<a class=\"wp-block-button__link wp-element-button\" href=\"{{link:contact}}\">Start a free trial</a>"
+              },
+              {
+                "id": "t3",
+                "html": "<a class=\"wp-block-button__link wp-element-button\" href=\"{{link:pricing}}\">See pricing</a>"
+              }
+            ],
+            "attrs": []
+          }
+        ]
+      }
+    ]
+  }
+}

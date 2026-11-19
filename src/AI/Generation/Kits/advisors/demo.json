@@ -1,0 +1,29 @@
+{
+    "phones": [
+        "(512) 555-0137"
+    ],
+    "emails": [
+        "hello@oakline.example"
+    ],
+    "domains": [
+        "oakline.example"
+    ],
+    "addresses": [
+        "412 Congress Ave, Suite 300",
+        "412 Congress Avenue, Suite 300"
+    ],
+    "places": [
+        "Austin",
+        "Congress Ave"
+    ],
+    "people": [
+        "Daniel Reyes",
+        "Hannah Kwok",
+        "Jordan Pike",
+        "Marcus Oyelaran",
+        "Maya Lindgren",
+        "Rosa Delgado-",
+        "Tess Abernathy",
+        "Walter Brandt"
+    ]
+}

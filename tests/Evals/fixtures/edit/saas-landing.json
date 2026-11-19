@@ -1,0 +1,66 @@
+{
+  "vertical": "saas-landing",
+  "label": "SaaS landing page: make the hero specific and raise its contrast",
+  "instruction": "This hero is vague and forgettable. Make the headline say what the product actually does, add a second call to action for a demo, and give it more presence.",
+  "selection": {
+    "clientId": "hero-1",
+    "blockName": "swishfolio-core/hero",
+    "attributes": {
+      "heading": "Welcome to Ledgerline",
+      "subheading": "The best reconciliation software.",
+      "ctaText": "Sign up",
+      "ctaUrl": "https://app.ledgerline.test/signup",
+      "contentAlign": "center",
+      "headingSize": "medium",
+      "minHeight": 420
+    },
+    "postType": "page",
+    "styleVariation": "Default",
+    "siblings": [],
+    "innerBlocks": []
+  },
+  "blockTree": {
+    "hero-1": {
+      "name": "swishfolio-core/hero",
+      "attributes": {
+        "heading": "Welcome to Ledgerline",
+        "subheading": "The best reconciliation software.",
+        "ctaText": "Sign up",
+        "ctaUrl": "https://app.ledgerline.test/signup",
+        "contentAlign": "center",
+        "headingSize": "medium",
+        "minHeight": 420
+      },
+      "parentClientId": null
+    }
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "summary": "Rewrote the hero around the outcome, added a demo call to action, and inverted it to full height.",
+    "actions": [
+      {
+        "type": "update_block_attributes",
+        "clientId": "hero-1",
+        "changes": {
+          "heading": "Close the books by Tuesday",
+          "subheading": "Ledgerline reconciles every transaction against your bank feed overnight, so month end is a review rather than a rebuild.",
+          "ctaText": "Start a free trial",
+          "ctaUrl": "https://app.ledgerline.test/signup",
+          "secondaryCtaText": "Book a walkthrough",
+          "secondaryCtaUrl": "https://ledgerline.test/demo",
+          "layout": "split-right",
+          "contentAlign": "left",
+          "verticalAlign": "center",
+          "minHeight": 720,
+          "headingSize": "xlarge",
+          "headingTransform": "none",
+          "backgroundType": "color",
+          "backgroundColor": "contrast",
+          "textColor": "base",
+          "ctaStyle": "primary"
+        },
+        "reason": "A specific outcome-led headline, a supporting sentence that names the mechanism, a demo as the second action, and an inverted full-height ground for presence."
+      }
+    ]
+  }
+}

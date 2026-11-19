@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "tier": "full",
+  "purpose": "blog-list",
+  "summary": "Queries and lists recent blog posts.",
+  "capabilities": {
+    "layout": {
+      "columns": {
+        "type": "number",
+        "min": 1,
+        "max": 4,
+        "unit": "count"
+      },
+      "postsPerPage": {
+        "type": "number",
+        "min": 1,
+        "max": 12,
+        "unit": "count"
+      },
+      "excerptLength": {
+        "type": "number",
+        "min": 10,
+        "max": 100,
+        "unit": "words"
+      },
+      "showDate": {
+        "type": "boolean"
+      },
+      "showAuthor": {
+        "type": "boolean"
+      },
+      "showExcerpt": {
+        "type": "boolean"
+      },
+      "showFeaturedImage": {
+        "type": "boolean"
+      }
+    },
+    "style": {
+      "imageAspectRatio": {
+        "enum": [
+          "square",
+          "landscape",
+          "portrait"
+        ]
+      },
+      "imageBorderRadius": {
+        "type": "number",
+        "min": 0,
+        "max": 50,
+        "unit": "px"
+      },
+      "titleColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "excerptColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "metaColor": {
+        "type": "token",
+        "tokenSet": "color"
+      }
+    }
+  },
+  "excluded": [
+    "categories",
+    "inheritQuery"
+  ]
+}

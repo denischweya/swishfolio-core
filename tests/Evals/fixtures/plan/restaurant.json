@@ -1,0 +1,175 @@
+{
+  "vertical": "restaurant",
+  "label": "Restaurant: kit links to its own pages and an ampersand in composed copy",
+  "scope": "site",
+  "instruction": "We run a ten table restaurant in Newcastle called Saltbox. I want a home page, a page explaining the menu and how we source it, and a page with the address and booking details.",
+  "brief": {
+    "siteTitle": "Saltbox",
+    "kit": "restaurant",
+    "customTemplates": [
+      "page-no-title",
+      "page-landing",
+      "page-with-sidebar"
+    ],
+    "existingSlugs": {}
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "kit": "restaurant",
+    "summary": "A three page site for a ten table restaurant: an introduction and a booking band on the home page, a menu page, and a reservations page.",
+    "site": {
+      "title": "Saltbox",
+      "tagline": "Neighbourhood kitchen",
+      "frontPage": "home",
+      "navigation": [
+        "home",
+        "menu",
+        "reservations"
+      ]
+    },
+    "pages": [
+      {
+        "key": "home",
+        "title": "Home",
+        "slug": "home",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "home-03-intro",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "The room"
+              },
+              {
+                "id": "t1",
+                "html": "<em>Saltbox</em> is ten tables on Bedford Street, Newcastle. One short menu, changed weekly, built from whatever the coast and the market gave us that morning."
+              },
+              {
+                "id": "t2",
+                "html": "Lunch is walk in, Wednesday to Saturday. Dinner is one sitting a night, booked ahead, so the table is yours for the evening."
+              },
+              {
+                "id": "t3",
+                "html": "Bread, butter &amp; stock are made here every day. Fish comes up from North Shields, vegetables from a farm twenty minutes away."
+              },
+              {
+                "id": "t4",
+                "html": "The Saltbox kitchen<span>Lunch &amp; dinner</span>"
+              },
+              {
+                "id": "t5",
+                "html": "<a href=\"{{link:story}}\">Book a table</a>"
+              }
+            ],
+            "attrs": []
+          },
+          {
+            "pattern": "home-09-cta",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Wednesday to Saturday · Bedford Street, Newcastle"
+              },
+              {
+                "id": "t1",
+                "html": "Keep a <em>table.</em>"
+              },
+              {
+                "id": "t2",
+                "html": "Dinner is booked ahead by email. Lunch is walk in only, and there is usually a table by half past one."
+              },
+              {
+                "id": "t3",
+                "html": "<a class=\"wp-block-button__link wp-element-button\" href=\"{{link:reservations}}\">Book a table</a>"
+              },
+              {
+                "id": "t4",
+                "html": "<a class=\"wp-block-button__link wp-element-button\" href=\"mailto:tables@saltbox.example\">tables@saltbox.example</a>"
+              }
+            ],
+            "attrs": []
+          }
+        ]
+      },
+      {
+        "key": "menu",
+        "title": "Menu",
+        "slug": "menu",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "menu-01-page-header",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Written each week"
+              },
+              {
+                "id": "t1",
+                "html": "The <em>menu</em>"
+              },
+              {
+                "id": "t2",
+                "html": "Six dishes a week, chosen the morning they are written. Ask about anything you do not recognise."
+              }
+            ],
+            "attrs": []
+          },
+          {
+            "pattern": "home-02-marquee",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "<span>Wood-fired</span><b></b><i>Bread &amp; butter</i><b></b><span>Coast to table</span><b></b><i>One menu a week</i><b></b>"
+              },
+              {
+                "id": "t1",
+                "html": "<span>Wood-fired</span><b></b><i>Bread &amp; butter</i><b></b><span>Coast to table</span><b></b><i>One menu a week</i><b></b>"
+              },
+              {
+                "id": "t2",
+                "html": "<span>Wood-fired</span><b></b><i>Bread &amp; butter</i><b></b><span>Coast to table</span><b></b><i>One menu a week</i><b></b>"
+              }
+            ],
+            "attrs": []
+          }
+        ]
+      },
+      {
+        "key": "reservations",
+        "title": "Reservations",
+        "slug": "reservations",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "reservations-04-cta",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Bookings · Bedford Street, Newcastle"
+              },
+              {
+                "id": "t1",
+                "html": "See you <em>soon.</em>"
+              },
+              {
+                "id": "t2",
+                "html": "Write to us with a date, a time and how many of you there are, and we will reply the same day."
+              },
+              {
+                "id": "t3",
+                "html": "<a class=\"wp-block-button__link wp-element-button\" href=\"mailto:tables@saltbox.example\">tables@saltbox.example</a>"
+              },
+              {
+                "id": "t4",
+                "html": "<a class=\"wp-block-button__link wp-element-button\" href=\"{{link:menu}}\">See the menu</a>"
+              }
+            ],
+            "attrs": []
+          }
+        ]
+      }
+    ]
+  }
+}

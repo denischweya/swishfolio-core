@@ -1,0 +1,50 @@
+{
+  "name": "edit-literal-colour",
+  "track": "edit",
+  "why": "A literal hex colour survives a style variation switch as a colour that no longer belongs to the palette.",
+  "expectStage": "value",
+  "instruction": "Improve this section.",
+  "selection": {
+    "clientId": "hero-1",
+    "blockName": "swishfolio-core/hero",
+    "attributes": {
+      "heading": "Placeholder",
+      "headingSize": "large"
+    },
+    "postType": "page",
+    "styleVariation": "Default",
+    "siblings": [],
+    "innerBlocks": []
+  },
+  "blockTree": {
+    "hero-1": {
+      "name": "swishfolio-core/hero",
+      "attributes": {
+        "heading": "Placeholder",
+        "headingSize": "large"
+      },
+      "parentClientId": null
+    },
+    "spacer-1": {
+      "name": "core/spacer",
+      "attributes": {
+        "height": "80px"
+      },
+      "parentClientId": null
+    }
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "summary": "Adversarial fixture.",
+    "actions": [
+      {
+        "type": "update_block_attributes",
+        "clientId": "hero-1",
+        "changes": {
+          "backgroundColor": "#101010"
+        },
+        "reason": "Adversarial."
+      }
+    ]
+  }
+}

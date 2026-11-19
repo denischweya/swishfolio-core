@@ -1,16 +1,23 @@
 {
 	"name": "swishfolio-core",
-	"version": "1.0.3",
+	"version": "1.3.0",
 	"description": "Core blocks and functionality for Swishfolio theme",
 	"author": "Swishfolio",
 	"license": "GPL-2.0-or-later",
 	"scripts": {
 		"build": "wp-scripts build",
 		"start": "wp-scripts start",
-		"packages-update": "wp-scripts packages-update"
+		"packages-update": "wp-scripts packages-update",
+		"test:unit": "wp-scripts test-unit-js",
+		"test:unit:watch": "wp-scripts test-unit-js --watch",
+		"test:e2e": "playwright test --config=playwright.flow.config.js",
+		"test:e2e:smoke": "playwright test --config=playwright.smoke.config.js",
+		"test:e2e:session": "bash bin/mint-e2e-session.sh",
+		"test:e2e:patterns": "bash bin/check-pattern-render.sh"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^28.0.0"
+		"@wordpress/scripts": "^28.0.0",
+		"@testing-library/react": "^14.3.1"
 	},
 	"dependencies": {
 		"@wordpress/icons": "^10.0.0"

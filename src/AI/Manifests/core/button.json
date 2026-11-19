@@ -1,0 +1,19 @@
+{
+  "blockName": "core/button",
+  "version": 1,
+  "tier": "content",
+  "purpose": "cta",
+  "summary": "A call-to-action button.",
+  "capabilities": {
+    "content": {
+      "text": {
+        "type": "richtext",
+        "maxLength": 60,
+        "role": "primary-cta"
+      },
+      "url": {
+        "type": "url"
+      }
+    }
+  }
+}

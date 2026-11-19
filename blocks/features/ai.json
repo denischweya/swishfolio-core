@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "tier": "full",
+  "purpose": "features-grid",
+  "summary": "Grid container for feature cards; owns shared card styling.",
+  "capabilities": {
+    "layout": {
+      "gridGap": {
+        "enum": [
+          "1rem",
+          "2rem",
+          "3rem"
+        ]
+      }
+    },
+    "style": {
+      "cardBorderStyle": {
+        "enum": [
+          "solid",
+          "dashed",
+          "none"
+        ]
+      },
+      "titleColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "iconColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "iconBackgroundColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "ctaTextColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "ctaBackgroundColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "cardBackgroundColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "cardAccentColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "cardBorderColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "cardShadowColor": {
+        "type": "token",
+        "tokenSet": "color"
+      }
+    }
+  },
+  "children": {
+    "allowed": [
+      "swishfolio-core/feature-card"
+    ],
+    "min": 1,
+    "max": 12
+  },
+  "excluded": [
+    "titleFontSize",
+    "subheadingFontSize"
+  ]
+}

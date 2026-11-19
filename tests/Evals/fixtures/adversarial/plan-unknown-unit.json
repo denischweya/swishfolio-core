@@ -1,0 +1,44 @@
+{
+  "name": "plan-unknown-unit",
+  "track": "plan",
+  "why": "A unit id that is not in the kit has no markup to compose, so the plan cannot mean anything.",
+  "expectStage": "plan-reference",
+  "scope": "site",
+  "instruction": "Build me a small site.",
+  "brief": {
+    "siteTitle": "Baseline",
+    "kit": "designer",
+    "customTemplates": [
+      "page-no-title",
+      "page-landing",
+      "page-with-sidebar"
+    ],
+    "existingSlugs": {}
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "kit": "designer",
+    "summary": "A one page site used as the baseline for a rejection fixture.",
+    "site": {
+      "title": "Baseline",
+      "frontPage": "home",
+      "navigation": [
+        "home"
+      ]
+    },
+    "pages": [
+      {
+        "key": "home",
+        "title": "Home",
+        "slug": "home",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "home-99-hero",
+            "texts": []
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "name": "plan-undeclared-slot",
+  "track": "plan",
+  "why": "A slot id the unit does not have has no place in the markup, so the copy would be silently lost.",
+  "expectStage": "plan-slot",
+  "scope": "site",
+  "instruction": "Build me a small site.",
+  "brief": {
+    "siteTitle": "Baseline",
+    "kit": "designer",
+    "customTemplates": [
+      "page-no-title",
+      "page-landing",
+      "page-with-sidebar"
+    ],
+    "existingSlugs": {}
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "kit": "designer",
+    "summary": "A one page site used as the baseline for a rejection fixture.",
+    "site": {
+      "title": "Baseline",
+      "frontPage": "home",
+      "navigation": [
+        "home"
+      ]
+    },
+    "pages": [
+      {
+        "key": "home",
+        "title": "Home",
+        "slug": "home",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "contact-02-cta",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Not ready to brief yet?"
+              },
+              {
+                "id": "t1",
+                "html": "Send the short version and we can shape it together."
+              },
+              {
+                "id": "t2",
+                "html": "Availability"
+              },
+              {
+                "id": "t3",
+                "html": "Taking new work this spring."
+              },
+              {
+                "id": "t99",
+                "html": "Copy with nowhere to go"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

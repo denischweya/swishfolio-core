@@ -1,0 +1,143 @@
+{
+  "version": 1,
+  "tier": "full",
+  "purpose": "hero",
+  "summary": "Full-bleed opening section: headline, subheading, up to two CTAs, over a colour or image background.",
+  "capabilities": {
+    "content": {
+      "heading": {
+        "type": "text",
+        "maxLength": 120,
+        "role": "headline"
+      },
+      "subheading": {
+        "type": "text",
+        "maxLength": 300,
+        "role": "supporting"
+      },
+      "ctaText": {
+        "type": "text",
+        "maxLength": 40,
+        "role": "primary-cta"
+      },
+      "ctaUrl": {
+        "type": "url"
+      },
+      "secondaryCtaText": {
+        "type": "text",
+        "maxLength": 40,
+        "role": "secondary-cta"
+      },
+      "secondaryCtaUrl": {
+        "type": "url"
+      }
+    },
+    "layout": {
+      "layout": {
+        "enum": [
+          "full",
+          "split-right",
+          "split-left"
+        ]
+      },
+      "contentAlign": {
+        "enum": [
+          "left",
+          "center",
+          "right"
+        ]
+      },
+      "verticalAlign": {
+        "enum": [
+          "top",
+          "center",
+          "bottom"
+        ]
+      },
+      "minHeight": {
+        "type": "number",
+        "min": 320,
+        "max": 1000,
+        "unit": "px"
+      },
+      "headingFullWidth": {
+        "type": "boolean"
+      }
+    },
+    "style": {
+      "headingSize": {
+        "enum": [
+          "medium",
+          "large",
+          "xlarge"
+        ]
+      },
+      "headingStyle": {
+        "enum": [
+          "normal",
+          "outline",
+          "shadow"
+        ]
+      },
+      "headingTransform": {
+        "enum": [
+          "none",
+          "uppercase"
+        ]
+      },
+      "backgroundType": {
+        "enum": [
+          "color",
+          "image"
+        ]
+      },
+      "backgroundColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "textColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "overlayColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "overlayOpacity": {
+        "type": "number",
+        "min": 0,
+        "max": 100,
+        "unit": "%"
+      },
+      "imageShadowSize": {
+        "enum": [
+          "none",
+          "small",
+          "medium",
+          "large",
+          "xlarge"
+        ]
+      },
+      "ctaStyle": {
+        "enum": [
+          "primary",
+          "secondary",
+          "outline"
+        ]
+      }
+    }
+  },
+  "excluded": [
+    "decoShape1",
+    "decoShape2",
+    "heroImage",
+    "backgroundImage",
+    "socialLinks",
+    "bgShape1Type",
+    "bgShape2Type",
+    "bgShape3Type",
+    "imageBlob1Shape",
+    "imageBlob2Shape",
+    "imageRotation"
+  ]
+}

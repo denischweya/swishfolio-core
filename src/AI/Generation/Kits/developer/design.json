@@ -1,0 +1,481 @@
+{
+    "variation": "Terminal",
+    "globalStyles": {
+        "settings": {
+            "color": {
+                "palette": {
+                    "theme": [
+                        {
+                            "slug": "base",
+                            "name": "Canvas",
+                            "color": "#0A0B0D"
+                        },
+                        {
+                            "slug": "contrast",
+                            "name": "Text",
+                            "color": "#F2F4F5"
+                        },
+                        {
+                            "slug": "accent-1",
+                            "name": "Lime",
+                            "color": "#7CFF5B"
+                        },
+                        {
+                            "slug": "accent-2",
+                            "name": "Surface",
+                            "color": "#14161A"
+                        },
+                        {
+                            "slug": "accent-3",
+                            "name": "Cyan",
+                            "color": "#4ADEDE"
+                        },
+                        {
+                            "slug": "accent-4",
+                            "name": "Muted",
+                            "color": "#8A9199"
+                        },
+                        {
+                            "slug": "accent-5",
+                            "name": "Hairline",
+                            "color": "#1F242B"
+                        },
+                        {
+                            "slug": "accent-6",
+                            "name": "Deep black",
+                            "color": "#050607"
+                        }
+                    ]
+                }
+            },
+            "layout": {
+                "contentSize": "1240px",
+                "wideSize": "1600px"
+            },
+            "spacing": {
+                "spacingSizes": [
+                    {
+                        "slug": "10",
+                        "name": "4",
+                        "size": "4px"
+                    },
+                    {
+                        "slug": "20",
+                        "name": "8",
+                        "size": "8px"
+                    },
+                    {
+                        "slug": "30",
+                        "name": "16",
+                        "size": "16px"
+                    },
+                    {
+                        "slug": "40",
+                        "name": "24",
+                        "size": "24px"
+                    },
+                    {
+                        "slug": "50",
+                        "name": "40",
+                        "size": "clamp(28px, 3vw, 40px)"
+                    },
+                    {
+                        "slug": "60",
+                        "name": "64",
+                        "size": "clamp(40px, 4.5vw, 64px)"
+                    },
+                    {
+                        "slug": "70",
+                        "name": "88",
+                        "size": "clamp(52px, 6vw, 88px)"
+                    },
+                    {
+                        "slug": "80",
+                        "name": "120",
+                        "size": "clamp(72px, 8vw, 120px)"
+                    },
+                    {
+                        "slug": "90",
+                        "name": "160",
+                        "size": "clamp(88px, 10vw, 160px)"
+                    }
+                ]
+            },
+            "typography": {
+                "fontSizes": [
+                    {
+                        "slug": "small",
+                        "name": "Small",
+                        "size": "0.8125rem",
+                        "fluid": false
+                    },
+                    {
+                        "slug": "medium",
+                        "name": "Medium",
+                        "size": "1rem",
+                        "fluid": false
+                    },
+                    {
+                        "slug": "large",
+                        "name": "Large",
+                        "size": "1.125rem",
+                        "fluid": {
+                            "min": "1.0625rem",
+                            "max": "1.25rem"
+                        }
+                    },
+                    {
+                        "slug": "x-large",
+                        "name": "Extra Large",
+                        "size": "1.375rem",
+                        "fluid": {
+                            "min": "1.25rem",
+                            "max": "1.5rem"
+                        }
+                    },
+                    {
+                        "slug": "xx-large",
+                        "name": "2XL",
+                        "size": "1.75rem",
+                        "fluid": {
+                            "min": "1.5rem",
+                            "max": "2.125rem"
+                        }
+                    },
+                    {
+                        "slug": "3-x-large",
+                        "name": "3XL",
+                        "size": "2.25rem",
+                        "fluid": {
+                            "min": "1.875rem",
+                            "max": "2.75rem"
+                        }
+                    },
+                    {
+                        "slug": "display",
+                        "name": "Display",
+                        "size": "3rem",
+                        "fluid": {
+                            "min": "2.25rem",
+                            "max": "3.75rem"
+                        }
+                    },
+                    {
+                        "slug": "display-large",
+                        "name": "Display Large",
+                        "size": "4rem",
+                        "fluid": {
+                            "min": "2.75rem",
+                            "max": "5.25rem"
+                        }
+                    }
+                ]
+            }
+        },
+        "styles": {
+            "color": {
+                "background": "var:preset|color|base",
+                "text": "var:preset|color|contrast"
+            },
+            "spacing": {
+                "blockGap": "1.4rem",
+                "padding": {
+                    "left": "var:preset|spacing|50",
+                    "right": "var:preset|spacing|50"
+                }
+            },
+            "typography": {
+                "fontFamily": "var:preset|font-family|geist",
+                "fontSize": "1.0625rem",
+                "fontWeight": "400",
+                "letterSpacing": "0",
+                "lineHeight": "1.68"
+            },
+            "elements": {
+                "heading": {
+                    "typography": {
+                        "fontFamily": "var:preset|font-family|geist",
+                        "fontWeight": "600",
+                        "letterSpacing": "-0.03em",
+                        "textTransform": "none"
+                    }
+                },
+                "h1": {
+                    "typography": {
+                        "fontFamily": "var:preset|font-family|geist",
+                        "fontSize": "var:preset|font-size|display-large",
+                        "fontWeight": "600",
+                        "letterSpacing": "-0.035em",
+                        "lineHeight": "1.02",
+                        "textTransform": "none"
+                    }
+                },
+                "h2": {
+                    "typography": {
+                        "fontFamily": "var:preset|font-family|geist",
+                        "fontSize": "var:preset|font-size|display",
+                        "fontWeight": "600",
+                        "letterSpacing": "-0.033em",
+                        "lineHeight": "1.06",
+                        "textTransform": "none"
+                    }
+                },
+                "h3": {
+                    "typography": {
+                        "fontFamily": "var:preset|font-family|geist",
+                        "fontSize": "var:preset|font-size|x-large",
+                        "fontWeight": "600",
+                        "letterSpacing": "-0.025em",
+                        "lineHeight": "1.2",
+                        "textTransform": "none"
+                    }
+                },
+                "h4": {
+                    "typography": {
+                        "fontFamily": "var:preset|font-family|geist",
+                        "fontSize": "var:preset|font-size|large",
+                        "fontWeight": "600",
+                        "letterSpacing": "-0.02em",
+                        "lineHeight": "1.3",
+                        "textTransform": "none"
+                    }
+                },
+                "h5": {
+                    "typography": {
+                        "fontFamily": "var:preset|font-family|geist",
+                        "fontSize": "var:preset|font-size|medium",
+                        "fontWeight": "600",
+                        "letterSpacing": "-0.01em",
+                        "lineHeight": "1.4",
+                        "textTransform": "none"
+                    }
+                },
+                "h6": {
+                    "typography": {
+                        "fontFamily": "var:preset|font-family|geist",
+                        "fontSize": "var:preset|font-size|small",
+                        "fontWeight": "600",
+                        "letterSpacing": "0.08em",
+                        "lineHeight": "1.4",
+                        "textTransform": "none"
+                    }
+                },
+                "link": {
+                    "color": {
+                        "text": "var:preset|color|accent-1"
+                    },
+                    "typography": {
+                        "textDecoration": "none"
+                    },
+                    ":hover": {
+                        "color": {
+                            "text": "var:preset|color|contrast"
+                        },
+                        "typography": {
+                            "textDecoration": "none"
+                        }
+                    }
+                },
+                "button": {
+                    "color": {
+                        "background": "var:preset|color|accent-1",
+                        "text": "#06080A"
+                    },
+                    "border": {
+                        "radius": "12px",
+                        "width": "1px",
+                        "style": "solid",
+                        "color": "var:preset|color|accent-1"
+                    },
+                    "shadow": "none",
+                    "typography": {
+                        "fontFamily": "var:preset|font-family|geist",
+                        "fontSize": "0.95rem",
+                        "fontWeight": "600",
+                        "letterSpacing": "-0.005em",
+                        "textTransform": "none"
+                    },
+                    "spacing": {
+                        "padding": {
+                            "top": "0.88rem",
+                            "bottom": "0.88rem",
+                            "left": "1.5rem",
+                            "right": "1.5rem"
+                        }
+                    },
+                    ":hover": {
+                        "color": {
+                            "background": "#9BFF83",
+                            "text": "#06080A"
+                        }
+                    }
+                }
+            },
+            "blocks": {
+                "core/group": {
+                    "border": {
+                        "radius": "0px"
+                    },
+                    "color": {
+                        "background": "transparent"
+                    }
+                },
+                "core/image": {
+                    "border": {
+                        "radius": "16px"
+                    },
+                    "filter": {
+                        "duotone": "unset"
+                    }
+                },
+                "core/cover": {
+                    "filter": {
+                        "duotone": "unset"
+                    }
+                },
+                "core/avatar": {
+                    "border": {
+                        "radius": "999px"
+                    },
+                    "filter": {
+                        "duotone": "unset"
+                    }
+                },
+                "core/site-logo": {
+                    "filter": {
+                        "duotone": "unset"
+                    }
+                },
+                "core/post-featured-image": {
+                    "border": {
+                        "radius": "16px"
+                    },
+                    "filter": {
+                        "duotone": "unset"
+                    }
+                },
+                "core/site-title": {
+                    "typography": {
+                        "fontFamily": "var:preset|font-family|geist",
+                        "fontWeight": "600",
+                        "letterSpacing": "-0.03em",
+                        "textTransform": "none"
+                    }
+                },
+                "core/navigation": {
+                    "typography": {
+                        "fontFamily": "var:preset|font-family|jetbrains-mono",
+                        "fontSize": "0.72rem",
+                        "fontWeight": "500",
+                        "letterSpacing": "0.12em",
+                        "textTransform": "uppercase"
+                    }
+                },
+                "core/columns": {
+                    "spacing": {
+                        "blockGap": "var:preset|spacing|40"
+                    }
+                },
+                "core/separator": {
+                    "border": {
+                        "color": "var:preset|color|accent-5",
+                        "style": "solid",
+                        "width": "0 0 1px 0"
+                    },
+                    "color": {
+                        "text": "var:preset|color|accent-5"
+                    }
+                },
+                "core/button": {
+                    "border": {
+                        "radius": "12px",
+                        "width": "1px",
+                        "style": "solid",
+                        "color": "var:preset|color|accent-1"
+                    },
+                    "color": {
+                        "background": "var:preset|color|accent-1",
+                        "text": "#06080A"
+                    },
+                    "typography": {
+                        "fontFamily": "var:preset|font-family|geist",
+                        "fontSize": "0.95rem",
+                        "fontWeight": "600",
+                        "letterSpacing": "-0.005em",
+                        "textTransform": "none"
+                    },
+                    "spacing": {
+                        "padding": {
+                            "top": "0.88rem",
+                            "bottom": "0.88rem",
+                            "left": "1.5rem",
+                            "right": "1.5rem"
+                        }
+                    },
+                    "variations": {
+                        "outline": {
+                            "border": {
+                                "color": "#2B323A",
+                                "width": "1px"
+                            },
+                            "color": {
+                                "background": "transparent",
+                                "text": "var:preset|color|contrast"
+                            }
+                        }
+                    }
+                },
+                "core/code": {
+                    "border": {
+                        "color": "var:preset|color|accent-5",
+                        "radius": "12px",
+                        "style": "solid",
+                        "width": "1px"
+                    },
+                    "color": {
+                        "background": "var:preset|color|accent-2",
+                        "text": "var:preset|color|contrast"
+                    },
+                    "typography": {
+                        "fontFamily": "var:preset|font-family|jetbrains-mono",
+                        "fontSize": "0.82rem"
+                    }
+                },
+                "core/details": {
+                    "typography": {
+                        "fontFamily": "var:preset|font-family|geist"
+                    }
+                },
+                "core/quote": {
+                    "border": {
+                        "color": "var:preset|color|accent-5",
+                        "width": "0 0 0 2px"
+                    },
+                    "color": {
+                        "background": "var:preset|color|accent-2"
+                    }
+                },
+                "core/pullquote": {
+                    "border": {
+                        "color": "var:preset|color|accent-5",
+                        "width": "1px 0"
+                    }
+                },
+                "core/table": {
+                    "border": {
+                        "color": "var:preset|color|accent-5",
+                        "style": "solid",
+                        "width": "1px"
+                    }
+                },
+                "core/search": {
+                    "border": {
+                        "radius": "12px"
+                    }
+                }
+            },
+            "css": "/* ==== Kill the Terminal variation's retro traits ==== */ body::before{display:none!important;content:none!important}body{text-shadow:none!important;-webkit-font-smoothing:antialiased;letter-spacing:0!important}h1::before,h2::before,h3::before,h4::before,h5::before,h6::before{content:none!important;display:none!important}.wp-block-site-title::before{content:none!important}.wp-block-button .wp-block-button__link::before,.wp-block-button .wp-block-button__link::after{content:none!important}.wp-block-quote::before,.wp-block-pullquote::before,.wp-block-pullquote::after{content:none!important}.wp-block-separator::before{content:none!important;display:none!important}.wp-block-separator{display:block;border:0;border-top:1px solid var(--wp--preset--color--accent-5)!important;opacity:1;margin:0}.terminal-cursor{animation:none}/* ==== Tokens (override the variation's shared component vars) ==== */ html:root{--sf-shadow-sm:none;--sf-shadow-md:none;--sf-shadow-lg:0 22px 50px rgba(0,0,0,.6);--sf-shadow-xl:none;--sf-border:1px solid #1F242B;--sf-border-thin:1px solid #1F242B;--sf-border-heavy:1px solid #2B323A;--sf-radius-none:0px;--sf-radius-sm:10px;--sf-radius-md:16px;--sf-radius-full:999px;--sf-color-primary:#7CFF5B;--sf-color-secondary:#4ADEDE;--sf-color-muted:#8A9199;--sf-color-surface:#14161A;--sf-text-glow:none;--sf-hover-transform:translateY(-4px);--sf-active-transform:none;--sf-hair:#1F242B;--sf-hair-lit:#333B45;--sf-surface:#14161A;--sf-surface-lit:#181B21;}/* ==== Type ==== */ h1,h2,h3{text-wrap:balance}h1,h2,h3,h4,h5,h6{text-transform:none!important;text-shadow:none!important}.sf-display{letter-spacing:-.035em;line-height:1.03}.sf-mono{font-family:var(--wp--preset--font-family--jetbrains-mono)!important;font-size:.72rem!important;line-height:1.5;letter-spacing:.12em!important;text-transform:uppercase;font-weight:500}.sf-mono-sm{font-family:var(--wp--preset--font-family--jetbrains-mono)!important;font-size:.68rem!important;letter-spacing:.1em!important;text-transform:uppercase;font-weight:500}.sf-stat{font-family:var(--wp--preset--font-family--geist)!important;font-weight:600;letter-spacing:-.045em;line-height:1}.sf-lede{line-height:1.55;letter-spacing:-.005em}/* ==== Surfaces ==== */ .sf-panel{background:var(--sf-surface)!important;border:1px solid #242A32;border-radius:16px}.sf-card{transition:transform .28s cubic-bezier(.2,.7,.3,1),border-color .28s ease,background-color .28s ease}.sf-card:hover{transform:translateY(-4px);border-color:var(--sf-hair-lit);background:var(--sf-surface-lit)!important}.sf-outline{background:transparent!important;border:1px solid var(--sf-hair);border-radius:16px}.sf-row{border-top:1px solid var(--sf-hair)}.sf-rows>.sf-row:last-child{border-bottom:1px solid var(--sf-hair)}.sf-row{transition:background-color .25s ease}.sf-row:hover{background:rgba(255,255,255,.018)}.wp-block-columns.sf-bento{align-items:stretch}.wp-block-columns.sf-bento>.wp-block-column{display:flex!important;flex-direction:column}.wp-block-columns.sf-bento>.wp-block-column>*{flex:1 1 auto!important;margin:0}.sf-flex{display:flex;flex-direction:column}.sf-push{margin-top:auto!important}/* ==== Hero:faint grid + restrained radial glow ==== */ .sf-hero{position:relative;isolation:isolate;overflow:hidden;background-image:linear-gradient(to right,rgba(242,244,245,.026) 1px,transparent 1px),linear-gradient(to bottom,rgba(242,244,245,.026) 1px,transparent 1px);background-size:72px 72px;background-position:center top}.sf-hero::after{content:\"\";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(58% 72% at 18% 10%,rgba(124,255,91,.13),transparent 66%),radial-gradient(52% 62% at 84% 0%,rgba(74,222,222,.07),transparent 68%)}.sf-band-glow{position:relative;isolation:isolate;overflow:hidden}.sf-band-glow::after{content:\"\";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(46% 70% at 50% 108%,rgba(124,255,91,.10),transparent 66%)}/* ==== Links ==== */ a{text-decoration:none}.sf-arrow a{color:var(--wp--preset--color--accent-1);display:inline-flex;align-items:center;gap:.4rem;transition:gap .22s ease,color .2s ease}.sf-arrow a:hover{gap:.75rem;text-decoration:none;color:#A6FF91}.sf-quiet a{color:var(--wp--preset--color--accent-4);transition:color .2s ease}.sf-quiet a:hover{color:var(--wp--preset--color--contrast);text-decoration:none}/* ==== Buttons ==== */ .wp-block-button__link{border-radius:12px!important;text-transform:none!important;letter-spacing:-.005em!important;font-family:var(--wp--preset--font-family--geist)!important;font-weight:600!important;font-size:.95rem!important;padding:.88rem 1.5rem!important;box-shadow:none!important;transition:background-color .2s ease,border-color .2s ease,transform .2s ease}.wp-block-button:not(.is-style-outline) .wp-block-button__link{background:var(--wp--preset--color--accent-1)!important;color:#06080A!important;border:1px solid var(--wp--preset--color--accent-1)!important}.wp-block-button:not(.is-style-outline) .wp-block-button__link:hover{background:#9BFF83!important;border-color:#9BFF83!important;color:#06080A!important;transform:translateY(-1px)}.wp-block-button.is-style-outline .wp-block-button__link{background:transparent!important;color:var(--wp--preset--color--contrast)!important;border:1px solid #2B323A!important}.wp-block-button.is-style-outline .wp-block-button__link:hover{background:#14161A!important;border-color:#434C57!important;color:var(--wp--preset--color--contrast)!important;transform:translateY(-1px)}.sf-head-cta .wp-block-button__link{padding:.58rem 1.1rem!important;font-size:.84rem!important}/* ==== Inline code chips ==== */ .sf-chips{display:flex;flex-wrap:wrap;gap:8px;margin:0}.sf-chips code,p code{background:#14161A!important;border:1px solid #1F242B!important;border-radius:8px!important;padding:6px 11px!important;font-family:var(--wp--preset--font-family--jetbrains-mono)!important;font-size:.75rem!important;color:#C6CCD2!important;letter-spacing:.01em!important;line-height:1.35}.sf-chips code{transition:border-color .2s ease,color .2s ease}.sf-chips code:hover{border-color:#3A424C!important;color:var(--wp--preset--color--contrast)!important}/* ==== Lists ==== */ .wp-block-list li::marker{color:var(--wp--preset--color--accent-1)}.sf-check{list-style:none;padding-left:0;margin:0}.sf-check li{position:relative;padding-left:1.35rem;margin-top:.6rem;color:var(--wp--preset--color--accent-4);line-height:1.55;font-size:.95rem}.sf-check li::before{content:\"\";position:absolute;left:0;top:.58em;width:7px;height:7px;border-radius:2px;background:var(--wp--preset--color--accent-1)}.sf-check li::marker{content:none}/* ==== Details / FAQ ==== */ .wp-block-details{background:var(--sf-surface)!important;border:1px solid var(--sf-hair);border-radius:14px;padding:1.15rem 1.4rem;transition:border-color .22s ease}.wp-block-details:hover{border-color:var(--sf-hair-lit)}.wp-block-details summary{font-family:var(--wp--preset--font-family--geist);font-weight:600;font-size:1.0625rem;letter-spacing:-.012em;color:var(--wp--preset--color--contrast);cursor:pointer;text-transform:none;list-style-position:outside}.wp-block-details summary::marker{color:var(--wp--preset--color--accent-1)}.wp-block-details p{color:var(--wp--preset--color--accent-4);line-height:1.65;margin:.9rem 0 .2rem;font-size:.95rem}/* ==== Images ==== */ figure.wp-block-image{border-radius:16px;overflow:hidden;border:1px solid var(--sf-hair);filter:none!important;margin:0}figure.wp-block-image img{border-radius:0;display:block;filter:none!important}/* ==== Site chrome ==== */ .wp-block-site-title a{color:var(--wp--preset--color--contrast)!important;text-transform:none;letter-spacing:-.03em}.wp-block-site-title a:hover{color:var(--wp--preset--color--contrast)!important}.sf-dot{display:inline-block;width:7px;height:7px;border-radius:999px;background:var(--wp--preset--color--accent-1);box-shadow:0 0 0 3px rgba(124,255,91,.16);vertical-align:middle;margin-right:.55rem}/* ==== Navigation ==== */ .wp-block-navigation{font-family:var(--wp--preset--font-family--jetbrains-mono)!important;font-size:.72rem!important;letter-spacing:.12em!important;text-transform:uppercase!important;font-weight:500!important}.wp-block-navigation .wp-block-navigation-item__content{color:#8A9199!important;padding:.3rem .15rem!important;background:transparent!important;border:0!important;transition:color .2s ease}.wp-block-navigation .wp-block-navigation-item__content:hover{color:var(--wp--preset--color--contrast)!important}.wp-block-navigation .wp-block-navigation-item__content::before{content:none!important}.wp-block-navigation .wp-block-navigation-item__content::after{height:1px!important;background:var(--wp--preset--color--accent-1)!important}.wp-block-navigation .wp-block-navigation-item.current-menu-item>.wp-block-navigation-item__content,.wp-block-navigation .wp-block-navigation-item.current_page_item>.wp-block-navigation-item__content{background:transparent!important;color:var(--wp--preset--color--contrast)!important;padding:.3rem .15rem!important}.wp-block-navigation__responsive-container-open{background:transparent!important;border:1px solid #2B323A!important;border-radius:10px!important;padding:.45rem!important}.wp-block-navigation__responsive-container-open svg,.wp-block-navigation__responsive-container-open svg *{stroke:var(--wp--preset--color--contrast)!important;fill:var(--wp--preset--color--contrast)!important}.wp-block-navigation__responsive-container-close svg,.wp-block-navigation__responsive-container-close svg *{stroke:var(--wp--preset--color--contrast)!important;fill:var(--wp--preset--color--contrast)!important}.wp-block-navigation__responsive-container.is-menu-open{background:var(--wp--preset--color--base)!important;padding-top:2rem}.wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item__content{color:var(--wp--preset--color--contrast)!important;font-size:1rem!important;letter-spacing:.08em!important}/* ==== Portfolio block ==== */ .sfcore-portfolio__card{background:var(--sf-surface);border:1px solid var(--sf-hair);border-radius:16px;overflow:hidden}.sfcore-portfolio--hover-lift .sfcore-portfolio__card:hover{border-color:var(--sf-hair-lit);background:var(--sf-surface-lit)}.sfcore-portfolio__image{border-bottom:1px solid var(--sf-hair)}.sfcore-portfolio__content{padding:26px 26px 28px}.sfcore-portfolio__title{font-family:var(--wp--preset--font-family--geist)!important;font-weight:600!important;font-size:1.3rem!important;letter-spacing:-.026em!important;text-transform:none!important;text-shadow:none!important;line-height:1.2;margin:0 0 10px;color:var(--wp--preset--color--contrast)}.sfcore-portfolio__title a{color:inherit}.sfcore-portfolio__title a:hover{color:var(--wp--preset--color--accent-1)}.sfcore-portfolio__excerpt{color:var(--wp--preset--color--accent-4);opacity:1;font-size:.94rem;font-weight:400;line-height:1.6;margin:0 0 18px}.sfcore-portfolio__taxonomies{gap:6px;margin-bottom:6px}.sfcore-portfolio__taxonomies--types{margin-bottom:16px}.sfcore-portfolio .sfcore-portfolio__badge{background:transparent;border:1px solid #2A313A;border-radius:999px;color:#9AA2AA;font-family:var(--wp--preset--font-family--jetbrains-mono);font-size:.64rem;font-weight:500;letter-spacing:.11em;padding:4px 11px;text-transform:uppercase}.sfcore-portfolio .sfcore-portfolio__badge--category{color:#7CFF5B;border-color:rgba(124,255,91,.3)}.sfcore-portfolio .sfcore-portfolio__badge--type{color:#4ADEDE;border-color:rgba(74,222,222,.28)}.sfcore-portfolio__meta-item{font-size:.8rem;gap:7px;margin-bottom:6px;align-items:baseline}.sfcore-portfolio__meta-label{font-family:var(--wp--preset--font-family--jetbrains-mono);font-size:.64rem;letter-spacing:.11em;color:#6C737B;opacity:1;font-weight:500}.sfcore-portfolio__meta-value{font-family:var(--wp--preset--font-family--geist);font-size:.88rem;font-weight:500;color:#C6CCD2}.sfcore-portfolio .sfcore-portfolio__skills{gap:6px;margin:auto 0 0;padding-top:18px}.sfcore-portfolio .sfcore-portfolio__skill{background:transparent;border:1px solid #2A313A;border-radius:7px;color:#9AA2AA;font-family:var(--wp--preset--font-family--jetbrains-mono);font-size:.66rem;font-weight:500;letter-spacing:.04em;padding:5px 9px}.sfcore-portfolio__filters{justify-content:flex-start;gap:8px;margin-bottom:38px}.sfcore-portfolio__filter{background:transparent;border:1px solid var(--sf-hair);border-radius:999px;color:#8A9199;font-family:var(--wp--preset--font-family--jetbrains-mono);font-size:.7rem;font-weight:500;letter-spacing:.12em;padding:10px 18px;transition:border-color .2s ease,color .2s ease,background-color .2s ease}.sfcore-portfolio__filter:hover{background:var(--sf-surface);border-color:var(--sf-hair-lit);color:var(--wp--preset--color--contrast)}.sfcore-portfolio__filter.is-active{background:var(--wp--preset--color--accent-1);border-color:var(--wp--preset--color--accent-1);color:#06080A}.sfcore-portfolio__status{transform:none;border-radius:999px;font-family:var(--wp--preset--font-family--jetbrains-mono);font-size:.62rem;letter-spacing:.1em;border:0}.sfcore-portfolio__no-results,.sfcore-portfolio__empty,.sfcore-portfolio__loading{background:var(--sf-surface);border:1px solid var(--sf-hair);border-radius:16px}/* ==== Mobile ==== */ @media(max-width:781px){.sf-head-tag{display:none!important}.sf-hero{background-size:48px 48px}.sf-hero::after{height:600px}.sf-display{letter-spacing:-.03em}.sfcore-portfolio__content{padding:20px 20px 22px}}\nbody :focus:not(:focus-visible){outline:none!important}body :where(a,button,summary,[tabindex],[role=button],input[type=checkbox],input[type=radio],input[type=submit],input[type=button]):focus-visible{outline:2px solid #2563EB!important;outline-offset:3px!important;box-shadow:0 0 0 3px #fff}body :where(input,textarea,select):focus-visible{outline-color:#2563EB}.wp-block-navigation .wp-block-navigation-item__content:focus-visible{outline-offset:4px!important}"
+        }
+    },
+    "fonts": []
+}

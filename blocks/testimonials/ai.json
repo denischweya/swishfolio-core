@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "tier": "full",
+  "purpose": "testimonials",
+  "summary": "Grid container for testimonial cards; owns shared card styling.",
+  "capabilities": {
+    "layout": {
+      "columns": {
+        "type": "number",
+        "min": 1,
+        "max": 4,
+        "unit": "count"
+      }
+    },
+    "style": {
+      "cardShadow": {
+        "enum": [
+          "none",
+          "small",
+          "medium",
+          "large"
+        ]
+      },
+      "cardBorderWidth": {
+        "type": "number",
+        "min": 0,
+        "max": 12,
+        "unit": "px"
+      },
+      "cardBorderRadius": {
+        "type": "number",
+        "min": 0,
+        "max": 50,
+        "unit": "px"
+      },
+      "cardBackgroundColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "cardBorderColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "textColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "roleColor": {
+        "type": "token",
+        "tokenSet": "color"
+      }
+    }
+  },
+  "children": {
+    "allowed": [
+      "swishfolio-core/testimonial-card"
+    ],
+    "min": 1,
+    "max": 12
+  }
+}

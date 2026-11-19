@@ -1,0 +1,178 @@
+{
+  "vertical": "freelancer",
+  "label": "Freelancer portfolio: selected work, a journal listing and a contact page",
+  "scope": "site",
+  "instruction": "I am a freelance interface designer in Glasgow. I need a home page with a few selected projects, a journal for my writing, and a contact page. I only take two clients at a time.",
+  "brief": {
+    "siteTitle": "Tobias Reeve",
+    "kit": "designer",
+    "customTemplates": [
+      "page-no-title",
+      "page-landing",
+      "page-with-sidebar"
+    ],
+    "existingSlugs": {}
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "kit": "designer",
+    "summary": "A three page portfolio for a freelance interface designer: selected work on the home page, a journal and a contact page.",
+    "site": {
+      "title": "Tobias Reeve",
+      "tagline": "Freelance interface design",
+      "frontPage": "home",
+      "navigation": [
+        "home",
+        "journal",
+        "contact"
+      ]
+    },
+    "pages": [
+      {
+        "key": "home",
+        "title": "Home",
+        "slug": "home",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "work-01-page-header",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Interface design · Glasgow"
+              },
+              {
+                "id": "t1",
+                "html": "Interfaces people stop noticing."
+              },
+              {
+                "id": "t2",
+                "html": "I design product interfaces for small teams: flows, screens and the components that hold them together."
+              },
+              {
+                "id": "t3",
+                "html": "I take two clients at a time, so each project gets my full attention from first call to launch."
+              }
+            ],
+            "attrs": []
+          },
+          {
+            "pattern": "home-03-portfolio",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Selected work"
+              },
+              {
+                "id": "t1",
+                "html": "<a href=\"{{link:work}}\">All projects →</a>"
+              }
+            ],
+            "attrs": []
+          },
+          {
+            "block": "swishfolio-core/portfolio",
+            "attributes": {
+              "layout": "grid",
+              "columns": 2,
+              "gap": 40,
+              "postsPerPage": 12,
+              "showFilters": true,
+              "showExcerpt": true,
+              "showCategory": true,
+              "showProjectType": true,
+              "showViewButton": true,
+              "viewButtonText": "Read the case study",
+              "cardStyle": "stacked",
+              "imageAspectRatio": "wide",
+              "hoverEffect": "reveal",
+              "taxonomyStyle": "border",
+              "imageBorderRadius": 0,
+              "taxonomyColor": "accent-2",
+              "cardContentBackground": "base",
+              "orderBy": "menu_order",
+              "order": "ASC"
+            }
+          },
+          {
+            "pattern": "work-03-cta",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Next project"
+              },
+              {
+                "id": "t1",
+                "html": "Two clients at a time."
+              },
+              {
+                "id": "t2",
+                "html": "If you are planning a product launch or a redesign, the useful conversation usually happens early."
+              },
+              {
+                "id": "t3",
+                "html": "<a href=\"{{link:contact}}\">Start a project →</a>"
+              }
+            ],
+            "attrs": []
+          }
+        ]
+      },
+      {
+        "key": "journal",
+        "title": "Journal",
+        "slug": "journal",
+        "status": "draft",
+        "sections": [
+          {
+            "block": "swishfolio-core/latest-posts",
+            "attributes": {
+              "columns": 2,
+              "postsPerPage": 8,
+              "excerptLength": 32,
+              "showDate": true,
+              "showAuthor": false,
+              "showExcerpt": true,
+              "showFeaturedImage": true,
+              "imageAspectRatio": "landscape",
+              "imageBorderRadius": 4,
+              "titleColor": "contrast",
+              "excerptColor": "accent-5",
+              "metaColor": "accent-4"
+            }
+          }
+        ]
+      },
+      {
+        "key": "contact",
+        "title": "Contact",
+        "slug": "contact",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "contact-02-cta",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Not ready to brief yet?"
+              },
+              {
+                "id": "t1",
+                "html": "That is fine. Send the half-formed version and we can shape it together."
+              },
+              {
+                "id": "t2",
+                "html": "Availability"
+              },
+              {
+                "id": "t3",
+                "html": "Two client slots.<br>Write to ask when the next one opens."
+              }
+            ],
+            "attrs": []
+          }
+        ]
+      }
+    ]
+  }
+}

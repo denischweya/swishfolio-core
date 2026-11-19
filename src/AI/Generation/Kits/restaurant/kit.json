@@ -1,0 +1,892 @@
+{
+    "version": 2,
+    "slug": "restaurant",
+    "name": "Open Hearth",
+    "title": "Restaurant",
+    "industry": "hospitality",
+    "description": "A warm WordPress template for restaurants, cafés and bars, with a priced menu, food photography and table bookings.",
+    "look": "Type: Fraunces, DM Mono, Hanken Grotesk. Colours: Bone #F3ECE0, Espresso #1F1410, Tomato #E0452B, Sand #EAE0CE, Oxblood #3A0F12, Secondary text #6E5C50.",
+    "demo": {
+        "business": "Lumbre",
+        "tagline": "Wood-fire kitchen & wine room on Bristol’s Old Quay"
+    },
+    "design": {
+        "file": "design.json",
+        "variation": "Default",
+        "classPrefix": "lu-",
+        "fingerprint": ".lu-sec",
+        "palette": {
+            "base": "Bone #F3ECE0",
+            "contrast": "Espresso #1F1410",
+            "accent-1": "Tomato #E0452B",
+            "accent-2": "Sand #EAE0CE",
+            "accent-3": "Oxblood #3A0F12",
+            "accent-4": "Secondary text #6E5C50",
+            "accent-5": "Hairline #DDD0BA",
+            "accent-6": "Night olive #27291A"
+        },
+        "fonts": [
+            "Fraunces",
+            "DM Mono",
+            "Hanken Grotesk"
+        ],
+        "pageTemplate": "page-landing",
+        "header": "header",
+        "footer": "footer",
+        "assetsPath": "assets/kits/restaurant"
+    },
+    "frontPage": "home",
+    "navigation": [
+        "menu",
+        "story",
+        "private",
+        "reservations"
+    ],
+    "pages": [
+        {
+            "key": "home",
+            "title": "Home",
+            "slug": "home",
+            "navLabel": "Home",
+            "inNav": false,
+            "type": "home",
+            "template": "page-landing",
+            "sections": [
+                "home-01-hero",
+                "home-02-marquee",
+                "home-03-intro",
+                "home-04-menu",
+                "home-05-pricing",
+                "home-06-cta",
+                "home-07-logos",
+                "home-08-stats",
+                "home-09-cta"
+            ]
+        },
+        {
+            "key": "menu",
+            "title": "Menu",
+            "slug": "menu",
+            "navLabel": "Menu",
+            "inNav": true,
+            "type": "menu",
+            "template": "page-landing",
+            "sections": [
+                "menu-01-page-header",
+                "menu-02-menu",
+                "menu-03-menu",
+                "menu-04-menu",
+                "menu-05-menu",
+                "menu-06-menu",
+                "menu-07-pricing",
+                "menu-08-menu",
+                "menu-09-menu",
+                "menu-10-cta"
+            ]
+        },
+        {
+            "key": "story",
+            "title": "Story",
+            "slug": "story",
+            "navLabel": "Story",
+            "inNav": true,
+            "type": "about",
+            "template": "page-landing",
+            "sections": [
+                "story-01-page-header",
+                "story-02-content",
+                "story-03-process",
+                "story-04-team",
+                "story-05-process",
+                "story-06-cta"
+            ]
+        },
+        {
+            "key": "private",
+            "title": "Private dining & events",
+            "slug": "private-dining",
+            "navLabel": "Private dining",
+            "inNav": true,
+            "type": "events",
+            "template": "page-landing",
+            "sections": [
+                "private-01-page-header",
+                "private-02-services",
+                "private-03-stats",
+                "private-04-process",
+                "private-05-stats",
+                "private-06-cta"
+            ]
+        },
+        {
+            "key": "reservations",
+            "title": "Reservations",
+            "slug": "reservations",
+            "navLabel": "Reservations",
+            "inNav": true,
+            "type": "contact",
+            "template": "page-landing",
+            "sections": [
+                "reservations-01-page-header",
+                "reservations-02-content",
+                "reservations-03-faq",
+                "reservations-04-cta"
+            ]
+        }
+    ],
+    "units": {
+        "home-01-hero": {
+            "scope": "section",
+            "role": "hero",
+            "summary": "Home page hero from the home page, headed (H1) \"Cooked over embers, eaten slowly.\": 3 paragraphs, 2 buttons, 1 photo, 2 drawn icons or graphics, 5 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 1,
+            "file": "units/home-01-hero.html",
+            "images": [
+                "octopus-pan"
+            ],
+            "slots": 18,
+            "repeatable": 5,
+            "fixedText": [
+                "Open Tue–Sun · Reservations · Walk-ins at the counter ·"
+            ],
+            "ksesStable": false
+        },
+        "home-02-marquee": {
+            "scope": "section",
+            "role": "marquee",
+            "summary": "Marquee section from the home page: 3 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 2,
+            "file": "units/home-02-marquee.html",
+            "slots": 3,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "home-03-intro": {
+            "scope": "section",
+            "role": "intro",
+            "summary": "Intro band from the home page: 5 paragraphs, 2 photos, 2 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 3,
+            "file": "units/home-03-intro.html",
+            "images": [
+                "flatbread",
+                "hearth"
+            ],
+            "slots": 6,
+            "repeatable": 2,
+            "ksesStable": false
+        },
+        "home-04-menu": {
+            "scope": "section",
+            "role": "menu",
+            "summary": "Menu section from the home page, headed (H2) \"Short menu, long table.\": 3 paragraphs, 1 button, 1 photo, 8 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 4,
+            "file": "units/home-04-menu.html",
+            "images": [
+                "lamb"
+            ],
+            "slots": 22,
+            "repeatable": 8,
+            "ksesStable": false
+        },
+        "home-05-pricing": {
+            "scope": "section",
+            "role": "pricing",
+            "summary": "Pricing section from the home page, headed (H2) \"The Long Fire\": 2 paragraphs, 1 button, 1 photo, 2 drawn icons or graphics, 9 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 5,
+            "file": "units/home-05-pricing.html",
+            "images": [
+                "sauce"
+            ],
+            "slots": 13,
+            "repeatable": 9,
+            "fixedText": [
+                "Seven courses · One fire · Whole table · Tue to Sat ·"
+            ],
+            "ksesStable": false
+        },
+        "home-06-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the home page, headed (H2) \"Evenings at number 14\": 2 paragraphs, 7 photos, 4 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 6,
+            "file": "units/home-06-cta.html",
+            "images": [
+                "ribs",
+                "wine",
+                "negroni",
+                "room",
+                "bread",
+                "sharing",
+                "flame"
+            ],
+            "slots": 10,
+            "repeatable": 4,
+            "ksesStable": false
+        },
+        "home-07-logos": {
+            "scope": "section",
+            "role": "logos",
+            "summary": "Logos section from the home page: 3 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 7,
+            "file": "units/home-07-logos.html",
+            "slots": 6,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "home-08-stats": {
+            "scope": "section",
+            "role": "stats",
+            "summary": "Stats section from the home page, headed (H2) \"Bring everyone.\": 2 paragraphs, 1 button, 2 photos, 3 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 8,
+            "file": "units/home-08-stats.html",
+            "images": [
+                "longtable",
+                "grains"
+            ],
+            "slots": 7,
+            "repeatable": 3,
+            "ksesStable": false
+        },
+        "home-09-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the home page, headed (H2) \"Pull up a chair.\": 2 paragraphs, 2 buttons.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 9,
+            "file": "units/home-09-cta.html",
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "menu-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the menu page, headed (H1) \"The menu\": 2 paragraphs, 2 drawn icons or graphics.",
+            "pageTypes": [
+                "menu"
+            ],
+            "sourcePage": "menu",
+            "position": 1,
+            "file": "units/menu-01-page-header.html",
+            "slots": 3,
+            "repeatable": 0,
+            "fixedText": [
+                "Oak · Applewood · Ash · Ember · Smoke · Salt · Time ·"
+            ],
+            "ksesStable": false
+        },
+        "menu-02-menu": {
+            "scope": "section",
+            "role": "menu",
+            "summary": "Menu section from the menu page: 8 repeatable items.",
+            "pageTypes": [
+                "menu"
+            ],
+            "sourcePage": "menu",
+            "position": 2,
+            "file": "units/menu-02-menu.html",
+            "slots": 9,
+            "repeatable": 8,
+            "ksesStable": true
+        },
+        "menu-03-menu": {
+            "scope": "section",
+            "role": "menu",
+            "summary": "Menu section from the menu page, headed (H2) \"Snacks\": 2 paragraphs, 1 photo, 8 repeatable items.",
+            "pageTypes": [
+                "menu"
+            ],
+            "sourcePage": "menu",
+            "position": 3,
+            "file": "units/menu-03-menu.html",
+            "images": [
+                "bread"
+            ],
+            "slots": 19,
+            "repeatable": 8,
+            "ksesStable": false
+        },
+        "menu-04-menu": {
+            "scope": "section",
+            "role": "menu",
+            "summary": "Menu section from the menu page, headed (H2) \"Small plates\": 2 paragraphs, 1 photo, 8 repeatable items.",
+            "pageTypes": [
+                "menu"
+            ],
+            "sourcePage": "menu",
+            "position": 4,
+            "file": "units/menu-04-menu.html",
+            "images": [
+                "octopus"
+            ],
+            "slots": 19,
+            "repeatable": 8,
+            "ksesStable": false
+        },
+        "menu-05-menu": {
+            "scope": "section",
+            "role": "menu",
+            "summary": "Menu section from the menu page, headed (H2) \"From the fire\": 3 paragraphs, 1 photo, 10 repeatable items.",
+            "pageTypes": [
+                "menu"
+            ],
+            "sourcePage": "menu",
+            "position": 5,
+            "file": "units/menu-05-menu.html",
+            "images": [
+                "ribs"
+            ],
+            "slots": 20,
+            "repeatable": 10,
+            "ksesStable": false
+        },
+        "menu-06-menu": {
+            "scope": "section",
+            "role": "menu",
+            "summary": "Menu section from the menu page, headed (H2) \"Sides\": 2 paragraphs, 4 repeatable items.",
+            "pageTypes": [
+                "menu"
+            ],
+            "sourcePage": "menu",
+            "position": 6,
+            "file": "units/menu-06-menu.html",
+            "slots": 11,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "menu-07-pricing": {
+            "scope": "section",
+            "role": "pricing",
+            "summary": "Pricing section from the menu page, headed (H2) \"The Long Fire\": 2 paragraphs, 1 button, 1 photo, 2 drawn icons or graphics, 9 repeatable items.",
+            "pageTypes": [
+                "menu"
+            ],
+            "sourcePage": "menu",
+            "position": 7,
+            "file": "units/menu-07-pricing.html",
+            "images": [
+                "sauce"
+            ],
+            "slots": 13,
+            "repeatable": 9,
+            "fixedText": [
+                "Seven courses · One fire · Whole table · Tue to Sat ·"
+            ],
+            "ksesStable": false
+        },
+        "menu-08-menu": {
+            "scope": "section",
+            "role": "menu",
+            "summary": "Menu section from the menu page, headed (H2) \"Sweet\": 2 paragraphs, 1 photo, 6 repeatable items.",
+            "pageTypes": [
+                "menu"
+            ],
+            "sourcePage": "menu",
+            "position": 8,
+            "file": "units/menu-08-menu.html",
+            "images": [
+                "cheesecake"
+            ],
+            "slots": 15,
+            "repeatable": 6,
+            "ksesStable": false
+        },
+        "menu-09-menu": {
+            "scope": "section",
+            "role": "menu",
+            "summary": "Menu section from the menu page, headed (H2) \"Drinks\": 5 headings, 2 paragraphs, 1 photo, 20 repeatable items.",
+            "pageTypes": [
+                "menu"
+            ],
+            "sourcePage": "menu",
+            "position": 9,
+            "file": "units/menu-09-menu.html",
+            "images": [
+                "negroni"
+            ],
+            "slots": 40,
+            "repeatable": 20,
+            "ksesStable": false
+        },
+        "menu-10-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the menu page, headed (H2) \"Hungry yet?\": 2 paragraphs, 2 buttons.",
+            "pageTypes": [
+                "menu",
+                "any"
+            ],
+            "sourcePage": "menu",
+            "position": 10,
+            "file": "units/menu-10-cta.html",
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "story-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the story page, headed (H1) \"A fire, a quay and eleven tables.\": 2 paragraphs, 1 photo, 4 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "story",
+            "position": 1,
+            "file": "units/story-01-page-header.html",
+            "images": [
+                "hearth"
+            ],
+            "slots": 7,
+            "repeatable": 4,
+            "ksesStable": false
+        },
+        "story-02-content": {
+            "scope": "section",
+            "role": "content",
+            "summary": "Content section from the story page, headed (H2) \"It started with a borrowed grill.\": 7 paragraphs, 1 photo, 4 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "story",
+            "position": 2,
+            "file": "units/story-02-content.html",
+            "images": [
+                "flatbread"
+            ],
+            "slots": 8,
+            "repeatable": 4,
+            "ksesStable": false
+        },
+        "story-03-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the story page, headed (H2) \"Inés Carvalho\": 2 paragraphs, 1 photo, 2 drawn icons or graphics, 5 repeatable items.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "story",
+            "position": 3,
+            "file": "units/story-03-process.html",
+            "images": [
+                "plating"
+            ],
+            "slots": 8,
+            "repeatable": 5,
+            "fixedText": [
+                "Flame · Ember · Ash · Three heats · One hearth ·"
+            ],
+            "ksesStable": false
+        },
+        "story-04-team": {
+            "scope": "section",
+            "role": "team",
+            "summary": "Team section from the story page, headed (H2) \"The people who feed the fire.\": 2 paragraphs, 2 photos, 8 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "story",
+            "position": 4,
+            "file": "units/story-04-team.html",
+            "images": [
+                "tomatoes",
+                "bread"
+            ],
+            "slots": 9,
+            "repeatable": 8,
+            "ksesStable": false
+        },
+        "story-05-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the story page, headed (H2) \"How we work\": 4 headings, 7 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "story",
+            "position": 5,
+            "file": "units/story-05-process.html",
+            "slots": 11,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "story-06-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the story page, headed (H2) \"Come and see.\": 2 paragraphs, 2 buttons.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "story",
+            "position": 6,
+            "file": "units/story-06-cta.html",
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "private-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the private dining & events page, headed (H1) \"Your table, our fire.\": 2 paragraphs, 2 buttons, 1 photo, 2 drawn icons or graphics.",
+            "pageTypes": [
+                "events"
+            ],
+            "sourcePage": "private",
+            "position": 1,
+            "file": "units/private-01-page-header.html",
+            "images": [
+                "longtable"
+            ],
+            "slots": 7,
+            "repeatable": 0,
+            "fixedText": [
+                "From 8 to 70 guests · Feasts from £65 · Enquire ·"
+            ],
+            "ksesStable": false
+        },
+        "private-02-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the private dining & events page, headed (H2) \"Three ways to gather\": 4 headings, 5 paragraphs, 3 photos, 12 repeatable items.",
+            "pageTypes": [
+                "events"
+            ],
+            "sourcePage": "private",
+            "position": 2,
+            "file": "units/private-02-services.html",
+            "images": [
+                "room",
+                "room-warm",
+                "sharing"
+            ],
+            "slots": 21,
+            "repeatable": 12,
+            "ksesStable": false
+        },
+        "private-03-stats": {
+            "scope": "section",
+            "role": "stats",
+            "summary": "Stats section from the private dining & events page, headed (H2) \"Everything in the middle.\": 6 headings, 2 paragraphs, 1 button, 23 repeatable items.",
+            "pageTypes": [
+                "events",
+                "any"
+            ],
+            "sourcePage": "private",
+            "position": 3,
+            "file": "units/private-03-stats.html",
+            "slots": 26,
+            "repeatable": 23,
+            "ksesStable": true
+        },
+        "private-04-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the private dining & events page, headed (H2) \"Four steps, no spreadsheets.\": 5 headings, 6 paragraphs, 4 repeatable items.",
+            "pageTypes": [
+                "events",
+                "any"
+            ],
+            "sourcePage": "private",
+            "position": 4,
+            "file": "units/private-04-process.html",
+            "slots": 11,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "private-05-stats": {
+            "scope": "section",
+            "role": "stats",
+            "summary": "Stats section from the private dining & events page, headed (H2) \"Suppers &amp; wine nights\": 2 paragraphs, 1 button, 2 photos, 3 repeatable items.",
+            "pageTypes": [
+                "events",
+                "any"
+            ],
+            "sourcePage": "private",
+            "position": 5,
+            "file": "units/private-05-stats.html",
+            "images": [
+                "wine",
+                "cheesecake"
+            ],
+            "slots": 7,
+            "repeatable": 3,
+            "ksesStable": false
+        },
+        "private-06-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the private dining & events page, headed (H2) \"Let’s plan it.\": 2 paragraphs, 2 buttons.",
+            "pageTypes": [
+                "events",
+                "any"
+            ],
+            "sourcePage": "private",
+            "position": 6,
+            "file": "units/private-06-cta.html",
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "reservations-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the reservations page, headed (H1) \"Book a table\": 2 paragraphs, 1 photo, 39 repeatable items.",
+            "pageTypes": [
+                "contact"
+            ],
+            "sourcePage": "reservations",
+            "position": 1,
+            "file": "units/reservations-01-page-header.html",
+            "images": [
+                "room-warm"
+            ],
+            "slots": 71,
+            "repeatable": 39,
+            "needs": [
+                "form"
+            ],
+            "ksesStable": false
+        },
+        "reservations-02-content": {
+            "scope": "section",
+            "role": "content",
+            "summary": "Content section from the reservations page, headed (H2) \"Follow the woodsmoke.\": 4 headings, 8 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "contact"
+            ],
+            "sourcePage": "reservations",
+            "position": 2,
+            "file": "units/reservations-02-content.html",
+            "slots": 12,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "reservations-03-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ from the reservations page, headed (H2) \"House rules, gently.\": 8 paragraphs, 6 questions, 6 repeatable items.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "reservations",
+            "position": 3,
+            "file": "units/reservations-03-faq.html",
+            "slots": 15,
+            "repeatable": 6,
+            "ksesStable": true
+        },
+        "reservations-04-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the reservations page, headed (H2) \"See you soon.\": 2 paragraphs, 2 buttons.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "reservations",
+            "position": 4,
+            "file": "units/reservations-04-cta.html",
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "header": {
+            "scope": "header",
+            "role": "header",
+            "summary": "Header template part.",
+            "file": "units/header.html",
+            "slots": 3,
+            "ksesStable": false
+        },
+        "footer": {
+            "scope": "footer",
+            "role": "footer",
+            "summary": "Footer template part.",
+            "file": "units/footer.html",
+            "slots": 12,
+            "ksesStable": true
+        }
+    },
+    "assets": {
+        "bread": {
+            "file": "images/bread.jpg",
+            "alt": "Hands tearing a dark sourdough loaf",
+            "title": "Wessex rye",
+            "width": 1400,
+            "height": 2098
+        },
+        "cheesecake": {
+            "file": "images/cheesecake.jpg",
+            "alt": "A slice of burnt Basque cheesecake",
+            "title": "Burnt cheesecake",
+            "width": 1400,
+            "height": 2100
+        },
+        "flame": {
+            "file": "images/flame.jpg",
+            "alt": "A pan flaring over the coals",
+            "title": "Second service",
+            "width": 1400,
+            "height": 1750
+        },
+        "flatbread": {
+            "file": "images/flatbread.jpg",
+            "alt": "Flatbreads baking beside the fire",
+            "title": "Hearth flatbreads",
+            "width": 1600,
+            "height": 1067
+        },
+        "grains": {
+            "file": "images/grains.jpg",
+            "alt": "A cook dressing a bowl of grains with herb oil",
+            "title": "Finishing touch",
+            "width": 1400,
+            "height": 2100
+        },
+        "hearth": {
+            "file": "images/hearth.jpg",
+            "alt": "Oak logs burning in the hearth",
+            "title": "The hearth",
+            "width": 1600,
+            "height": 1067
+        },
+        "lamb": {
+            "file": "images/lamb.jpg",
+            "alt": "Lamb rump, sliced pink, with a glossy sauce",
+            "title": "Lamb rump",
+            "width": 1600,
+            "height": 2000
+        },
+        "longtable": {
+            "file": "images/longtable.jpg",
+            "alt": "A long candlelit table set for dinner",
+            "title": "The long table",
+            "width": 1600,
+            "height": 1067
+        },
+        "negroni": {
+            "file": "images/negroni.jpg",
+            "alt": "A red Negroni with orange peel",
+            "title": "Lumbre Negroni",
+            "width": 1200,
+            "height": 2133
+        },
+        "octopus": {
+            "file": "images/octopus.jpg",
+            "alt": "Grilled octopus tentacle with dressed leaves",
+            "title": "Octopus, dressed leaves",
+            "width": 1400,
+            "height": 2488
+        },
+        "octopus-pan": {
+            "file": "images/octopus-pan.jpg",
+            "alt": "Ember-roast octopus with crushed potatoes in a steel pan",
+            "title": "Ember-roast octopus",
+            "width": 1600,
+            "height": 1067
+        },
+        "plating": {
+            "file": "images/plating.jpg",
+            "alt": "A chef finishing a plate with tweezers",
+            "title": "At the pass",
+            "width": 1400,
+            "height": 1908
+        },
+        "ribs": {
+            "file": "images/ribs.jpg",
+            "alt": "Aged rib on the bone in a cast-iron pan",
+            "title": "Hereford rib",
+            "width": 1600,
+            "height": 1068
+        },
+        "room": {
+            "file": "images/room.jpg",
+            "alt": "Corner table under a woven pendant lamp",
+            "title": "Table nine",
+            "width": 1400,
+            "height": 2100
+        },
+        "room-warm": {
+            "file": "images/room-warm.jpg",
+            "alt": "Low-lit dining room with candlelit tables",
+            "title": "The dining room",
+            "width": 1400,
+            "height": 2100
+        },
+        "sauce": {
+            "file": "images/sauce.jpg",
+            "alt": "Sauce spooned over duck on a white plate",
+            "title": "The Long Fire",
+            "width": 1600,
+            "height": 1600
+        },
+        "sharing": {
+            "file": "images/sharing.jpg",
+            "alt": "Friends sharing bread, olives and wine",
+            "title": "The long lunch",
+            "width": 1600,
+            "height": 1067
+        },
+        "tomatoes": {
+            "file": "images/tomatoes.jpg",
+            "alt": "Heirloom tomatoes on a wooden table",
+            "title": "Hollow Oak tomatoes",
+            "width": 1400,
+            "height": 1750
+        },
+        "wine": {
+            "file": "images/wine.jpg",
+            "alt": "Red wine poured into a glass",
+            "title": "Garnacha",
+            "width": 1400,
+            "height": 2100
+        }
+    },
+    "source": {
+        "dir": "seed/sites/restaurant",
+        "hash": "292a35c99eeeec0346a5c703bcc3c067"
+    }
+}

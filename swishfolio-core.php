@@ -3,14 +3,14 @@
  * Plugin Name: Swishfolio Core
  * Plugin URI: https://swishfolio.com
  * Description: Core functionality for Swishfolio theme - custom blocks, post types, and taxonomies for building stunning portfolios.
- * Version: 1.0.3
+ * Version: 1.3.0
  * Author: Swishfolio
  * Author URI: https://swishfolio.com
  * License: GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: swishfolio-core
  * Domain Path: /languages
- * Requires at least: 6.4
+ * Requires at least: 6.7
  * Requires PHP: 7.4
  *
  * @package SwishfolioCore
@@ -24,7 +24,7 @@ if (! defined('ABSPATH')) {
 }
 
 // Plugin constants.
-define('SFCORE_VERSION', '1.0.3');
+define('SFCORE_VERSION', '1.3.0');
 define('SFCORE_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('SFCORE_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('SFCORE_PLUGIN_FILE', __FILE__);
@@ -62,9 +62,18 @@ add_action('plugins_loaded', function () {
 register_activation_hook(__FILE__, function () {
     // Flush rewrite rules on activation.
     flush_rewrite_rules();
+
+    // The AI journal table. Plugin::boot() also installs it on admin_init,
+    // because an update from a version without the table never runs this.
+    Plugin::installJournalTable();
+    Plugin::scheduleJournalPrune();
 });
 
 // Deactivation hook.
 register_deactivation_hook(__FILE__, function () {
     flush_rewrite_rules();
+
+    // The table and its rows stay: deactivation is not deletion, and an owner
+    // who reactivates should still be able to undo what the AI did.
+    wp_clear_scheduled_hook(\SwishfolioCore\Admin\AuditLogPage::PRUNE_HOOK);
 });

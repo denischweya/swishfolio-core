@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "tier": "full",
+  "purpose": "cv",
+  "summary": "CV or resume timeline of rows.",
+  "capabilities": {
+    "style": {
+      "accentColor": {
+        "type": "token",
+        "tokenSet": "color"
+      },
+      "titleColor": {
+        "type": "token",
+        "tokenSet": "color"
+      }
+    }
+  },
+  "excluded": [
+    "rows"
+  ]
+}

@@ -1,0 +1,13 @@
+Read the CV or professional profile below and reduce it to the structured profile described by the schema.
+
+Rules:
+
+1. Use only what the text actually says. Do not invent an employer, a date, a client, a qualification or a project. If the text does not support a field, leave it out.
+2. The summary is for an About section on their own website, so write it in their voice and in the first person, not as a third-party description.
+3. Services are what someone could hire them to do. Projects are specific pieces of work they did. If the text only supports one of those, return only that one.
+4. List under "missing" the things a good website for this person would need and this text does not give you — a portfolio image, a client testimonial, contact details, pricing. Be specific and short.
+5. Choose designStyle and copywritingTone from the allowed values based on their field and seniority, not on your own preference.
+
+Profile text:
+
+{{profile}}

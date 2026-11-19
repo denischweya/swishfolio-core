@@ -1,0 +1,586 @@
+{
+    "version": 2,
+    "slug": "studio",
+    "name": "Iridescent",
+    "title": "Creative Studio",
+    "industry": "creative",
+    "description": "A bright, airy WordPress template for creative, film and 3D studios, with iridescent gradient type, a showreel hero, a project rail and capabilities.",
+    "look": "Type: Funnel Display, Onest. Colours: White #FFFFFF, Ink #17112A, Violet #6E4FE0, Plum #231A3D, Rose #D93C8C, Mist #6B6480.",
+    "demo": {
+        "business": "Vesper Studio",
+        "tagline": "Film, 3D, campaigns, digital and spatial work · Mexico City & Copenhagen"
+    },
+    "design": {
+        "file": "design.json",
+        "variation": "Default",
+        "classPrefix": "cs-",
+        "fingerprint": ".cs-statement",
+        "palette": {
+            "base": "White #FFFFFF",
+            "contrast": "Ink #17112A",
+            "accent-1": "Violet #6E4FE0",
+            "accent-2": "Plum #231A3D",
+            "accent-3": "Rose #D93C8C",
+            "accent-4": "Mist #6B6480",
+            "accent-5": "Pearl #F5F2F9",
+            "accent-6": "Peach #EE7A4F"
+        },
+        "fonts": [
+            "Funnel Display",
+            "Onest"
+        ],
+        "pageTemplate": "page-landing",
+        "header": "header",
+        "footer": "footer",
+        "assetsPath": "assets/kits/studio"
+    },
+    "frontPage": "home",
+    "navigation": [
+        "work",
+        "capabilities",
+        "about",
+        "contact"
+    ],
+    "pages": [
+        {
+            "key": "home",
+            "title": "Home",
+            "slug": "home",
+            "navLabel": "Home",
+            "inNav": false,
+            "type": "home",
+            "template": "page-landing",
+            "sections": [
+                "home-01-hero",
+                "home-02-logos",
+                "home-03-intro",
+                "home-04-portfolio",
+                "home-05-services",
+                "home-06-process",
+                "home-07-testimonials",
+                "home-08-cta"
+            ]
+        },
+        {
+            "key": "work",
+            "title": "Work",
+            "slug": "work",
+            "navLabel": "Work",
+            "inNav": true,
+            "type": "work",
+            "template": "page-landing",
+            "sections": [
+                "work-01-page-header",
+                "work-02-portfolio",
+                "work-03-gallery",
+                "work-04-cta"
+            ]
+        },
+        {
+            "key": "capabilities",
+            "title": "Capabilities",
+            "slug": "capabilities",
+            "navLabel": "Capabilities",
+            "inNav": true,
+            "type": "services",
+            "template": "page-landing",
+            "sections": [
+                "capabilities-01-page-header",
+                "capabilities-02-gallery",
+                "capabilities-03-portfolio",
+                "capabilities-04-faq",
+                "capabilities-05-cta"
+            ]
+        },
+        {
+            "key": "about",
+            "title": "Studio",
+            "slug": "studio",
+            "navLabel": "Studio",
+            "inNav": true,
+            "type": "about",
+            "template": "page-landing",
+            "sections": [
+                "about-01-page-header",
+                "about-02-about",
+                "about-03-services",
+                "about-04-team",
+                "about-05-careers",
+                "about-06-about",
+                "about-07-cta"
+            ]
+        },
+        {
+            "key": "contact",
+            "title": "Contact",
+            "slug": "contact",
+            "navLabel": "Contact",
+            "inNav": true,
+            "type": "contact",
+            "template": "page-landing",
+            "sections": [
+                "contact-01-page-header",
+                "contact-02-about"
+            ]
+        }
+    ],
+    "units": {
+        "home-01-hero": {
+            "scope": "section",
+            "role": "hero",
+            "summary": "Home page hero from the home page, headed (H1) \"We make light tell stories.\": 1 paragraph, 2 buttons, 1 drawn icon or graphic, 5 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 1,
+            "file": "units/home-01-hero.html",
+            "slots": 13,
+            "repeatable": 5,
+            "ksesStable": false
+        },
+        "home-02-logos": {
+            "scope": "section",
+            "role": "logos",
+            "summary": "Logos section from the home page: 6 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 2,
+            "file": "units/home-02-logos.html",
+            "slots": 7,
+            "repeatable": 6,
+            "ksesStable": true
+        },
+        "home-03-intro": {
+            "scope": "section",
+            "role": "intro",
+            "summary": "Intro band from the home page: 2 paragraphs, 4 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 3,
+            "file": "units/home-03-intro.html",
+            "slots": 7,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "home-04-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the home page, headed (H2) \"Recent light, bent on purpose.\": 7 headings, 1 paragraph, 6 photos, 7 drawn icons or graphics, 6 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 4,
+            "file": "units/home-04-portfolio.html",
+            "images": [
+                "cover-tidal",
+                "cover-afterglow",
+                "cover-northbound",
+                "cover-smoke-atlas",
+                "cover-slow-light",
+                "cover-weather-room"
+            ],
+            "slots": 23,
+            "repeatable": 6,
+            "ksesStable": false
+        },
+        "home-05-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the home page, headed (H2) \"Five disciplines. One pipeline.\": 2 paragraphs, 5 drawn icons or graphics, 5 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 5,
+            "file": "units/home-05-services.html",
+            "slots": 23,
+            "repeatable": 5,
+            "ksesStable": false
+        },
+        "home-06-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the home page, headed (H2) \"From first spark to opening night.\": 5 headings, 2 paragraphs, 4 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 6,
+            "file": "units/home-06-process.html",
+            "slots": 19,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "home-07-testimonials": {
+            "scope": "section",
+            "role": "testimonials",
+            "summary": "Testimonials section from the home page: 1 paragraph, 6 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 7,
+            "file": "units/home-07-testimonials.html",
+            "slots": 10,
+            "repeatable": 6,
+            "ksesStable": true
+        },
+        "home-08-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the home page, headed (H2) \"Have something that should glow?\": 2 paragraphs, 1 drawn icon or graphic.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 8,
+            "file": "units/home-08-cta.html",
+            "slots": 6,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "work-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the work page, headed (H1) \"Selected work, 2019–2026.\": 2 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 1,
+            "file": "units/work-01-page-header.html",
+            "slots": 6,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "work-02-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the work page. Lists the site's portfolio projects.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 2,
+            "file": "units/work-02-portfolio.html",
+            "needs": [
+                "projects"
+            ],
+            "slots": 0,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "work-03-gallery": {
+            "scope": "section",
+            "role": "gallery",
+            "summary": "Gallery section from the work page, headed (H2) \"What we make when nobody asked.\": 2 paragraphs, 6 repeatable items.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 3,
+            "file": "units/work-03-gallery.html",
+            "slots": 9,
+            "repeatable": 6,
+            "ksesStable": true
+        },
+        "work-04-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the work page, headed (H2) \"Want to be in the next reel?\": 2 paragraphs, 1 drawn icon or graphic.",
+            "pageTypes": [
+                "work",
+                "any"
+            ],
+            "sourcePage": "work",
+            "position": 4,
+            "file": "units/work-04-cta.html",
+            "slots": 6,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "capabilities-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the capabilities page, headed (H1) \"Five disciplines, one pipeline.\": 2 paragraphs, 5 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "capabilities",
+            "position": 1,
+            "file": "units/capabilities-01-page-header.html",
+            "slots": 8,
+            "repeatable": 5,
+            "ksesStable": true
+        },
+        "capabilities-02-gallery": {
+            "scope": "section",
+            "role": "gallery",
+            "summary": "Gallery section from the capabilities page, headed (H2) \"Film &amp; motion\": 5 headings, 10 paragraphs, 5 photos, 5 drawn icons or graphics, 45 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "capabilities",
+            "position": 2,
+            "file": "units/capabilities-02-gallery.html",
+            "images": [
+                "cover-northbound",
+                "cover-afterglow",
+                "cover-smoke-atlas",
+                "cover-slow-light",
+                "cover-tidal"
+            ],
+            "slots": 70,
+            "repeatable": 45,
+            "ksesStable": false
+        },
+        "capabilities-03-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the capabilities page, headed (H2) \"Three shapes of project.\": 4 headings, 2 paragraphs, 3 drawn icons or graphics, 8 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "capabilities",
+            "position": 3,
+            "file": "units/capabilities-03-portfolio.html",
+            "slots": 28,
+            "repeatable": 8,
+            "ksesStable": false
+        },
+        "capabilities-04-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ from the capabilities page, headed (H2) \"Good to know.\": 7 paragraphs, 5 questions, 5 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "capabilities",
+            "position": 4,
+            "file": "units/capabilities-04-faq.html",
+            "slots": 13,
+            "repeatable": 5,
+            "ksesStable": true
+        },
+        "capabilities-05-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the capabilities page, headed (H2) \"Not sure which discipline you need?\": 2 paragraphs, 1 drawn icon or graphic.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "capabilities",
+            "position": 5,
+            "file": "units/capabilities-05-cta.html",
+            "slots": 6,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "about-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the studio page, headed (H1) \"One studio, two cities, seven hours apart.\": 1 paragraph, 2 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 1,
+            "file": "units/about-01-page-header.html",
+            "slots": 5,
+            "repeatable": 2,
+            "ksesStable": true
+        },
+        "about-02-about": {
+            "scope": "section",
+            "role": "about",
+            "summary": "About section from the studio page: 3 paragraphs, 7 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 2,
+            "file": "units/about-02-about.html",
+            "slots": 13,
+            "repeatable": 7,
+            "ksesStable": true
+        },
+        "about-03-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the studio page, headed (H2) \"What a week looks like.\": 2 paragraphs.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 3,
+            "file": "units/about-03-services.html",
+            "slots": 12,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "about-04-team": {
+            "scope": "section",
+            "role": "team",
+            "summary": "Team section from the studio page, headed (H2) \"The people you will meet.\": 9 headings, 2 paragraphs, 8 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 4,
+            "file": "units/about-04-team.html",
+            "slots": 35,
+            "repeatable": 8,
+            "ksesStable": true
+        },
+        "about-05-careers": {
+            "scope": "section",
+            "role": "careers",
+            "summary": "Careers section from the studio page, headed (H2) \"Come and make with us.\": 2 paragraphs, 4 drawn icons or graphics, 4 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 5,
+            "file": "units/about-05-careers.html",
+            "slots": 15,
+            "repeatable": 4,
+            "ksesStable": false
+        },
+        "about-06-about": {
+            "scope": "section",
+            "role": "about",
+            "summary": "About section from the studio page, headed (H2) \"Two studios, one door.\": 3 headings, 2 paragraphs.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 6,
+            "file": "units/about-06-about.html",
+            "slots": 11,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "about-07-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the studio page, headed (H2) \"Like the sound of us?\": 2 paragraphs, 1 drawn icon or graphic.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 7,
+            "file": "units/about-07-cta.html",
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "contact-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the contact page, headed (H1) \"Tell us what should glow.\": 2 paragraphs, 1 drawn icon or graphic, 23 repeatable items. Has a demo form that does not send anything yet.",
+            "pageTypes": [
+                "contact"
+            ],
+            "sourcePage": "contact",
+            "position": 1,
+            "file": "units/contact-01-page-header.html",
+            "needs": [
+                "form"
+            ],
+            "slots": 38,
+            "repeatable": 23,
+            "ksesStable": false
+        },
+        "contact-02-about": {
+            "scope": "section",
+            "role": "about",
+            "summary": "About section from the contact page, headed (H2) \"Come and see us.\": 3 headings, 2 paragraphs.",
+            "pageTypes": [
+                "contact"
+            ],
+            "sourcePage": "contact",
+            "position": 2,
+            "file": "units/contact-02-about.html",
+            "slots": 11,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "header": {
+            "scope": "header",
+            "role": "header",
+            "summary": "Header template part.",
+            "file": "units/header.html",
+            "slots": 3,
+            "ksesStable": false
+        },
+        "footer": {
+            "scope": "footer",
+            "role": "footer",
+            "summary": "Footer template part.",
+            "file": "units/footer.html",
+            "slots": 16,
+            "ksesStable": false
+        }
+    },
+    "assets": {
+        "cover-afterglow": {
+            "file": "images/cover-afterglow.jpg",
+            "alt": "Afterglow, A product film where sound becomes glass.",
+            "title": "Afterglow cover",
+            "width": 1600,
+            "height": 1200
+        },
+        "cover-northbound": {
+            "file": "images/cover-northbound.jpg",
+            "alt": "Northbound, A night train, an aurora and nine hours of quiet.",
+            "title": "Northbound cover",
+            "width": 1600,
+            "height": 1200
+        },
+        "cover-slow-light": {
+            "file": "images/cover-slow-light.jpg",
+            "alt": "Slow Light, A web ritual that times your tea with your breath.",
+            "title": "Slow Light cover",
+            "width": 1600,
+            "height": 1200
+        },
+        "cover-smoke-atlas": {
+            "file": "images/cover-smoke-atlas.jpg",
+            "alt": "Smoke Atlas, Seven villages, seven smokes, one golden agave.",
+            "title": "Smoke Atlas cover",
+            "width": 1600,
+            "height": 1200
+        },
+        "cover-tidal": {
+            "file": "images/cover-tidal.jpg",
+            "alt": "Tidal, A lobby that breathes with the Pacific tide.",
+            "title": "Tidal cover",
+            "width": 1600,
+            "height": 1200
+        },
+        "cover-weather-room": {
+            "file": "images/cover-weather-room.jpg",
+            "alt": "Weather Room, An interactive room where visitors become the weather.",
+            "title": "Weather Room cover",
+            "width": 1600,
+            "height": 1200
+        }
+    },
+    "source": {
+        "dir": "seed/sites/studio",
+        "hash": "826bdb6b461d7dbb1f8559b035e3ea34"
+    }
+}

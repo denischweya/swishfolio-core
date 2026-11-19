@@ -1,0 +1,610 @@
+{
+    "version": 2,
+    "slug": "coaching",
+    "name": "Quiet Practice",
+    "title": "Coaching",
+    "industry": "wellness",
+    "description": "A calm WordPress template for life, business and executive coaches, with programmes, testimonials and discovery-call booking.",
+    "look": "Type: Literata, Geist, Manrope, JetBrains Mono. Colours: Warm cream #FBF7F1, Warm near-black #241F1B, Sage #5C7C64, Sand #F1E7DA, Terracotta #C2724A, Muted #7A736A.",
+    "demo": {
+        "business": "Elena Marsh",
+        "tagline": "Leadership coach & business consultant"
+    },
+    "design": {
+        "file": "design.json",
+        "variation": "Sasha",
+        "classPrefix": "sf-",
+        "fingerprint": "",
+        "palette": {
+            "base": "Warm cream #FBF7F1",
+            "contrast": "Warm near-black #241F1B",
+            "accent-1": "Sage #5C7C64",
+            "accent-2": "Sand #F1E7DA",
+            "accent-3": "Terracotta #C2724A",
+            "accent-4": "Muted #7A736A",
+            "accent-5": "White #FFFFFF",
+            "accent-6": "Deep green #2F3A32"
+        },
+        "fonts": [
+            "Literata",
+            "Geist",
+            "Manrope",
+            "JetBrains Mono"
+        ],
+        "pageTemplate": "page-landing",
+        "header": "header",
+        "footer": "footer",
+        "assetsPath": "assets/kits/coaching"
+    },
+    "frontPage": "home",
+    "navigation": [
+        "coaching",
+        "consulting",
+        "results",
+        "about",
+        "contact"
+    ],
+    "pages": [
+        {
+            "key": "home",
+            "title": "Home",
+            "slug": "home",
+            "navLabel": "Home",
+            "inNav": false,
+            "type": "home",
+            "template": "page-landing",
+            "sections": [
+                "home-01-hero",
+                "home-02-portfolio",
+                "home-03-stats",
+                "home-04-portfolio",
+                "home-05-contact",
+                "home-06-process",
+                "home-07-process"
+            ]
+        },
+        {
+            "key": "coaching",
+            "title": "Coaching",
+            "slug": "coaching",
+            "navLabel": "Coaching",
+            "inNav": true,
+            "type": "services",
+            "template": "page-landing",
+            "sections": [
+                "coaching-01-page-header",
+                "coaching-02-pricing",
+                "coaching-03-services",
+                "coaching-04-faq",
+                "coaching-05-cta"
+            ]
+        },
+        {
+            "key": "consulting",
+            "title": "Consulting",
+            "slug": "consulting",
+            "navLabel": "Consulting",
+            "inNav": true,
+            "type": "services",
+            "template": "page-landing",
+            "sections": [
+                "consulting-01-page-header",
+                "consulting-02-services",
+                "consulting-03-process",
+                "consulting-04-logos",
+                "consulting-05-services"
+            ]
+        },
+        {
+            "key": "results",
+            "title": "Results",
+            "slug": "results",
+            "navLabel": "Results",
+            "inNav": true,
+            "type": "work",
+            "template": "page-landing",
+            "sections": [
+                "results-01-page-header",
+                "results-02-portfolio",
+                "results-03-contact",
+                "results-04-services"
+            ]
+        },
+        {
+            "key": "about",
+            "title": "About",
+            "slug": "about",
+            "navLabel": "About",
+            "inNav": true,
+            "type": "about",
+            "template": "page-landing",
+            "sections": [
+                "about-01-page-header",
+                "about-02-credentials",
+                "about-03-pricing",
+                "about-04-services"
+            ]
+        },
+        {
+            "key": "contact",
+            "title": "Contact",
+            "slug": "contact",
+            "navLabel": "Contact",
+            "inNav": true,
+            "type": "contact",
+            "template": "page-landing",
+            "sections": [
+                "contact-01-page-header",
+                "contact-02-process",
+                "contact-03-process"
+            ]
+        }
+    ],
+    "units": {
+        "home-01-hero": {
+            "scope": "section",
+            "role": "hero",
+            "summary": "Home page hero from the home page, headed (H1) \"Lead with clarity, and take your team with you.\": 4 paragraphs, 1 button, 1 photo, 4 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 1,
+            "file": "units/home-01-hero.html",
+            "images": [
+                "portrait"
+            ],
+            "slots": 6,
+            "repeatable": 4,
+            "ksesStable": false
+        },
+        "home-02-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the home page, headed (H2) \"Three ways we can work together\": 4 headings, 11 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 2,
+            "file": "units/home-02-portfolio.html",
+            "slots": 15,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "home-03-stats": {
+            "scope": "section",
+            "role": "stats",
+            "summary": "Stats section from the home page: 9 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 3,
+            "file": "units/home-03-stats.html",
+            "slots": 9,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "home-04-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the home page, headed (H2) \"What changed for them\": 2 paragraphs. Lists the site's portfolio projects.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 4,
+            "file": "units/home-04-portfolio.html",
+            "needs": [
+                "projects"
+            ],
+            "slots": 3,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "home-05-contact": {
+            "scope": "section",
+            "role": "contact",
+            "summary": "Contact section from the home page: 5 paragraphs.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 5,
+            "file": "units/home-05-contact.html",
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "home-06-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the home page, headed (H2) \"Four steps, no surprises\": 5 headings, 9 paragraphs, 4 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 6,
+            "file": "units/home-06-process.html",
+            "slots": 14,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "home-07-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the home page, headed (H2) \"Ready for your next chapter?\": 3 paragraphs, 1 button, 2 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 7,
+            "file": "units/home-07-process.html",
+            "slots": 5,
+            "repeatable": 2,
+            "ksesStable": true
+        },
+        "coaching-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the coaching page, headed (H1) \"Become the leader your team already thinks you are.\": 2 paragraphs, 2 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "coaching",
+            "position": 1,
+            "file": "units/coaching-01-page-header.html",
+            "slots": 3,
+            "repeatable": 2,
+            "ksesStable": true
+        },
+        "coaching-02-pricing": {
+            "scope": "section",
+            "role": "pricing",
+            "summary": "Pricing section from the coaching page, headed (H2) \"Three ways in\": 4 headings, 13 paragraphs, 12 list items, 21 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "coaching",
+            "position": 2,
+            "file": "units/coaching-02-pricing.html",
+            "slots": 29,
+            "repeatable": 21,
+            "ksesStable": false
+        },
+        "coaching-03-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the coaching page, headed (H2) \"Who this is for\": 3 headings, 1 paragraph, 8 list items, 8 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "coaching",
+            "position": 3,
+            "file": "units/coaching-03-services.html",
+            "slots": 12,
+            "repeatable": 8,
+            "ksesStable": true
+        },
+        "coaching-04-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ from the coaching page, headed (H2) \"Things people ask me first\": 5 paragraphs, 4 questions, 4 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "coaching",
+            "position": 4,
+            "file": "units/coaching-04-faq.html",
+            "slots": 10,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "coaching-05-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the coaching page, headed (H2) \"The first conversation is free\": 2 paragraphs, 1 button.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "coaching",
+            "position": 5,
+            "file": "units/coaching-05-cta.html",
+            "slots": 4,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "consulting-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the consulting page, headed (H1) \"Practical work on the things that are actually slowing you down.\": 2 paragraphs, 2 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "consulting",
+            "position": 1,
+            "file": "units/consulting-01-page-header.html",
+            "slots": 3,
+            "repeatable": 2,
+            "ksesStable": true
+        },
+        "consulting-02-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the consulting page, headed (H2) \"Where I add the most\": 4 headings, 7 paragraphs, 9 list items, 12 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "consulting",
+            "position": 2,
+            "file": "units/consulting-02-services.html",
+            "slots": 20,
+            "repeatable": 12,
+            "ksesStable": true
+        },
+        "consulting-03-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the consulting page, headed (H2) \"Diagnose, design, deliver\": 4 headings, 8 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "consulting",
+            "position": 3,
+            "file": "units/consulting-03-process.html",
+            "slots": 12,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "consulting-04-logos": {
+            "scope": "section",
+            "role": "logos",
+            "summary": "Logos section from the consulting page, headed (H2) \"What clients have measured afterwards\": 10 paragraphs, 4 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "consulting",
+            "position": 4,
+            "file": "units/consulting-04-logos.html",
+            "slots": 11,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "consulting-05-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the consulting page, headed (H2) \"Tell me what's holding you back\": 3 paragraphs, 1 button, 2 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "consulting",
+            "position": 5,
+            "file": "units/consulting-05-services.html",
+            "slots": 5,
+            "repeatable": 2,
+            "ksesStable": true
+        },
+        "results-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the results page, headed (H1) \"What the work looked like, and what changed.\": 2 paragraphs, 2 repeatable items.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "results",
+            "position": 1,
+            "file": "units/results-01-page-header.html",
+            "slots": 3,
+            "repeatable": 2,
+            "ksesStable": true
+        },
+        "results-02-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the results page. Lists the site's portfolio projects.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "results",
+            "position": 2,
+            "file": "units/results-02-portfolio.html",
+            "needs": [
+                "projects"
+            ],
+            "slots": 0,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "results-03-contact": {
+            "scope": "section",
+            "role": "contact",
+            "summary": "Contact section from the results page: 4 paragraphs, 2 repeatable items.",
+            "pageTypes": [
+                "work",
+                "any"
+            ],
+            "sourcePage": "results",
+            "position": 3,
+            "file": "units/results-03-contact.html",
+            "slots": 4,
+            "repeatable": 2,
+            "ksesStable": true
+        },
+        "results-04-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the results page, headed (H2) \"What would you like to be different in a year?\": 3 paragraphs, 1 button, 2 repeatable items.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "results",
+            "position": 4,
+            "file": "units/results-04-services.html",
+            "slots": 5,
+            "repeatable": 2,
+            "ksesStable": true
+        },
+        "about-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the about page, headed (H1) \"I ran the job before I started coaching people who do it.\": 6 paragraphs, 1 photo, 4 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 1,
+            "file": "units/about-01-page-header.html",
+            "images": [
+                "portrait"
+            ],
+            "slots": 7,
+            "repeatable": 4,
+            "ksesStable": false
+        },
+        "about-02-credentials": {
+            "scope": "section",
+            "role": "credentials",
+            "summary": "Credentials section from the about page, headed (H2) \"Trained, supervised, insured\": 2 paragraphs, 6 list items, 6 repeatable items.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 2,
+            "file": "units/about-02-credentials.html",
+            "slots": 9,
+            "repeatable": 6,
+            "ksesStable": false
+        },
+        "about-03-pricing": {
+            "scope": "section",
+            "role": "pricing",
+            "summary": "Pricing section from the about page, headed (H3) \"Kindness and candour are the same thing\": 3 headings, 5 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 3,
+            "file": "units/about-03-pricing.html",
+            "slots": 8,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "about-04-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the about page, headed (H2) \"Sea swimming, slow bread, one opinionated spaniel\": 2 headings, 4 paragraphs, 1 button, 1 photo, 2 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 4,
+            "file": "units/about-04-services.html",
+            "images": [
+                "detail"
+            ],
+            "slots": 7,
+            "repeatable": 2,
+            "ksesStable": false
+        },
+        "contact-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the contact page, headed (H1) \"Let's start with half an hour.\": 2 paragraphs, 1 button, 1 photo, 2 repeatable items.",
+            "pageTypes": [
+                "contact"
+            ],
+            "sourcePage": "contact",
+            "position": 1,
+            "file": "units/contact-01-page-header.html",
+            "images": [
+                "calm"
+            ],
+            "slots": 4,
+            "repeatable": 2,
+            "ksesStable": false
+        },
+        "contact-02-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the contact page, headed (H2) \"What actually happens on it\": 4 headings, 7 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "contact",
+            "position": 2,
+            "file": "units/contact-02-process.html",
+            "slots": 11,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "contact-03-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the contact page: 8 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "contact",
+            "position": 3,
+            "file": "units/contact-03-process.html",
+            "slots": 8,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "header": {
+            "scope": "header",
+            "role": "header",
+            "summary": "Header template part.",
+            "file": "units/header.html",
+            "slots": 2,
+            "ksesStable": true
+        },
+        "footer": {
+            "scope": "footer",
+            "role": "footer",
+            "summary": "Footer template part.",
+            "file": "units/footer.html",
+            "slots": 11,
+            "ksesStable": false
+        }
+    },
+    "assets": {
+        "calm": {
+            "file": "images/calm.jpg",
+            "alt": "Warm abstract wash in cream, sage and clay",
+            "title": "Quiet room",
+            "width": 1600,
+            "height": 1100
+        },
+        "detail": {
+            "file": "images/detail.jpg",
+            "alt": "Close abstract wash in sand and deep green",
+            "title": "Detail",
+            "width": 1200,
+            "height": 1200
+        },
+        "portrait": {
+            "file": "images/portrait.jpg",
+            "alt": "Soft organic wash in sage and sand tones",
+            "title": "Elena Marsh",
+            "width": 1200,
+            "height": 1500
+        }
+    },
+    "source": {
+        "dir": "seed/sites/coaching",
+        "hash": "e91fab90f22594f119a93396c87857d2"
+    }
+}

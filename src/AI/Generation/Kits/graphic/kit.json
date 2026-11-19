@@ -1,0 +1,624 @@
+{
+    "version": 2,
+    "slug": "graphic",
+    "name": "Bold Identity",
+    "title": "Graphic Designer Portfolio",
+    "industry": "creative",
+    "description": "A bold WordPress portfolio template for graphic designers and brand studios, with case studies, service packages and a project brief form.",
+    "look": "Type: Syne, DM Sans, Instrument Serif. Colours: Paper #F3EEE4, Ink #141414, Cobalt #2B3DFF, Paper shade #E8E1D3, Tangerine #FF6A2B, Graphite #5C574E.",
+    "demo": {
+        "business": "Oddform Studio",
+        "tagline": "Independent graphic design: identity, packaging, print and type"
+    },
+    "design": {
+        "file": "design.json",
+        "variation": "Default",
+        "classPrefix": "od-",
+        "fingerprint": ".od-statement",
+        "palette": {
+            "base": "Paper #F3EEE4",
+            "contrast": "Ink #141414",
+            "accent-1": "Cobalt #2B3DFF",
+            "accent-2": "Paper shade #E8E1D3",
+            "accent-3": "Tangerine #FF6A2B",
+            "accent-4": "Graphite #5C574E",
+            "accent-5": "White #FFFFFF",
+            "accent-6": "Deep cobalt #1A28C9"
+        },
+        "fonts": [
+            "Syne",
+            "DM Sans",
+            "Instrument Serif"
+        ],
+        "pageTemplate": "page-landing",
+        "header": "header",
+        "footer": "footer",
+        "assetsPath": "assets/kits/graphic"
+    },
+    "frontPage": "home",
+    "navigation": [
+        "work",
+        "services",
+        "about",
+        "contact"
+    ],
+    "pages": [
+        {
+            "key": "home",
+            "title": "Home",
+            "slug": "home",
+            "navLabel": "Home",
+            "inNav": false,
+            "type": "home",
+            "template": "page-landing",
+            "sections": [
+                "home-01-hero",
+                "home-02-intro",
+                "home-03-portfolio",
+                "home-04-pricing",
+                "home-05-contact",
+                "home-06-process",
+                "home-07-testimonials",
+                "home-08-cta"
+            ]
+        },
+        {
+            "key": "work",
+            "title": "Work",
+            "slug": "work",
+            "navLabel": "Work",
+            "inNav": true,
+            "type": "work",
+            "template": "page-landing",
+            "sections": [
+                "work-01-page-header",
+                "work-02-portfolio",
+                "work-03-portfolio",
+                "work-04-logos",
+                "work-05-cta"
+            ]
+        },
+        {
+            "key": "services",
+            "title": "Services",
+            "slug": "services",
+            "navLabel": "Services",
+            "inNav": true,
+            "type": "services",
+            "template": "page-landing",
+            "sections": [
+                "services-01-page-header",
+                "services-02-pricing",
+                "services-03-pricing",
+                "services-04-process",
+                "services-05-faq",
+                "services-06-cta"
+            ]
+        },
+        {
+            "key": "about",
+            "title": "About",
+            "slug": "about",
+            "navLabel": "About",
+            "inNav": true,
+            "type": "about",
+            "template": "page-landing",
+            "sections": [
+                "about-01-page-header",
+                "about-02-process",
+                "about-03-features",
+                "about-04-about",
+                "about-05-cta"
+            ]
+        },
+        {
+            "key": "contact",
+            "title": "Contact",
+            "slug": "contact",
+            "navLabel": "Contact",
+            "inNav": true,
+            "type": "contact",
+            "template": "page-landing",
+            "sections": [
+                "contact-01-page-header",
+                "contact-02-process"
+            ]
+        }
+    ],
+    "units": {
+        "home-01-hero": {
+            "scope": "section",
+            "role": "hero",
+            "summary": "Home page hero from the home page, headed (H1) \"Brands with a point of view.\": 1 paragraph, 2 buttons, 4 photos, 2 drawn icons or graphics, 3 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 1,
+            "file": "units/home-01-hero.html",
+            "images": [
+                "cover-fjell",
+                "cover-kade",
+                "cover-halde",
+                "cover-maas"
+            ],
+            "slots": 14,
+            "repeatable": 3,
+            "fixedText": [
+                "BRAND ✺ PACKAGING ✺ PRINT ✺ TYPE ✺ POSTERS ✺"
+            ],
+            "ksesStable": false
+        },
+        "home-02-intro": {
+            "scope": "section",
+            "role": "intro",
+            "summary": "Intro band from the home page: 2 drawn icons or graphics.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 2,
+            "file": "units/home-02-intro.html",
+            "slots": 8,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "home-03-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the home page, headed (H2) \"Recent things I’m proud of.\": 1 paragraph, 6 photos, 7 drawn icons or graphics, 6 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 3,
+            "file": "units/home-03-portfolio.html",
+            "images": [
+                "cover-halde",
+                "cover-fjell",
+                "cover-paperwork",
+                "cover-kade",
+                "cover-maas",
+                "cover-verde"
+            ],
+            "slots": 15,
+            "repeatable": 6,
+            "ksesStable": false
+        },
+        "home-04-pricing": {
+            "scope": "section",
+            "role": "pricing",
+            "summary": "Pricing section from the home page, headed (H2) \"Five disciplines, one obsessive eye.\": 2 paragraphs, 6 drawn icons or graphics, 5 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 4,
+            "file": "units/home-04-pricing.html",
+            "slots": 24,
+            "repeatable": 5,
+            "ksesStable": false
+        },
+        "home-05-contact": {
+            "scope": "section",
+            "role": "contact",
+            "summary": "Contact section from the home page, headed (H2) \"Halde Koffie, taken apart.\": 2 paragraphs, 1 photo, 17 drawn icons or graphics, 6 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 5,
+            "file": "units/home-05-contact.html",
+            "images": [
+                "cover-halde"
+            ],
+            "slots": 20,
+            "repeatable": 6,
+            "ksesStable": false
+        },
+        "home-06-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the home page, headed (H2) \"Four steps, printed as posters.\": 5 headings, 2 paragraphs.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 6,
+            "file": "units/home-06-process.html",
+            "slots": 19,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "home-07-testimonials": {
+            "scope": "section",
+            "role": "testimonials",
+            "summary": "Testimonials section from the home page: 10 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 7,
+            "file": "units/home-07-testimonials.html",
+            "slots": 17,
+            "repeatable": 10,
+            "ksesStable": true
+        },
+        "home-08-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the home page, headed (H2) \"Got a brand that needs a face?\": 3 drawn icons or graphics.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 8,
+            "file": "units/home-08-cta.html",
+            "slots": 6,
+            "repeatable": 0,
+            "fixedText": [
+                "AVAILABLE FROM FEBRUARY 2027 ✺ SAY HOI ✺"
+            ],
+            "ksesStable": false
+        },
+        "work-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the work page, headed (H1) \"Work that gets picked up.\": 2 paragraphs.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 1,
+            "file": "units/work-01-page-header.html",
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "work-02-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the work page. Lists the site's portfolio projects.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 2,
+            "file": "units/work-02-portfolio.html",
+            "needs": [
+                "projects"
+            ],
+            "slots": 0,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "work-03-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the work page, headed (H2) \"A poster a week, for nobody.\": 2 paragraphs, 6 drawn icons or graphics, 6 repeatable items.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 3,
+            "file": "units/work-03-portfolio.html",
+            "slots": 9,
+            "repeatable": 6,
+            "fixedText": [
+                "Noordzee",
+                "Oddform · 2026",
+                "Zomer",
+                "Oddform · 2025",
+                "Nacht",
+                "Brug",
+                "Oddform · 2024",
+                "Lawaai",
+                "Getij",
+                "Oddform · 2023"
+            ],
+            "ksesStable": false
+        },
+        "work-04-logos": {
+            "scope": "section",
+            "role": "logos",
+            "summary": "Logos section from the work page, headed (H2) \"Nice things people said.\": 1 paragraph, 5 repeatable items.",
+            "pageTypes": [
+                "work",
+                "any"
+            ],
+            "sourcePage": "work",
+            "position": 4,
+            "file": "units/work-04-logos.html",
+            "slots": 7,
+            "repeatable": 5,
+            "ksesStable": true
+        },
+        "work-05-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the work page, headed (H2) \"Your project could be number 65.\": 3 drawn icons or graphics.",
+            "pageTypes": [
+                "work",
+                "any"
+            ],
+            "sourcePage": "work",
+            "position": 5,
+            "file": "units/work-05-cta.html",
+            "slots": 6,
+            "repeatable": 0,
+            "fixedText": [
+                "AVAILABLE FROM FEBRUARY 2027 ✺ SAY HOI ✺"
+            ],
+            "ksesStable": false
+        },
+        "services-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the services page, headed (H1) \"Clear scopes. Honest prices.\": 2 paragraphs, 2 drawn icons or graphics.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 1,
+            "file": "units/services-01-page-header.html",
+            "slots": 4,
+            "repeatable": 0,
+            "fixedText": [
+                "FIXED FEES ✺ NO SURPRISES ✺"
+            ],
+            "ksesStable": false
+        },
+        "services-02-pricing": {
+            "scope": "section",
+            "role": "pricing",
+            "summary": "Pricing section from the services page, headed (H3) \"Mark\": 3 headings, 19 drawn icons or graphics, 18 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 2,
+            "file": "units/services-02-pricing.html",
+            "slots": 32,
+            "repeatable": 18,
+            "ksesStable": false
+        },
+        "services-03-pricing": {
+            "scope": "section",
+            "role": "pricing",
+            "summary": "Pricing section from the services page, headed (H2) \"Or just the bit you need.\": 6 headings, 2 paragraphs, 5 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 3,
+            "file": "units/services-03-pricing.html",
+            "slots": 18,
+            "repeatable": 5,
+            "ksesStable": true
+        },
+        "services-04-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the services page, headed (H2) \"Ten weeks, start to launch.\": 2 paragraphs, 4 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 4,
+            "file": "units/services-04-process.html",
+            "slots": 10,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "services-05-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ from the services page, headed (H2) \"Before you ask.\": 6 paragraphs, 5 questions, 1 drawn icon or graphic, 5 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 5,
+            "file": "units/services-05-faq.html",
+            "slots": 13,
+            "repeatable": 5,
+            "ksesStable": false
+        },
+        "services-06-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the services page, headed (H2) \"Not sure which package fits?\": 3 drawn icons or graphics.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 6,
+            "file": "units/services-06-cta.html",
+            "slots": 6,
+            "repeatable": 0,
+            "fixedText": [
+                "AVAILABLE FROM FEBRUARY 2027 ✺ SAY HOI ✺"
+            ],
+            "ksesStable": false
+        },
+        "about-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the about page, headed (H1) \"Hoi! I’m Noor, and Oddform is my one-person studio.\": 3 paragraphs, 1 drawn icon or graphic, 5 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 1,
+            "file": "units/about-01-page-header.html",
+            "slots": 15,
+            "repeatable": 5,
+            "ksesStable": false
+        },
+        "about-02-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the about page, headed (H2) \"Eleven years in six lines.\": 1 paragraph, 6 repeatable items.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 2,
+            "file": "units/about-02-process.html",
+            "slots": 14,
+            "repeatable": 6,
+            "ksesStable": true
+        },
+        "about-03-features": {
+            "scope": "section",
+            "role": "features",
+            "summary": "Features section from the about page, headed (H2) \"Three things I won’t compromise on.\": 4 headings, 1 paragraph.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 3,
+            "file": "units/about-03-features.html",
+            "slots": 11,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "about-04-about": {
+            "scope": "section",
+            "role": "about",
+            "summary": "About section from the about page, headed (H2) \"Small studio, big bench.\": 5 headings, 2 paragraphs, 4 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 4,
+            "file": "units/about-04-about.html",
+            "slots": 19,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "about-05-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the about page, headed (H2) \"Want to work together?\": 3 drawn icons or graphics.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 5,
+            "file": "units/about-05-cta.html",
+            "slots": 6,
+            "repeatable": 0,
+            "fixedText": [
+                "AVAILABLE FROM FEBRUARY 2027 ✺ SAY HOI ✺"
+            ],
+            "ksesStable": false
+        },
+        "contact-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the contact page, headed (H1) \"Let’s make something odd.\": 2 paragraphs, 1 drawn icon or graphic, 24 repeatable items. Has a demo form that does not send anything yet.",
+            "pageTypes": [
+                "contact"
+            ],
+            "sourcePage": "contact",
+            "position": 1,
+            "file": "units/contact-01-page-header.html",
+            "needs": [
+                "form"
+            ],
+            "slots": 41,
+            "repeatable": 24,
+            "ksesStable": false
+        },
+        "contact-02-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the contact page, headed (H2) \"From first hello to kick&#8209;off in a week.\": 4 headings, 1 paragraph.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "contact",
+            "position": 2,
+            "file": "units/contact-02-process.html",
+            "slots": 11,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "header": {
+            "scope": "header",
+            "role": "header",
+            "summary": "Header template part.",
+            "file": "units/header.html",
+            "slots": 3,
+            "ksesStable": false
+        },
+        "footer": {
+            "scope": "footer",
+            "role": "footer",
+            "summary": "Footer template part.",
+            "file": "units/footer.html",
+            "slots": 18,
+            "ksesStable": false
+        }
+    },
+    "assets": {
+        "cover-fjell": {
+            "file": "images/cover-fjell.jpg",
+            "alt": "Fjell Outdoor Co., A calmer, warmer identity for a Norwegian-Dutch outdoor brand.",
+            "title": "Fjell Outdoor Co.",
+            "width": 1600,
+            "height": 1200
+        },
+        "cover-halde": {
+            "file": "images/cover-halde.jpg",
+            "alt": "Halde Koffie, A packaging system for a Rotterdam roaster that changes its beans every season.",
+            "title": "Halde Koffie",
+            "width": 1600,
+            "height": 1200
+        },
+        "cover-kade": {
+            "file": "images/cover-kade.jpg",
+            "alt": "Kade Biennale 2026, Poster and campaign identity for a summer of architecture on the water.",
+            "title": "Kade Biennale 2026",
+            "width": 1600,
+            "height": 1200
+        },
+        "cover-maas": {
+            "file": "images/cover-maas.jpg",
+            "alt": "Radio Maas, A custom typeface and lettering for a community radio station.",
+            "title": "Radio Maas",
+            "width": 1600,
+            "height": 1200
+        },
+        "cover-paperwork": {
+            "file": "images/cover-paperwork.jpg",
+            "alt": "Paperwork Quarterly, A 196-page quarterly about craft, printed in two colours.",
+            "title": "Paperwork Quarterly",
+            "width": 1600,
+            "height": 1200
+        },
+        "cover-verde": {
+            "file": "images/cover-verde.jpg",
+            "alt": "Verde Botanicals, Plastic-free packaging for a range of fourteen skincare products.",
+            "title": "Verde Botanicals",
+            "width": 1600,
+            "height": 1200
+        }
+    },
+    "source": {
+        "dir": "seed/sites/graphic",
+        "hash": "a232d3124f6b542be418bc186f612041"
+    }
+}

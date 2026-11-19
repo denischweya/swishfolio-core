@@ -1,0 +1,28 @@
+{
+    "phones": [
+        "(03) 9012 4471"
+    ],
+    "emails": [
+        "hello@voltastudio.example"
+    ],
+    "domains": [
+        "voltastudio.example"
+    ],
+    "addresses": [
+        "88 Wellington St, Collingwood",
+        "88 Wellington St, Collingwood VIC 3066",
+        "Tram 86 to Smith St · 2 min walk"
+    ],
+    "places": [
+        "Collingwood",
+        "Melbourne"
+    ],
+    "people": [
+        "Amara Osei",
+        "Jess Okoro",
+        "Leo Fischer",
+        "Marcus Hale",
+        "Priya Nair",
+        "Tomás Reyes"
+    ]
+}

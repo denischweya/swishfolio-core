@@ -1,0 +1,50 @@
+{
+  "name": "edit-number-out-of-range",
+  "track": "edit",
+  "why": "A hero taller than its maximum pushes everything below it off the first screen.",
+  "expectStage": "value",
+  "instruction": "Improve this section.",
+  "selection": {
+    "clientId": "hero-1",
+    "blockName": "swishfolio-core/hero",
+    "attributes": {
+      "heading": "Placeholder",
+      "headingSize": "large"
+    },
+    "postType": "page",
+    "styleVariation": "Default",
+    "siblings": [],
+    "innerBlocks": []
+  },
+  "blockTree": {
+    "hero-1": {
+      "name": "swishfolio-core/hero",
+      "attributes": {
+        "heading": "Placeholder",
+        "headingSize": "large"
+      },
+      "parentClientId": null
+    },
+    "spacer-1": {
+      "name": "core/spacer",
+      "attributes": {
+        "height": "80px"
+      },
+      "parentClientId": null
+    }
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "summary": "Adversarial fixture.",
+    "actions": [
+      {
+        "type": "update_block_attributes",
+        "clientId": "hero-1",
+        "changes": {
+          "minHeight": 4000
+        },
+        "reason": "Adversarial."
+      }
+    ]
+  }
+}

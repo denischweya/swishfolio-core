@@ -1,0 +1,31 @@
+<!-- wp:group {"tagName":"section","align":"full","className":"ba-sec ba-health","layout":{"type":"default"},"anchor":"health-check"} -->
+<section id="health-check" class="wp-block-group alignfull ba-sec ba-health">
+<!-- wp:group {"className":"ba-wrap ba-health__grid","layout":{"type":"default"}} -->
+<div class="wp-block-group ba-wrap ba-health__grid">
+<!-- wp:group {"className":"ba-health__text","layout":{"type":"default"}} -->
+<div class="wp-block-group ba-health__text">
+<!-- wp:paragraph {"className":"ba-eyebrow"} -->
+<p class="ba-eyebrow">Free health check</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"className":"ba-h2"} -->
+<h2 class="wp-block-heading ba-h2">Five honest questions. One useful number.</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"ba-lead ba-lead\u002d\u002dlight"} -->
+<p class="ba-lead ba-lead--light">This is the short version of the scorecard we use in every Clarity Sprint. Answer quickly. Your first instinct is usually right.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:html -->
+<p class="ba-health__note">The full check takes three minutes and comes with a call to talk through your score. No sales pitch, no obligation.</p>
+<!-- /wp:html -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:html -->
+<form class="ba-quiz" action="#" onsubmit="return false" data-ba-quiz><fieldset class="ba-quiz__q"><legend><span>1</span>Could you take two weeks off without checking your phone?</legend><div class="ba-quiz__opts"><label><input type="radio" name="q0" value="20"><b>Yes</b></label><label><input type="radio" name="q0" value="10"><b>Sort of</b></label><label><input type="radio" name="q0" value="0"><b>No</b></label></div></fieldset><fieldset class="ba-quiz__q"><legend><span>2</span>Do you know your margin by product or customer?</legend><div class="ba-quiz__opts"><label><input type="radio" name="q1" value="20"><b>Yes</b></label><label><input type="radio" name="q1" value="10"><b>Sort of</b></label><label><input type="radio" name="q1" value="0"><b>No</b></label></div></fieldset><fieldset class="ba-quiz__q"><legend><span>3</span>Does every manager have numbers they own each week?</legend><div class="ba-quiz__opts"><label><input type="radio" name="q2" value="20"><b>Yes</b></label><label><input type="radio" name="q2" value="10"><b>Sort of</b></label><label><input type="radio" name="q2" value="0"><b>No</b></label></div></fieldset><fieldset class="ba-quiz__q"><legend><span>4</span>Is there a written plan for the next three years?</legend><div class="ba-quiz__opts"><label><input type="radio" name="q3" value="20"><b>Yes</b></label><label><input type="radio" name="q3" value="10"><b>Sort of</b></label><label><input type="radio" name="q3" value="0"><b>No</b></label></div></fieldset><fieldset class="ba-quiz__q"><legend><span>5</span>Would the business sell for a good price without you in it?</legend><div class="ba-quiz__opts"><label><input type="radio" name="q4" value="20"><b>Yes</b></label><label><input type="radio" name="q4" value="10"><b>Sort of</b></label><label><input type="radio" name="q4" value="0"><b>No</b></label></div></fieldset><div class="ba-quiz__foot"><p class="ba-quiz__res" aria-live="polite"><span>Your score</span><b data-ba-score>?</b><em data-ba-msg>Answer all five to see where you stand.</em></p><a class="ba-quiz__btn" href="{{link:contact}}">Get the full check <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></form><script>(function(){var f=document.querySelector("[data-ba-quiz]");if(!f)return;f.addEventListener("change",function(){var t=0,n=0;f.querySelectorAll("input:checked").forEach(function(i){t+=+i.value;n++});var s=f.querySelector("[data-ba-score]"),m=f.querySelector("[data-ba-msg]");s.textContent=t;if(n<5){m.textContent=(5-n)+" to go…";return}m.textContent=t>=80?"Strong foundations, let’s talk about the next level.":t>=50?"Solid, with a couple of gaps worth fixing this year.":"The business leans on you heavily. Very fixable. Start with a Clarity Sprint."})})();</script>
+<!-- /wp:html -->
+</div>
+<!-- /wp:group -->
+</section>
+<!-- /wp:group -->

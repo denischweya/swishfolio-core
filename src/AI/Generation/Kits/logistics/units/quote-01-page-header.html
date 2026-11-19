@@ -1,0 +1,57 @@
+<!-- wp:group {"tagName":"section","align":"full","className":"lg-sec lg-quote","layout":{"type":"default"}} -->
+<section class="wp-block-group alignfull lg-sec lg-quote">
+<!-- wp:group {"className":"lg-wrap lg-quote__grid","layout":{"type":"default"}} -->
+<div class="wp-block-group lg-wrap lg-quote__grid">
+<!-- wp:group {"className":"lg-quote__text","layout":{"type":"default"}} -->
+<div class="wp-block-group lg-quote__text">
+<!-- wp:paragraph {"className":"lg-manifest"} -->
+<p class="lg-manifest">Get a quote · Response in 2 h</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":1,"className":"lg-h1 lg-h1\u002d\u002dpage"} -->
+<h1 class="wp-block-heading lg-h1 lg-h1--page">Tell us what is moving. We will price it today.</h1>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"lg-lead"} -->
+<p class="lg-lead">A freight specialist, not a robot, reads every request. You will get an all-in price, the transit time and the CO₂e estimate, valid for 14 days.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:html -->
+<ol class="lg-next"><li><span>01</span><div><b>Send the basics</b><em>Route, cargo and dates. Rough numbers are fine.</em></div></li><li><span>02</span><div><b>We price the options</b><em>Usually two: the fastest and the most economical.</em></div></li><li><span>03</span><div><b>Book with one reply</b><em>Accept by email and you get a Meridian reference immediately.</em></div></li></ol>
+<!-- /wp:html -->
+
+<!-- wp:html -->
+<div class="lg-quote__direct"><a href="tel:+31105550142"><svg class="lg-ic" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"><path d="M5 3.5h3.2l1.6 4.2-2.1 1.3a11 11 0 0 0 5.2 5.2l1.3-2.1 4.2 1.6v3.2a2 2 0 0 1-2.2 2C9.6 18.4 5.6 14.4 5 6.3"/></svg><span><em>Call a desk</em>+31 10 555 0142</span></a><a href="mailto:quotes@meridianfreight.example"><svg class="lg-ic" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"><rect x="2.5" y="5" width="19" height="14"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg><span><em>Email</em>quotes@meridianfreight.example</span></a></div>
+<!-- /wp:html -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:html -->
+<form class="lg-form" action="#" method="post" onsubmit="return false">
+<div class="lg-form__head"><p class="lg-mono">Quote request · Form Q-01</p><p class="lg-form__ref">Ref. auto-assigned</p></div>
+<fieldset><legend><span>01</span>Mode</legend><div class="lg-tiles">
+<label><input type="radio" name="mode" value="road" checked><span><svg class="lg-ic" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"><path d="M2.5 6.5h11.5v10H2.5zM14 9.5h4.3l3.2 3.6v3.4H14"/><circle cx="6.5" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg>Road</span></label><label><input type="radio" name="mode" value="ocean"><span><svg class="lg-ic" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"><path d="M3 15.5l1.8 4.5h14.4l1.8-4.5H3z"/><path d="M6 15.5V10h12v5.5M9 10V6.5h6V10M12 3.5v3"/></svg>Ocean</span></label>
+<label><input type="radio" name="mode" value="air"><span><svg class="lg-ic" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"><path d="M21 4.5 3 11l6.2 2.3L11.5 20l3.2-4.6L19 17z"/><path d="m9.2 13.3 6.2-4.8"/></svg>Air</span></label><label><input type="radio" name="mode" value="wh"><span><svg class="lg-ic" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"><path d="M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/></svg>Warehousing</span></label></div></fieldset>
+<fieldset><legend><span>02</span>Route</legend><div class="lg-form__row"><label>Origin<input id="q-from" type="text" placeholder="City or postcode, e.g. Venlo 5928"></label><label>Destination<input id="q-to" type="text" placeholder="City or postcode, e.g. Lyon 69007"></label></div>
+<div class="lg-form__row"><label>Ready to collect<input type="date"></label><label>Incoterm<select><option>Not sure</option><option>EXW</option><option>FCA</option><option>FOB</option><option>DAP</option><option>DDP</option></select></label></div></fieldset>
+<fieldset><legend><span>03</span>Cargo</legend><div class="lg-form__row lg-form__row--3"><label>Pallets / units<input type="number" min="1" placeholder="12"></label><label>Total weight (kg)<input id="q-kg" type="number" min="1" placeholder="8,400"></label><label>Cargo type<select><option>General</option><option>Temperature-controlled</option><option>Dangerous goods (ADR/IMDG)</option><option>High value</option><option>Oversized</option></select></label></div>
+<label>Anything we should know<textarea id="q-note" rows="3" placeholder="Tail-lift needed at delivery, booking reference required, weekly from January…"></textarea></label></fieldset>
+<fieldset><legend><span>04</span>Contact</legend><div class="lg-form__row"><label>Name<input type="text" autocomplete="name" placeholder="Jamie Verhoeven"></label><label>Work email<input type="email" autocomplete="email" placeholder="jamie@company.example"></label></div></fieldset>
+<div class="lg-form__foot"><button type="submit">Request my quote <svg class="lg-arr" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"><path d="M4.5 12h15M13.5 6l6 6-6 6"/></svg></button><p>Priced within 2 working hours. Demo form. Nothing is sent.</p></div>
+</form><script>
+(function(){
+var q=new URLSearchParams(location.search);if(!q.get('from'))return;
+var C={"RTM":"Rotterdam","ANR":"Antwerp","HAM":"Hamburg","FXT":"Felixstowe","VNO":"Venlo","MUC":"Munich","MIL":"Milan","LYS":"Lyon","WAW":"Warsaw","EWR":"Newark","ORD":"Chicago","SHA":"Shanghai","SIN":"Singapore","JNB":"Johannesburg"};
+var M={ftl:['road','Road FTL'],ltl:['road','Road LTL'],rail:['road','Rail'],fcl:['ocean','Ocean FCL'],lcl:['ocean','Ocean LCL'],air:['air','Air']};
+var f=C[q.get('from')],t=C[q.get('to')],m=M[q.get('mode')]||M.ltl,kg=parseInt(q.get('kg'),10);
+if(f)document.getElementById('q-from').value=f;if(t)document.getElementById('q-to').value=t;
+if(kg>0)document.getElementById('q-kg').value=kg;
+var r=document.querySelector('.lg-form input[name="mode"][value="'+m[0]+'"]');if(r)r.checked=true;
+document.getElementById('q-note').value='From the freight calculator: '+m[1]+(f?(t?', '+f+' to '+t:''):'')+(kg>0?', '+kg.toLocaleString('en-GB')+' kg':'')+'.';
+})();
+</script>
+<!-- /wp:html -->
+</div>
+<!-- /wp:group -->
+</section>
+<!-- /wp:group -->

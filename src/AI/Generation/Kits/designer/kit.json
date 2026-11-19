@@ -1,0 +1,425 @@
+{
+    "version": 2,
+    "slug": "designer",
+    "name": "Editorial Studio",
+    "title": "Designer Portfolio",
+    "industry": "creative",
+    "description": "An editorial WordPress portfolio template for designers and studios, with oversized type and a filterable work index.",
+    "look": "Colours: Paper #F2EFE9, Ink #111111, Electric #2B2BF5, Paper tint #E4DFD4, Signal #FF5A36, Muted #6C675E.",
+    "demo": {
+        "business": "Mara Lindqvist",
+        "tagline": "Independent brand and product designer, Stockholm"
+    },
+    "design": {
+        "file": "design.json",
+        "variation": "Swiss International",
+        "classPrefix": "sf-",
+        "fingerprint": "",
+        "palette": {
+            "base": "Paper #F2EFE9",
+            "contrast": "Ink #111111",
+            "accent-1": "Electric #2B2BF5",
+            "accent-2": "Paper tint #E4DFD4",
+            "accent-3": "Signal #FF5A36",
+            "accent-4": "Muted #6C675E",
+            "accent-5": "White #FFFFFF",
+            "accent-6": "Near black #0C0C0C"
+        },
+        "fonts": [],
+        "pageTemplate": "page-landing",
+        "header": "header",
+        "footer": "footer",
+        "assetsPath": "assets/kits/designer"
+    },
+    "frontPage": "home",
+    "navigation": [
+        "work",
+        "services",
+        "about",
+        "contact"
+    ],
+    "pages": [
+        {
+            "key": "home",
+            "title": "Index",
+            "slug": "home",
+            "navLabel": "Index",
+            "inNav": false,
+            "type": "home",
+            "template": "page-landing",
+            "sections": [
+                "home-01-hero",
+                "home-02-services",
+                "home-03-portfolio",
+                "home-04-stats",
+                "home-05-marquee",
+                "home-06-services"
+            ]
+        },
+        {
+            "key": "work",
+            "title": "Work",
+            "slug": "work",
+            "navLabel": "Work",
+            "inNav": true,
+            "type": "work",
+            "template": "page-landing",
+            "sections": [
+                "work-01-page-header",
+                "work-02-portfolio",
+                "work-03-cta"
+            ]
+        },
+        {
+            "key": "services",
+            "title": "Services",
+            "slug": "services",
+            "navLabel": "Services",
+            "inNav": true,
+            "type": "services",
+            "template": "page-landing",
+            "sections": [
+                "services-01-page-header",
+                "services-02-stats",
+                "services-03-process",
+                "services-04-faq"
+            ]
+        },
+        {
+            "key": "about",
+            "title": "About",
+            "slug": "about",
+            "navLabel": "About",
+            "inNav": true,
+            "type": "about",
+            "template": "page-landing",
+            "sections": [
+                "about-01-page-header",
+                "about-02-about",
+                "about-03-content"
+            ]
+        },
+        {
+            "key": "contact",
+            "title": "Contact",
+            "slug": "contact",
+            "navLabel": "Contact",
+            "inNav": true,
+            "type": "contact",
+            "template": "page-landing",
+            "sections": [
+                "contact-01-page-header",
+                "contact-02-cta"
+            ]
+        }
+    ],
+    "units": {
+        "home-01-hero": {
+            "scope": "section",
+            "role": "hero",
+            "summary": "Home page hero from the index page, headed (H1) \"Brands that refuse to blend in.\": 13 paragraphs, 12 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 1,
+            "file": "units/home-01-hero.html",
+            "slots": 14,
+            "repeatable": 12,
+            "ksesStable": true
+        },
+        "home-02-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the index page, headed (H3) \"Brand identity\": 4 headings, 9 paragraphs, 16 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 2,
+            "file": "units/home-02-services.html",
+            "slots": 13,
+            "repeatable": 16,
+            "ksesStable": true
+        },
+        "home-03-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the index page: 2 paragraphs. Lists the site's portfolio projects.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 3,
+            "file": "units/home-03-portfolio.html",
+            "needs": [
+                "projects"
+            ],
+            "slots": 2,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "home-04-stats": {
+            "scope": "section",
+            "role": "stats",
+            "summary": "Stats section from the index page, headed (H2) \"Strategy first. Then the beautiful part.\": 9 paragraphs, 7 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 4,
+            "file": "units/home-04-stats.html",
+            "slots": 10,
+            "repeatable": 7,
+            "ksesStable": true
+        },
+        "home-05-marquee": {
+            "scope": "section",
+            "role": "marquee",
+            "summary": "Marquee section from the index page: 3 paragraphs, 1 photo, 4 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 5,
+            "file": "units/home-05-marquee.html",
+            "images": [
+                "studio"
+            ],
+            "slots": 3,
+            "repeatable": 4,
+            "ksesStable": false
+        },
+        "home-06-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the index page, headed (H2) \"Tell me what you're building.\": 6 paragraphs, 1 button, 2 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 6,
+            "file": "units/home-06-services.html",
+            "slots": 8,
+            "repeatable": 2,
+            "ksesStable": true
+        },
+        "work-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the work page, headed (H1) \"Sixty-one launches. Six worth showing.\": 3 paragraphs, 2 repeatable items.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 1,
+            "file": "units/work-01-page-header.html",
+            "slots": 4,
+            "repeatable": 2,
+            "ksesStable": true
+        },
+        "work-02-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the work page. Lists the site's portfolio projects.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 2,
+            "file": "units/work-02-portfolio.html",
+            "needs": [
+                "projects"
+            ],
+            "slots": 0,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "work-03-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the work page, headed (H2) \"Two slots open for spring 2027.\": 3 paragraphs, 2 repeatable items.",
+            "pageTypes": [
+                "work",
+                "any"
+            ],
+            "sourcePage": "work",
+            "position": 3,
+            "file": "units/work-03-cta.html",
+            "slots": 4,
+            "repeatable": 2,
+            "ksesStable": true
+        },
+        "services-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the services page, headed (H1) \"One designer. Three ways in.\": 2 paragraphs.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 1,
+            "file": "units/services-01-page-header.html",
+            "slots": 3,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "services-02-stats": {
+            "scope": "section",
+            "role": "stats",
+            "summary": "Stats section from the services page, headed (H2) \"Brand sprint\": 3 headings, 12 paragraphs, 8 list items, 24 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 2,
+            "file": "units/services-02-stats.html",
+            "slots": 27,
+            "repeatable": 24,
+            "ksesStable": true
+        },
+        "services-03-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the services page, headed (H3) \"Listen\": 4 headings, 9 paragraphs, 4 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 3,
+            "file": "units/services-03-process.html",
+            "slots": 13,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "services-04-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ from the services page, headed (H2) \"Practical questions\": 4 paragraphs, 1 button, 4 questions, 6 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 4,
+            "file": "units/services-04-faq.html",
+            "slots": 10,
+            "repeatable": 6,
+            "ksesStable": true
+        },
+        "about-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the about page, headed (H1) \"Eleven years of making things look like what they are.\": 5 paragraphs, 1 photo, 5 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 1,
+            "file": "units/about-01-page-header.html",
+            "images": [
+                "portrait"
+            ],
+            "slots": 6,
+            "repeatable": 5,
+            "ksesStable": false
+        },
+        "about-02-about": {
+            "scope": "section",
+            "role": "about",
+            "summary": "About section from the about page, headed (H3) \"Independent studio\": 3 headings, 7 paragraphs, 12 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 2,
+            "file": "units/about-02-about.html",
+            "slots": 10,
+            "repeatable": 12,
+            "ksesStable": true
+        },
+        "about-03-content": {
+            "scope": "section",
+            "role": "content",
+            "summary": "Content section from the about page: 7 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 3,
+            "file": "units/about-03-content.html",
+            "slots": 7,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "contact-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the contact page, headed (H1) \"Let's talk.\": 11 paragraphs, 1 button, 4 list items, 12 repeatable items.",
+            "pageTypes": [
+                "contact"
+            ],
+            "sourcePage": "contact",
+            "position": 1,
+            "file": "units/contact-01-page-header.html",
+            "slots": 17,
+            "repeatable": 12,
+            "ksesStable": true
+        },
+        "contact-02-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the contact page, headed (H2) \"Not ready to brief yet?\": 3 paragraphs, 2 repeatable items.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "contact",
+            "position": 2,
+            "file": "units/contact-02-cta.html",
+            "slots": 4,
+            "repeatable": 2,
+            "ksesStable": true
+        },
+        "header": {
+            "scope": "header",
+            "role": "header",
+            "summary": "Header template part.",
+            "file": "units/header.html",
+            "slots": 1,
+            "ksesStable": true
+        },
+        "footer": {
+            "scope": "footer",
+            "role": "footer",
+            "summary": "Footer template part.",
+            "file": "units/footer.html",
+            "slots": 8,
+            "ksesStable": true
+        }
+    },
+    "assets": {
+        "portrait": {
+            "file": "images/portrait.jpg",
+            "alt": "Abstract editorial composition in blue and ink",
+            "title": "Studio portrait",
+            "width": 1200,
+            "height": 1500
+        },
+        "studio": {
+            "file": "images/studio.jpg",
+            "alt": "Abstract geometric composition on paper",
+            "title": "Studio",
+            "width": 1600,
+            "height": 1000
+        }
+    },
+    "source": {
+        "dir": "seed/sites/designer",
+        "hash": "237f0692d7406f1930394dc8ccc0c57e"
+    }
+}

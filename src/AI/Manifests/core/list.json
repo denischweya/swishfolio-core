@@ -1,0 +1,21 @@
+{
+  "blockName": "core/list",
+  "version": 1,
+  "tier": "content",
+  "purpose": "list",
+  "summary": "An ordered or unordered list. Its text lives in core/list-item children.",
+  "capabilities": {
+    "layout": {
+      "ordered": {
+        "type": "boolean"
+      }
+    }
+  },
+  "children": {
+    "allowed": [
+      "core/list-item"
+    ],
+    "min": 1,
+    "max": 50
+  }
+}

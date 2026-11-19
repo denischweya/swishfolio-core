@@ -1,0 +1,21 @@
+{
+    "phones": [
+        "+44 7700 900 314"
+    ],
+    "emails": [
+        "ola@meza-tomas.example"
+    ],
+    "domains": [
+        "meza-tomas.example"
+    ],
+    "addresses": [],
+    "places": [
+        "London",
+        "Algarve",
+        "Comporta",
+        "Lisbon"
+    ],
+    "people": [
+        "Tomás Valadares"
+    ]
+}

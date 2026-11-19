@@ -42,6 +42,35 @@ use SwishfolioCore\Services\SvgSupport;
 use SwishfolioCore\Extensions\ColumnsExtension;
 use SwishfolioCore\Extensions\ButtonExtension;
 use SwishfolioCore\Extensions\NavigationExtension;
+use SwishfolioCore\Blocks\BlockRegistry;
+use SwishfolioCore\AI\Settings as AISettings;
+use SwishfolioCore\AI\ProviderRegistry;
+use SwishfolioCore\AI\UsageLogger;
+use SwishfolioCore\Services\EncryptionService;
+use SwishfolioCore\AI\Credentials\WordPressCredentialStore;
+use SwishfolioCore\REST\AIController;
+use SwishfolioCore\REST\SettingsController;
+use SwishfolioCore\REST\ToolsController;
+use SwishfolioCore\REST\AgentController;
+use SwishfolioCore\REST\OnboardingController;
+use SwishfolioCore\REST\CustomiseController;
+use SwishfolioCore\REST\KitController;
+use SwishfolioCore\REST\KitBuildController;
+use SwishfolioCore\Admin\AuditLogPage;
+use SwishfolioCore\Tools\AbilitiesBridge;
+use SwishfolioCore\Jobs\AgentJobRunner;
+use SwishfolioCore\Jobs\TransientJobStore;
+use SwishfolioCore\Jobs\BackgroundJobs;
+use SwishfolioCore\Tools\Journal\JournalTable;
+use SwishfolioCore\Tools\Journal\MutationJournal;
+use SwishfolioCore\Tools\Journal\WpdbJournalRepository;
+use SwishfolioCore\Tools\ToolRegistry;
+use SwishfolioCore\Tools\ToolRunner;
+use SwishfolioCore\REST\ConnectionsController;
+use SwishfolioCore\REST\GenerationController;
+use SwishfolioCore\REST\BuilderController;
+use SwishfolioCore\AI\Generation\PatternLibrary;
+use SwishfolioCore\Admin\SwishAiMenu;
 
 /**
  * Plugin orchestrator - boots and wires all components.
@@ -126,6 +155,144 @@ class Plugin
     private ?NavigationExtension $navigationExtension = null;
 
     /**
+     * AI capability registry.
+     *
+     * @var BlockRegistry|null
+     */
+    private ?BlockRegistry $aiBlockRegistry = null;
+
+    /**
+     * AI REST controller.
+     *
+     * @var AIController|null
+     */
+    private ?AIController $aiController = null;
+
+    /**
+     * AI settings REST controller.
+     *
+     * @var SettingsController|null
+     */
+    private ?SettingsController $aiSettingsController = null;
+
+    /**
+     * AI generation pattern library.
+     *
+     * @var PatternLibrary|null
+     */
+    private ?PatternLibrary $aiPatternLibrary = null;
+
+    /**
+     * AI generation REST controller.
+     *
+     * @var GenerationController|null
+     */
+    private ?GenerationController $aiGenerationController = null;
+
+    /**
+     * Floating prompt bar backend.
+     *
+     * @var BuilderController|null
+     */
+    private ?BuilderController $aiBuilderController = null;
+
+    /**
+     * Tool pipeline: every server-side site operation goes through it.
+     *
+     * @var ToolRunner|null
+     */
+    private ?ToolRunner $toolRunner = null;
+
+    /**
+     * Tool REST controller.
+     *
+     * @var ToolsController|null
+     */
+    private ?ToolsController $toolsController = null;
+
+    /**
+     * Audit log screen.
+     *
+     * @var AuditLogPage|null
+     */
+    private ?AuditLogPage $auditLogPage = null;
+
+    /**
+     * Conversational site management REST controller.
+     *
+     * @var AgentController|null
+     */
+    private ?AgentController $agentController = null;
+
+    /**
+     * Background runner for agent turns.
+     *
+     * @var AgentJobRunner|null
+     */
+    private ?AgentJobRunner $agentJobRunner = null;
+
+    /**
+     * Background runner for long AI requests (builder bar, plans, generation).
+     *
+     * @var BackgroundJobs|null
+     */
+    private ?BackgroundJobs $backgroundJobs = null;
+
+    /**
+     * CV and profile import REST controller.
+     *
+     * @var OnboardingController|null
+     */
+    private ?OnboardingController $onboardingController = null;
+
+    /**
+     * Onboarding template customisation and image placement.
+     *
+     * @var CustomiseController|null
+     */
+    private ?CustomiseController $customiseController = null;
+
+    /**
+     * Onboarding: match a brief to a site template.
+     *
+     * @var KitController|null
+     */
+    private ?KitController $kitController = null;
+
+    /**
+     * @var KitBuildController|null
+     */
+    private ?KitBuildController $kitBuildController = null;
+
+    /**
+     * Onboarding: a custom design system instead of a template's look.
+     *
+     * @var \SwishfolioCore\REST\CustomDesignController|null
+     */
+    private ?\SwishfolioCore\REST\CustomDesignController $customDesignController = null;
+
+    /**
+     * Abilities API bridge. Registers the tools; exposes none of them.
+     *
+     * @var AbilitiesBridge|null
+     */
+    private ?AbilitiesBridge $abilitiesBridge = null;
+
+    /**
+     * AI connections REST controller.
+     *
+     * @var ConnectionsController|null
+     */
+    private ?ConnectionsController $aiConnectionsController = null;
+
+    /**
+     * Swish AI admin menu.
+     *
+     * @var SwishAiMenu|null
+     */
+    private ?SwishAiMenu $swishAiMenu = null;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -159,6 +326,95 @@ class Plugin
 
         // Initialize navigation extension.
         $this->navigationExtension = new NavigationExtension();
+
+        // AI block editing.
+        $this->aiBlockRegistry = new BlockRegistry([
+            SFCORE_PLUGIN_DIR . 'blocks',
+            SFCORE_PLUGIN_DIR . 'src/AI/Manifests/core',
+        ]);
+
+        $aiSettings  = new AISettings(new WordPressCredentialStore(new EncryptionService()));
+        $aiProviders = new ProviderRegistry($aiSettings);
+        $aiLogger    = new UsageLogger();
+
+        $this->aiController         = new AIController(
+            $this->aiBlockRegistry,
+            $aiSettings,
+            $aiProviders,
+            $aiLogger
+        );
+        $this->aiSettingsController = new SettingsController($aiSettings, $aiProviders);
+        $this->aiConnectionsController = new ConnectionsController($aiSettings, $aiProviders);
+
+        // Long AI requests (builder bar, site plans) run as background jobs
+        // that the browser polls; the agent's turns share the same store.
+        $jobStore             = new TransientJobStore();
+        $this->backgroundJobs = new BackgroundJobs($jobStore);
+
+        $this->aiBuilderController = new BuilderController($aiSettings, $aiProviders, $aiLogger, $this->backgroundJobs);
+
+        // One kit per template site, written by seed/extract-patterns.php.
+        $this->aiPatternLibrary = PatternLibrary::shipped();
+
+        $this->aiGenerationController = new GenerationController(
+            $this->aiBlockRegistry,
+            $this->aiPatternLibrary,
+            $aiSettings,
+            $aiProviders,
+            $aiLogger,
+            $this->backgroundJobs
+        );
+
+        // The tool layer. One registry, one runner, one journal: the REST
+        // routes, the audit screen's undo and the Abilities bridge all share
+        // them, so there is no second path that could write without a journal
+        // row or skip the confirmation gate.
+        $journalRepository = new WpdbJournalRepository();
+        $mutationJournal   = new MutationJournal($journalRepository);
+
+        $this->toolRunner = new ToolRunner(
+            ToolRegistry::withDefaultTools($mutationJournal, $this->aiBlockRegistry),
+            $mutationJournal
+        );
+
+        $this->toolsController = new ToolsController($this->toolRunner, $journalRepository, $aiSettings);
+        // The loop is built lazily: it needs a configured provider, and asking
+        // for one at boot would throw on every request of a site that has not
+        // connected an account yet.
+        $toolRunner           = $this->toolRunner;
+        $this->agentJobRunner = new AgentJobRunner(
+            $jobStore,
+            static function () use ($toolRunner, $aiSettings, $aiProviders) {
+                return new \SwishfolioCore\AI\Agent\AgentLoop(
+                    $aiProviders->configured(),
+                    $toolRunner,
+                    new \SwishfolioCore\AI\Prompt\PromptManager(SFCORE_PLUGIN_DIR . 'src/AI/Prompt'),
+                    // Same rule as the synchronous /ai/agent route.
+                    (new \SwishfolioCore\AI\ModelRouter($aiSettings))->modelFor(\SwishfolioCore\AI\ModelRouter::KIND_AGENT)
+                );
+            }
+        );
+
+        $this->onboardingController = new OnboardingController($aiSettings, $aiProviders, $aiLogger);
+        $this->customiseController  = new CustomiseController($aiSettings, $aiProviders, $aiLogger, $this->backgroundJobs, $this->aiBuilderController);
+        $this->kitController        = new KitController($aiSettings, $aiProviders, $aiLogger);
+        $this->kitBuildController   = new KitBuildController($aiSettings, $aiProviders, $aiLogger, $this->aiPatternLibrary, $this->backgroundJobs);
+        $this->customDesignController = new \SwishfolioCore\REST\CustomDesignController($aiSettings, $aiProviders, $aiLogger, $this->aiPatternLibrary, $this->backgroundJobs);
+
+        $this->agentController = new AgentController(
+            $this->toolRunner,
+            $aiSettings,
+            $aiProviders,
+            $aiLogger,
+            $this->agentJobRunner,
+            $jobStore
+        );
+        $this->abilitiesBridge = new AbilitiesBridge($this->toolRunner->registry(), $this->toolRunner, $aiSettings);
+
+        if (is_admin()) {
+            $this->swishAiMenu  = new SwishAiMenu($aiSettings, $aiProviders, $aiLogger);
+            $this->auditLogPage = new AuditLogPage($journalRepository, $this->toolRunner);
+        }
     }
 
     /**
@@ -228,6 +484,9 @@ class Plugin
      */
     public function boot(): void
     {
+        // Front-end login and registration forms (main site /login/ and /register/).
+        (new \SwishfolioCore\Auth\AuthHandler())->boot();
+
         // Load text domain.
         add_action('init', [ $this, 'loadTextDomain' ]);
 
@@ -250,11 +509,68 @@ class Plugin
         // Enqueue design token defaults (frontend + editor iframe).
         add_action('enqueue_block_assets', [ $this, 'enqueueTokenStyles' ]);
 
+        // AI block editing: REST routes and the AI capability.
+        add_action('rest_api_init', [ $this, 'registerAIRoutes' ]);
+
+        // Swish AI: its own top-level menu, not a Swish Forms submenu — AI is a
+        // product surface in its own right.
+        if ($this->swishAiMenu !== null) {
+            add_action('admin_menu', [ $this->swishAiMenu, 'registerMenu' ]);
+            add_action('admin_enqueue_scripts', [ $this->swishAiMenu, 'enqueueAssets' ]);
+            add_action('admin_init', [ $this->swishAiMenu, 'registerPrivacyContent' ]);
+
+            add_action('admin_post_' . SwishAiMenu::ACTION_CONNECT, [ $this->swishAiMenu, 'handleConnect' ]);
+            add_action('admin_post_' . SwishAiMenu::ACTION_TEST, [ $this->swishAiMenu, 'handleTest' ]);
+            add_action('admin_post_' . SwishAiMenu::ACTION_DISCONNECT, [ $this->swishAiMenu, 'handleDisconnect' ]);
+            add_action('admin_post_' . SwishAiMenu::ACTION_ACTIVATE, [ $this->swishAiMenu, 'handleActivate' ]);
+            add_action('admin_post_' . SwishAiMenu::ACTION_TOGGLE, [ $this->swishAiMenu, 'handleToggle' ]);
+            add_action('admin_post_' . SwishAiMenu::ACTION_BRAND, [ $this->swishAiMenu, 'handleBrand' ]);
+        }
+        add_filter('user_has_cap', [ $this, 'grantAICapability' ]);
+
+        // Registers every tool with the Abilities API where it exists, and
+        // exposes none of them. On the 6.7 floor this is a no-op.
+        if ($this->abilitiesBridge !== null) {
+            $this->abilitiesBridge->boot();
+        }
+
+        if ($this->auditLogPage !== null) {
+            $this->auditLogPage->boot();
+        }
+
+        if ($this->agentJobRunner !== null) {
+            $this->agentJobRunner->boot();
+        }
+
+        if ($this->backgroundJobs !== null) {
+            $this->backgroundJobs->boot();
+        }
+
+        // The journal table is created on activation, but an update from a
+        // version without it never runs activation, so the version-guarded
+        // installer runs on admin_init too. It is one get_option when current.
+        add_action('admin_init', [ self::class, 'installJournalTable' ]);
+        add_action('admin_init', [ self::class, 'scheduleJournalPrune' ]);
+
+        // Core only drops its own tables when a site is deleted; without this
+        // the journal (AI inputs and prior content) outlives the tenant.
+        add_filter('wpmu_drop_tables', [ self::class, 'dropJournalTable' ], 10, 2);
+
         // Register WP-CLI commands.
         if (defined('WP_CLI') && \WP_CLI) {
             \WP_CLI::add_command(
                 'swishfolio migrate-colors',
                 \SwishfolioCore\Commands\MigrateColorsCommand::class
+            );
+
+            \WP_CLI::add_command(
+                'swishfolio ai-test',
+                \SwishfolioCore\Commands\AiTestCommand::class
+            );
+
+            \WP_CLI::add_command(
+                'swishfolio migrate-credentials',
+                \SwishfolioCore\Commands\MigrateCredentialsCommand::class
             );
         }
     }
@@ -405,6 +721,10 @@ class Plugin
 
         // Enqueue project sidebar script.
         $this->enqueueProjectSidebar();
+
+        // AI block editing UI. Not post-type gated: AI editing applies to
+        // every editable post type, unlike the project sidebar.
+        $this->enqueueAiSidebar();
     }
 
     /**
@@ -467,5 +787,231 @@ class Plugin
             'swishfolio-core',
             SFCORE_PLUGIN_DIR . 'languages'
         );
+    }
+
+    /**
+     * Enqueue the AI block editing UI for the block editor.
+     *
+     * Unlike enqueueProjectSidebar() this is not post-type gated: AI editing
+     * applies to every editable post type.
+     *
+     * @return void
+     */
+    private function enqueueAiSidebar(): void
+    {
+        if ($this->aiBlockRegistry === null || ! current_user_can(AIController::CAPABILITY)) {
+            return;
+        }
+
+        $asset_file = SFCORE_PLUGIN_DIR . 'assets/js/ai-sidebar.asset.php';
+
+        if (! file_exists($asset_file)) {
+            return;
+        }
+
+        $asset = require $asset_file;
+
+        wp_enqueue_script(
+            'sfcore-ai-sidebar',
+            SFCORE_PLUGIN_URL . 'assets/js/ai-sidebar.js',
+            $asset['dependencies'],
+            $asset['version'],
+            true
+        );
+
+        wp_set_script_translations(
+            'sfcore-ai-sidebar',
+            'swishfolio-core',
+            SFCORE_PLUGIN_DIR . 'languages'
+        );
+
+        // Must run before the bundle: the client reads window.sfcoreAiEditor.
+        wp_add_inline_script(
+            'sfcore-ai-sidebar',
+            'window.sfcoreAiEditor = ' . wp_json_encode($this->aiCapabilityPayload()) . ';',
+            'before'
+        );
+
+        wp_enqueue_style(
+            'sfcore-ai-sidebar',
+            SFCORE_PLUGIN_URL . 'assets/css/ai-sidebar.css',
+            [],
+            SFCORE_VERSION . '.' . filemtime(SFCORE_PLUGIN_DIR . 'assets/css/ai-sidebar.css')
+        );
+    }
+
+    /**
+     * The capability manifests the editor UI needs, flattened for JSON.
+     *
+     * Attribute ORDER IS SIGNIFICANT and is preserved by getFields(): the
+     * client resolves update_block_content to the first richtext field, which
+     * is the same rule AllowlistStage and ValueStage apply server-side.
+     *
+     * @return array
+     */
+    private function aiCapabilityPayload(): array
+    {
+        $capabilities = [];
+
+        foreach ($this->aiBlockRegistry->all() as $blockName => $capability) {
+            $fields = [];
+
+            foreach ($capability->getFields() as $attribute => $field) {
+                $spec = ['group' => $field->getGroup(), 'type' => $field->getType()];
+
+                if ($field->getRole() !== null) {
+                    $spec['role'] = $field->getRole();
+                }
+                if ($field->getEnum() !== []) {
+                    $spec['enum'] = $field->getEnum();
+                }
+                if ($field->getTokenSet() !== null) {
+                    $spec['tokenSet'] = $field->getTokenSet();
+                }
+                if ($field->getMin() !== null) {
+                    $spec['min'] = $field->getMin();
+                }
+                if ($field->getMax() !== null) {
+                    $spec['max'] = $field->getMax();
+                }
+                if ($field->getMaxLength() !== null) {
+                    $spec['maxLength'] = $field->getMaxLength();
+                }
+                if ($field->getUnit() !== null) {
+                    $spec['unit'] = $field->getUnit();
+                }
+
+                $fields[$attribute] = $spec;
+            }
+
+            $capabilities[$blockName] = [
+                'tier'     => $capability->getTier(),
+                'purpose'  => $capability->getPurpose(),
+                'summary'  => $capability->getSummary(),
+                'fields'   => $fields,
+                'children' => [
+                    'allowed' => $capability->getAllowedChildren(),
+                    'min'     => $capability->getChildMin(),
+                    'max'     => $capability->getChildMax(),
+                ],
+            ];
+        }
+
+        return [
+            'maxActions'   => (int) apply_filters('swishfolio_ai_max_actions', 25),
+            'capabilities' => $capabilities,
+        ];
+    }
+
+    /**
+     * Register the AI REST routes.
+     *
+     * @return void
+     */
+    public function registerAIRoutes(): void
+    {
+        if ($this->aiController !== null) {
+            $this->aiController->registerRoutes();
+        }
+
+        if ($this->aiSettingsController !== null) {
+            $this->aiSettingsController->registerRoutes();
+        }
+
+        if ($this->aiConnectionsController !== null) {
+            $this->aiConnectionsController->registerRoutes();
+        }
+
+        if ($this->aiGenerationController !== null) {
+            $this->aiGenerationController->registerRoutes();
+        }
+
+        if ($this->aiBuilderController !== null) {
+            $this->aiBuilderController->registerRoutes();
+        }
+
+        if ($this->toolsController !== null) {
+            $this->toolsController->registerRoutes();
+        }
+
+        if ($this->agentController !== null) {
+            $this->agentController->registerRoutes();
+        }
+
+        if ($this->customiseController !== null) {
+            $this->customiseController->registerRoutes();
+        }
+
+        if ($this->onboardingController !== null) {
+            $this->onboardingController->registerRoutes();
+        }
+
+        if ($this->kitController !== null) {
+            $this->kitController->registerRoutes();
+        }
+
+        if ($this->kitBuildController !== null) {
+            $this->kitBuildController->registerRoutes();
+        }
+
+        if ($this->customDesignController !== null) {
+            $this->customDesignController->registerRoutes();
+        }
+    }
+
+    /**
+     * Grant the AI capability to anyone who can already edit posts.
+     *
+     * Applied as a filter rather than written to roles, so site owners can
+     * revoke it with a higher-priority filter and nothing is persisted.
+     *
+     * @param array $allcaps Capabilities for the current user.
+     *
+     * @return array
+     */
+    /**
+     * Creates the AI journal table when the stored schema version is behind.
+     *
+     * @return void
+     */
+    public static function installJournalTable(): void
+    {
+        JournalTable::install();
+    }
+
+    /**
+     * @param string[] $tables Tables core will drop for the deleted site.
+     * @param int      $siteId Site being deleted.
+     *
+     * @return string[]
+     */
+    public static function dropJournalTable($tables, $siteId)
+    {
+        global $wpdb;
+
+        $tables[] = $wpdb->get_blog_prefix((int) $siteId) . 'swishfolio_ai_journal';
+
+        return $tables;
+    }
+
+    /**
+     * Schedules the daily expiry of aged journal rows.
+     *
+     * @return void
+     */
+    public static function scheduleJournalPrune(): void
+    {
+        if (! wp_next_scheduled(AuditLogPage::PRUNE_HOOK)) {
+            wp_schedule_event(time() + HOUR_IN_SECONDS, 'daily', AuditLogPage::PRUNE_HOOK);
+        }
+    }
+
+    public function grantAICapability(array $allcaps): array
+    {
+        if (! empty($allcaps['edit_posts'])) {
+            $allcaps[AIController::CAPABILITY] = true;
+        }
+
+        return $allcaps;
     }
 }

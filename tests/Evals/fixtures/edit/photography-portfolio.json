@@ -1,0 +1,62 @@
+{
+  "vertical": "photography-portfolio",
+  "label": "Photography portfolio: make the project grid read as an editorial spread",
+  "instruction": "Make this project grid feel more like an editorial spread. Fewer, bigger images, more air between them, and drop the excerpts.",
+  "selection": {
+    "clientId": "pf-root",
+    "blockName": "swishfolio-core/portfolio",
+    "attributes": {
+      "layout": "grid",
+      "columns": 4,
+      "gap": 16,
+      "cardStyle": "default",
+      "imageAspectRatio": "square",
+      "showExcerpt": true,
+      "hoverEffect": "none"
+    },
+    "postType": "page",
+    "styleVariation": "Swiss International",
+    "siblings": [],
+    "innerBlocks": []
+  },
+  "blockTree": {
+    "pf-root": {
+      "name": "swishfolio-core/portfolio",
+      "attributes": {
+        "layout": "grid",
+        "columns": 4,
+        "gap": 16,
+        "cardStyle": "default",
+        "imageAspectRatio": "square",
+        "showExcerpt": true,
+        "hoverEffect": "none"
+      },
+      "parentClientId": null
+    }
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "summary": "Reworked the project grid into a two-column portrait masonry with more space and no excerpts.",
+    "actions": [
+      {
+        "type": "update_block_attributes",
+        "clientId": "pf-root",
+        "changes": {
+          "layout": "masonry",
+          "columns": 2,
+          "gap": 48,
+          "cardStyle": "minimal",
+          "imageAspectRatio": "portrait",
+          "showExcerpt": false,
+          "showCategory": true,
+          "hoverEffect": "zoom",
+          "imageBorderRadius": 0,
+          "taxonomyStyle": "underline",
+          "taxonomyColor": "accent-1",
+          "viewButtonText": "Open the series"
+        },
+        "reason": "Two large portrait images per row with generous gutters reads as a spread; excerpts removed so the pictures carry it."
+      }
+    ]
+  }
+}

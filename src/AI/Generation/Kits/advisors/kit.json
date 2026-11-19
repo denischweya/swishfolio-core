@@ -1,0 +1,697 @@
+{
+    "version": 2,
+    "slug": "advisors",
+    "name": "Sunrise",
+    "title": "Business Consultant",
+    "industry": "professional",
+    "description": "A warm, people-first WordPress template for business consultants and advisors, with a health-check quiz, programmes and client results.",
+    "look": "Type: Young Serif, Onest. Colours: Warm white #FBF7F1, Aubergine #2B1730, Sunflower #FFC93C, Cream #F4ECDF, Blush #F1DCD3, Secondary text #5E4B60.",
+    "demo": {
+        "business": "Oakline Partners",
+        "tagline": "Business advisors for owner-led companies"
+    },
+    "design": {
+        "file": "design.json",
+        "variation": "Default",
+        "classPrefix": "ba-",
+        "fingerprint": ".ba-foot",
+        "palette": {
+            "base": "Warm white #FBF7F1",
+            "contrast": "Aubergine #2B1730",
+            "accent-1": "Sunflower #FFC93C",
+            "accent-2": "Cream #F4ECDF",
+            "accent-3": "Blush #F1DCD3",
+            "accent-4": "Secondary text #5E4B60",
+            "accent-5": "Surface #FFFFFF",
+            "accent-6": "Deep aubergine #1E0F22"
+        },
+        "fonts": [
+            "Young Serif",
+            "Onest"
+        ],
+        "pageTemplate": "page-landing",
+        "header": "header",
+        "footer": "footer",
+        "assetsPath": "assets/kits/advisors"
+    },
+    "frontPage": "home",
+    "navigation": [
+        "services",
+        "work",
+        "about",
+        "contact"
+    ],
+    "pages": [
+        {
+            "key": "home",
+            "title": "Home",
+            "slug": "home",
+            "navLabel": "Home",
+            "inNav": false,
+            "type": "home",
+            "template": "page-landing",
+            "sections": [
+                "home-01-hero",
+                "home-02-services",
+                "home-03-features",
+                "home-04-process",
+                "home-05-testimonials",
+                "home-06-pricing",
+                "home-07-contact",
+                "home-08-about",
+                "home-09-cta"
+            ]
+        },
+        {
+            "key": "services",
+            "title": "Programmes",
+            "slug": "programmes",
+            "navLabel": "Programmes",
+            "inNav": true,
+            "type": "services",
+            "template": "page-landing",
+            "sections": [
+                "services-01-page-header",
+                "services-02-map",
+                "services-03-services",
+                "services-04-process",
+                "services-05-faq",
+                "services-06-cta"
+            ]
+        },
+        {
+            "key": "work",
+            "title": "Results",
+            "slug": "results",
+            "navLabel": "Results",
+            "inNav": true,
+            "type": "work",
+            "template": "page-landing",
+            "sections": [
+                "work-01-page-header",
+                "work-02-portfolio",
+                "work-03-schedule",
+                "work-04-testimonials",
+                "work-05-cta"
+            ]
+        },
+        {
+            "key": "about",
+            "title": "About",
+            "slug": "about",
+            "navLabel": "About",
+            "inNav": true,
+            "type": "about",
+            "template": "page-landing",
+            "sections": [
+                "about-01-page-header",
+                "about-02-features",
+                "about-03-team",
+                "about-04-map",
+                "about-05-cta"
+            ]
+        },
+        {
+            "key": "contact",
+            "title": "Contact",
+            "slug": "contact",
+            "navLabel": "Contact",
+            "inNav": true,
+            "type": "contact",
+            "template": "page-landing",
+            "sections": [
+                "contact-01-page-header",
+                "contact-02-contact"
+            ]
+        }
+    ],
+    "units": {
+        "home-01-hero": {
+            "scope": "section",
+            "role": "hero",
+            "summary": "Home page hero from the home page, headed (H1) \"Build a business that doesn’t need you every day.\": 2 paragraphs, 2 buttons, 5 photos, 8 drawn icons or graphics, 4 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 1,
+            "file": "units/home-01-hero.html",
+            "images": [
+                "owner-dev",
+                "owner-maya",
+                "owner-potter",
+                "team-5",
+                "hero-team"
+            ],
+            "slots": 17,
+            "repeatable": 4,
+            "fixedText": [
+                "OWNER-LED · SINCE 2009 · AUSTIN TX ·"
+            ],
+            "ksesStable": false
+        },
+        "home-02-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the home page: 6 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 2,
+            "file": "units/home-02-services.html",
+            "slots": 7,
+            "repeatable": 6,
+            "ksesStable": true
+        },
+        "home-03-features": {
+            "scope": "section",
+            "role": "features",
+            "summary": "Features section from the home page, headed (H2) \"The six things owners tell us in the first ten minutes.\": 7 headings, 2 paragraphs, 12 drawn icons or graphics, 6 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 3,
+            "file": "units/home-03-features.html",
+            "slots": 21,
+            "repeatable": 6,
+            "ksesStable": false
+        },
+        "home-04-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the home page, headed (H2) \"Three steps from stuck to steady.\": 4 headings, 2 paragraphs, 1 photo, 9 drawn icons or graphics, 12 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 4,
+            "file": "units/home-04-process.html",
+            "images": [
+                "workshop-session"
+            ],
+            "slots": 25,
+            "repeatable": 12,
+            "ksesStable": false
+        },
+        "home-05-testimonials": {
+            "scope": "section",
+            "role": "testimonials",
+            "summary": "Testimonials section from the home page, headed (H2) \"Average results after eighteen months with Oakline.\": 2 paragraphs, 1 button, 3 photos, 15 drawn icons or graphics, 7 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 5,
+            "file": "units/home-05-testimonials.html",
+            "images": [
+                "owner-dev",
+                "owner-maya",
+                "owner-potter"
+            ],
+            "slots": 18,
+            "repeatable": 7,
+            "ksesStable": false
+        },
+        "home-06-pricing": {
+            "scope": "section",
+            "role": "pricing",
+            "summary": "Pricing section from the home page, headed (H2) \"Clear programmes, clear fees.\": 4 headings, 2 paragraphs, 16 drawn icons or graphics, 15 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 6,
+            "file": "units/home-06-pricing.html",
+            "slots": 29,
+            "repeatable": 15,
+            "ksesStable": false
+        },
+        "home-07-contact": {
+            "scope": "section",
+            "role": "contact",
+            "summary": "Contact section from the home page, headed (H2) \"Five honest questions. One useful number.\": 2 paragraphs, 1 drawn icon or graphic, 20 repeatable items. Has a demo form that does not send anything yet. Has a small interactive widget.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 7,
+            "file": "units/home-07-contact.html",
+            "needs": [
+                "form",
+                "script"
+            ],
+            "slots": 41,
+            "repeatable": 20,
+            "ksesStable": false
+        },
+        "home-08-about": {
+            "scope": "section",
+            "role": "about",
+            "summary": "About section from the home page, headed (H2) \"Practical reading for owners.\": 4 headings, 2 paragraphs, 3 drawn icons or graphics, 3 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 8,
+            "file": "units/home-08-about.html",
+            "slots": 15,
+            "repeatable": 3,
+            "ksesStable": false
+        },
+        "home-09-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the home page, headed (H2) \"Let’s talk about where you want the business to be in three years.\": 2 paragraphs, 2 buttons, 1 photo.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 9,
+            "file": "units/home-09-cta.html",
+            "images": [
+                "office-whiteboard"
+            ],
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "services-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the programmes page, headed (H1) \"Senior advice for owners, without the corporate overhead.\": 2 paragraphs, 1 photo, 5 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 1,
+            "file": "units/services-01-page-header.html",
+            "images": [
+                "office-whiteboard"
+            ],
+            "slots": 8,
+            "repeatable": 5,
+            "ksesStable": false
+        },
+        "services-02-map": {
+            "scope": "section",
+            "role": "map",
+            "summary": "Map section from the programmes page, headed (H2) \"Five areas. One joined-up view of your business.\": 6 headings, 11 paragraphs, 25 drawn icons or graphics, 25 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 2,
+            "file": "units/services-02-map.html",
+            "slots": 57,
+            "repeatable": 25,
+            "ksesStable": false
+        },
+        "services-03-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the programmes page, headed (H2) \"Pick the shape that fits where you are.\": 4 headings, 2 paragraphs, 16 drawn icons or graphics, 21 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 3,
+            "file": "units/services-03-services.html",
+            "slots": 42,
+            "repeatable": 21,
+            "ksesStable": false
+        },
+        "services-04-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the programmes page, headed (H2) \"What actually happens after you say yes.\": 6 headings, 2 paragraphs, 5 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 4,
+            "file": "units/services-04-process.html",
+            "slots": 18,
+            "repeatable": 5,
+            "ksesStable": true
+        },
+        "services-05-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ from the programmes page, headed (H2) \"Things owners ask before signing.\": 7 paragraphs, 1 button, 5 questions, 5 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 5,
+            "file": "units/services-05-faq.html",
+            "slots": 14,
+            "repeatable": 5,
+            "ksesStable": true
+        },
+        "services-06-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the programmes page, headed (H2) \"Not sure which programme fits?\": 2 paragraphs, 2 buttons, 1 photo.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 6,
+            "file": "units/services-06-cta.html",
+            "images": [
+                "about-team"
+            ],
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "work-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the results page, headed (H1) \"Real owners. Real numbers. Told with permission.\": 2 paragraphs, 4 repeatable items.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 1,
+            "file": "units/work-01-page-header.html",
+            "slots": 11,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "work-02-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the results page. Lists the site's portfolio projects.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 2,
+            "file": "units/work-02-portfolio.html",
+            "needs": [
+                "projects"
+            ],
+            "slots": 0,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "work-03-schedule": {
+            "scope": "section",
+            "role": "schedule",
+            "summary": "Schedule section from the results page, headed (H2) \"The number owners care about most is the one on their calendar.\": 2 paragraphs, 4 repeatable items.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 3,
+            "file": "units/work-03-schedule.html",
+            "slots": 13,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "work-04-testimonials": {
+            "scope": "section",
+            "role": "testimonials",
+            "summary": "Testimonials section from the results page, headed (H2) \"What owners say a year later.\": 1 paragraph, 3 photos, 15 drawn icons or graphics, 3 repeatable items.",
+            "pageTypes": [
+                "work",
+                "any"
+            ],
+            "sourcePage": "work",
+            "position": 4,
+            "file": "units/work-04-testimonials.html",
+            "images": [
+                "owner-potter",
+                "owner-maya",
+                "owner-dev"
+            ],
+            "slots": 8,
+            "repeatable": 3,
+            "ksesStable": false
+        },
+        "work-05-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the results page, headed (H2) \"Your story could be the next one on this page.\": 2 paragraphs, 2 buttons, 1 photo.",
+            "pageTypes": [
+                "work",
+                "any"
+            ],
+            "sourcePage": "work",
+            "position": 5,
+            "file": "units/work-05-cta.html",
+            "images": [
+                "workshop-session"
+            ],
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "about-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the about page, headed (H1) \"Advisors who have run businesses, for people who run businesses.\": 2 paragraphs, 1 photo, 3 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 1,
+            "file": "units/about-01-page-header.html",
+            "images": [
+                "about-team"
+            ],
+            "slots": 9,
+            "repeatable": 3,
+            "ksesStable": false
+        },
+        "about-02-features": {
+            "scope": "section",
+            "role": "features",
+            "summary": "Features section from the about page, headed (H2) \"Four things we won’t compromise on.\": 5 headings, 1 paragraph, 4 repeatable items.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 2,
+            "file": "units/about-02-features.html",
+            "slots": 14,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "about-03-team": {
+            "scope": "section",
+            "role": "team",
+            "summary": "Team section from the about page, headed (H2) \"The people who’ll be in the room.\": 7 headings, 2 paragraphs, 5 photos, 5 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 3,
+            "file": "units/about-03-team.html",
+            "images": [
+                "team-1",
+                "team-2",
+                "team-3",
+                "team-4",
+                "team-5"
+            ],
+            "slots": 21,
+            "repeatable": 5,
+            "ksesStable": false
+        },
+        "about-04-map": {
+            "scope": "section",
+            "role": "map",
+            "summary": "Map section from the about page, headed (H2) \"An office on Congress Avenue, and a lot of time on shop floors.\": 2 paragraphs, 4 drawn icons or graphics, 3 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 4,
+            "file": "units/about-04-map.html",
+            "slots": 9,
+            "repeatable": 3,
+            "fixedText": [
+                "Austin",
+                "Dallas",
+                "Houston",
+                "San Antonio"
+            ],
+            "ksesStable": false
+        },
+        "about-05-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the about page, headed (H2) \"We take on six new owners each quarter.\": 2 paragraphs, 2 buttons, 1 photo.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 5,
+            "file": "units/about-05-cta.html",
+            "images": [
+                "hero-team"
+            ],
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "contact-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the contact page, headed (H1) \"Let’s start with a conversation.\": 2 paragraphs, 1 photo, 8 drawn icons or graphics, 31 repeatable items. Has a demo form that does not send anything yet.",
+            "pageTypes": [
+                "contact"
+            ],
+            "sourcePage": "contact",
+            "position": 1,
+            "file": "units/contact-01-page-header.html",
+            "images": [
+                "owner-dev"
+            ],
+            "needs": [
+                "form"
+            ],
+            "slots": 47,
+            "repeatable": 31,
+            "ksesStable": false
+        },
+        "contact-02-contact": {
+            "scope": "section",
+            "role": "contact",
+            "summary": "Contact section from the contact page, headed (H2) \"412 Congress Avenue, Suite 300\": 2 paragraphs, 1 photo, 3 drawn icons or graphics, 3 repeatable items.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "contact",
+            "position": 2,
+            "file": "units/contact-02-contact.html",
+            "images": [
+                "office-whiteboard"
+            ],
+            "slots": 6,
+            "repeatable": 3,
+            "ksesStable": false
+        },
+        "header": {
+            "scope": "header",
+            "role": "header",
+            "summary": "Header template part.",
+            "file": "units/header.html",
+            "slots": 3,
+            "ksesStable": false
+        },
+        "footer": {
+            "scope": "footer",
+            "role": "footer",
+            "summary": "Footer template part.",
+            "file": "units/footer.html",
+            "slots": 18,
+            "ksesStable": false
+        }
+    },
+    "assets": {
+        "about-team": {
+            "file": "images/about-team.jpg",
+            "alt": "Oakline partners at work",
+            "title": "Oakline partners at work",
+            "width": 1600,
+            "height": 1100
+        },
+        "hero-team": {
+            "file": "images/hero-team.jpg",
+            "alt": "Owner and managers reviewing plans",
+            "title": "Owner and managers reviewing plans",
+            "width": 1600,
+            "height": 1250
+        },
+        "office-whiteboard": {
+            "file": "images/office-whiteboard.jpg",
+            "alt": "Team planning at a whiteboard",
+            "title": "Team planning at a whiteboard",
+            "width": 1400,
+            "height": 1000
+        },
+        "owner-dev": {
+            "file": "images/owner-dev.jpg",
+            "alt": "Jordan Pike",
+            "title": "Jordan Pike",
+            "width": 600,
+            "height": 720
+        },
+        "owner-maya": {
+            "file": "images/owner-maya.jpg",
+            "alt": "Maya Lindgren",
+            "title": "Maya Lindgren",
+            "width": 600,
+            "height": 720
+        },
+        "owner-potter": {
+            "file": "images/owner-potter.jpg",
+            "alt": "Walter Brandt",
+            "title": "Walter Brandt",
+            "width": 600,
+            "height": 720
+        },
+        "team-1": {
+            "file": "images/team-1.jpg",
+            "alt": "Rosa Delgado-Whitfield",
+            "title": "Rosa Delgado-Whitfield",
+            "width": 600,
+            "height": 720
+        },
+        "team-2": {
+            "file": "images/team-2.jpg",
+            "alt": "Marcus Oyelaran",
+            "title": "Marcus Oyelaran",
+            "width": 600,
+            "height": 720
+        },
+        "team-3": {
+            "file": "images/team-3.jpg",
+            "alt": "Hannah Kwok",
+            "title": "Hannah Kwok",
+            "width": 600,
+            "height": 720
+        },
+        "team-4": {
+            "file": "images/team-4.jpg",
+            "alt": "Daniel Reyes",
+            "title": "Daniel Reyes",
+            "width": 600,
+            "height": 720
+        },
+        "team-5": {
+            "file": "images/team-5.jpg",
+            "alt": "Tess Abernathy",
+            "title": "Tess Abernathy",
+            "width": 600,
+            "height": 720
+        },
+        "workshop-session": {
+            "file": "images/workshop-session.jpg",
+            "alt": "Planning workshop",
+            "title": "Planning workshop",
+            "width": 1600,
+            "height": 1000
+        }
+    },
+    "source": {
+        "dir": "seed/sites/advisors",
+        "hash": "5999eeedaa692c55a1beae2b12959bc2"
+    }
+}

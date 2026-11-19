@@ -1,0 +1,36 @@
+{
+    "version": 2,
+    "slug": "alpha",
+    "name": "Alpha",
+    "title": "Test template",
+    "industry": "creative",
+    "description": "A fixture kit with one hero and one call to action.",
+    "look": "Colours: #111111.",
+    "demo": {"business": "Demo Co", "tagline": "Fixture"},
+    "design": {
+        "file": "design.json",
+        "variation": "Default",
+        "classPrefix": "al-",
+        "fingerprint": ".al-hero",
+        "palette": {"base": "Paper #FFFFFF"},
+        "fonts": ["Fixture Sans"],
+        "pageTemplate": "page-no-title",
+        "header": "header",
+        "footer": null,
+        "assetsPath": "assets/kits/alpha"
+    },
+    "frontPage": "home",
+    "navigation": ["contact"],
+    "pages": [
+        {"key": "home", "title": "Home", "slug": "home", "navLabel": "Home", "inNav": false, "type": "home", "template": "page-no-title", "sections": ["home-01-hero"]},
+        {"key": "contact", "title": "Contact", "slug": "contact", "navLabel": "Contact", "inNav": true, "type": "contact", "template": "page-no-title", "sections": ["contact-01-cta"]}
+    ],
+    "units": {
+        "home-01-hero": {"scope": "section", "role": "hero", "summary": "Fixture hero with a headline, body, two list items, a button, a phone link and a photo.", "pageTypes": ["home"], "sourcePage": "home", "position": 1, "file": "units/home-01-hero.html", "images": ["photo"], "ksesStable": false},
+        "contact-01-cta": {"scope": "section", "role": "cta", "summary": "Fixture call to action.", "pageTypes": ["contact", "any"], "sourcePage": "contact", "position": 1, "file": "units/contact-01-cta.html", "ksesStable": true},
+        "header": {"scope": "header", "role": "header", "summary": "Header template part.", "file": "units/header.html", "ksesStable": true},
+        "broken": {"scope": "page", "role": "x", "summary": "Invalid scope.", "file": "units/none.html"}
+    },
+    "assets": {"photo": {"file": "images/photo.jpg", "alt": "A workbench", "title": "Photo"}},
+    "source": {"dir": "seed/sites/alpha", "hash": "abc"}
+}

@@ -1,0 +1,483 @@
+{
+    "version": 2,
+    "slug": "developer",
+    "name": "Midnight Build",
+    "title": "Developer Portfolio",
+    "industry": "tech",
+    "description": "A dark WordPress portfolio template for software engineers and freelance developers, with case studies, stat tiles and a bento grid.",
+    "look": "Colours: Canvas #0A0B0D, Text #F2F4F5, Lime #7CFF5B, Surface #14161A, Cyan #4ADEDE, Muted #8A9199.",
+    "demo": {
+        "business": "Kai Okafor",
+        "tagline": "Full-stack engineer building systems that stay fast in production"
+    },
+    "design": {
+        "file": "design.json",
+        "variation": "Terminal",
+        "classPrefix": "sf-",
+        "fingerprint": "",
+        "palette": {
+            "base": "Canvas #0A0B0D",
+            "contrast": "Text #F2F4F5",
+            "accent-1": "Lime #7CFF5B",
+            "accent-2": "Surface #14161A",
+            "accent-3": "Cyan #4ADEDE",
+            "accent-4": "Muted #8A9199",
+            "accent-5": "Hairline #1F242B",
+            "accent-6": "Deep black #050607"
+        },
+        "fonts": [],
+        "pageTemplate": "page-landing",
+        "header": "header",
+        "footer": "footer",
+        "assetsPath": "assets/kits/developer"
+    },
+    "frontPage": "home",
+    "navigation": [
+        "work",
+        "services",
+        "about",
+        "contact"
+    ],
+    "pages": [
+        {
+            "key": "home",
+            "title": "Home",
+            "slug": "home",
+            "navLabel": "Home",
+            "inNav": false,
+            "type": "home",
+            "template": "page-landing",
+            "sections": [
+                "home-01-hero",
+                "home-02-team",
+                "home-03-portfolio",
+                "home-04-skills",
+                "home-05-skills",
+                "home-06-cta"
+            ]
+        },
+        {
+            "key": "work",
+            "title": "Work",
+            "slug": "work",
+            "navLabel": "Work",
+            "inNav": true,
+            "type": "work",
+            "template": "page-landing",
+            "sections": [
+                "work-01-page-header",
+                "work-02-portfolio",
+                "work-03-cta"
+            ]
+        },
+        {
+            "key": "services",
+            "title": "Services",
+            "slug": "services",
+            "navLabel": "Services",
+            "inNav": true,
+            "type": "services",
+            "template": "page-landing",
+            "sections": [
+                "services-01-page-header",
+                "services-02-stats",
+                "services-03-process",
+                "services-04-faq",
+                "services-05-cta"
+            ]
+        },
+        {
+            "key": "about",
+            "title": "About",
+            "slug": "about",
+            "navLabel": "About",
+            "inNav": true,
+            "type": "about",
+            "template": "page-landing",
+            "sections": [
+                "about-01-page-header",
+                "about-02-process",
+                "about-03-features",
+                "about-04-cta"
+            ]
+        },
+        {
+            "key": "contact",
+            "title": "Contact",
+            "slug": "contact",
+            "navLabel": "Contact",
+            "inNav": true,
+            "type": "contact",
+            "template": "page-landing",
+            "sections": [
+                "contact-01-page-header",
+                "contact-02-cta",
+                "contact-03-content"
+            ]
+        }
+    ],
+    "units": {
+        "home-01-hero": {
+            "scope": "section",
+            "role": "hero",
+            "summary": "Home page hero from the home page, headed (H1) \"Systems that stay fast when the traffic arrives.\": 10 paragraphs, 2 buttons, 4 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 1,
+            "file": "units/home-01-hero.html",
+            "slots": 13,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "home-02-team": {
+            "scope": "section",
+            "role": "team",
+            "summary": "Team section from the home page, headed (H2) \"Five things teams hire me for.\": 6 headings, 12 paragraphs, 9 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 2,
+            "file": "units/home-02-team.html",
+            "slots": 18,
+            "repeatable": 9,
+            "ksesStable": true
+        },
+        "home-03-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the home page, headed (H2) \"Four systems, all in production.\": 2 paragraphs. Lists the site's portfolio projects.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 3,
+            "file": "units/home-03-portfolio.html",
+            "needs": [
+                "projects"
+            ],
+            "slots": 3,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "home-04-skills": {
+            "scope": "section",
+            "role": "skills",
+            "summary": "Skills section from the home page, headed (H2) \"The stack I reach for.\": 10 paragraphs, 6 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 4,
+            "file": "units/home-04-skills.html",
+            "slots": 7,
+            "repeatable": 6,
+            "ksesStable": true
+        },
+        "home-05-skills": {
+            "scope": "section",
+            "role": "skills",
+            "summary": "Skills section from the home page, headed (H2) \"Orbit CLI: 4,200 stars, 61 contributors.\": 3 paragraphs, 1 button, 1 photo, 2 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 5,
+            "file": "units/home-05-skills.html",
+            "images": [
+                "stack"
+            ],
+            "slots": 4,
+            "repeatable": 2,
+            "ksesStable": false
+        },
+        "home-06-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the home page, headed (H2) \"Got something that has to hold up?\": 8 paragraphs, 2 buttons, 3 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 6,
+            "file": "units/home-06-cta.html",
+            "slots": 11,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "work-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the work page, headed (H1) \"Six systems, all still running.\": 3 paragraphs, 2 repeatable items.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 1,
+            "file": "units/work-01-page-header.html",
+            "slots": 4,
+            "repeatable": 2,
+            "ksesStable": true
+        },
+        "work-02-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the work page. Lists the site's portfolio projects.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 2,
+            "file": "units/work-02-portfolio.html",
+            "needs": [
+                "projects"
+            ],
+            "slots": 0,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "work-03-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the work page, headed (H2) \"Two build slots open from February 2027.\": 2 paragraphs, 2 buttons, 2 repeatable items.",
+            "pageTypes": [
+                "work",
+                "any"
+            ],
+            "sourcePage": "work",
+            "position": 3,
+            "file": "units/work-03-cta.html",
+            "slots": 5,
+            "repeatable": 2,
+            "ksesStable": true
+        },
+        "services-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the services page, headed (H1) \"Three ways to put a senior engineer on it.\": 2 paragraphs.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 1,
+            "file": "units/services-01-page-header.html",
+            "slots": 3,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "services-02-stats": {
+            "scope": "section",
+            "role": "stats",
+            "summary": "Stats section from the services page, headed (H3) \"Product build\": 3 headings, 12 paragraphs, 15 list items, 18 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 2,
+            "file": "units/services-02-stats.html",
+            "slots": 30,
+            "repeatable": 18,
+            "ksesStable": true
+        },
+        "services-03-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the services page, headed (H2) \"Three steps, no black boxes.\": 4 headings, 7 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 3,
+            "file": "units/services-03-process.html",
+            "slots": 11,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "services-04-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ from the services page, headed (H2) \"The questions I always get.\": 6 paragraphs, 4 questions, 6 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 4,
+            "file": "units/services-04-faq.html",
+            "slots": 11,
+            "repeatable": 6,
+            "ksesStable": true
+        },
+        "services-05-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the services page, headed (H2) \"Let's work out which one you need.\": 2 paragraphs, 2 buttons, 2 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 5,
+            "file": "units/services-05-cta.html",
+            "slots": 5,
+            "repeatable": 2,
+            "ksesStable": true
+        },
+        "about-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the about page, headed (H1) \"Kai Okafor\": 7 paragraphs, 1 photo, 4 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 1,
+            "file": "units/about-01-page-header.html",
+            "images": [
+                "portrait"
+            ],
+            "slots": 7,
+            "repeatable": 4,
+            "ksesStable": false
+        },
+        "about-02-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the about page, headed (H2) \"Nine years, five rooms.\": 6 headings, 16 paragraphs, 20 repeatable items.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 2,
+            "file": "units/about-02-process.html",
+            "slots": 22,
+            "repeatable": 20,
+            "ksesStable": true
+        },
+        "about-03-features": {
+            "scope": "section",
+            "role": "features",
+            "summary": "Features section from the about page, headed (H2) \"Four things I will not compromise on.\": 5 headings, 9 paragraphs, 4 repeatable items.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 3,
+            "file": "units/about-03-features.html",
+            "slots": 14,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "about-04-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the about page, headed (H2) \"Questions about a stack are free.\": 2 paragraphs, 2 buttons, 2 repeatable items.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 4,
+            "file": "units/about-04-cta.html",
+            "slots": 5,
+            "repeatable": 2,
+            "ksesStable": true
+        },
+        "contact-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the contact page, headed (H1) \"Tell me what you're building.\": 8 paragraphs, 2 buttons, 3 repeatable items.",
+            "pageTypes": [
+                "contact"
+            ],
+            "sourcePage": "contact",
+            "position": 1,
+            "file": "units/contact-01-page-header.html",
+            "slots": 11,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "contact-02-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the contact page, headed (H2) \"Four lines are enough.\": 8 paragraphs, 5 list items, 12 repeatable items.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "contact",
+            "position": 2,
+            "file": "units/contact-02-cta.html",
+            "slots": 14,
+            "repeatable": 12,
+            "ksesStable": false
+        },
+        "contact-03-content": {
+            "scope": "section",
+            "role": "content",
+            "summary": "Content section from the contact page: 1 paragraph, 1 photo.",
+            "pageTypes": [
+                "contact"
+            ],
+            "sourcePage": "contact",
+            "position": 3,
+            "file": "units/contact-03-content.html",
+            "images": [
+                "signal"
+            ],
+            "slots": 1,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "header": {
+            "scope": "header",
+            "role": "header",
+            "summary": "Header template part.",
+            "file": "units/header.html",
+            "slots": 4,
+            "ksesStable": true
+        },
+        "footer": {
+            "scope": "footer",
+            "role": "footer",
+            "summary": "Footer template part.",
+            "file": "units/footer.html",
+            "slots": 11,
+            "ksesStable": true
+        }
+    },
+    "assets": {
+        "portrait": {
+            "file": "images/portrait.jpg",
+            "alt": "Abstract technical plate: node graph in lime and cyan on near-black",
+            "title": "Kai Okafor",
+            "width": 1200,
+            "height": 1400
+        },
+        "signal": {
+            "file": "images/signal.jpg",
+            "alt": "Abstract technical plate: a waveform traced in lime over a dark grid",
+            "title": "Signal",
+            "width": 1600,
+            "height": 900
+        },
+        "stack": {
+            "file": "images/stack.jpg",
+            "alt": "Abstract technical plate: stacked signal bars on a fine grid",
+            "title": "Orbit CLI",
+            "width": 1600,
+            "height": 1100
+        }
+    },
+    "source": {
+        "dir": "seed/sites/developer",
+        "hash": "689298cbe2d8e342d8ab4f3d0777a324"
+    }
+}

@@ -1,0 +1,184 @@
+{
+  "vertical": "agency",
+  "label": "Agency site: four pages from the agency kit, a custom template on contact",
+  "scope": "site",
+  "instruction": "We are an eleven person brand and product agency called Marlow Grid. Build the site: home, services, a work archive and contact.",
+  "brief": {
+    "siteTitle": "Marlow Grid",
+    "kit": "agency",
+    "customTemplates": [
+      "page-no-title",
+      "page-landing",
+      "page-with-sidebar"
+    ],
+    "existingSlugs": {}
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "kit": "agency",
+    "summary": "A four page agency site: home, services, a work archive led by the portfolio grid, and a contact page.",
+    "site": {
+      "title": "Marlow Grid",
+      "tagline": "Brand systems and digital product",
+      "frontPage": "home",
+      "navigation": [
+        "home",
+        "services",
+        "work",
+        "contact"
+      ]
+    },
+    "pages": [
+      {
+        "key": "home",
+        "title": "Home",
+        "slug": "home",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "home-02-cta",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "<span>Brand systems</span><i></i><span>Digital product</span><i></i><span>Design systems</span><i></i><span>Brand systems</span><i></i><span>Digital product</span><i></i><span>Design systems</span><i></i>"
+              }
+            ],
+            "attrs": []
+          },
+          {
+            "pattern": "home-07-cta",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Next"
+              },
+              {
+                "id": "t1",
+                "html": "Have a brand that needs a system?"
+              },
+              {
+                "id": "t2",
+                "html": "Tell us what you are building and what is getting in the way. Eleven of us, one team on every project."
+              },
+              {
+                "id": "t3",
+                "html": "<a class=\"wp-block-button__link wp-element-button\" href=\"{{link:contact}}\">Start a project</a>"
+              },
+              {
+                "id": "t4",
+                "html": "<a class=\"wp-block-button__link wp-element-button\" href=\"mailto:studio@marlowgrid.example\">studio@marlowgrid.example</a>"
+              }
+            ],
+            "attrs": []
+          }
+        ]
+      },
+      {
+        "key": "services",
+        "title": "Services",
+        "slug": "services",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "services-01-page-header",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "(Services)"
+              },
+              {
+                "id": "t1",
+                "html": "Brand and product, <em>one team.</em>"
+              },
+              {
+                "id": "t2",
+                "html": "Brand systems and digital product are different skills, not different departments. Hire us for one, or for both: the team stays the same."
+              },
+              {
+                "id": "t3",
+                "html": "<a class=\"wp-block-button__link wp-element-button\" href=\"{{link:contact}}\">Start a project</a>"
+              },
+              {
+                "id": "t4",
+                "html": "<a class=\"wp-block-button__link wp-element-button\" href=\"#process\">How we work</a>"
+              }
+            ],
+            "attrs": []
+          }
+        ]
+      },
+      {
+        "key": "work",
+        "title": "Work",
+        "slug": "work",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "work-02-portfolio",
+            "texts": [],
+            "attrs": []
+          },
+          {
+            "block": "swishfolio-core/portfolio",
+            "attributes": {
+              "layout": "grid",
+              "columns": 2,
+              "gap": 40,
+              "postsPerPage": 12,
+              "showFilters": true,
+              "showExcerpt": true,
+              "showCategory": true,
+              "showProjectType": true,
+              "showViewButton": true,
+              "viewButtonText": "Read the case study",
+              "cardStyle": "stacked",
+              "imageAspectRatio": "wide",
+              "hoverEffect": "reveal",
+              "taxonomyStyle": "border",
+              "imageBorderRadius": 0,
+              "taxonomyColor": "accent-2",
+              "cardContentBackground": "base",
+              "orderBy": "menu_order",
+              "order": "ASC"
+            }
+          }
+        ]
+      },
+      {
+        "key": "contact",
+        "title": "Contact",
+        "slug": "contact",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "home-07-cta",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Contact"
+              },
+              {
+                "id": "t1",
+                "html": "Tell us about the project."
+              },
+              {
+                "id": "t2",
+                "html": "A short email is enough to start: what you make, who it is for and when you need it."
+              },
+              {
+                "id": "t3",
+                "html": "<a class=\"wp-block-button__link wp-element-button\" href=\"mailto:studio@marlowgrid.example\">Email the studio</a>"
+              },
+              {
+                "id": "t4",
+                "html": "<a class=\"wp-block-button__link wp-element-button\" href=\"mailto:studio@marlowgrid.example\">studio@marlowgrid.example</a>"
+              }
+            ],
+            "attrs": []
+          }
+        ],
+        "template": "page-no-title"
+      }
+    ]
+  }
+}

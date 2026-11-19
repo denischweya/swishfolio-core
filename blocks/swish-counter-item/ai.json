@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "tier": "full",
+  "purpose": "stat",
+  "summary": "One animated stat: prefix, value, suffix and title.",
+  "capabilities": {
+    "content": {
+      "prefix": {
+        "type": "richtext",
+        "maxLength": 10
+      },
+      "value": {
+        "type": "richtext",
+        "maxLength": 20,
+        "role": "headline"
+      },
+      "suffix": {
+        "type": "richtext",
+        "maxLength": 10
+      },
+      "title": {
+        "type": "richtext",
+        "maxLength": 60,
+        "role": "supporting"
+      }
+    }
+  }
+}

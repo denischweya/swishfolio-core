@@ -1,0 +1,655 @@
+{
+    "version": 2,
+    "slug": "agency",
+    "name": "Kinetic",
+    "title": "Creative Agency",
+    "industry": "creative",
+    "description": "A bold WordPress template for creative and digital agencies, with huge type, a project showcase and services.",
+    "look": "Type: Bricolage Grotesque, Inter Tight. Colours: Canvas #0B0B0C, Off-white #F4F2EC, Acid lime #C6FF3D, Surface #151517, Hairline #2A2A2E, Muted text #9C9C95.",
+    "demo": {
+        "business": "Ozmo",
+        "tagline": "Independent brand and digital studio in Rotterdam"
+    },
+    "design": {
+        "file": "design.json",
+        "variation": "Default",
+        "classPrefix": "oz-",
+        "fingerprint": ".oz-d1",
+        "palette": {
+            "base": "Canvas #0B0B0C",
+            "contrast": "Off-white #F4F2EC",
+            "accent-1": "Acid lime #C6FF3D",
+            "accent-2": "Surface #151517",
+            "accent-3": "Hairline #2A2A2E",
+            "accent-4": "Muted text #9C9C95",
+            "accent-5": "Raised surface #1D1D20",
+            "accent-6": "Black #000000"
+        },
+        "fonts": [
+            "Bricolage Grotesque",
+            "Inter Tight"
+        ],
+        "pageTemplate": "page-landing",
+        "header": "header",
+        "footer": "footer",
+        "assetsPath": "assets/kits/agency"
+    },
+    "frontPage": "home",
+    "navigation": [
+        "work",
+        "services",
+        "studio",
+        "contact"
+    ],
+    "pages": [
+        {
+            "key": "home",
+            "title": "Home",
+            "slug": "home",
+            "navLabel": "Home",
+            "inNav": false,
+            "type": "home",
+            "template": "page-landing",
+            "sections": [
+                "home-01-hero",
+                "home-02-cta",
+                "home-03-portfolio",
+                "home-04-services",
+                "home-05-stats",
+                "home-06-contact",
+                "home-07-cta"
+            ]
+        },
+        {
+            "key": "work",
+            "title": "Work",
+            "slug": "work",
+            "navLabel": "Work",
+            "inNav": true,
+            "type": "work",
+            "template": "page-landing",
+            "sections": [
+                "work-01-page-header",
+                "work-02-portfolio",
+                "work-03-cta",
+                "work-04-portfolio",
+                "work-05-cta"
+            ]
+        },
+        {
+            "key": "services",
+            "title": "Services",
+            "slug": "services",
+            "navLabel": "Services",
+            "inNav": true,
+            "type": "services",
+            "template": "page-landing",
+            "sections": [
+                "services-01-page-header",
+                "services-02-services",
+                "services-03-pricing",
+                "services-04-process",
+                "services-05-faq",
+                "services-06-cta"
+            ]
+        },
+        {
+            "key": "studio",
+            "title": "Studio",
+            "slug": "studio",
+            "navLabel": "Studio",
+            "inNav": true,
+            "type": "about",
+            "template": "page-landing",
+            "sections": [
+                "studio-01-page-header",
+                "studio-02-gallery",
+                "studio-03-features",
+                "studio-04-team",
+                "studio-05-logos",
+                "studio-06-careers",
+                "studio-07-cta"
+            ]
+        },
+        {
+            "key": "contact",
+            "title": "Contact",
+            "slug": "contact",
+            "navLabel": "Contact",
+            "inNav": true,
+            "type": "contact",
+            "template": "page-landing",
+            "sections": [
+                "contact-01-page-header",
+                "contact-02-process",
+                "contact-03-contact"
+            ]
+        }
+    ],
+    "units": {
+        "home-01-hero": {
+            "scope": "section",
+            "role": "hero",
+            "summary": "Home page hero from the home page, headed (H1) \"Brands that refuse to sit still.\": 4 paragraphs, 2 buttons, 1 photo, 1 drawn icon or graphic, 3 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 1,
+            "file": "units/home-01-hero.html",
+            "images": [
+                "reel"
+            ],
+            "slots": 16,
+            "repeatable": 3,
+            "fixedText": [
+                "START A PROJECT • SAY HELLO • START A PROJECT • SAY HELLO •"
+            ],
+            "ksesStable": false
+        },
+        "home-02-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the home page.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 2,
+            "file": "units/home-02-cta.html",
+            "slots": 1,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "home-03-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the home page, headed (H2) \"Recent things we're proud of\": 5 headings, 10 paragraphs, 1 button, 4 photos, 28 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 3,
+            "file": "units/home-03-portfolio.html",
+            "images": [
+                "halden",
+                "orchard",
+                "nimbus",
+                "fold"
+            ],
+            "slots": 52,
+            "repeatable": 28,
+            "ksesStable": false
+        },
+        "home-04-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the home page, headed (H2) \"Four crafts under one roof\": 5 headings, 12 paragraphs, 1 button, 2 photos, 12 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 4,
+            "file": "units/home-04-services.html",
+            "images": [
+                "type",
+                "orbs"
+            ],
+            "slots": 30,
+            "repeatable": 12,
+            "ksesStable": false
+        },
+        "home-05-stats": {
+            "scope": "section",
+            "role": "stats",
+            "summary": "Stats section from the home page, headed (H2) \"Small on purpose. One floor, no account managers, nobody you won't meet.\": 9 paragraphs, 4 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 5,
+            "file": "units/home-05-stats.html",
+            "slots": 10,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "home-06-contact": {
+            "scope": "section",
+            "role": "contact",
+            "summary": "Contact section from the home page: 8 paragraphs, 2 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 6,
+            "file": "units/home-06-contact.html",
+            "slots": 8,
+            "repeatable": 2,
+            "ksesStable": true
+        },
+        "home-07-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the home page, headed (H2) \"Got something that needs to move?\": 2 paragraphs, 2 buttons.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 7,
+            "file": "units/home-07-cta.html",
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "work-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the work page, headed (H1) \"Work(06)\": 2 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 1,
+            "file": "units/work-01-page-header.html",
+            "slots": 9,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "work-02-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the work page. Lists the site's portfolio projects.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 2,
+            "file": "units/work-02-portfolio.html",
+            "needs": [
+                "projects"
+            ],
+            "slots": 0,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "work-03-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the work page.",
+            "pageTypes": [
+                "work",
+                "any"
+            ],
+            "sourcePage": "work",
+            "position": 3,
+            "file": "units/work-03-cta.html",
+            "slots": 1,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "work-04-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the work page, headed (H2) \"Also shipped\": 9 headings, 26 paragraphs, 8 repeatable items.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 4,
+            "file": "units/work-04-portfolio.html",
+            "slots": 35,
+            "repeatable": 8,
+            "ksesStable": true
+        },
+        "work-05-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the work page, headed (H2) \"Yours could be number sixty-five.\": 2 paragraphs, 2 buttons.",
+            "pageTypes": [
+                "work",
+                "any"
+            ],
+            "sourcePage": "work",
+            "position": 5,
+            "file": "units/work-05-cta.html",
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "services-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the services page, headed (H1) \"Four crafts, one table.\": 2 paragraphs, 2 buttons.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 1,
+            "file": "units/services-01-page-header.html",
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "services-02-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the services page, headed (H2) \"Brand\": 4 headings, 12 paragraphs, 24 list items, 4 photos, 28 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 2,
+            "file": "units/services-02-services.html",
+            "images": [
+                "type",
+                "nimbus",
+                "reel",
+                "kora"
+            ],
+            "slots": 40,
+            "repeatable": 28,
+            "ksesStable": false
+        },
+        "services-03-pricing": {
+            "scope": "section",
+            "role": "pricing",
+            "summary": "Pricing section from the services page, headed (H2) \"Pick a shape that fits\": 4 headings, 14 paragraphs, 9 list items, 11 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 3,
+            "file": "units/services-03-pricing.html",
+            "slots": 27,
+            "repeatable": 11,
+            "ksesStable": true
+        },
+        "services-04-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the services page, headed (H2) \"Twelve weeks, five moves\": 6 headings, 17 paragraphs, 5 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 4,
+            "file": "units/services-04-process.html",
+            "slots": 23,
+            "repeatable": 5,
+            "ksesStable": true
+        },
+        "services-05-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ from the services page, headed (H2) \"Fair questions\": 8 paragraphs, 6 questions, 6 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 5,
+            "file": "units/services-05-faq.html",
+            "slots": 15,
+            "repeatable": 6,
+            "ksesStable": true
+        },
+        "services-06-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the services page, headed (H2) \"Not sure which one you need?\": 2 paragraphs, 2 buttons.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 6,
+            "file": "units/services-06-cta.html",
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "studio-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the studio page, headed (H1) \"Twelve people, one long table, no departments.\": 2 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "studio",
+            "position": 1,
+            "file": "units/studio-01-page-header.html",
+            "slots": 9,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "studio-02-gallery": {
+            "scope": "section",
+            "role": "gallery",
+            "summary": "Gallery section from the studio page: 5 paragraphs, 3 photos.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "studio",
+            "position": 2,
+            "file": "units/studio-02-gallery.html",
+            "images": [
+                "mesh",
+                "orbs",
+                "fold"
+            ],
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "studio-03-features": {
+            "scope": "section",
+            "role": "features",
+            "summary": "Features section from the studio page, headed (H2) \"Four habits we won't break\": 5 headings, 9 paragraphs, 4 repeatable items.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "studio",
+            "position": 3,
+            "file": "units/studio-03-features.html",
+            "slots": 14,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "studio-04-team": {
+            "scope": "section",
+            "role": "team",
+            "summary": "Team section from the studio page, headed (H2) \"The whole studio\": 13 headings, 26 paragraphs, 12 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "studio",
+            "position": 4,
+            "file": "units/studio-04-team.html",
+            "slots": 39,
+            "repeatable": 12,
+            "ksesStable": true
+        },
+        "studio-05-logos": {
+            "scope": "section",
+            "role": "logos",
+            "summary": "Logos section from the studio page, headed (H2) \"Nice things juries said\": 7 headings, 20 paragraphs, 6 repeatable items.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "studio",
+            "position": 5,
+            "file": "units/studio-05-logos.html",
+            "slots": 27,
+            "repeatable": 6,
+            "ksesStable": true
+        },
+        "studio-06-careers": {
+            "scope": "section",
+            "role": "careers",
+            "summary": "Careers section from the studio page, headed (H2) \"Pull up a chair\": 4 headings, 5 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "studio",
+            "position": 6,
+            "file": "units/studio-06-careers.html",
+            "slots": 9,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "studio-07-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the studio page, headed (H2) \"Come and see the table.\": 2 paragraphs, 2 buttons.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "studio",
+            "position": 7,
+            "file": "units/studio-07-cta.html",
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "contact-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the contact page, headed (H1) \"Tell us what you're making.\": 2 paragraphs, 21 repeatable items. Has a demo form that does not send anything yet.",
+            "pageTypes": [
+                "contact"
+            ],
+            "sourcePage": "contact",
+            "position": 1,
+            "file": "units/contact-01-page-header.html",
+            "needs": [
+                "form"
+            ],
+            "slots": 35,
+            "repeatable": 21,
+            "ksesStable": false
+        },
+        "contact-02-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the contact page, headed (H2) \"Three steps, no pitch theatre\": 4 headings, 7 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "contact",
+            "position": 2,
+            "file": "units/contact-02-process.html",
+            "slots": 11,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "contact-03-contact": {
+            "scope": "section",
+            "role": "contact",
+            "summary": "Contact section from the contact page, headed (H3) \"jobs@ozmo.studio\": 3 headings, 6 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "contact",
+            "position": 3,
+            "file": "units/contact-03-contact.html",
+            "slots": 9,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "header": {
+            "scope": "header",
+            "role": "header",
+            "summary": "Header template part.",
+            "file": "units/header.html",
+            "slots": 3,
+            "ksesStable": false
+        },
+        "footer": {
+            "scope": "footer",
+            "role": "footer",
+            "summary": "Footer template part.",
+            "file": "units/footer.html",
+            "slots": 13,
+            "ksesStable": false
+        }
+    },
+    "assets": {
+        "fold": {
+            "file": "images/fold.jpg",
+            "alt": "Fold Festival identity: colour wheel in pink, violet and orange on yellow",
+            "title": "Fold Festival 26",
+            "width": 1600,
+            "height": 1200
+        },
+        "halden": {
+            "file": "images/halden.jpg",
+            "alt": "Halden Cargo identity: black wordmark and wheel graphic on bright orange",
+            "title": "Halden Cargo",
+            "width": 1600,
+            "height": 1200
+        },
+        "kora": {
+            "file": "images/kora.jpg",
+            "alt": "Three Kora bank cards floating in a stack: black, coral and blue",
+            "title": "Kora",
+            "width": 1600,
+            "height": 1200
+        },
+        "mesh": {
+            "file": "images/mesh.jpg",
+            "alt": "Soft-focus gradient in lime, violet, pink and orange",
+            "title": "Colour study",
+            "width": 1600,
+            "height": 960
+        },
+        "nimbus": {
+            "file": "images/nimbus.jpg",
+            "alt": "Nimbus FM website in a dark browser window on violet with a yellow sun",
+            "title": "Nimbus FM",
+            "width": 1600,
+            "height": 1200
+        },
+        "orbs": {
+            "file": "images/orbs.jpg",
+            "alt": "Glossy lime, silver and violet spheres in orbit on black",
+            "title": "Orbit study",
+            "width": 1600,
+            "height": 1600
+        },
+        "orchard": {
+            "file": "images/orchard.jpg",
+            "alt": "Pocket Orchard app screens on two phones against pink and deep green",
+            "title": "Pocket Orchard",
+            "width": 1600,
+            "height": 1200
+        },
+        "reel": {
+            "file": "images/reel.jpg",
+            "alt": "Lime circle in motion across a black frame",
+            "title": "Studio reel",
+            "width": 1600,
+            "height": 1100
+        },
+        "type": {
+            "file": "images/type.jpg",
+            "alt": "Type specimen: oversized letters A, g and 9 with a colour palette",
+            "title": "Type specimen",
+            "width": 1600,
+            "height": 1200
+        }
+    },
+    "source": {
+        "dir": "seed/sites/agency",
+        "hash": "cbbc36863ec0fa9db136174bed4fa42f"
+    }
+}

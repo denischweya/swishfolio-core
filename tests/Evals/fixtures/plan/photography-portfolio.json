@@ -1,0 +1,181 @@
+{
+  "vertical": "photography",
+  "label": "Photography portfolio: four page site led by a project grid",
+  "scope": "site",
+  "instruction": "I am a documentary photographer in Bristol. I need a portfolio site with a strong home page, a full archive of my series, an about page and a way to commission me.",
+  "brief": {
+    "siteTitle": "Mara Ellison",
+    "kit": "photographer",
+    "customTemplates": [
+      "page-no-title",
+      "page-landing",
+      "page-with-sidebar"
+    ],
+    "existingSlugs": {}
+  },
+  "response": {
+    "schemaVersion": "1.0",
+    "kit": "photographer",
+    "summary": "A four page portfolio for a documentary photographer: a full bleed home page, the series archive, an about page and a contact page.",
+    "site": {
+      "title": "Mara Ellison",
+      "tagline": "Documentary photography",
+      "frontPage": "home",
+      "navigation": [
+        "home",
+        "work",
+        "about",
+        "contact"
+      ]
+    },
+    "pages": [
+      {
+        "key": "home",
+        "title": "Home",
+        "slug": "home",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "home-01-hero",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Documentary photographs of Bristol, and the people who make it."
+              }
+            ],
+            "attrs": [],
+            "remove": [
+              "u1",
+              "u2"
+            ]
+          },
+          {
+            "block": "swishfolio-core/portfolio",
+            "attributes": {
+              "layout": "grid",
+              "columns": 2,
+              "gap": 40,
+              "postsPerPage": 12,
+              "showFilters": true,
+              "showExcerpt": true,
+              "showCategory": true,
+              "showProjectType": true,
+              "showViewButton": true,
+              "viewButtonText": "Read the case study",
+              "cardStyle": "stacked",
+              "imageAspectRatio": "wide",
+              "hoverEffect": "reveal",
+              "taxonomyStyle": "border",
+              "imageBorderRadius": 0,
+              "taxonomyColor": "accent-2",
+              "cardContentBackground": "base",
+              "orderBy": "menu_order",
+              "order": "ASC"
+            }
+          },
+          {
+            "pattern": "contact-03-cta",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Commissions · Prints · Bristol"
+              }
+            ],
+            "attrs": []
+          }
+        ]
+      },
+      {
+        "key": "work",
+        "title": "Work",
+        "slug": "work",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "work-01-page-header",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Work · Index of series"
+              },
+              {
+                "id": "t1",
+                "html": "Every series,<br>in one place."
+              },
+              {
+                "id": "t2",
+                "html": "Each series is edited down to the frames that still hold after a year. Open one to read how it was made."
+              }
+            ],
+            "attrs": []
+          },
+          {
+            "pattern": "work-02-portfolio",
+            "texts": [],
+            "attrs": []
+          }
+        ]
+      },
+      {
+        "key": "about",
+        "title": "About",
+        "slug": "about",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "home-02-intro",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "(00) · About"
+              },
+              {
+                "id": "t1",
+                "html": "Mara Ellison is a documentary photographer based in Bristol, working on long series and on commissions for people who want the real thing."
+              },
+              {
+                "id": "t2",
+                "html": "Based"
+              },
+              {
+                "id": "t3",
+                "html": "Bristol, UK"
+              }
+            ],
+            "attrs": [],
+            "remove": [
+              "u2",
+              "u3"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "contact",
+        "title": "Contact",
+        "slug": "contact",
+        "status": "draft",
+        "sections": [
+          {
+            "pattern": "contact-01-page-header",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Contact · Commissions and prints"
+              },
+              {
+                "id": "t1",
+                "html": "Write to the studio."
+              },
+              {
+                "id": "t2",
+                "html": "<a href=\"mailto:studio@maraellison.example\">studio@maraellison.example</a>"
+              }
+            ],
+            "attrs": []
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,20 +1,36 @@
 # Files and directories excluded from the WordPress.org distribution ZIP.
-# Used by `wp dist-archive` (WP-CLI). Source PHP and block sources stay in
-# so reviewers can verify the compiled build/ output. Only build tooling
-# and machine-generated artifacts are stripped.
+# Used by `wp dist-archive` (WP-CLI).
+#
+# What deliberately STAYS in the ZIP:
+#   - Every PHP source file under src/.
+#   - blocks/*/src/ — the ES6 and SCSS sources for the compiled blocks/*/build/
+#     bundles. WordPress.org requires that minified code ship with its sources,
+#     and a reviewer must be able to regenerate every bundle.
+#   - package.json and webpack.config.js — the build tooling needed to do that.
+#   - composer.json — the PSR-4 map. No runtime dependency is installed from it;
+#     the plugin autoloads through the fallback registered in the main file.
+#   - docs/PRIVACY.md, docs/SECURITY.md, docs/AI-PROVIDERS.md — user-facing
+#     documentation referenced from readme.txt.
+#
+# Everything below is development-only, machine-generated, or internal.
 
-# Build tooling — not needed at runtime.
+# Dependencies — never shipped. The plugin has zero runtime Composer
+# dependencies and falls back to its own PSR-4 autoloader with no vendor/.
 /node_modules
+/vendor
 /.npm
 /composer.lock
 /package-lock.json
 
-# Local dev environment.
+# Local dev environment and editor config.
 /.ddev
 /.vscode
 /.idea
+*.code-workspace
+*.swp
+*.swo
 
-# Version control.
+# Version control and CI.
 /.git
 /.github
 /.gitignore
@@ -23,17 +39,38 @@
 # This file itself.
 /.distignore
 
-# Test / docs scaffolding (none yet, but reserve the exclusions).
+# Tests and their tooling.
 /tests
 /phpunit.xml
 /phpunit.xml.dist
+/jest.config.js
+/playwright.config.js
 /phpcs.xml
 /phpcs.xml.dist
+/.phpunit.result.cache
 
-# OS noise.
+# Internal development material — specs, plans, decision records and the
+# agent-facing context file. None of this belongs in a user's ZIP.
+/CONTEXT.md
+/CLAUDE.md
+/.claude
+/docs/superpowers
+/docs/adr
+
+# Developer-facing duplicates of readme.txt. The WordPress.org readme is the
+# single shipped source of truth for the description and changelog.
+/README.md
+/CHANGELOG.md
+
+# Build output and OS noise.
+*.zip
 .DS_Store
 Thumbs.db
 *.log
 
 # Playwright MCP session artifacts (admin a11y snapshots, console logs).
 /.playwright-mcp
+/artifacts
+/playwright.smoke.config.js
+/bin/mint-e2e-session.sh
+/bin/check-pattern-render.sh

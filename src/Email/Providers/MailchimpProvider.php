@@ -63,7 +63,11 @@ class MailchimpProvider extends AbstractEmailProvider {
 		$apiKey = $this->credentials['api_key'] ?? '';
 		if ( strpos( $apiKey, '-' ) !== false ) {
 			$dc = substr( strrchr( $apiKey, '-' ), 1 );
-			$this->apiUrl = "https://{$dc}.api.mailchimp.com/3.0";
+			// The suffix becomes part of the host, so "x-evil.tld/#" would
+			// send the key elsewhere; real datacenters look like "us21".
+			if ( preg_match( '/^[a-z]+\d+$/', $dc ) ) {
+				$this->apiUrl = "https://{$dc}.api.mailchimp.com/3.0";
+			}
 		}
 	}
 

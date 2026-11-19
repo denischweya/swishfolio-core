@@ -1,0 +1,16 @@
+{
+  "blockName": "core/list-item",
+  "version": 1,
+  "tier": "content",
+  "purpose": "list-item",
+  "summary": "One item in a list.",
+  "capabilities": {
+    "content": {
+      "content": {
+        "type": "richtext",
+        "maxLength": 1000,
+        "role": "body"
+      }
+    }
+  }
+}

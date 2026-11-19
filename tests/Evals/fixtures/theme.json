@@ -1,0 +1,170 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "settings": {
+    "color": {
+      "defaultPalette": false,
+      "palette": [
+        {
+          "slug": "base",
+          "color": "#FFFDF5",
+          "name": "Base (Cream)"
+        },
+        {
+          "slug": "contrast",
+          "color": "#000000",
+          "name": "Contrast (Ink)"
+        },
+        {
+          "slug": "accent-1",
+          "color": "#FF6B6B",
+          "name": "Accent (Hot Red)"
+        },
+        {
+          "slug": "accent-2",
+          "color": "#FFD93D",
+          "name": "Secondary (Vivid Yellow)"
+        },
+        {
+          "slug": "accent-3",
+          "color": "#C4B5FD",
+          "name": "Muted (Soft Violet)"
+        },
+        {
+          "slug": "accent-4",
+          "color": "#1040C0",
+          "name": "Primary Blue"
+        },
+        {
+          "slug": "accent-5",
+          "color": "#FFFFFF",
+          "name": "White"
+        },
+        {
+          "slug": "accent-6",
+          "color": "#121212",
+          "name": "Dark"
+        }
+      ]
+    },
+    "spacing": {
+      "defaultSpacingSizes": false,
+      "spacingSizes": [
+        {
+          "slug": "10",
+          "size": "4px",
+          "name": "4"
+        },
+        {
+          "slug": "20",
+          "size": "8px",
+          "name": "8"
+        },
+        {
+          "slug": "30",
+          "size": "12px",
+          "name": "12"
+        },
+        {
+          "slug": "40",
+          "size": "16px",
+          "name": "16"
+        },
+        {
+          "slug": "50",
+          "size": "clamp(16px, 3vw, 24px)",
+          "name": "24"
+        },
+        {
+          "slug": "60",
+          "size": "clamp(24px, 4vw, 32px)",
+          "name": "32"
+        },
+        {
+          "slug": "70",
+          "size": "clamp(32px, 6vw, 48px)",
+          "name": "48"
+        },
+        {
+          "slug": "80",
+          "size": "clamp(48px, 8vw, 64px)",
+          "name": "64"
+        },
+        {
+          "slug": "90",
+          "size": "clamp(64px, 10vw, 96px)",
+          "name": "96"
+        }
+      ]
+    },
+    "typography": {
+      "defaultFontSizes": false,
+      "fontSizes": [
+        {
+          "slug": "small",
+          "size": "0.875rem",
+          "name": "Small"
+        },
+        {
+          "slug": "medium",
+          "size": "1rem",
+          "name": "Medium"
+        },
+        {
+          "slug": "large",
+          "size": "1.25rem",
+          "name": "Large"
+        },
+        {
+          "slug": "x-large",
+          "size": "1.5rem",
+          "name": "Extra Large"
+        },
+        {
+          "slug": "xx-large",
+          "size": "2rem",
+          "name": "2XL"
+        },
+        {
+          "slug": "3-x-large",
+          "size": "2.5rem",
+          "name": "3XL"
+        },
+        {
+          "slug": "display",
+          "size": "3rem",
+          "name": "Display"
+        },
+        {
+          "slug": "display-large",
+          "size": "4rem",
+          "name": "Display Large"
+        }
+      ]
+    }
+  },
+  "customTemplates": [
+    {
+      "name": "page-no-title",
+      "title": "Page No Title",
+      "postTypes": [
+        "page"
+      ]
+    },
+    {
+      "name": "page-landing",
+      "title": "Landing Page",
+      "postTypes": [
+        "page"
+      ]
+    },
+    {
+      "name": "page-with-sidebar",
+      "title": "Page With Sidebar",
+      "postTypes": [
+        "page",
+        "post"
+      ]
+    }
+  ]
+}

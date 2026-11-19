@@ -1,0 +1,50 @@
+{
+    "phones": [
+        "+44 117 496 0120",
+        "+44 117 496 0199",
+        "+44 20 7946 0388"
+    ],
+    "emails": [
+        "arjun.mehta@ashcombevale.example",
+        "bristol@ashcombevale.example",
+        "clementine.hale@ashcombevale.example",
+        "daniel.okoro@ashcombevale.example",
+        "enquiries@ashcombevale.example",
+        "grace.whitfield@ashcombevale.example",
+        "helen.achebe@ashcombevale.example",
+        "james.orme@ashcombevale.example",
+        "london@ashcombevale.example",
+        "marcus.reid@ashcombevale.example",
+        "owen.pritchard@ashcombevale.example",
+        "rosalind.fry@ashcombevale.example",
+        "sophie.lindqvist@ashcombevale.example",
+        "thomas.greaves@ashcombevale.example"
+    ],
+    "domains": [
+        "ashcombevale.example"
+    ],
+    "addresses": [
+        "14 Queen Square",
+        "41 Chancery Walk",
+        "No. 14 Queen Square, Bristol"
+    ],
+    "places": [
+        "Bristol",
+        "Queen Square",
+        "Chancery Walk"
+    ],
+    "people": [
+        "Arjun Mehta",
+        "Clementine Hale",
+        "Daniel Okoro",
+        "Eleanor Ashcombe",
+        "Grace Whitfield",
+        "Helen Achebe",
+        "James Orme",
+        "Marcus Reid",
+        "Owen Pritchard",
+        "Rosalind Fry",
+        "Sophie Lindqvist",
+        "Thomas Greaves"
+    ]
+}

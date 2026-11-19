@@ -79,6 +79,320 @@ Card, Hero, Heading, Portfolio, LatestPosts, Testimonials, TestimonialCard, Faq,
 
 ---
 
+## 3b. AI block editing subsystem
+
+Selection-based AI editing: the editor sends a selection, the AI returns structured actions, PHP validates them and sends them back. **PHP never mutates post content** — actions are applied client-side through the block editor store, so native undo reverses them and WordPress revisions are the history. The only DB write is the usage-counter option.
+
+- **Capability manifests** — one `blocks/<name>/ai.json` per block (23) plus `src/AI/Manifests/core/*.json` (5: paragraph, heading, list, list-item, button). Schema v1: `tier` (`full`|`content`), `purpose`, `summary`, `capabilities.{content,layout,style}`, optional `children`, `excluded`. Field types: `text, url, richtext, number, boolean, enum, token`. Colours/spacing/font sizes are **`token` fields carrying theme.json slugs, never literal values** — the theme's five style variations re-skin the whole palette, so a literal would break on a variation switch. The manifest is simultaneously the AI's description and the validator's allowlist.
+- **`Blocks/BlockRegistry`** — lazy discovery of `*/ai.json` and flat `*.json`, cached in transient `sfcore_ai_manifests_{SFCORE_VERSION}` (raw arrays, not objects), extensible via filter `swishfolio_ai_block_manifests`.
+- **`AI/Context/TokenResolver`** — reads `theme.json` presets. Handles both the flat list of a raw theme.json and the origin-keyed shape of `wp_get_global_settings()`, excluding the `default` origin when the theme disables default presets. `fromTheme()` is the live factory.
+- **`AI/Context/ContextAssembler`** — builds the `AIRequest`. Only manifests for blocks in play are sent; neighbours contribute name + purpose, never attributes. System prompt is byte-stable for cache reuse; selection and instruction go in the user message. A hero selection costs ~1,535 tokens (~1,420 cacheable).
+- **`AI/Prompt/PromptManager`** — file-based prompts in `src/AI/Prompt/{system,tasks}/*.txt`, `{{placeholder}}` substitution, raises on an unreplaced placeholder.
+- **`AI/Providers/`** — `AbstractAIProvider` wraps `wp_remote_post()` (no vendored SDK; zero runtime Composer deps) with retry on 429/5xx and a single overridable `post()` seam. `ProviderRegistry` applies stored credentials and delegates discovery to `ProviderCatalogue`.
+- **`AI/Providers/ProviderCatalogue`** — the one place that answers "which providers exist". **Seven entries**: `anthropic`, `openai`, `gemini`, `mistral`, `openrouter`, `groq`, and `openai-compatible` **last**, as the custom-endpoint escape hatch. The four added 2026-11-03 are `AbstractOpenAICompatiblePreset` subclasses — fixed base URL, label, model list, **no transport** — which is why `converse()` tool calling works on them from day one. Gemini goes through its OpenAI-compatible endpoint rather than its native `contents`/`parts` API, so there is no third transport. OpenRouter sends the `HTTP-Referer`/`X-Title` attribution headers it asks integrations for, and is the one preset whose tool support is a property of the **model** it routes to, not the provider.
+  **The catalogue exists because of a bug.** The slug allowlist was `Settings::PROVIDERS`, a hardcoded constant enforced in **nine places** (Settings ×5, SwishAiMenu, SettingsController, ConnectionsController), which made the documented `swishfolio_ai_providers` filter half-functional: a third party could register a provider class that `getActive()`, the connect route and the admin screen then all refused by slug, so **no credential could ever be stored against it**. `Settings::LEGACY_PROVIDERS` survives only so `migrate()` can recognise a pre-catalogue option. The admin screen (`SwishAiMenu:145,294`) and `SettingsController` were already registry-driven, so the four appear with no UI change.
+  Two latent bugs fixed with it. `OpenAICompatibleProvider::supportsTools()` returned **true** by inheritance — a guess about an endpoint that could be Together (tools) or Ollama (none), and guessing wrong meant the agent died inside a turn instead of refusing up front; it now returns **false** behind filter `swishfolio_ai_compatible_supports_tools`, and only the named presets promise tools. And `testConnection()` pinged `key(getModels())`, which is `null` for a custom endpoint, so **that provider's connection test could never pass** however good the credentials were — it now prefers the configured model.
+  **Not added, deliberately:** a context-window table (every model these presets list is 128k+, and the Groq claim justifying one was not substantiable) and per-provider pricing (a price table shipped in a plugin goes stale and misleads — it belongs with the hosted credits work, where it can be updated server-side). Model lists are curated and hardcoded; `Settings::setModel()` only sanitises, so the dropdown is a **UI** constraint and a newer model is a UI change, not a validation one.
+- **`Actions/`** — `ActionSchema` (schemaVersion 1.0; types `update_block_attributes`, `update_block_content`, `insert_block`, `remove_block`). `ActionValidator` runs five **all-or-nothing** stages: envelope → target → allowlist → value → sanitize. Value expands token slugs to `var(--wp--preset--*)`; sanitize applies `wp_kses_post`/`esc_url_raw`/`sanitize_text_field`. Any failure rejects the entire response.
+- **`AI/Settings`** — option `swishfolio_ai_settings`, key encrypted via the existing `EncryptionService`; `get()` never returns the key, an empty `api_key` on save preserves the stored one.
+- **`AI/UsageLogger`** — option `swishfolio_ai_usage`: lifetime counters + 100-entry rolling window. No prompt or content text is stored.
+- **`REST/`** — on the existing `swishfolio/v1` namespace: `POST /ai/edit`, `POST /ai/test-provider`, `GET /ai/usage`, `GET|POST /ai/settings`. The post ID is read from the request and **verified** with `current_user_can('edit_post', $id)`. Capability `swishfolio_use_ai` is granted through a `user_has_cap` filter (not written to roles). Rate limit 30/hour/user, filter `swishfolio_ai_rate_limit`.
+- **Tests** — `tests/Unit/` via PHPUnit 9.6 (`vendor/bin/phpunit --testsuite unit`), WP functions stubbed in `tests/stubs/`. No automated test touches the network. `ManifestConformanceTest` proves every manifest attribute exists in its `block.json`.
+
+### Editor UI (`src/js/ai/`, `src/js/ai-sidebar/`)
+
+Entry `src/js/ai-sidebar.js` → `assets/js/ai-sidebar.js`, enqueued by `Plugin::enqueueAiSidebar()` (not post-type gated) with `window.sfcoreAiEditor = {maxActions, capabilities}` localised from `Plugin::aiCapabilityPayload()`. **Field order in that payload is significant** — the client resolves `update_block_content` to the first richtext field, matching AllowlistStage/ValueStage.
+
+`PluginSidebar` + `PluginSidebarMoreMenuItem` from `@wordpress/editor`; toolbar "Ask AI" via `addFilter('editor.BlockEdit')` + `BlockControls`. Apply re-checks every returned clientId against the set that was sent, then dispatches inside `registry.batch()` from `useRegistry()` — one `updateBlockAttributes(clientIds, attrsByClientId, {uniqueByBlock:true})`, one `insertBlocks` per insertion, one `removeBlocks` — so an AI change is **one undo step**.
+
+### Generation engine (`src/AI/Generation/`, `src/Actions/Handlers/`)
+
+Two-stage per plan §9: `POST /ai/plan` returns a validated site plan for review, `POST /ai/generate` re-validates and executes it. Unlike in-editor editing, generation **does** write server-side, through `ActionExecutor` + `Actions/Handlers/*` with a per-action-type capability check; `canGenerate()` requires `swishfolio_use_ai` AND `edit_pages`.
+
+**Kits.** Generation composes from one **kit per template site**: `src/AI/Generation/Kits/<slug>/` (`kit.json`, `design.json`, `units/*.html`) plus images and fonts in `assets/kits/<slug>/`, all written by `seed/extract-patterns.php` from `seed/sites/<slug>/` (see `seed/README.md`; never hand-edit). A unit is one top-level section of a template page, verbatim, with demo specifics made portable (`{{kit-image:x}}`, `{{link:<page key>}}`, no attachment ids, no demo URLs); the header and footer are units too but belong to the design, not the plan. `PatternLibrary` lists the kits (`kits()`, `kit()`, `describeKits()` for the template matcher) and picks one with `resolve($requested, $brief, $scope)`: the request's `kit`, else the kit already applied (`swish_kit` option, or detected from its CSS fingerprint / style variation), else the `swishfolio_ai_generation_kit` filter, else `designer`. A plan names its kit and only that kit's catalogue (`Kit::catalogue()`: page compositions plus each unit's role, summary and CopySlots outline) is in the prompt, so sections never mix designs.
+
+A pattern section edits the unit's CopySlots slots by id (`texts` t*, `attrs` a*, `remove`/`clones` u*). **Coverage**: every slot still holding demo copy (`Kit::requiredSlots()`, anything with words or figures except a "01"-style ordinal) must be rewritten or inside a removed unit. `/ai/plan` validates without coverage, makes one `fill-copy` follow-up call for the gaps (`PlanCoverage`), prunes the smallest repeatable unit around any left, then validates fully (`PlanCoverageStage`). Composed kit markup carries inline SVG, forms and scripts, so `PlanExecutor` vouches for it (`TrustedMarkup::vouch()`) and the content tools skip kses for exactly that body. The kit's design (palette, fonts, CSS, parts) is applied separately by `AI/Onboarding/KitDesign`; generation never writes styles.
+
+`PlanExecutor` composes page content, creates pages as drafts, then makes a second pass resolving `{{page:key}}` links to permalinks. Both `createActions()` and `relinkActions()` skip pages carrying `existingPostId` (set only by `PlanCollisionStage` when `onConflict === 'skip'`) — a missing guard there overwrote pages the owner asked to keep.
+
+### BYOK connections and the Swish AI menu
+
+**BYOK (bring your own key).** The plugin ships no AI credits and no backend of its own: the site owner connects their own OpenAI and/or Anthropic account and pays that provider directly. Both can be connected at once; `active` picks which one requests use.
+
+- **`src/AI/Credentials/`** — `CredentialStoreInterface` + `WordPressCredentialStore`. Keys live in their **own** option `swishfolio_ai_credentials`, encrypted via `EncryptionService`, deliberately separate from settings so a settings export/dump cannot leak one. Provider slugs are validated before use as array keys.
+- **`src/AI/Settings`** — option `swishfolio_ai_settings`: `active`, `enabled`, `providers.<slug>.{model,base_url,status,last_validated_at}`, `brand`. `get()` never returns a key and keeps flat `provider`/`model`/`base_url`/`hasKey` keys describing the active provider for pre-BYOK callers. Migrates the old flat single-provider option, moving the inline `api_key` into the credential store and removing it. `setEnabled(true)` is refused with no connected provider; disconnecting the active provider falls back to another connected one, and disconnecting the last one forces `enabled` off.
+- **Brand context** — `siteName`, `siteDescription` (500 char cap), `designStyle`, `blockShapes`, `copywritingTone`, each validated against a closed vocabulary. Blended into the **cache-stable prefix** of both `ContextAssembler` (editing) and `PlanAssembler` (generation); empty fields are omitted rather than sent blank. Colours/spacing/fonts are NOT set here — those remain theme.json tokens.
+- **`src/Admin/SwishAiMenu`** — top-level **Swish AI** menu (`dashicons-superhero-alt`, position 31) with Connections / Brand & Context / Usage. Not a Swish Forms submenu: AI is its own product surface. Provider cards handle connect / test / activate / disconnect via `admin-post.php` with nonce + `manage_options`. `assets/admin/swish-ai.js` repopulates each card's model control from a localised provider→models map, so changing provider never leaves a stale model the provider would reject. Raw provider errors are mapped to human messages by `SwishAiMenu::noticeText()`.
+- **REST** — `SettingsController` (GET/POST `/ai/settings`, GET `/ai/models`) handles everything except credentials and **ignores any `api_key` sent to it**; `ConnectionsController` owns POST `/ai/connections`, POST `/ai/connections/test`, DELETE `/ai/connections/{provider}`. All on the existing `swishfolio/v1` namespace rather than a second one.
+- `enabled` defaults to **false** and is enforced by `/ai/edit` and the generation routes (403 `sfcore_ai_disabled`); turning it on requires a separate acknowledgement of what leaves the site. `uninstall.php` clears both options across a multisite and leaves user content alone.
+
+### Tests
+
+**Browser suites.** `npm run test:e2e:session` mints a Playwright storage state for an existing admin (no password, no throwaway user), then `npm run test:e2e` drives the real editor flow against a stubbed provider — insert hero → Ask AI → preview → apply → one Ctrl+Z — and `npm run test:e2e:smoke` renders the three Swish AI screens and checks the editor bundle loads. Neither needs API credit. The stub intercepts at the network boundary, so PHP's five validation stages do NOT run there; they are covered by PHPUnit.
+
+`--testsuite unit` (381) and `--testsuite evals` (172, 12 live-mode cases skipped unless `SWISHFOLIO_AI_EVAL_LIVE=1` and `SWISHFOLIO_AI_EVAL_API_KEY` are both set — never in CI). Jest via `npm run test:unit` (110 tests, 14 suites). Playwright in `tests/e2e/` against a stubbed provider. Source must stay PHP 7.4-parseable.
+
+**Accept rate.** Applying happens client-side, so the editor reports the kept count to `POST /ai/applied`, which calls `UsageLogger::recordAccepted()` (capped at `swishfolio_ai_max_actions`). Without it the Usage screen's "Changes applied" would be permanently zero.
+
+`npm run test:e2e:patterns` proves every theme section pattern renders: it parses each with the real block registry (catching `save()`/markup mismatches the way Gutenberg does), then builds a throwaway draft of all 25, measures the height each occupies on the front end, and deletes the draft. `KitConformanceTest` asserts every shipped kit loads and every unit composes: its files and images exist, its links name the kit's own pages, and nothing links into the demo site.
+
+Not yet verified: no live provider call has been made — the connected Anthropic key authenticates but the account has no credit, so `output_config.format` and prompt quality remain unproven.
+
+---
+
+## 3c. AI tool layer (`src/Tools/`)
+
+The WordPress operation surface the AI acts through, specced in
+`docs/superpowers/specs/2026-11-02-ai-tool-layer-design.md`. WPVibe was the reference for *which*
+operations an AI needs on a site — not for architecture: WPVibe is an MCP server exposing WordPress
+to external clients, this is an AI client inside WordPress. Its catalogue transferred; its transport
+and auth half did not.
+
+**Two write paths, deliberately separate.** In-editor block editing (§3b) is unchanged: PHP never
+mutates post content, the editor applies actions client-side, native undo reverses them. The tool
+layer is the *server-side* path, and everything that writes there goes through it.
+
+- **`ToolInterface`** — name, title, description, input JSON Schema, side-effect class
+  (`read` | `write_draft` | `write_published` | `destructive`), `authorize()`, `execute()`. This is
+  the old `ServerActionHandlerInterface` plus the four things an Abilities-shaped tool needs. The
+  description is not documentation: it is what the model chooses by, and the same string the
+  Abilities bridge registers as `meta.description`.
+- **`ToolRunner`** — the only path: resolve → validate → authorize → confirm → execute → record.
+  Reads skip the journal entirely. A mutating call reserves its sequence number *before* executing,
+  so the audit row sorts ahead of the target rows it wrote.
+- **`InputValidator`** — a JSON Schema subset written in-plugin (zero runtime Composer deps still
+  holds). Supports `type`, `required`, `properties`, `additionalProperties:false`, `enum`,
+  `minimum`, `maximum`, `maxLength`, `minItems`, `maxItems`, `items`, `default`, and **raises
+  `LogicException` on any keyword it does not recognise** — silently ignoring one would let a schema
+  author believe a constraint was enforced when it was not. Coerces `"12"` → `12` and `1` → `true`
+  because providers differ; does not coerce an object where a scalar belongs.
+- **`ToolContext extends ExecutionContext`** — inherits plan-key resolution and the `createdIds`
+  ledger, adds `runId`, `siteId` and `confirmed`. `siteId` is bound from the current site and has
+  **no setter**: a model-supplied site ID on multisite is a tenancy escape.
+- **`ConfirmToken`** — `issue()`/`verify()`, `wp_hash`-signed over the canonicalised plan + user +
+  issue time, 15-minute TTL. The gate has to tell "the user approved this" from "the model asserted
+  the user approved this", and both arrive in the same payload; a boolean cannot.
+- **`CallSummary`** — derives the preview and audit summary from the tool's title, validated input
+  and resolved post titles, so no tool implements a `preview()` method to forget.
+
+**Read tools (6)** — `site-info`, `list-content`, `read-page`, `get-global-styles`, `list-media`,
+`get-block-capabilities`. All floored at `edit_posts`; `read-page` narrows to `edit_post`. All
+capped and paged — an unbounded read is the commonest way a tool layer becomes unusable.
+`read-page` runs `parse_blocks()` and reduces the tree to the registry's vocabulary, addressed by
+index path (`[0,2]`); **a block with no manifest comes back opaque** — children kept, attributes
+withheld — because the validator could not check an edit to them. Markup is never returned: 20 of
+23 blocks are static `save()` blocks, so the tree is the authoritative state.
+`get-block-capabilities` returns the index when called bare and full manifests for up to 10 named
+blocks, so the model pays for the two or three it uses instead of all 28.
+Dropped from WPVibe on purpose: `rendered-html`, `registered-meta`, `last-change`, `navigate`.
+
+**Write tools (6)** — the five former `Actions/Handlers/*` plus `rollback-run`. `create-page` is
+`write_draft`; `set-front-page`, `set-navigation` and `set-style-variation` are `write_published`;
+`rollback-run` is `destructive`. **`update-page` is the one tool whose declared class and enforced
+class differ**: declared `write_draft`, but its `authorize()` demands confirmation when the target
+turns out to be published — whether it touches the live site depends on the page it is given, and
+declaring `write_published` would prompt on every relink of a freshly created draft.
+
+**`MutationJournal` is the only writer for journalled targets.** Tools do not call `wp_insert_post`,
+`wp_update_post` or `update_option` themselves. Leaving capture to each tool would put every new
+tool one forgotten line from an unreversible write, discovered the first time a user asked to undo.
+
+- Table `{$wpdb->prefix}swishfolio_ai_journal` — per-site by prefix, so multisite isolation needs no
+  `site_id` column. Installed by `JournalTable::install()`, version-guarded, on activation *and*
+  `admin_init` (an update from a version without the table never runs activation).
+- Three row kinds by `target_type`: `call` (the audit record — what was asked, what happened,
+  which error), `post` and `option` (undo records carrying prior state). Rollback replays only the
+  latter. One call can have several target rows: `set-front-page` writes three options.
+- Prior state, per target: a forced `wp_save_post_revision()` for an overwrite, `{"created": id}`
+  for an insert, `{"option", "prior", "existed"}` for an option.
+- **Two details that corrupt silently if missed.** `existed` is stored separately from the prior
+  value, because an option that was `false` and an option that did not exist are otherwise
+  indistinguishable and rollback would leave a phantom row. And `wp_save_post_revision()` returns
+  null when the post is unchanged, the type lacks support, or `WP_POST_REVISIONS` is off — so the
+  prior content is then stored inline. Core supports revisions on `wp_global_styles` (`post.php:522`)
+  and `wp_navigation` (`post.php:588`), so inline is the site-configuration path, not a per-type one.
+- Input is capped at 4KB and keys matching `/key|secret|token|password/i` are redacted.
+- Append-only is enforced by `JournalRepositoryInterface` exposing only `append`, `markReverted`,
+  `findRun`, `recentRuns`, `pruneBefore` — no update, no delete. `AppendOnlyTest` asserts that
+  method list by reflection, because a future `update()` would pass every behavioural test.
+- `WpdbJournalRepository` in production, `tests/Support/InMemoryJournalRepository` in tests. The
+  interface exists because the unit suite runs on stubbed WP functions, so `$wpdb` cannot be stubbed
+  meaningfully — same reasoning as `CredentialStoreInterface`.
+
+**`Rollback`** walks a run's target rows in reverse `seq`, **best-effort**: a failed entry is written
+to its own `revert_error` and the walk continues, because stopping half way leaves a state nobody
+asked for. Created posts are trashed, never deleted; a post already gone counts as reverted; a
+pruned revision is reported rather than silently skipped. Reverting twice is a no-op.
+
+**`ActionExecutor` is now a façade** over `ToolRunner`, keeping its signature so `PlanExecutor` and
+`GenerationController` are untouched. It owns the generation vocabulary (`create_page` →
+`swishfolio/create-page`), strips `null` optional keys — `PlanExecutor` emits `'template' => null`
+and tool schemas are closed — and converts `ToolException` back to `ExecutionException`.
+`PlanExecutor::execute()` takes an optional third `ToolContext`; without one the run cannot be
+journalled, so `ActionExecutor` raises rather than writing unrecorded.
+
+**`AbilitiesBridge`** registers every tool on `abilities_api_init` with `show_in_rest => false` and
+`meta.mcp.public => false`. Nothing is exposed. The plugin floor is 6.7 and the Abilities API landed
+in 6.9, so on most installs it no-ops. What it buys is proof the definitions are well formed before
+anything depends on them; later MCP exposure is two flags per tool, not a rewrite. Ability calls go
+through the runner, not the tool, or they would be a way to write without a journal row.
+
+**REST** (`ToolsController`, same `swishfolio/v1` namespace): `GET /ai/tools`,
+`POST /ai/tools/preview`, `POST /ai/tools/run`, `GET /ai/audit`, `GET /ai/audit/{runId}`. The
+preview/run split *is* the gate. Gated on `swishfolio_use_ai` + the owner's `enabled` switch. Tool
+runs are capped at 25 calls (`swishfolio_ai_max_tool_calls`) and 60/hour/user
+(`swishfolio_ai_tool_rate_limit`) — not token spend, which tools do not incur, but an agent loop
+that keeps writing.
+
+**Generation now carries approval**: `/ai/plan` returns a `confirmToken` for the plan the owner
+reviews, `/ai/generate` verifies it against the plan **as sent**, so an edited plan must be
+previewed again. Both the report and the failure carry `runId`.
+
+**`Admin\AuditLogPage`** — "Audit Log" under Swish AI (`edit_posts`), runs grouped newest-first with
+an Undo button per run. The undo goes through the tool, not `Rollback`, because the tool is what
+checks this user may reverse these particular writes. Confirmation there is a nonce, not a
+`ConfirmToken`: the human is clicking a button on the page that lists the run. Daily
+`swishfolio_ai_prune_journal` expires rows older than 90 days
+(`swishfolio_ai_journal_retention_days`, 0 to keep everything) — bulk expiry of aged rows, not
+mutation of records. `uninstall.php` drops the table: the journal is a record of what the AI did,
+not content the owner authored.
+
+**Tests** — `tests/Unit/Tools/` with `wp-tools-stubs.php` layered over the generation stubs (adds
+modelled revisions, trash, `delete_option`, `parse_blocks`, `WP_Query`). `RoundTripTest` is the
+keystone: a whole run — create, overwrite a published page, publish a menu, repoint the front page,
+reskin — then one rollback, and every pre-existing post is byte-identical, every option is as it
+was, and everything created is in the trash. `RollbackTest` is the inverse matrix (13 cases).
+`WriteToolsTest` is the port of the old `ServerActionHandlerTest` with its assertions intact; four
+error-reason assertions changed deliberately when per-handler slugs (`insert_failed`, `not_a_page`,
+`empty_menu`, `unknown_variation`) became unified `ToolError` codes. `tests/Evals/ToolDescriptionEvalTest`
+guards the catalogue: descriptions distinguishable (worst pairwise overlap 0.22 against a 0.40
+ceiling), 150–450 chars each, whole catalogue under 14KB of JSON per request.
+
+**Not built in this slice**: media upload (slice 3), write breadth — projects CPT, posts,
+taxonomies, menus, options allowlist, theme.json tokens (slice 4), async jobs and progress
+(slice 5), external MCP exposure (phase 5). The spec's model-in-the-loop tool-selection eval is
+deferred too: the provider adapter has no tool-calling support yet, so
+`ToolDescriptionEvalTest` measures the property that eval would test, offline.
+
+---
+
+## 3d. Agent layer (`src/AI/Conversation/`, `src/AI/Agent/`, `src/Jobs/`, `src/AI/Onboarding/`)
+
+Specced in `docs/superpowers/specs/2026-11-02-agent-loop-design.md`. §3c built the tool surface and
+nothing could reach it: no provider supported tool calling, nothing in `src/AI/` referenced
+`ToolRunner`, and no UI called the tool routes.
+
+**Provider tool-calling.** `converse()` is a second method on `AIProviderInterface`, not an overload
+of `generate()` — structured output constrains one reply to a schema, tool calling is a multi-turn
+exchange, and the structured path is load-bearing for editing and generation. `AbstractAIProvider`
+answers `supportsTools()` false and raises, so a third-party provider from the
+`swishfolio_ai_providers` filter is never handed a conversation it cannot answer.
+
+- **`Conversation/ToolNameMap`** — both providers require `^[a-zA-Z0-9_-]{1,64}$`, so every
+  registered name is illegal as-is. Only the slash is replaced (`swishfolio/site-info` →
+  `swishfolio__site-info`); hyphens survive. Reversal splits on the first `__`, unambiguous because
+  no tool name contains one — **asserted, not assumed**.
+- **The two wire formats differ in a way that bites.** Anthropic carries tool results as
+  `tool_result` blocks inside **one** user message; splitting a parallel batch across messages does
+  not error, it teaches the model to stop issuing parallel calls. OpenAI wants one `role: tool`
+  message per `tool_call_id` and has **no `is_error` flag**, so a failure must be legible in the
+  content or it reads as a successful empty result.
+- `Message` is one class for user/assistant/tool-result, because providers interleave them in one
+  ordered list and a tool result that does not immediately follow its call is a protocol error.
+
+**`Agent/AgentLoop`** — resolve → converse → run calls → feed back → repeat. Three decisions:
+
+1. **A tool failure goes back to the model, not up as an exception.** Stable error codes and field
+   paths exist so a model can correct its own call; aborting on a `schema_invalid` throws that away.
+2. **`confirm_required` pauses the turn.** Reads and drafts proceed; the first call that would
+   change what visitors see ends the turn with the proposal and a `ConfirmToken` for exactly it.
+   The model is never told which tools are gated, so it proposes work rather than planning around
+   the gate. On resume the approved calls are **replayed from the history's last assistant turn**,
+   not from the request body, so a client cannot pair a token with different calls.
+3. **Iterations are capped** (8, `swishfolio_ai_agent_max_iterations`). A model that keeps calling
+   tools is an unbounded bill against the owner's own key.
+
+**REST** — `POST /ai/agent` (`{instruction, history, confirmToken, async}`) and
+`GET /ai/jobs/{id}`. History lives on the **client**, which keeps the plugin stateless and
+multisite-safe, and is only safe because nothing in it is trusted: every replayed call is
+re-validated, re-authorised and re-checked against the token. Capped at 60 turns, **oldest dropped**
+— the newest carry the calls a token must match. `POST /ai/onboarding/extract` is the CV import.
+
+**`src/Jobs/`** — a correction to the original premise: generation's *execution* is a handful of fast
+database writes and was never the timeout risk. An agent turn makes **up to eight provider calls**,
+which on a typical host outlives PHP's execution limit, so that is what moved off the request.
+
+- Jobs live in **transients**, not a table: a job is a progress record and the durable record of what
+  the work did is the journal. Losing one costs a progress bar, not history.
+- The turn **runs as the user who queued it** — cron has no current user, and a tool authorising
+  against nobody would either refuse everything or be made to refuse nothing.
+- `wp_schedule_single_event` is nudged with `spawn_cron()`, since WP-Cron otherwise waits for a page
+  load a single-admin session may not produce for minutes.
+- Three failure modes are handled because each otherwise leaves a spinner turning forever: a
+  provider exception, an unexpected `Throwable`, and **cron firing the same event twice** (which
+  would double the turn's writes — guarded by refusing to run a job that is not `queued`).
+
+**UI** (`src/js/agent/`, `src/js/ai-sidebar/agent-*.js`) — its **own** `PluginSidebar`, registered as
+a second plugin. The block panel is meaningless without a selection and says so; "add a contact
+page" has nothing to do with what is selected, and one panel would have an empty state that is wrong
+half the time. The **transcript the user reads and the history the server needs are kept
+separately** — deriving either from the other means showing raw tool JSON or discarding what the next
+turn replays. The approval prompt lists the **whole batch**, because that is what the token approves.
+Declining sends nothing: those calls never ran. Failure copy differs from the block editor's on
+purpose — there nothing was changed and it can say so; here the loop may have completed journalled
+calls before the provider dropped, so it points at the audit log.
+
+**`AI/Onboarding/ProfileExtractor`** — the differentiator, in the version that works. The product
+idea was a LinkedIn URL; LinkedIn serves a login wall to server-side requests and forbids scraping,
+so a URL field fails for almost everyone and fails confusingly. **Pasted text** works for every
+source and asks for consent by construction. The result is a proposal (`"saved": false`) the owner
+corrects before anything is stored — a CV is full of things nobody wants on their website — and it
+reports what the CV **did not** give it. Style and tone enums are read from `Settings` rather than
+restated, or a model suggesting "elegant-modern" would produce an answer `saveBrand` silently
+discarded.
+
+### Tool catalogue (18)
+
+Reads: `site-info` (now including each post type's taxonomies), `list-content`, `read-page`,
+`get-global-styles`, `list-media`, `list-navigation`, `get-block-capabilities`.
+Writes: `create-content`, `update-content`, `set-front-page`, `set-navigation`,
+`update-navigation`, `set-style-variation`, `set-terms`, `upload-media`, `set-alt-text`,
+`update-site-settings`, `rollback-run`.
+
+- `create-content`/`update-content` replaced the page-only pair over a **closed enum** of
+  `page|post|sfcore_project` — a closed set, not free text, so no model output can create a
+  revision, a menu item or an attachment through them. `postType` defaults to `page`, which is why
+  `ActionExecutor` needed only a name change.
+- `upload-media` is the one genuinely dangerous operation: scheme checked before any fetch,
+  `download_url()` → `wp_safe_remote_get()` → `wp_http_validate_url()` refusing loopback,
+  link-local and private addresses, and `wp_handle_sideload()` admitting the file only on its own
+  bytes. Both media tools are `write_draft` — an attachment is invisible until referenced, and a
+  prompt per image would make the gate noise.
+- `set-terms` takes **names**, not IDs, because a model made to supply IDs invents them. Creating
+  missing terms is off by default and needs the taxonomy's own `edit_terms`.
+- `update-site-settings` is an **allowlist of two**; the options table holds the home URL, the admin
+  email and the active theme, so a free-text option name would be privilege escalation.
+- `update-navigation` is what `set-navigation` was missing: on any existing site "add the page to my
+  menu" is the request and a second menu is the wrong answer. It replaces wholesale, which is why
+  `list-navigation` exists.
+
+**Journal target types are now four.** `post`, `option`, `meta` and `terms`. Meta and terms need
+their own rows because **a post revision does not carry them**: restoring the revision would put the
+content back and silently leave the alt text or the categorisation changed. Prior terms are stored as
+**IDs**, since a rollback matching names would fail or duplicate after a rename.
+
+**Tests** — `tests/Unit/Agent/`, `tests/Unit/Jobs/`, `tests/Unit/Onboarding/`, `tests/js/agent/`.
+The tool-selection eval the §3c spec deferred now exists in both halves: `ToolSelectionEvalTest`
+(recorded) proves everything downstream of the choice, because **a recording cannot measure
+selection — the recording is the selection**; `LiveToolSelectionEvalTest` (`@group live`,
+self-skipping) makes the measurement, each case naming a set of defensible first moves.
+
+**Still not built**: credits, subscription entitlements and analytics (need the hosted backend,
+deliberately deferred), external MCP exposure (two flags per tool when wanted), theme.json token
+editing (an arbitrary patch there has no undo, as `SetStyleVariationHandler` originally argued).
+
+---
+
 ## 4. Content model
 
 ### Project CPT (`src/PostTypes/ProjectPostType.php`)
