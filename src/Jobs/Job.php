@@ -42,6 +42,8 @@ class Job
             'runId'     => '',
             'createdAt' => 0,
             'updatedAt' => 0,
+            'startedAt' => 0.0,
+            'finishedAt' => 0.0,
         ];
     }
 
@@ -154,6 +156,15 @@ class Job
             'error'    => $this->getError(),
             'runId'    => $this->getRunId(),
             'finished' => $this->isFinished(),
+            // Seconds since the worker picked the job up (0 while queued), so a
+            // client can show the server's clock rather than its own.
+            'elapsed'  => $this->data['startedAt'] > 0 ? round(microtime(true) - (float) $this->data['startedAt'], 1) : 0,
+            // Server timestamps (unix seconds) for elapsed-time displays that
+            // must survive a reload: a step started at startedAt + its "t".
+            'createdAt'  => (int) $this->data['createdAt'],
+            'startedAt'  => round((float) $this->data['startedAt'], 1),
+            'finishedAt' => round((float) $this->data['finishedAt'], 1),
+            'now'        => round(microtime(true), 1),
         ];
     }
 }

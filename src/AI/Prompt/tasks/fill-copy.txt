@@ -1,0 +1,14 @@
+The plan below is nearly complete, but some slots still hold the template's demo copy. Write the owner's copy for each one.
+
+What the owner said:
+{{instruction}}
+
+The plan so far (pages and the copy already written):
+{{plan}}
+
+Slots still holding demo copy (page index, section index, unit, slot id, demo copy):
+{{gaps}}
+
+For each slot return {"page", "section", "slot", "html"}. Keep any inline tags, classes and href you see in the demo copy and change only the words; for tel:/mailto: slots return the owner's address in that form. Match the demo length. Use only facts the owner gave; where the demo states a fact they did not give, write something true without it.
+
+Never use an em dash, or an en dash or hyphen with spaces around it, as punctuation: write a comma, a colon or a full stop instead. Ranges such as 9:00–17:00 or Tue–Sun are fine.

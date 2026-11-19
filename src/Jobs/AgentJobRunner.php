@@ -82,6 +82,10 @@ class AgentJobRunner
 
         $this->store->save($job);
 
+        // Same hooks as BackgroundJobs, so metering follows the job to the
+        // worker and bills the tokens the turn really used.
+        do_action('swishfolio_ai_job_queued', $job->getId(), 'agent');
+
         wp_schedule_single_event(time(), self::HOOK, [$job->getId()]);
 
         // WP-Cron only fires on a later page load, which for a single-user
@@ -122,9 +126,16 @@ class AgentJobRunner
             wp_set_current_user($job->getUserId());
         }
 
-        $job = $job->with(['status' => Job::STATUS_RUNNING, 'runId' => $context->getRunId()]);
+        // The instruction, history and confirm token are read above; keeping
+        // them on the stored job would only leave the conversation (and a live
+        // token) sitting in the options table for the job's lifetime.
+        $job = $job->with(['status' => Job::STATUS_RUNNING, 'runId' => $context->getRunId(), 'payload' => []]);
 
         $this->store->save($job);
+
+        do_action('swishfolio_ai_job_started', $job->getId(), 'agent');
+
+        $status = Job::STATUS_FAILED;
 
         try {
             $run = $this->loop()->run(
@@ -143,6 +154,8 @@ class AgentJobRunner
                     ]
                 )
             );
+
+            $status = Job::STATUS_DONE;
         } catch (ProviderException $e) {
             $this->store->save(
                 $job->with(
@@ -172,6 +185,8 @@ class AgentJobRunner
                 )
             );
         } finally {
+            do_action('swishfolio_ai_job_finished', $job->getId(), 'agent', $status);
+
             if (function_exists('wp_set_current_user')) {
                 wp_set_current_user($previousUser);
             }

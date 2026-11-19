@@ -13,6 +13,15 @@ class AnthropicProviderTest extends TestCase
         return new AIRequest('SYSTEM', 'USER', ['type' => 'object'], 'claude-opus-5', 2048);
     }
 
+    /**
+     * A closed object schema (structured outputs need every object closed; an
+     * open one such as ['type' => 'object'] is sent as a JSON string instead).
+     */
+    private function closedRequest($model = 'claude-opus-5')
+    {
+        return new AIRequest('SYSTEM', 'USER', ['type' => 'object', 'properties' => ['actions' => ['type' => 'array']]], $model, 2048);
+    }
+
     private function provider($response)
     {
         $provider = new SpyAnthropicProvider();
@@ -76,15 +85,41 @@ class AnthropicProviderTest extends TestCase
         $this->assertSame('USER', $provider->lastBody['messages'][0]['content']);
     }
 
+    public function test_a_shared_prefix_is_sent_as_a_cached_system_block()
+    {
+        $provider = $this->provider($this->successBody(['schemaVersion' => '1.0', 'actions' => []]));
+        $provider->generate($this->request()->withCachedSystem());
+
+        $this->assertSame([['type' => 'text', 'text' => 'SYSTEM', 'cache_control' => ['type' => 'ephemeral']]], $provider->lastBody['system']);
+    }
+
+    public function test_the_parallel_seam_builds_the_same_body_and_reads_the_reply_like_generate()
+    {
+        $provider = $this->provider(null);
+        $http     = $provider->httpRequest($this->request()->withCachedSystem());
+        $body     = json_decode($http['body'], true);
+
+        $this->assertSame('https://api.anthropic.com/v1/messages', $http['url']);
+        $this->assertSame('sk-ant-test', $http['headers']['x-api-key']);
+        $this->assertSame('ephemeral', $body['system'][0]['cache_control']['type']);
+
+        $reply = $provider->httpResponse($this->request(), json_decode($this->successBody(['ok' => 1], true)['body'], true));
+        $this->assertSame(['ok' => 1], $reply->getDecoded());
+
+        $this->expectException(ProviderException::class);
+        $this->expectExceptionMessage('cut off');
+        $provider->httpResponse($this->request(), ['stop_reason' => 'max_tokens', 'content' => [['type' => 'text', 'text' => '{"pages": [']]]);
+    }
+
     public function test_the_schema_is_sent_through_output_config_format()
     {
         $provider = $this->provider($this->successBody(['schemaVersion' => '1.0', 'actions' => []]));
-        $provider->generate($this->request());
+        $provider->generate($this->closedRequest());
 
         $format = $provider->lastBody['output_config']['format'];
 
         $this->assertSame('json_schema', $format['type']);
-        $this->assertSame(['type' => 'object'], $format['schema']);
+        $this->assertSame(['type' => 'object', 'properties' => ['actions' => ['type' => 'array']], 'additionalProperties' => false], $format['schema']);
     }
 
     public function test_it_does_not_send_a_deprecated_response_format_key()

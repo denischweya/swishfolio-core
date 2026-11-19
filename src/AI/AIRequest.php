@@ -24,6 +24,12 @@ class AIRequest
     /** @var int */
     private $maxTokens;
 
+    /** @var callable|null */
+    private $onProgress;
+
+    /** @var bool Whether the system prompt is a shared prefix worth caching. */
+    private $cacheSystem = false;
+
     /**
      * @param string $systemPrompt Stable prefix: instructions, manifests, tokens.
      * @param string $userPrompt   Volatile suffix: selection context and instruction.
@@ -63,5 +69,55 @@ class AIRequest
     public function getMaxTokens()
     {
         return $this->maxTokens;
+    }
+
+    /**
+     * A copy that reports streaming progress to $listener, for providers that
+     * can stream. Others ignore it and answer in one piece.
+     *
+     * The listener receives arrays: ['type' => 'thinking'], ['type' => 'text',
+     * 'delta' => string] and ['type' => 'restart'] when a retry starts over.
+     *
+     * @param callable $listener Progress listener.
+     *
+     * @return self
+     */
+    public function withProgress(callable $listener)
+    {
+        $copy             = clone $this;
+        $copy->onProgress = $listener;
+
+        return $copy;
+    }
+
+    /**
+     * @return callable|null
+     */
+    public function getProgress()
+    {
+        return $this->onProgress;
+    }
+
+    /**
+     * A copy whose system prompt is marked as a cacheable shared prefix, for
+     * providers with prompt caching (several requests send the same one: the
+     * staged site plan's outline, page and copy-fill calls). Others ignore it.
+     *
+     * @return self
+     */
+    public function withCachedSystem()
+    {
+        $copy              = clone $this;
+        $copy->cacheSystem = true;
+
+        return $copy;
+    }
+
+    /**
+     * @return bool
+     */
+    public function cachesSystem()
+    {
+        return $this->cacheSystem;
     }
 }

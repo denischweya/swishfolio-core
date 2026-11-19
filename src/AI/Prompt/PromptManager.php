@@ -13,6 +13,13 @@ namespace SwishfolioCore\AI\Prompt;
  */
 class PromptManager
 {
+    /**
+     * System prompts for design and build work. Each is opened with the
+     * shared persona (system/persona.txt) so every generation, edit and agent
+     * turn is held to the same design standard.
+     */
+    const DESIGN_PROMPTS = ['site-generation', 'page-generation', 'builder', 'block-editing', 'agent', 'custom-design'];
+
     /** @var string */
     private $promptDir;
 
@@ -31,7 +38,13 @@ class PromptManager
      */
     public function system($name)
     {
-        return $this->load('system/' . $name);
+        $prompt = $this->load('system/' . $name);
+
+        if (! in_array($name, self::DESIGN_PROMPTS, true)) {
+            return $prompt;
+        }
+
+        return $this->load('system/persona') . "\n\n" . $prompt;
     }
 
     /**

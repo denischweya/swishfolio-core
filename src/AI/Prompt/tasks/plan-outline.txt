@@ -1,0 +1,18 @@
+The site owner has asked for a website. This is the first of two steps: decide the site now, and its copy is written page by page afterwards from what you decide here. Do not write any section copy in this step.
+
+What they said:
+{{instruction}}
+
+Facts about this site:
+{{site}}
+
+Outline the site from the "{{kit}}" kit:
+
+1. Pages: give each a key, a title, a slug and its purpose (what the page is for and what it must say). Follow the rules for keys above: reuse the template's page keys where a page plays the same part.
+2. Sections: for each page, the kit section units (or dynamic blocks) it uses, in order, each with a one-sentence brief saying what that section says on this page. Prefer the template's own page compositions and adapt them. Leave out sections the owner has nothing true to fill (for example testimonials without real ones).
+3. The front page and the navigation order.
+4. Shared facts every page will write from, so the pages agree: the business name, the tone of voice, who the site is for, three to six key messages taken from the owner's own facts, and their contact details, address and hours exactly as they gave them (an empty string when they gave none). Never invent facts.
+
+The summary is one or two sentences for the owner saying what the site is and how it is laid out.
+
+Never use an em dash, or an en dash or hyphen with spaces around it, as punctuation: write a comma, a colon or a full stop instead.

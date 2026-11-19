@@ -151,6 +151,31 @@ class AgentLoopTest extends ToolsTestCase
         $this->assertTrue($resumed->getSteps()[0]->isOk());
     }
 
+    public function test_an_approval_covers_only_the_approved_calls_not_what_the_model_does_next()
+    {
+        $this->givenPost(60, ['post_status' => 'publish', 'post_title' => 'Home']);
+        $this->givenPost(61, ['post_status' => 'publish', 'post_title' => 'Other']);
+
+        $this->provider->replies = [
+            ['calls' => [['id' => 'c1', 'name' => 'swishfolio/set-front-page', 'input' => ['postId' => 60]]]],
+        ];
+
+        $loop    = $this->loop();
+        $pending = $loop->run('make Home my front page', $this->context());
+
+        // After the approved call runs, the model (say, steered by injected
+        // text) tries a second live-site change it was never approved for.
+        $this->provider->replies = [
+            ['calls' => [['id' => 'c2', 'name' => 'swishfolio/set-front-page', 'input' => ['postId' => 61]]]],
+        ];
+
+        $resumed = $loop->run('', $this->context(), $pending->getHistory(), $pending->getConfirmToken());
+
+        $this->assertSame(AgentRun::STATUS_PENDING, $resumed->getStatus(), 'The unapproved call must ask again.');
+        $this->assertSame(60, $GLOBALS['sfcore_test_options']['page_on_front'], 'Only the approved page was set.');
+        $this->assertSame(61, $resumed->getPending()[0]['input']['postId']);
+    }
+
     public function test_a_token_for_other_calls_does_not_approve_these_ones()
     {
         $this->givenPost(60, ['post_status' => 'publish', 'post_title' => 'Home']);

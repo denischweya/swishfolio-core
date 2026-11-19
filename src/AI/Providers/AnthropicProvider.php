@@ -8,6 +8,7 @@
 namespace SwishfolioCore\AI\Providers;
 
 use SwishfolioCore\AI\AIRequest;
+use SwishfolioCore\AI\Contracts\ParallelRequestsInterface;
 use SwishfolioCore\AI\Conversation\ConversationReply;
 use SwishfolioCore\AI\Conversation\ConversationRequest;
 use SwishfolioCore\AI\Conversation\Message;
@@ -31,7 +32,7 @@ use SwishfolioCore\AI\ProviderException;
  * Adaptive thinking is on by default for the current models, so the response
  * may open with a thinking block — the JSON is in the first TEXT block.
  */
-class AnthropicProvider extends AbstractAIProvider
+class AnthropicProvider extends AbstractAIProvider implements ParallelRequestsInterface
 {
     const BASE_URL    = 'https://api.anthropic.com/v1';
     const API_VERSION = '2023-06-01';
@@ -42,10 +43,20 @@ class AnthropicProvider extends AbstractAIProvider
      * It is not universal: Haiku 4.5 and the other pre-4.6 models REJECT it,
      * and Haiku is the obvious cheap model to test with, so sending effort
      * unconditionally would break the first thing anyone tries.
+     *
+     * The 5.5 models are listed because they accept it and because leaving
+     * one out silently changes cost: Sonnet 5.5 defaults to "high" effort
+     * when none is sent. Nothing else in these requests is model-specific:
+     * no `thinking` field (adaptive by default; Sonnet 5.5 400s on
+     * "disabled"), no sampling params, and no forced tool_choice (400 on the
+     * 5.5 models), so the same body is valid on Opus 5 and Sonnet 5.5.
      */
     const EFFORT_MODELS = [
         'claude-opus-5',
+        'claude-opus-5-5',
         'claude-sonnet-5',
+        'claude-sonnet-5-5',
+        'claude-haiku-5-5',
     ];
 
     public function getSlug()
@@ -67,6 +78,7 @@ class AnthropicProvider extends AbstractAIProvider
     {
         return [
             'claude-opus-5'   => 'Claude Opus 5',
+            'claude-sonnet-5-5' => 'Claude Sonnet 5.5',
             'claude-sonnet-5' => 'Claude Sonnet 5',
             'claude-haiku-4-5' => 'Claude Haiku 4.5',
         ];
@@ -93,17 +105,44 @@ class AnthropicProvider extends AbstractAIProvider
 
     public function generate(AIRequest $request)
     {
+        $body = $this->messagesBody($request);
+
+        $decoded = $request->getProgress() !== null
+            ? $this->streamRequest(self::BASE_URL . '/messages', $body, $request->getProgress())
+            : $this->request(self::BASE_URL . '/messages', $body, $this->authHeaders());
+
+        return $this->httpResponse($request, $decoded);
+    }
+
+    /**
+     * The Messages API body for a structured-output request.
+     *
+     * @param AIRequest $request Request.
+     *
+     * @return array
+     */
+    private function messagesBody(AIRequest $request)
+    {
+        $system = $request->getSystemPrompt();
+
+        // A shared prefix (the kit catalogue and the owner's brand) sent by
+        // several calls in one build: mark it so later calls read it from
+        // the cache instead of paying for it again.
+        if ($request->cachesSystem()) {
+            $system = [['type' => 'text', 'text' => $system, 'cache_control' => ['type' => 'ephemeral']]];
+        }
+
         $body = [
             'model'      => $request->getModel(),
             'max_tokens' => $request->getMaxTokens(),
-            'system'     => $request->getSystemPrompt(),
+            'system'     => $system,
             'messages'   => [
                 ['role' => 'user', 'content' => $request->getUserPrompt()],
             ],
             'output_config' => [
                 'format' => [
                     'type'   => 'json_schema',
-                    'schema' => $request->getSchema(),
+                    'schema' => self::structuredSchema($request->getSchema()),
                 ],
             ],
         ];
@@ -124,8 +163,25 @@ class AnthropicProvider extends AbstractAIProvider
             $body['output_config']['effort'] = $effort;
         }
 
-        $decoded = $this->request(self::BASE_URL . '/messages', $body, $this->authHeaders());
+        return $body;
+    }
 
+    public function httpRequest(AIRequest $request)
+    {
+        return [
+            'url'     => self::BASE_URL . '/messages',
+            'headers' => array_merge(['Content-Type' => 'application/json'], $this->authHeaders()),
+            'body'    => wp_json_encode_compat($this->messagesBody($request)),
+        ];
+    }
+
+    public function httpError($raw, $status)
+    {
+        return $this->extractError((string) $raw, (int) $status);
+    }
+
+    public function httpResponse(AIRequest $request, array $decoded)
+    {
         $stopReason = isset($decoded['stop_reason']) ? $decoded['stop_reason'] : '';
 
         if ($stopReason === 'refusal') {
@@ -147,10 +203,14 @@ class AnthropicProvider extends AbstractAIProvider
         $payload = json_decode((string) $this->firstTextBlock($decoded), true);
 
         if (! is_array($payload)) {
-            $this->lastError = __('The AI returned a reply that was not valid JSON.', 'swishfolio-core');
+            $this->lastError = $stopReason === 'max_tokens'
+                ? __('The AI reply ran past its length limit and was cut off.', 'swishfolio-core')
+                : __('The AI returned a reply that was not valid JSON.', 'swishfolio-core');
 
             throw new ProviderException($this->lastError, 200);
         }
+
+        $payload = self::restoreOpenObjects($request->getSchema(), $payload);
 
         return new AIResponse(
             $payload,
@@ -159,6 +219,223 @@ class AnthropicProvider extends AbstractAIProvider
             isset($decoded['model']) ? $decoded['model'] : $request->getModel(),
             $this->getSlug()
         );
+    }
+
+    /**
+     * The same request as request(), streamed, so a listener hears about the
+     * reply while it is being written. WordPress's HTTP layer exposes each body
+     * chunk through the requests-request.progress action; the full body is
+     * still collected, and is parsed again at the end in case the transport
+     * never fired the action.
+     *
+     * @param string   $url      Endpoint.
+     * @param array    $body     Payload.
+     * @param callable $listener Progress listener.
+     *
+     * @throws ProviderException On unrecoverable failure.
+     *
+     * @return array Decoded body in the non-streamed shape.
+     */
+    protected function streamRequest($url, array $body, callable $listener)
+    {
+        $body['stream']  = true;
+        $this->lastError = null;
+        $lastStatus      = 0;
+
+        for ($attempt = 0; $attempt < self::MAX_ATTEMPTS; $attempt++) {
+            if ($attempt > 0) {
+                call_user_func($listener, ['type' => 'restart']);
+            }
+
+            $stream   = new AnthropicStream($listener);
+            $received = false;
+            $hook     = function ($data) use ($stream, &$received) {
+                $received = true;
+                $stream->feed($data);
+            };
+
+            add_action('requests-request.progress', $hook, 10, 1);
+
+            $response = $this->post($url, [
+                'timeout' => (int) apply_filters('swishfolio_ai_http_timeout', self::TIMEOUT),
+                'headers' => array_merge(['Content-Type' => 'application/json'], $this->authHeaders()),
+                'body'    => wp_json_encode_compat($body),
+            ]);
+
+            remove_action('requests-request.progress', $hook, 10);
+
+            if (is_wp_error($response)) {
+                $this->lastError = $response->get_error_message();
+                $lastStatus      = 0;
+
+                // Timed out mid-reply: another try would time out the same way.
+                if (self::isReplyTimeout($this->lastError)) {
+                    throw new ProviderException($this->lastError, 0);
+                }
+
+                $this->backoff($attempt);
+                continue;
+            }
+
+            $status = wp_remote_retrieve_response_code($response);
+            $raw    = wp_remote_retrieve_body($response);
+
+            if ($status < 200 || $status >= 300) {
+                $this->lastError = $this->extractError($raw, $status);
+                $lastStatus      = $status;
+
+                if ($status !== 429 && $status < 500) {
+                    throw new ProviderException($this->lastError, $status);
+                }
+
+                $this->backoff($attempt);
+                continue;
+            }
+
+            if (! $received || ! $stream->sawEvent()) {
+                $stream = new AnthropicStream(null);
+                $stream->feed($raw);
+            }
+
+            $stream->finish();
+
+            if ($stream->error() !== null) {
+                // Overloaded and similar errors arrive mid-stream with HTTP 200.
+                $error           = $stream->error();
+                $this->lastError = isset($error['message']) ? (string) $error['message'] : 'The AI provider stopped mid-reply.';
+                $lastStatus      = 529;
+                $this->backoff($attempt);
+                continue;
+            }
+
+            if (! $stream->sawEvent()) {
+                $this->lastError = 'Provider returned an empty stream.';
+
+                throw new ProviderException($this->lastError, $status);
+            }
+
+            $decoded = $stream->toDecoded();
+
+            /** This action is documented in AbstractAIProvider::request(). */
+            do_action('swishfolio_ai_response', $decoded, $this->getSlug());
+
+            return $decoded;
+        }
+
+        throw new ProviderException(
+            $this->lastError === null ? 'The AI provider did not respond.' : $this->lastError,
+            $lastStatus
+        );
+    }
+
+    /**
+     * Strips the JSON Schema keywords Anthropic's structured outputs refuse
+     * (length, count and numeric bounds; minItems above 1). The request fails
+     * with HTTP 400 otherwise. Nothing is lost: every bound is enforced again
+     * by the validators that read the reply.
+     *
+     * @param array $schema JSON Schema.
+     *
+     * @return array
+     */
+    public static function structuredSchema(array $schema)
+    {
+        // Every object must be closed (additionalProperties: false), so an open
+        // map such as a section's "content" slots is asked for as a JSON string
+        // instead and turned back into an object by restoreOpenObjects().
+        if (self::isOpenObject($schema)) {
+            $description = isset($schema['description']) ? trim((string) $schema['description']) . ' ' : '';
+
+            return [
+                'type'        => 'string',
+                'description' => $description . 'Write this as a JSON object encoded in a string.',
+            ];
+        }
+
+        if (isset($schema['type']) && $schema['type'] === 'object') {
+            $schema['additionalProperties'] = false;
+        }
+
+        foreach (['maxItems', 'minLength', 'maxLength', 'minimum', 'maximum', 'exclusiveMinimum', 'exclusiveMaximum', 'multipleOf'] as $keyword) {
+            unset($schema[$keyword]);
+        }
+
+        if (isset($schema['minItems']) && (int) $schema['minItems'] > 1) {
+            unset($schema['minItems']);
+        }
+
+        foreach (['properties', '$defs', 'definitions'] as $map) {
+            if (isset($schema[$map]) && is_array($schema[$map])) {
+                foreach ($schema[$map] as $name => $sub) {
+                    if (is_array($sub)) {
+                        $schema[$map][$name] = self::structuredSchema($sub);
+                    }
+                }
+            }
+        }
+
+        if (isset($schema['items']) && is_array($schema['items'])) {
+            $schema['items'] = self::structuredSchema($schema['items']);
+        }
+
+        foreach (['anyOf', 'allOf', 'oneOf'] as $key) {
+            if (isset($schema[$key]) && is_array($schema[$key])) {
+                $schema[$key] = array_map(function ($sub) {
+                    return is_array($sub) ? self::structuredSchema($sub) : $sub;
+                }, $schema[$key]);
+            }
+        }
+
+        return $schema;
+    }
+
+    /**
+     * @param array $schema JSON Schema.
+     *
+     * @return bool An object schema that allows arbitrary keys.
+     */
+    private static function isOpenObject(array $schema)
+    {
+        return isset($schema['type']) && $schema['type'] === 'object'
+            && empty($schema['properties'])
+            && (! isset($schema['additionalProperties']) || $schema['additionalProperties'] !== false);
+    }
+
+    /**
+     * Undo structuredSchema()'s open-object encoding on a decoded reply.
+     *
+     * @param array $schema Original JSON Schema.
+     * @param mixed $value  Decoded value.
+     *
+     * @return mixed
+     */
+    public static function restoreOpenObjects(array $schema, $value)
+    {
+        if (self::isOpenObject($schema)) {
+            if (is_string($value)) {
+                $decoded = json_decode($value, true);
+
+                return is_array($decoded) ? $decoded : [];
+            }
+
+            return $value;
+        }
+
+        if (is_array($value) && isset($schema['properties']) && is_array($schema['properties'])) {
+            foreach ($schema['properties'] as $name => $sub) {
+                if (array_key_exists($name, $value) && is_array($sub)) {
+                    $value[$name] = self::restoreOpenObjects($sub, $value[$name]);
+                }
+            }
+        }
+
+        if (is_array($value) && isset($schema['items']) && is_array($schema['items']) && array_values($value) === $value) {
+            foreach ($value as $i => $item) {
+                $value[$i] = self::restoreOpenObjects($schema['items'], $item);
+            }
+        }
+
+        return $value;
     }
 
     /**

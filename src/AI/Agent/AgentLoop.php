@@ -119,7 +119,9 @@ class AgentLoop
         for ($iteration = 1; $iteration <= $maxIterations; $iteration++) {
             // On a resumed turn the model has already asked; replay its calls
             // rather than paying for the same decision twice.
-            if ($pendingApproved !== null) {
+            $replaying = $pendingApproved !== null;
+
+            if ($replaying) {
                 $calls           = $pendingApproved;
                 $pendingApproved = null;
                 $reply           = null;
@@ -177,6 +179,13 @@ class AgentLoop
 
                 $steps[]   = $outcome['step'];
                 $results[] = $outcome['message'];
+            }
+
+            // The owner approved exactly the calls just replayed. Anything the
+            // model decides next (possibly after reading injected text in a
+            // page or CV) must ask again, not ride on that approval.
+            if ($replaying) {
+                $context->setConfirmed(false);
             }
 
             foreach ($results as $result) {

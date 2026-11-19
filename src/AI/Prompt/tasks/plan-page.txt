@@ -1,0 +1,17 @@
+The site owner has asked for a website, and its outline is decided. Write one page of it now. Other pages are written at the same time from the same outline, so follow the outline and the shared facts exactly; that is what keeps the pages consistent.
+
+What they said:
+{{instruction}}
+
+Facts about this site:
+{{site}}
+
+The site outline (shared facts, and every page with its key and purpose, for links and consistency):
+{{outline}}
+
+The page to write now:
+{{page}}
+
+Return a plan with exactly this one page from the "{{kit}}" kit. Use the key, title and slug given, and the sections listed, in that order, each as its brief says. Rewrite every demo slot of every section you use (or remove its unit), following all the rules above.
+
+Never use an em dash, or an en dash or hyphen with spaces around it, as punctuation: write a comma, a colon or a full stop instead. Ranges such as 9:00–17:00 or Tue–Sun are fine.

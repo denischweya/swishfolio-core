@@ -92,7 +92,9 @@ abstract class AbstractAIProvider implements AIProviderInterface
      */
     protected function post($url, array $args)
     {
-        return wp_remote_post($url, $args);
+        // Safe variant: a site can point a provider at its own base URL, and
+        // that must never reach loopback, private or cloud-metadata addresses.
+        return wp_safe_remote_post($url, $args);
     }
 
     /**
@@ -103,6 +105,29 @@ abstract class AbstractAIProvider implements AIProviderInterface
     protected function backoff($attempt)
     {
         usleep((int) (250000 * pow(2, $attempt)));
+    }
+
+    /**
+     * Whether a transport error is the whole-request timeout firing while the
+     * provider was still working (cURL 28 "Operation timed out"), as opposed
+     * to failing to connect at all.
+     *
+     * Such a request is not retried: the same request gets the same time limit,
+     * so a reply that was too long to finish once times out again, and each
+     * try is minutes of waiting and output tokens the provider still bills.
+     * Three tries of a 300-second site plan kept the onboarding wizard on
+     * "Building your site" for 15 minutes before it could show an error.
+     *
+     * @param string $message Transport error message.
+     *
+     * @return bool
+     */
+    public static function isReplyTimeout($message)
+    {
+        $message = (string) $message;
+
+        return stripos($message, 'Operation timed out') !== false
+            || (stripos($message, 'cURL error 28') !== false && stripos($message, 'bytes received') !== false);
     }
 
     /**
@@ -141,6 +166,10 @@ abstract class AbstractAIProvider implements AIProviderInterface
                 $this->lastError = $response->get_error_message();
                 $lastStatus      = 0;
 
+                if (self::isReplyTimeout($this->lastError)) {
+                    throw new ProviderException($this->lastError, 0);
+                }
+
                 $this->backoff($attempt);
                 continue;
             }
@@ -155,6 +184,20 @@ abstract class AbstractAIProvider implements AIProviderInterface
                     $this->lastError = 'Provider returned a non-JSON body.';
 
                     throw new ProviderException($this->lastError, $status);
+                }
+
+                /**
+                 * Fires after every successful provider HTTP response.
+                 *
+                 * Lets a hosting layer meter real token usage in one place for
+                 * every route (edit, plan, extract, agent). The payload carries
+                 * no credentials.
+                 *
+                 * @param array  $decoded Decoded response body.
+                 * @param string $slug    Provider slug.
+                 */
+                if (function_exists('do_action')) {
+                    do_action('swishfolio_ai_response', $decoded, $this->getSlug());
                 }
 
                 return $decoded;
@@ -188,10 +231,27 @@ abstract class AbstractAIProvider implements AIProviderInterface
         $decoded = json_decode($raw, true);
 
         if (is_array($decoded) && isset($decoded['error']['message'])) {
-            return (string) $decoded['error']['message'];
+            return self::redactSecrets((string) $decoded['error']['message']);
         }
 
         return sprintf('The AI provider returned HTTP %d.', (int) $status);
+    }
+
+    /**
+     * Provider messages reach the browser, and with a shared network key a
+     * 401 such as "Incorrect API key provided: sk-...abcd" would show every
+     * tenant a fragment of that key. Anything key-shaped is masked.
+     *
+     * @param string $message Provider error message.
+     *
+     * @return string
+     */
+    public static function redactSecrets($message)
+    {
+        $message = (string) preg_replace('/\b(?:sk|rk|pk)-[A-Za-z0-9_\-*.]{4,}/', '[redacted]', $message);
+        $message = (string) preg_replace('/(api key provided:\s*)\S+/i', '$1[redacted]', $message);
+
+        return (string) preg_replace('/\b[A-Za-z0-9_\-]{32,}\b/', '[redacted]', $message);
     }
 }
 
