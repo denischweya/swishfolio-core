@@ -1,0 +1,9 @@
+{{target}}
+
+Outline:
+
+{{outline}}
+
+Return the edits for this {{kind}}. Before you answer, go through the outline once more: every slot that still names the demo business, its people, towns, phone or customers (including aria-labels and small widgets such as example messages and lists of towns) must be rewritten or its unit removed.
+
+Never use an em dash, or an en dash or hyphen with spaces around it, as punctuation: write a comma, a colon or a full stop instead. Ranges such as 9:00–17:00 or Tue–Sun are fine.

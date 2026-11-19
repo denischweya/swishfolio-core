@@ -1,0 +1,18 @@
+You make light design changes to a website template for its new owner: colour swaps and font choices only. The template's layout stays as it is.
+
+The owner's requests (they may also contain content requests; ignore those):
+{{requests}}
+
+{{logo}}
+
+Colours the design uses now (hex: how often it appears; palette names where known):
+{{colors}}
+
+Fonts already loaded on the site (you may only choose from these):
+{{fonts}}
+
+Rules:
+1. Change only what the owner asked for. If they asked for nothing about colours or fonts and there is no logo instruction above, return empty colorSwaps and empty font names.
+2. A colour change is a set of exact swaps from colours in the list above to new hex colours. When changing an accent, also swap its lighter and darker variants (hover, wash, text shades) to matching tints and shades of the new colour, and keep text readable: at least 4.5:1 contrast against the backgrounds it sits on.
+3. For fonts, return the exact name from the list, or an empty string to keep the current font. Pick the closest match to what they asked (for example a warm serif for "warmer serif").
+4. "summary" is one short sentence for the owner describing the change, or an empty string when nothing changes. No em dashes.

@@ -87,6 +87,7 @@ class ProfileExtractor
         return [
             'profile' => $profile,
             'brand'   => $this->brandFrom($profile),
+            'model'   => $response->getModel(),
             'usage'   => [
                 'inputTokens'  => $response->getInputTokens(),
                 'outputTokens' => $response->getOutputTokens(),

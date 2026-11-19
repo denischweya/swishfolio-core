@@ -11,6 +11,7 @@ use SwishfolioCore\AI\Onboarding\ProfileExtractor;
 use SwishfolioCore\AI\Prompt\PromptManager;
 use SwishfolioCore\AI\ProviderException;
 use SwishfolioCore\AI\ProviderRegistry;
+use SwishfolioCore\AI\ModelRouter;
 use SwishfolioCore\AI\Settings;
 use SwishfolioCore\AI\UsageLogger;
 
@@ -120,7 +121,10 @@ class OnboardingController
         $startedAt = microtime(true);
 
         try {
-            $result = $extractor->extract((string) $request->get_param('text'), $this->settings->get()['model']);
+            $result = $extractor->extract(
+                (string) $request->get_param('text'),
+                (new ModelRouter($this->settings))->modelFor(ModelRouter::KIND_EXTRACT)
+            );
         } catch (\InvalidArgumentException $e) {
             return new \WP_Error('sfcore_ai_bad_request', $e->getMessage(), ['status' => 400]);
         } catch (ProviderException $e) {
@@ -136,7 +140,7 @@ class OnboardingController
                 [],
                 $result['usage']['inputTokens'],
                 $result['usage']['outputTokens'],
-                $this->settings->get()['model'],
+                isset($result['model']) ? (string) $result['model'] : '',
                 $provider->getSlug()
             ),
             0,

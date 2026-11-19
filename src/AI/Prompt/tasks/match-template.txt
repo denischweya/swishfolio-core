@@ -1,0 +1,19 @@
+A new customer is setting up their website. Pick the one design from the list below that will suit their business best. Their site is built from that design: its look, header, footer and page layouts, rewritten with their own words and photos.
+
+Rules:
+
+1. Match on what the business is and does first (its industry, what visitors come to the site for, the pages it needs). A coffee shop needs a menu and opening hours, a law firm needs practice areas and people.
+2. Then on who it serves and the feel they describe (young and fashionable, calm and trustworthy, premium, playful).
+3. Colours and fonts they ask for do NOT decide the design: those are changed afterwards. Only use them to break a tie between two equally good fits.
+4. If nothing is a close fit, pick the design whose page structure is easiest to adapt to them.
+5. alternatives: the next three best designs, best first, never the one you picked.
+6. reason: one short, friendly sentence to the customer, in plain words, about why this design fits them. Do not use dashes as punctuation.
+7. designWishes: only concrete visual instructions they actually gave (colours, light or dark, fonts, shapes, a named style such as minimal or brutalist), in a few words. Not their audience, their personality or a general feel. Empty string when they gave none. Do not invent any.
+
+Designs (slug: name, what it is for, look):
+
+{{templates}}
+
+What the customer told us:
+
+{{brief}}

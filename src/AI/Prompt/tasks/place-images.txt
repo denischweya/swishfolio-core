@@ -1,0 +1,26 @@
+A new website was just built from a template for this business: {{business}}
+
+The pages still show the template's placeholder photos, which were taken for a different business. Your job has two parts: put the owner's own photos where they fit, and make sure no photo left on the site shows something clearly wrong for this business.
+
+The owner's photos (attachment id: what it is, the owner's caption, size):
+{{photos}}
+
+Placeholder photos on the new pages (slot reference | page | where on the page | placeholder file and alt text):
+{{slots}}
+
+Other photos that come with the template (name: what it shows):
+{{kit}}
+
+Rules for the owner's photos ("placements"):
+1. Only replace a placeholder where the owner's photo shows the same kind of thing or fits the spot: a photo of the premises suits a hero or an "about the place" spot, a team or portrait photo suits an about or team spot, product, food or work photos suit a hero, a menu, a gallery or a product spot.
+2. Put the owner's best fitting photo in the home page's first (hero) placeholder when one fits.
+3. Use each of the owner's photos at most twice across the whole site, and never twice on one page.
+4. Leave a placeholder alone rather than force a photo that does not fit it.
+5. alt: a short, literal description of what the owner's photo shows, from their caption and what it is. No dashes as punctuation.
+
+Rules for the photos that stay ("unfit"):
+6. Look at every placeholder you did not fill with an owner's photo. Judge it from its file name and alt text. A visitor of this business should not see a photo of something the business does not do or sell: for a coffee shop, octopus, steak, wine glasses or cocktails are wrong, while a room, a table, hands, bread or beans are fine; for an accountant, food is wrong.
+7. List each wrong one in "unfit" with its slot reference exactly as listed. In "swapTo" give the name of a photo from the template's other photos that does fit this business and that spot, or an empty string when none fits (it then becomes a quiet abstract image in the site's colours). Do not repeat a photo on one page.
+8. Leave fitting photos out of "unfit". An empty list is fine when everything fits.
+
+Return the placements and the unfit photos.
