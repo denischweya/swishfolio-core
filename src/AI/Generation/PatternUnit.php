@@ -1,6 +1,6 @@
 <?php
 /**
- * One unit of composition in the generation library.
+ * One unit of composition in a generation kit.
  *
  * @package SwishfolioCore
  */
@@ -8,124 +8,54 @@
 namespace SwishfolioCore\AI\Generation;
 
 /**
- * A generation unit is a whole page body or one section of one, described well
- * enough for an AI to choose it without seeing its markup — 166 KB of pattern
- * markup will not fit in a prompt, but a role, a summary and a slot list will.
+ * A unit is one verbatim section of a template page (or its header or footer
+ * part), extracted by seed/extract-patterns.php. It carries no hand-written
+ * slot tokens: its copy is addressed with CopySlots ids (t*, a*, u*), found in
+ * the markup itself, so a section looks exactly as it does on the template and
+ * every word of demo copy can still be replaced.
  *
- * Markup comes from exactly one of two places: "ref", a pattern registered with
- * WordPress (composed verbatim, because parse -> serialize is byte-identical for
- * every registered pattern), or "file", a slot-bearing HTML file shipped beside
- * this sidecar and deliberately not registered, so it never pollutes the
- * inserter.
+ * The planner chooses a unit by its role, summary and outline; the markup never
+ * goes into a prompt.
  */
 class PatternUnit
 {
-    const SUPPORTED_VERSION = 1;
-    const SCOPES            = ['page', 'section'];
+    const SCOPES = ['section', 'header', 'footer'];
 
     /** @var string */
     private $id;
 
-    /** @var string */
-    private $scope;
-
-    /** @var string|null */
-    private $ref;
-
-    /** @var string|null */
-    private $file;
-
-    /** @var string */
-    private $role;
-
-    /** @var string */
-    private $summary;
-
-    /** @var string[] */
-    private $pageTypes = [];
-
-    /** @var string[] Empty means variation-agnostic. */
-    private $styleVariations = [];
-
     /** @var array */
-    private $capacity = [];
+    private $data;
 
-    /** @var int */
-    private $requiresMedia = 0;
-
-    /** @var bool Ships remote placeholder images the user is expected to replace. */
-    private $placeholderMedia = false;
-
-    /** @var bool */
-    private $ksesStable = true;
-
-    /** @var SlotSpec[] Keyed by slot name. */
-    private $slots = [];
-
-    private function __construct($id)
+    private function __construct($id, array $data)
     {
-        $this->id = $id;
+        $this->id   = $id;
+        $this->data = $data;
     }
 
     /**
-     * @param string $id       Unit id, unique within the library.
-     * @param array  $sidecar  Decoded sidecar JSON.
+     * @param string $id   Unit id, unique within its kit.
+     * @param array  $data Entry from the kit's "units" map.
      *
-     * @throws \InvalidArgumentException When the sidecar is unusable.
+     * @throws \InvalidArgumentException When the entry is unusable.
      *
      * @return self
      */
-    public static function fromArray($id, array $sidecar)
+    public static function fromArray($id, array $data)
     {
-        $version = isset($sidecar['version']) ? (int) $sidecar['version'] : 0;
+        $scope = isset($data['scope']) ? (string) $data['scope'] : 'section';
 
-        if ($version !== self::SUPPORTED_VERSION) {
-            throw new \InvalidArgumentException(
-                sprintf('%s: unsupported generation unit version "%s".', $id, $version)
-            );
+        if (! in_array($scope, self::SCOPES, true)) {
+            throw new \InvalidArgumentException(sprintf('%s: invalid scope "%s".', $id, $scope));
         }
 
-        $unit        = new self($id);
-        $unit->scope = isset($sidecar['scope']) ? (string) $sidecar['scope'] : 'section';
-
-        if (! in_array($unit->scope, self::SCOPES, true)) {
-            throw new \InvalidArgumentException(
-                sprintf('%s: invalid scope "%s".', $id, $unit->scope)
-            );
+        if (empty($data['file']) || empty($data['role']) || ! isset($data['summary']) || $data['summary'] === '') {
+            throw new \InvalidArgumentException(sprintf('%s: a file, a role and a summary are required.', $id));
         }
 
-        $unit->ref  = empty($sidecar['ref']) ? null : (string) $sidecar['ref'];
-        $unit->file = empty($sidecar['file']) ? null : (string) $sidecar['file'];
+        $data['scope'] = $scope;
 
-        if (($unit->ref === null) === ($unit->file === null)) {
-            throw new \InvalidArgumentException(
-                sprintf('%s: exactly one of "ref" or "file" is required.', $id)
-            );
-        }
-
-        $unit->role    = isset($sidecar['role']) ? (string) $sidecar['role'] : '';
-        $unit->summary = isset($sidecar['summary']) ? (string) $sidecar['summary'] : '';
-
-        if ($unit->role === '' || $unit->summary === '') {
-            throw new \InvalidArgumentException(
-                sprintf('%s: a role and a summary are required.', $id)
-            );
-        }
-
-        $unit->pageTypes        = array_values(array_map('strval', (array) (isset($sidecar['pageTypes']) ? $sidecar['pageTypes'] : [])));
-        $unit->styleVariations  = array_values(array_map('strval', (array) (isset($sidecar['styleVariations']) ? $sidecar['styleVariations'] : [])));
-        $unit->capacity         = isset($sidecar['capacity']) ? (array) $sidecar['capacity'] : [];
-        $unit->requiresMedia    = isset($sidecar['requiresMedia']) ? (int) $sidecar['requiresMedia'] : 0;
-        $unit->placeholderMedia = ! empty($sidecar['placeholderMedia']);
-        $unit->ksesStable       = ! isset($sidecar['ksesStable']) || ! empty($sidecar['ksesStable']);
-
-        $slots = isset($sidecar['slots']) ? (array) $sidecar['slots'] : [];
-
-        foreach ($slots as $name => $spec) {
-            $unit->slots[(string) $name] = SlotSpec::fromArray((string) $name, (array) $spec);
-        }
-
-        return $unit;
+        return new self((string) $id, $data);
     }
 
     public function getId()
@@ -135,110 +65,118 @@ class PatternUnit
 
     public function getScope()
     {
-        return $this->scope;
-    }
-
-    public function getRef()
-    {
-        return $this->ref;
-    }
-
-    public function getFile()
-    {
-        return $this->file;
+        return $this->data['scope'];
     }
 
     public function getRole()
     {
-        return $this->role;
+        return (string) $this->data['role'];
     }
 
     public function getSummary()
     {
-        return $this->summary;
+        return (string) $this->data['summary'];
     }
 
+    public function getFile()
+    {
+        return (string) $this->data['file'];
+    }
+
+    /**
+     * @return string[] Page types this unit suits; "any" means every page.
+     */
     public function getPageTypes()
     {
-        return $this->pageTypes;
+        return $this->strings('pageTypes');
     }
 
-    public function getStyleVariations()
+    /**
+     * @return string[] Kit image names the unit shows (placeholders the owner replaces).
+     */
+    public function getImages()
     {
-        return $this->styleVariations;
+        return $this->strings('images');
     }
 
-    public function getCapacity()
+    /**
+     * @return string[] Any of "projects", "form", "script".
+     */
+    public function getNeeds()
     {
-        return $this->capacity;
+        return $this->strings('needs');
     }
 
-    public function getRequiresMedia()
+    /**
+     * @return string[] Text drawn inside SVG, which no edit can reach.
+     */
+    public function getFixedText()
     {
-        return $this->requiresMedia;
+        return $this->strings('fixedText');
     }
 
-    public function hasPlaceholderMedia()
+    public function getSourcePage()
     {
-        return $this->placeholderMedia;
+        return isset($this->data['sourcePage']) ? (string) $this->data['sourcePage'] : '';
     }
 
+    /**
+     * Whether the markup survives wp_kses_post() unchanged. Kit markup is
+     * written as trusted (see TrustedMarkup::vouch()), so this is informational.
+     *
+     * @return bool
+     */
     public function isKsesStable()
     {
-        return $this->ksesStable;
+        return ! isset($this->data['ksesStable']) || ! empty($this->data['ksesStable']);
     }
 
     /**
-     * @return SlotSpec[] Keyed by slot name.
-     */
-    public function getSlots()
-    {
-        return $this->slots;
-    }
-
-    /**
-     * @param string $name Slot name.
+     * The one-line header the planner reads above the unit's outline.
      *
-     * @return SlotSpec|null Null when the unit declares no such slot.
-     */
-    public function getSlot($name)
-    {
-        return isset($this->slots[$name]) ? $this->slots[$name] : null;
-    }
-
-    /**
-     * The promptable description. Never includes markup.
-     *
-     * @return array
+     * @return string
      */
     public function describe()
     {
-        $described = [
-            'scope'   => $this->scope,
-            'role'    => $this->role,
-            'summary' => $this->summary,
-        ];
+        $line = '## ' . $this->id . ' | role: ' . $this->getRole();
 
-        if ($this->pageTypes !== []) {
-            $described['pageTypes'] = $this->pageTypes;
+        if ($this->getPageTypes() !== []) {
+            $line .= ' | suits: ' . implode(', ', $this->getPageTypes());
         }
 
-        if ($this->capacity !== []) {
-            $described['capacity'] = $this->capacity;
+        $notes = [];
+        $images = count($this->getImages());
+
+        if ($images > 0) {
+            $notes[] = $images . ' placeholder photo' . ($images > 1 ? 's' : '') . ' the owner replaces later';
         }
 
-        if ($this->placeholderMedia) {
-            $described['note'] = 'Ships placeholder images the site owner must replace.';
+        if (in_array('projects', $this->getNeeds(), true)) {
+            $notes[] = 'shows the site\'s portfolio projects (empty until the owner adds some)';
         }
 
-        $slots = [];
-
-        foreach ($this->slots as $name => $slot) {
-            $slots[$name] = $slot->describe();
+        if (in_array('form', $this->getNeeds(), true)) {
+            $notes[] = 'its form becomes a working contact form that emails the owner: write its labels, choices and placeholders for the owner\'s enquiries';
         }
 
-        $described['slots'] = $slots;
+        if ($this->getFixedText() !== []) {
+            // Drawn text (a badge ring) is a t* slot like any other: rewrite it in plain words.
+            $notes[] = 'words drawn in its graphics, which are t* slots too and must be rewritten: "' . implode('", "', $this->getFixedText()) . '"';
+        }
 
-        return $described;
+        // The extractor's summary still calls the form a demo; it is swapped for a working one.
+        $summary = str_replace(' Has a demo form that does not send anything yet.', '', $this->getSummary());
+
+        return $line . "\n" . $summary . ($notes !== [] ? "\nNote: " . implode('; ', $notes) . '.' : '');
+    }
+
+    /**
+     * @param string $key Entry key.
+     *
+     * @return string[]
+     */
+    private function strings($key)
+    {
+        return isset($this->data[$key]) ? array_values(array_map('strval', (array) $this->data[$key])) : [];
     }
 }

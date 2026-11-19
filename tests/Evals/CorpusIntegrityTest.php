@@ -32,6 +32,7 @@ class CorpusIntegrityTest extends EvalTestCase
         'plan-reference',
         'plan-slot',
         'plan-value',
+        'plan-coverage',
         'plan-collision',
     ];
 

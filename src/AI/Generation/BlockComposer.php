@@ -17,38 +17,66 @@ namespace SwishfolioCore\AI\Generation;
  *
  * So this class only ever emits markup it did not invent:
  *
- *  - a pattern section is the unit's own markup with its slot tokens replaced,
- *    a plain str_replace on the raw string with no HTML surgery at all;
+ *  - a pattern section is a kit unit's own markup with the plan's copy spliced
+ *    into its CopySlots slots (everything else kept byte for byte), then its
+ *    kit placeholders resolved: {{link:key}} to the page playing that part,
+ *    {{kit-image:name}} to the kit image's URL;
  *  - a block section is a dynamic block, whose every attribute lives in the
  *    comment and whose markup is produced at render time.
  */
 class BlockComposer
 {
-    /** @var PatternLibrary */
-    private $library;
+    /** @var Kit */
+    private $kit;
 
-    public function __construct(PatternLibrary $library)
+    /** @var array|null KitForms options; null leaves demo forms as they are. */
+    private $forms = null;
+
+    /** @var int */
+    private $formCount = 0;
+
+    public function __construct(Kit $kit)
     {
-        $this->library = $library;
+        $this->kit = $kit;
+    }
+
+    /**
+     * Swap the demo form of needs:form sections for the working form block.
+     *
+     * @param array $opts KitForms::swap() options (recipient, formId prefix, subject, success).
+     *
+     * @return self
+     */
+    public function withForms(array $opts)
+    {
+        $this->forms = $opts;
+
+        return $this;
+    }
+
+    /**
+     * @return Kit
+     */
+    public function getKit()
+    {
+        return $this->kit;
     }
 
     /**
      * @param array $sections Validated section list from one plan page.
+     * @param array $links    Kit page key => link target ("{{page:key}}" or a URL).
      *
-     * @throws \RuntimeException When a unit cannot be resolved or a token is left behind.
+     * @throws \RuntimeException When a unit cannot be resolved or a placeholder is left behind.
      *
      * @return string post_content.
      */
-    public function compose(array $sections)
+    public function compose(array $sections, array $links = [])
     {
         $parts = [];
 
         foreach ($sections as $section) {
             if (isset($section['pattern'])) {
-                $parts[] = $this->composePattern(
-                    (string) $section['pattern'],
-                    isset($section['content']) ? (array) $section['content'] : []
-                );
+                $parts[] = $this->composePattern((string) $section['pattern'], $section, $links);
                 continue;
             }
 
@@ -60,45 +88,107 @@ class BlockComposer
             }
         }
 
-        return implode("\n\n", $parts);
+        return implode("\n\n", array_filter($parts, 'strlen'));
     }
 
     /**
-     * @param string $unitId  Generation unit id.
-     * @param array  $content Slot name => value.
+     * @param string $unitId  Kit section id.
+     * @param array  $section Validated section: texts, attrs, remove, clones.
+     * @param array  $links   Kit page key => link target.
      *
-     * @throws \RuntimeException When a declared token is missing from the markup.
+     * @throws \RuntimeException When a placeholder is left behind.
      *
      * @return string
      */
-    public function composePattern($unitId, array $content)
+    public function composePattern($unitId, array $section, array $links = [])
     {
-        $unit   = $this->library->get($unitId);
-        $markup = $this->library->markup($unitId);
+        // Kit links are protected as "#sf-link-<key>" while CopySlots runs, so
+        // its kses pass cannot read "{{link" as a URL scheme and strip it.
+        // Only attribute values change, so the slot ids stay the same.
+        $copy = new \SwishfolioCore\AI\Onboarding\CopySlots(self::protectLinks($this->kit->markup($unitId)));
 
-        if ($unit === null) {
-            throw new \RuntimeException(sprintf('Unknown generation unit "%s".', $unitId));
+        $clones = [];
+        foreach (isset($section['clones']) ? (array) $section['clones'] : [] as $clone) {
+            $clones[] = [
+                'unit'  => (string) $clone['unit'],
+                'texts' => array_map([self::class, 'protectLinks'], isset($clone['texts']) ? (array) $clone['texts'] : []),
+                'attrs' => isset($clone['attrs']) ? (array) $clone['attrs'] : [],
+            ];
         }
 
-        $search  = [];
-        $replace = [];
+        // A title longer than the demo's is drawn smaller, and a decorative
+        // copy of the heading always says (and wraps) what the heading says.
+        $texts = HeadlineFit::texts(
+            isset($section['texts']) ? (array) $section['texts'] : [],
+            $copy->slots(),
+            $this->kit->mirrorSlots($unitId)
+        );
 
-        foreach ($unit->getSlots() as $name => $slot) {
-            $value = array_key_exists($name, $content) ? (string) $content[$name] : $slot->getDefault();
+        $filled = $copy->apply([
+            'texts'  => array_map([self::class, 'protectLinks'], $texts),
+            'attrs'  => isset($section['attrs']) ? (array) $section['attrs'] : [],
+            'remove' => isset($section['remove']) ? (array) $section['remove'] : [],
+            'clones' => $clones,
+        ]);
 
-            $search[]  = $slot->getToken();
-            $replace[] = $value;
+        $filled = $this->resolve(self::restoreLinks($filled), $links);
+
+        $unit = $this->kit->get($unitId);
+
+        if ($this->forms !== null && $unit !== null && in_array('form', $unit->getNeeds(), true)) {
+            $opts           = $this->forms;
+            $opts['formId'] = (isset($opts['formId']) ? $opts['formId'] : 'swish-form') . '-' . (++$this->formCount);
+            $filled         = \SwishfolioCore\AI\Onboarding\KitForms::swap($filled, $opts);
         }
 
-        $filled = $search === [] ? $markup : str_replace($search, $replace, $markup);
-
-        if (strpos($filled, '{{slot:') !== false) {
+        if (preg_match('/\{\{(kit-[a-z-]+|link|nav):?[^}]*\}\}/', $filled)) {
             throw new \RuntimeException(
-                sprintf('Generation unit "%s" left an unfilled slot token in its markup.', $unitId)
+                sprintf('Kit unit "%s" left an unresolved placeholder in its markup.', $unitId)
             );
         }
 
         return trim($filled);
+    }
+
+    /**
+     * @param string $html Markup that may hold {{link:key}}.
+     *
+     * @return string The same with each as "#sf-link-key", which kses keeps.
+     */
+    public static function protectLinks($html)
+    {
+        return preg_replace('/\{\{link:([a-z0-9-]+)\}\}/', '#sf-link-$1', (string) $html);
+    }
+
+    /**
+     * @param string $html Markup from protectLinks().
+     *
+     * @return string
+     */
+    public static function restoreLinks($html)
+    {
+        return preg_replace('/#sf-link-([a-z0-9-]+)(?=["\'])/', '{{link:$1}}', (string) $html);
+    }
+
+    /**
+     * @param string $markup Unit markup with kit placeholders.
+     * @param array  $links  Kit page key => link target.
+     *
+     * @return string
+     */
+    public function resolve($markup, array $links)
+    {
+        $kit = $this->kit;
+
+        $markup = preg_replace_callback('/\{\{link:([a-z0-9-]+)\}\}/', static function ($m) use ($links) {
+            return isset($links[$m[1]]) ? (string) $links[$m[1]] : '#';
+        }, $markup);
+
+        return preg_replace_callback('/\{\{kit-image:([a-z0-9_-]+)\}\}/', static function ($m) use ($kit) {
+            $url = $kit->assetUrl($m[1]);
+
+            return $url === null ? '' : $url;
+        }, $markup);
     }
 
     /**

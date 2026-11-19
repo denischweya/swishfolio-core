@@ -1,0 +1,22 @@
+{
+    "phones": [
+        "+351 21 555 0142"
+    ],
+    "emails": [
+        "hello@idunmarlowe.example"
+    ],
+    "domains": [
+        "idunmarlowe.example"
+    ],
+    "addresses": [
+        "Rua do Açúcar 41, 3.º"
+    ],
+    "places": [
+        "Lisbon",
+        "Lisboa",
+        "Rua do Açúcar"
+    ],
+    "people": [
+        "Idun Marlowe"
+    ]
+}

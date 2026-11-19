@@ -1,0 +1,693 @@
+{
+    "version": 2,
+    "slug": "chef",
+    "name": "Candlelight",
+    "title": "Private Chef",
+    "industry": "hospitality",
+    "description": "An elegant WordPress template for private chefs and caterers, with sample menus, event packages, an evening timeline and a booking enquiry form.",
+    "look": "Type: Gloock, Jost. Colours: Linen #F3E9DA, Espresso #17110F, Burnt saffron #A8541E, Oat #E8DCC8, Saffron #EBA94C, Secondary text #5E5149.",
+    "demo": {
+        "business": "Meza",
+        "tagline": "Private chef for dinner parties, villa weeks and small weddings · London & the Algarve"
+    },
+    "design": {
+        "file": "design.json",
+        "variation": "Default",
+        "classPrefix": "ch-",
+        "fingerprint": ".ch-foot",
+        "palette": {
+            "base": "Linen #F3E9DA",
+            "contrast": "Espresso #17110F",
+            "accent-1": "Burnt saffron #A8541E",
+            "accent-2": "Oat #E8DCC8",
+            "accent-3": "Saffron #EBA94C",
+            "accent-4": "Secondary text #5E5149",
+            "accent-5": "Paper #FBF6EE",
+            "accent-6": "Cocoa #241A17"
+        },
+        "fonts": [
+            "Gloock",
+            "Jost"
+        ],
+        "pageTemplate": "page-landing",
+        "header": "header",
+        "footer": "footer",
+        "assetsPath": "assets/kits/chef"
+    },
+    "frontPage": "home",
+    "navigation": [
+        "menus",
+        "events",
+        "about",
+        "book"
+    ],
+    "pages": [
+        {
+            "key": "home",
+            "title": "Home",
+            "slug": "home",
+            "navLabel": "Home",
+            "inNav": false,
+            "type": "home",
+            "template": "page-landing",
+            "sections": [
+                "home-01-hero",
+                "home-02-intro",
+                "home-03-gallery",
+                "home-04-menu",
+                "home-05-process",
+                "home-06-contact",
+                "home-07-services",
+                "home-08-cta"
+            ]
+        },
+        {
+            "key": "menus",
+            "title": "Menus",
+            "slug": "menus",
+            "navLabel": "Menus",
+            "inNav": true,
+            "type": "menu",
+            "template": "page-landing",
+            "sections": [
+                "menus-01-page-header",
+                "menus-02-menu",
+                "menus-03-menu",
+                "menus-04-pricing",
+                "menus-05-faq",
+                "menus-06-cta"
+            ]
+        },
+        {
+            "key": "events",
+            "title": "Private dining & events",
+            "slug": "events",
+            "navLabel": "Events",
+            "inNav": true,
+            "type": "events",
+            "template": "page-landing",
+            "sections": [
+                "events-01-page-header",
+                "events-02-services",
+                "events-03-portfolio",
+                "events-04-cta"
+            ]
+        },
+        {
+            "key": "about",
+            "title": "About",
+            "slug": "about",
+            "navLabel": "About",
+            "inNav": true,
+            "type": "about",
+            "template": "page-landing",
+            "sections": [
+                "about-01-page-header",
+                "about-02-about",
+                "about-03-about",
+                "about-04-features",
+                "about-05-cta"
+            ]
+        },
+        {
+            "key": "book",
+            "title": "Book",
+            "slug": "book",
+            "navLabel": "Book",
+            "inNav": true,
+            "type": "contact",
+            "template": "page-landing",
+            "sections": [
+                "book-01-page-header",
+                "book-02-schedule",
+                "book-03-faq"
+            ]
+        }
+    ],
+    "units": {
+        "home-01-hero": {
+            "scope": "section",
+            "role": "hero",
+            "summary": "Home page hero from the home page, headed (H1) \"Restaurant evenings, served at your own table.\": 2 paragraphs, 2 buttons, 1 photo, 1 drawn icon or graphic, 3 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 1,
+            "file": "units/home-01-hero.html",
+            "images": [
+                "hero-tuna"
+            ],
+            "slots": 13,
+            "repeatable": 3,
+            "ksesStable": false
+        },
+        "home-02-intro": {
+            "scope": "section",
+            "role": "intro",
+            "summary": "Intro band from the home page: 2 paragraphs, 1 photo.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 2,
+            "file": "units/home-02-intro.html",
+            "images": [
+                "chef-portrait"
+            ],
+            "slots": 4,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "home-03-gallery": {
+            "scope": "section",
+            "role": "gallery",
+            "summary": "Gallery section from the home page, headed (H2) \"Five ways to have me cook for you.\": 2 paragraphs, 5 photos.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 3,
+            "file": "units/home-03-gallery.html",
+            "images": [
+                "amber-table",
+                "plate-tweezers",
+                "pergola",
+                "wedding-white",
+                "dough"
+            ],
+            "slots": 8,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "home-04-menu": {
+            "scope": "section",
+            "role": "menu",
+            "summary": "Menu section from the home page, headed (H2) \"Written for the season, rewritten for you.\": 3 headings, 2 paragraphs, 1 button, 12 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 4,
+            "file": "units/home-04-menu.html",
+            "slots": 32,
+            "repeatable": 12,
+            "ksesStable": true
+        },
+        "home-05-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the home page, headed (H2) \"You host. I handle everything else.\": 6 headings, 2 paragraphs, 1 photo, 5 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 5,
+            "file": "units/home-05-process.html",
+            "images": [
+                "chef-plating"
+            ],
+            "slots": 18,
+            "repeatable": 5,
+            "ksesStable": false
+        },
+        "home-06-contact": {
+            "scope": "section",
+            "role": "contact",
+            "summary": "Contact section from the home page: 1 paragraph, 1 photo, 2 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 6,
+            "file": "units/home-06-contact.html",
+            "images": [
+                "guests"
+            ],
+            "slots": 7,
+            "repeatable": 2,
+            "ksesStable": false
+        },
+        "home-07-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the home page, headed (H2) \"London most weeks. Portugal most summers.\": 2 paragraphs, 4 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 7,
+            "file": "units/home-07-services.html",
+            "slots": 7,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "home-08-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the home page, headed (H2) \"Tell me the date. I’ll write the menu.\": 2 paragraphs, 2 buttons, 1 photo.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 8,
+            "file": "units/home-08-cta.html",
+            "images": [
+                "candle-long"
+            ],
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "menus-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the menus page, headed (H1) \"Three menus, endless variations.\": 2 paragraphs, 1 photo.",
+            "pageTypes": [
+                "menu"
+            ],
+            "sourcePage": "menus",
+            "position": 1,
+            "file": "units/menus-01-page-header.html",
+            "images": [
+                "flowers-dish"
+            ],
+            "slots": 3,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "menus-02-menu": {
+            "scope": "section",
+            "role": "menu",
+            "summary": "Menu section from the menus page, headed (H3) \"The Tasting Menu\": 3 headings, 1 paragraph, 21 repeatable items.",
+            "pageTypes": [
+                "menu"
+            ],
+            "sourcePage": "menus",
+            "position": 2,
+            "file": "units/menus-02-menu.html",
+            "slots": 49,
+            "repeatable": 21,
+            "ksesStable": true
+        },
+        "menus-03-menu": {
+            "scope": "section",
+            "role": "menu",
+            "summary": "Menu section from the menus page, headed (H2) \"Allergies and preferences are part of the menu, not an afterthought.\": 1 paragraph, 4 repeatable items.",
+            "pageTypes": [
+                "menu"
+            ],
+            "sourcePage": "menus",
+            "position": 3,
+            "file": "units/menus-03-menu.html",
+            "slots": 6,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "menus-04-pricing": {
+            "scope": "section",
+            "role": "pricing",
+            "summary": "Pricing section from the menus page, headed (H2) \"A few extras, clearly priced.\": 5 headings, 1 paragraph, 4 repeatable items.",
+            "pageTypes": [
+                "menu"
+            ],
+            "sourcePage": "menus",
+            "position": 4,
+            "file": "units/menus-04-pricing.html",
+            "slots": 14,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "menus-05-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ from the menus page, headed (H2) \"Before you choose.\": 6 paragraphs, 4 questions, 4 repeatable items.",
+            "pageTypes": [
+                "menu",
+                "any"
+            ],
+            "sourcePage": "menus",
+            "position": 5,
+            "file": "units/menus-05-faq.html",
+            "slots": 11,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "menus-06-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the menus page, headed (H2) \"Found a menu you like?\": 2 paragraphs, 2 buttons, 1 photo.",
+            "pageTypes": [
+                "menu",
+                "any"
+            ],
+            "sourcePage": "menus",
+            "position": 6,
+            "file": "units/menus-06-cta.html",
+            "images": [
+                "feast"
+            ],
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "events-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the private dining & events page, headed (H1) \"From a table for four to a wedding for eighty.\": 2 paragraphs, 2 photos.",
+            "pageTypes": [
+                "events"
+            ],
+            "sourcePage": "events",
+            "position": 1,
+            "file": "units/events-01-page-header.html",
+            "images": [
+                "guests",
+                "canapes-bites"
+            ],
+            "slots": 3,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "events-02-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the private dining & events page, headed (H2) \"Dinner parties at home\": 5 headings, 5 paragraphs, 5 photos, 5 drawn icons or graphics, 25 repeatable items.",
+            "pageTypes": [
+                "events"
+            ],
+            "sourcePage": "events",
+            "position": 2,
+            "file": "units/events-02-services.html",
+            "images": [
+                "amber-table",
+                "plate-tweezers",
+                "pergola",
+                "wedding-white",
+                "dough"
+            ],
+            "slots": 45,
+            "repeatable": 25,
+            "ksesStable": false
+        },
+        "events-03-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the private dining & events page, headed (H2) \"A few tables I’ve cooked for.\": 2 paragraphs. Lists the site's portfolio projects.",
+            "pageTypes": [
+                "events"
+            ],
+            "sourcePage": "events",
+            "position": 3,
+            "file": "units/events-03-portfolio.html",
+            "needs": [
+                "projects"
+            ],
+            "slots": 3,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "events-04-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the private dining & events page, headed (H2) \"Planning something bigger?\": 2 paragraphs, 2 buttons, 1 photo.",
+            "pageTypes": [
+                "events",
+                "any"
+            ],
+            "sourcePage": "events",
+            "position": 4,
+            "file": "units/events-04-cta.html",
+            "images": [
+                "dessert"
+            ],
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "about-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the about page, headed (H1) \"Lisbon-born, London-trained, and happiest in other people’s kitchens.\": 1 paragraph, 1 photo.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 1,
+            "file": "units/about-01-page-header.html",
+            "images": [
+                "chef-portrait"
+            ],
+            "slots": 2,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "about-02-about": {
+            "scope": "section",
+            "role": "about",
+            "summary": "About section from the about page: 3 paragraphs, 7 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 2,
+            "file": "units/about-02-about.html",
+            "slots": 18,
+            "repeatable": 7,
+            "ksesStable": true
+        },
+        "about-03-about": {
+            "scope": "section",
+            "role": "about",
+            "summary": "About section from the about page, headed (H2) \"Good cooking starts long before the kitchen.\": 1 paragraph, 1 photo, 5 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 3,
+            "file": "units/about-03-about.html",
+            "images": [
+                "market"
+            ],
+            "slots": 12,
+            "repeatable": 5,
+            "ksesStable": false
+        },
+        "about-04-features": {
+            "scope": "section",
+            "role": "features",
+            "summary": "Features section from the about page, headed (H2) \"Four things I promise every host.\": 5 headings, 1 paragraph, 4 repeatable items.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 4,
+            "file": "units/about-04-features.html",
+            "slots": 14,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "about-05-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the about page, headed (H2) \"Let’s cook something together.\": 2 paragraphs, 2 buttons, 1 photo.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 5,
+            "file": "units/about-05-cta.html",
+            "images": [
+                "oyster"
+            ],
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "book-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the book page, headed (H1) \"Let’s find a date.\": 2 paragraphs, 1 drawn icon or graphic, 24 repeatable items. Has a demo form that does not send anything yet.",
+            "pageTypes": [
+                "contact"
+            ],
+            "sourcePage": "book",
+            "position": 1,
+            "file": "units/book-01-page-header.html",
+            "needs": [
+                "form"
+            ],
+            "slots": 39,
+            "repeatable": 24,
+            "ksesStable": false
+        },
+        "book-02-schedule": {
+            "scope": "section",
+            "role": "schedule",
+            "summary": "Schedule section from the book page, headed (H2) \"The next few months, at a glance.\": 2 paragraphs, 5 repeatable items.",
+            "pageTypes": [
+                "contact"
+            ],
+            "sourcePage": "book",
+            "position": 2,
+            "file": "units/book-02-schedule.html",
+            "slots": 8,
+            "repeatable": 5,
+            "ksesStable": true
+        },
+        "book-03-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ from the book page, headed (H2) \"The practical bits.\": 5 paragraphs, 4 questions, 4 repeatable items.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "book",
+            "position": 3,
+            "file": "units/book-03-faq.html",
+            "slots": 10,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "header": {
+            "scope": "header",
+            "role": "header",
+            "summary": "Header template part.",
+            "file": "units/header.html",
+            "slots": 3,
+            "ksesStable": false
+        },
+        "footer": {
+            "scope": "footer",
+            "role": "footer",
+            "summary": "Footer template part.",
+            "file": "units/footer.html",
+            "slots": 15,
+            "ksesStable": false
+        }
+    },
+    "assets": {
+        "amber-table": {
+            "file": "images/amber-table.jpg",
+            "alt": "A table set with candles, plates and food",
+            "title": "Dinner party table",
+            "width": 1400,
+            "height": 2100
+        },
+        "canapes-bites": {
+            "file": "images/canapes-bites.jpg",
+            "alt": "Small appetisers with salmon and herbs",
+            "title": "Appetisers",
+            "width": 1400,
+            "height": 1051
+        },
+        "candle-long": {
+            "file": "images/candle-long.jpg",
+            "alt": "A long dining table set with flowers and candles",
+            "title": "Candle-lit table",
+            "width": 1600,
+            "height": 1067
+        },
+        "chef-plating": {
+            "file": "images/chef-plating.jpg",
+            "alt": "A chef garnishes a seafood dish with herbs",
+            "title": "Garnishing",
+            "width": 1400,
+            "height": 2100
+        },
+        "chef-portrait": {
+            "file": "images/chef-portrait.jpg",
+            "alt": "Chef Tomás Valadares plating a course under the pass lamps",
+            "title": "Chef Tomás Valadares",
+            "width": 1400,
+            "height": 2155
+        },
+        "dessert": {
+            "file": "images/dessert.jpg",
+            "alt": "A chef finishing a chocolate dessert",
+            "title": "Dessert",
+            "width": 1400,
+            "height": 2100
+        },
+        "dough": {
+            "file": "images/dough.jpg",
+            "alt": "Two people kneading dough on a floured wooden table",
+            "title": "Cooking class",
+            "width": 1400,
+            "height": 933
+        },
+        "feast": {
+            "file": "images/feast.jpg",
+            "alt": "Friends sharing plates of food around a round table",
+            "title": "Sharing feast",
+            "width": 1400,
+            "height": 948
+        },
+        "flowers-dish": {
+            "file": "images/flowers-dish.jpg",
+            "alt": "A vegetable patty with couscous and edible flowers",
+            "title": "Spring plate",
+            "width": 1400,
+            "height": 2160
+        },
+        "guests": {
+            "file": "images/guests.jpg",
+            "alt": "Friends raising glasses around a candle-lit dinner table",
+            "title": "Guests",
+            "width": 1400,
+            "height": 1750
+        },
+        "hero-tuna": {
+            "file": "images/hero-tuna.jpg",
+            "alt": "A chef presents a plated raw tuna dish in a stone bowl",
+            "title": "Plated tuna",
+            "width": 1600,
+            "height": 2400
+        },
+        "market": {
+            "file": "images/market.jpg",
+            "alt": "Spring onions and carrots on a market stall",
+            "title": "Market",
+            "width": 1400,
+            "height": 933
+        },
+        "oyster": {
+            "file": "images/oyster.jpg",
+            "alt": "A chef preparing an oyster with a spoon",
+            "title": "Oysters",
+            "width": 1400,
+            "height": 2100
+        },
+        "pergola": {
+            "file": "images/pergola.jpg",
+            "alt": "A table set for lunch under a pergola",
+            "title": "Pergola table",
+            "width": 1600,
+            "height": 1067
+        },
+        "plate-tweezers": {
+            "file": "images/plate-tweezers.jpg",
+            "alt": "A chef plating a dish with tweezers",
+            "title": "Plating",
+            "width": 1400,
+            "height": 1908
+        },
+        "wedding-white": {
+            "file": "images/wedding-white.jpg",
+            "alt": "A long table with white linen and floral centrepieces",
+            "title": "Wedding table",
+            "width": 1400,
+            "height": 2100
+        }
+    },
+    "source": {
+        "dir": "seed/sites/chef",
+        "hash": "eb368749805091caf6c07c5c66792e9a"
+    }
+}

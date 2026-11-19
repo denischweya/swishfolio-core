@@ -87,15 +87,37 @@ abstract class EvalTestCase extends TestCase
     }
 
     /**
-     * @return PatternLibrary The shipped generation catalogue.
+     * @return PatternLibrary The shipped kits.
      */
     protected function library()
     {
         if ($this->libraryInstance === null) {
-            $this->libraryInstance = new PatternLibrary([SFCORE_PLUGIN_DIR . 'src/AI/Generation/Patterns']);
+            $this->libraryInstance = PatternLibrary::shipped();
         }
 
         return $this->libraryInstance;
+    }
+
+    /**
+     * The kit a plan case composes with: the brief's, else the plan's own.
+     *
+     * @param array|null $case Corpus case.
+     *
+     * @return \SwishfolioCore\AI\Generation\Kit
+     */
+    protected function kitFor($case)
+    {
+        $slug = '';
+
+        if (is_array($case) && isset($case['brief']['kit'])) {
+            $slug = (string) $case['brief']['kit'];
+        } elseif (is_array($case) && isset($case['response']['kit'])) {
+            $slug = (string) $case['response']['kit'];
+        }
+
+        $kit = $this->library()->kit($slug);
+
+        return $kit !== null ? $kit : $this->library()->kit(PatternLibrary::DEFAULT_KIT);
     }
 
     /**
@@ -177,7 +199,7 @@ abstract class EvalTestCase extends TestCase
     protected function planAudit($case = null)
     {
         $audit = new PlanAudit(
-            $this->library(),
+            $this->kitFor($case),
             $this->registry(),
             $this->tokens(),
             $this->catalogue(),
@@ -187,8 +209,7 @@ abstract class EvalTestCase extends TestCase
         $brief = $case === null || ! isset($case['brief']) ? [] : (array) $case['brief'];
 
         return $audit->withSiteFacts(
-            isset($brief['customTemplates']) ? (array) $brief['customTemplates'] : [],
-            isset($brief['styleVariations']) ? (array) $brief['styleVariations'] : []
+            isset($brief['customTemplates']) ? (array) $brief['customTemplates'] : []
         );
     }
 
@@ -265,7 +286,7 @@ abstract class EvalTestCase extends TestCase
      */
     protected function runPlan(array $case, $provider)
     {
-        $assembler = new PlanAssembler($this->library(), $this->registry(), $this->tokens(), $this->prompts());
+        $assembler = new PlanAssembler($this->kitFor($case), $this->registry(), $this->tokens(), $this->prompts());
 
         $brief = $this->briefFor($case);
         $scope = $this->scopeFor($case);
@@ -296,8 +317,6 @@ abstract class EvalTestCase extends TestCase
         return [
             'instruction'     => (string) $case['instruction'],
             'siteTitle'       => isset($brief['siteTitle']) ? (string) $brief['siteTitle'] : 'Eval Site',
-            'styleVariation'  => isset($brief['styleVariation']) ? (string) $brief['styleVariation'] : '',
-            'styleVariations' => isset($brief['styleVariations']) ? (array) $brief['styleVariations'] : [],
             'customTemplates' => isset($brief['customTemplates']) ? (array) $brief['customTemplates'] : [],
             'existingSlugs'   => array_keys(isset($brief['existingSlugs']) ? (array) $brief['existingSlugs'] : []),
             'page'            => isset($brief['page']) ? (array) $brief['page'] : [],
@@ -312,10 +331,9 @@ abstract class EvalTestCase extends TestCase
     protected function planContextFor(array $case)
     {
         $brief   = isset($case['brief']) ? (array) $case['brief'] : [];
-        $context = new PlanContext($this->library(), $this->registry(), $this->tokens(), $this->scopeFor($case));
+        $context = new PlanContext($this->kitFor($case), $this->registry(), $this->tokens(), $this->scopeFor($case));
 
         return $context
-            ->withStyleVariations(isset($brief['styleVariations']) ? (array) $brief['styleVariations'] : [])
             ->withCustomTemplates(isset($brief['customTemplates']) ? (array) $brief['customTemplates'] : [])
             ->withExistingSlugs(isset($brief['existingSlugs']) ? (array) $brief['existingSlugs'] : []);
     }
@@ -337,7 +355,7 @@ abstract class EvalTestCase extends TestCase
      */
     protected function compose(array $validated)
     {
-        $composer = new BlockComposer($this->library());
+        $composer = new BlockComposer($this->library()->kit((string) $validated['kit']));
         $composed = [];
 
         foreach ((array) $validated['pages'] as $index => $page) {

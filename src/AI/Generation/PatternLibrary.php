@@ -1,6 +1,6 @@
 <?php
 /**
- * The catalogue of things page generation is allowed to compose.
+ * The catalogue of kits page generation is allowed to compose with.
  *
  * @package SwishfolioCore
  */
@@ -8,281 +8,227 @@
 namespace SwishfolioCore\AI\Generation;
 
 /**
- * Discovers generation units from sidecar JSON files, exactly as BlockRegistry
- * discovers ai.json capability manifests, and resolves each unit to raw block
- * markup.
+ * Discovers the kits under src/AI/Generation/Kits/<slug>/kit.json, one per
+ * template site, and decides which one a generation run uses.
  *
- * Units that name a "ref" borrow the markup of a pattern registered with
- * WordPress. Units that name a "file" read a slot-bearing HTML file from the
- * sidecar directory; those files are deliberately never registered as WordPress
- * patterns, so the inserter stays clean and a slot token can never reach a user.
+ * This is also the entry point for the template matcher and the kit design
+ * applier: PatternLibrary::shipped()->kits() lists every kit and ->kit($slug)
+ * returns one, with its design reference (Kit::getDesign(), getDesignFile()).
  */
 class PatternLibrary
 {
-    const CACHE_PREFIX = 'sfcore_generation_units_';
-    const CACHE_TTL    = 86400;
+    /** Option the kit design applier records the applied template in ({slug, ...}). */
+    const APPLIED_OPTION = 'swish_kit';
+
+    /** Used when nothing else names a kit. */
+    const DEFAULT_KIT = 'designer';
 
     /** @var string[] */
-    private $unitDirs;
+    private $dirs;
 
-    /** @var callable|null Given a pattern slug, returns its markup or null. */
-    private $refResolver;
-
-    /** @var PatternUnit[] */
-    private $units = [];
-
-    /** @var bool */
-    private $discovered = false;
+    /** @var Kit[]|null */
+    private $kits = null;
 
     /**
-     * @param string[]      $unitDirs    Directories holding sidecar JSON files.
-     * @param callable|null $refResolver Resolver for registered-pattern markup.
+     * @param string|string[] $dirs Directories holding one sub-directory per kit.
      */
-    public function __construct(array $unitDirs, $refResolver = null)
+    public function __construct($dirs)
     {
-        $this->unitDirs    = $unitDirs;
-        $this->refResolver = $refResolver;
+        $this->dirs = array_values((array) $dirs);
     }
 
     /**
-     * @param string $id Unit id.
+     * @return self The kits shipped with the plugin.
+     */
+    public static function shipped()
+    {
+        return new self(SFCORE_PLUGIN_DIR . 'src/AI/Generation/Kits');
+    }
+
+    /**
+     * @return Kit[] Keyed by slug.
+     */
+    public function kits()
+    {
+        if ($this->kits !== null) {
+            return $this->kits;
+        }
+
+        $this->kits = [];
+
+        foreach ($this->dirs as $dir) {
+            foreach ((array) glob(rtrim($dir, '/') . '/*/kit.json') as $file) {
+                $kit = Kit::fromDir(dirname($file));
+
+                if ($kit !== null && ! isset($this->kits[$kit->getSlug()])) {
+                    $this->kits[$kit->getSlug()] = $kit;
+                }
+            }
+        }
+
+        ksort($this->kits);
+
+        return $this->kits;
+    }
+
+    /**
+     * @param string $slug Kit slug (the template's slug).
      *
-     * @return PatternUnit|null
+     * @return Kit|null
      */
-    public function get($id)
+    public function kit($slug)
     {
-        $this->discover();
+        $kits = $this->kits();
+        $slug = (string) $slug;
 
-        return isset($this->units[$id]) ? $this->units[$id] : null;
+        return isset($kits[$slug]) ? $kits[$slug] : null;
     }
 
     /**
-     * @param string $id Unit id.
+     * @param string $slug Kit slug.
      *
      * @return bool
      */
-    public function has($id)
+    public function has($slug)
     {
-        return $this->get($id) !== null;
+        return $this->kit($slug) !== null;
     }
 
     /**
-     * @return PatternUnit[] Keyed by unit id.
+     * @return array[] Kit::describeForMatching() for every kit, keyed by slug.
      */
-    public function all()
+    public function describeKits()
     {
-        $this->discover();
-
-        return $this->units;
+        return array_map(static function (Kit $kit) {
+            return $kit->describeForMatching();
+        }, $this->kits());
     }
 
     /**
-     * Units usable in this context, so the prompt carries nothing unusable.
+     * The kit a generation run composes with. This is the hook:
      *
-     * A unit listing style variations is only offered under one of them; a unit
-     * needing media is never offered, because media is out of scope and a unit
-     * with a missing image is worse than no unit at all.
+     *  1. the kit the request names (the onboarding passes the matcher's pick);
+     *  2. otherwise the kit whose design this site already has: the design
+     *     applier's record, else the template CSS or style variation found in
+     *     the site's global styles (a template site, or a copy of one);
+     *  3. the `swishfolio_ai_generation_kit` filter, which sees that candidate
+     *     and may replace it (a template matcher plugs in here);
+     *  4. otherwise DEFAULT_KIT.
      *
-     * @param string      $scope          "page" or "section".
-     * @param string|null $styleVariation Active style variation title.
+     * @param string $requested Kit slug from the request, or ''.
+     * @param array  $brief     The generation brief, for the filter.
+     * @param string $scope     "site" or "page".
      *
-     * @return PatternUnit[]
+     * @return Kit|null Null only when no kit ships at all.
      */
-    public function usable($scope, $styleVariation = null)
+    public function resolve($requested = '', array $brief = [], $scope = 'site')
     {
-        $usable = [];
+        $slug = $this->has($requested) ? (string) $requested : $this->current();
 
-        foreach ($this->all() as $id => $unit) {
-            if ($unit->getScope() !== $scope) {
-                continue;
-            }
-
-            if ($unit->getRequiresMedia() > 0 || ! $unit->isKsesStable()) {
-                continue;
-            }
-
-            $variations = $unit->getStyleVariations();
-
-            if ($variations !== [] && ($styleVariation === null || ! in_array($styleVariation, $variations, true))) {
-                continue;
-            }
-
-            $usable[$id] = $unit;
+        if (function_exists('apply_filters')) {
+            /**
+             * Filters the kit (template slug) generation composes with.
+             *
+             * @param string|null $slug  Requested or current kit, or null when the site has none.
+             * @param array       $brief Instruction and site facts.
+             * @param string      $scope "site" or "page".
+             */
+            $filtered = apply_filters('swishfolio_ai_generation_kit', $slug, $brief, $scope);
+            $slug     = $this->has($filtered) ? (string) $filtered : $slug;
         }
 
-        return $usable;
+        if ($slug === null || ! $this->has($slug)) {
+            $slug = $this->has(self::DEFAULT_KIT) ? self::DEFAULT_KIT : key($this->kits());
+        }
+
+        return $slug === null ? null : $this->kit($slug);
     }
 
     /**
-     * Promptable catalogue: roles, summaries, capacities and slots. No markup.
-     *
-     * @param string      $scope          "page" or "section".
-     * @param string|null $styleVariation Active style variation title.
-     *
-     * @return array
-     */
-    public function describe($scope, $styleVariation = null)
-    {
-        $described = [];
-
-        foreach ($this->usable($scope, $styleVariation) as $id => $unit) {
-            $described[$id] = $unit->describe();
-        }
-
-        ksort($described);
-
-        return $described;
-    }
-
-    /**
-     * Raw block markup for one unit, before slot substitution.
-     *
-     * @param string $id Unit id.
-     *
-     * @throws \RuntimeException When the unit or its markup cannot be resolved.
-     *
-     * @return string
-     */
-    public function markup($id)
-    {
-        $unit = $this->get($id);
-
-        if ($unit === null) {
-            throw new \RuntimeException(sprintf('Unknown generation unit "%s".', $id));
-        }
-
-        if ($unit->getFile() !== null) {
-            return $this->readFile($unit);
-        }
-
-        $markup = $this->resolveRef($unit->getRef());
-
-        if ($markup === null || trim($markup) === '') {
-            throw new \RuntimeException(
-                sprintf('Pattern "%s" is not registered on this site.', $unit->getRef())
-            );
-        }
-
-        return $markup;
-    }
-
-    /**
-     * @param PatternUnit $unit Unit to read.
-     *
-     * @throws \RuntimeException When the markup file is missing.
-     *
-     * @return string
-     */
-    private function readFile(PatternUnit $unit)
-    {
-        foreach ($this->unitDirs as $dir) {
-            $file = rtrim($dir, '/') . '/' . $unit->getFile();
-
-            if (is_file($file)) {
-                return trim((string) file_get_contents($file));
-            }
-        }
-
-        throw new \RuntimeException(
-            sprintf('Generation unit "%s" has no markup file "%s".', $unit->getId(), $unit->getFile())
-        );
-    }
-
-    /**
-     * @param string $ref Registered pattern slug.
+     * The kit this site's design comes from, if it can be told.
      *
      * @return string|null
      */
-    private function resolveRef($ref)
+    public function current()
     {
-        if ($this->refResolver !== null) {
-            return call_user_func($this->refResolver, $ref);
+        $applied = function_exists('get_option') ? get_option(self::APPLIED_OPTION) : null;
+
+        if (is_array($applied) && isset($applied['slug']) && $this->has($applied['slug'])) {
+            return (string) $applied['slug'];
         }
 
-        if (! class_exists('\WP_Block_Patterns_Registry')) {
-            return null;
-        }
-
-        $registry = \WP_Block_Patterns_Registry::get_instance();
-
-        if (! $registry->is_registered($ref)) {
-            return null;
-        }
-
-        $pattern = $registry->get_registered($ref);
-
-        return isset($pattern['content']) ? (string) $pattern['content'] : null;
+        return $this->detect($this->siteCss(), $this->siteVariation());
     }
 
     /**
-     * Populate the library from cache or disk, once per instance.
+     * Recognise a kit from a site's custom CSS (each template's CSS has its own
+     * class prefix) or, for templates styled by a theme variation alone, from
+     * the variation's title.
      *
-     * @return void
+     * @param string $css       The site's global styles custom CSS.
+     * @param string $variation Active style variation title, or ''.
+     *
+     * @return string|null
      */
-    private function discover()
+    public function detect($css, $variation = '')
     {
-        if ($this->discovered) {
-            return;
-        }
+        $byVariation = [];
 
-        $this->discovered = true;
+        foreach ($this->kits() as $slug => $kit) {
+            $design      = $kit->getDesign();
+            $fingerprint = isset($design['fingerprint']) ? (string) $design['fingerprint'] : '';
 
-        // The directory set is part of the key: a second library reading other
-        // directories must not be served the first one's units.
-        $cacheKey = self::CACHE_PREFIX . SFCORE_VERSION . '_'
-            . substr(md5(implode('|', $this->unitDirs)), 0, 8);
-        $raw      = get_transient($cacheKey);
-
-        if (! is_array($raw)) {
-            $raw = $this->readFromDisk();
-            set_transient($cacheKey, $raw, self::CACHE_TTL);
-        }
-
-        /**
-         * Filters the raw generation unit sidecars before they are parsed.
-         *
-         * @param array $raw Sidecar arrays keyed by unit id.
-         */
-        $raw = apply_filters('swishfolio_ai_generation_units', $raw);
-
-        foreach ($raw as $id => $sidecar) {
-            if (! is_array($sidecar)) {
-                continue;
+            if ($fingerprint !== '' && strpos((string) $css, $fingerprint) !== false) {
+                return $slug;
             }
 
-            try {
-                $this->units[(string) $id] = PatternUnit::fromArray((string) $id, $sidecar);
-            } catch (\InvalidArgumentException $e) {
-                // A malformed sidecar removes one unit from the library rather
-                // than breaking generation entirely.
-                unset($this->units[(string) $id]);
+            if (empty($design['fingerprint']) && ! empty($design['variation']) && $design['variation'] !== 'Default') {
+                $byVariation[(string) $design['variation']] = $slug;
             }
         }
 
-        ksort($this->units);
+        return $variation !== '' && isset($byVariation[$variation]) ? $byVariation[$variation] : null;
     }
 
     /**
-     * @return array Raw sidecar arrays keyed by unit id.
+     * @return string
      */
-    private function readFromDisk()
+    private function siteCss()
     {
-        $raw = [];
+        if (! class_exists('\WP_Theme_JSON_Resolver')) {
+            return '';
+        }
 
-        foreach ($this->unitDirs as $dir) {
-            foreach ((array) glob(rtrim($dir, '/') . '/*.json') as $file) {
-                $sidecar = json_decode((string) file_get_contents($file), true);
+        $data = \WP_Theme_JSON_Resolver::get_user_data();
+        $raw  = is_object($data) && method_exists($data, 'get_raw_data') ? $data->get_raw_data() : [];
 
-                if (! is_array($sidecar)) {
-                    continue;
-                }
+        return isset($raw['styles']['css']) ? (string) $raw['styles']['css'] : '';
+    }
 
-                $id = isset($sidecar['id']) ? (string) $sidecar['id'] : basename($file, '.json');
+    /**
+     * @return string
+     */
+    private function siteVariation()
+    {
+        if (! class_exists('\WP_Theme_JSON_Resolver')) {
+            return '';
+        }
 
-                $raw[$id] = $sidecar;
+        $data = \WP_Theme_JSON_Resolver::get_user_data();
+        $raw  = is_object($data) && method_exists($data, 'get_raw_data') ? $data->get_raw_data() : [];
+        $css  = isset($raw['styles']['css']) ? (string) $raw['styles']['css'] : '';
+
+        // A variation's own css carries --style-mode:<slug>.
+        if (! preg_match('/--style-mode:\s*([a-z0-9-]+)/', $css, $m)) {
+            return '';
+        }
+
+        foreach ((array) \WP_Theme_JSON_Resolver::get_style_variations() as $variation) {
+            if (isset($variation['title']) && sanitize_title($variation['title']) === $m[1]) {
+                return (string) $variation['title'];
             }
         }
 
-        return $raw;
+        return '';
     }
 }

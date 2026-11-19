@@ -1,0 +1,732 @@
+{
+    "version": 2,
+    "slug": "hvac",
+    "name": "Hot & Cold",
+    "title": "HVAC Company",
+    "industry": "trades",
+    "description": "A high-converting WordPress template for HVAC, heating and cooling businesses, with online booking, maintenance plans and a service-area map.",
+    "look": "Type: Archivo. Colours: Frost #F3F6FA, Night navy #0A1A33, Signal orange #FF5A1F, Ice wash #E6F3FF, Ice blue #7CC8FF, Slate #4A5B74.",
+    "demo": {
+        "business": "Northwind Heating & Air",
+        "tagline": "Heating, cooling and air quality for metro Denver"
+    },
+    "design": {
+        "file": "design.json",
+        "variation": "Default",
+        "classPrefix": "nw-",
+        "fingerprint": ".nw-foot",
+        "palette": {
+            "base": "Frost #F3F6FA",
+            "contrast": "Night navy #0A1A33",
+            "accent-1": "Signal orange #FF5A1F",
+            "accent-2": "Ice wash #E6F3FF",
+            "accent-3": "Ice blue #7CC8FF",
+            "accent-4": "Slate #4A5B74",
+            "accent-5": "White #FFFFFF",
+            "accent-6": "Deep navy #06111F"
+        },
+        "fonts": [
+            "Archivo"
+        ],
+        "pageTemplate": "page-landing",
+        "header": "header",
+        "footer": "footer",
+        "assetsPath": "assets/kits/hvac"
+    },
+    "frontPage": "home",
+    "navigation": [
+        "services",
+        "plans",
+        "about",
+        "contact"
+    ],
+    "pages": [
+        {
+            "key": "home",
+            "title": "Home",
+            "slug": "home",
+            "navLabel": "Home",
+            "inNav": false,
+            "type": "home",
+            "template": "page-landing",
+            "sections": [
+                "home-01-hero",
+                "home-02-credentials",
+                "home-03-services",
+                "home-04-content",
+                "home-05-contact",
+                "home-06-pricing",
+                "home-07-testimonials",
+                "home-08-schedule",
+                "home-09-process",
+                "home-10-stats"
+            ]
+        },
+        {
+            "key": "services",
+            "title": "Services",
+            "slug": "services",
+            "navLabel": "Services",
+            "inNav": true,
+            "type": "services",
+            "template": "page-landing",
+            "sections": [
+                "services-01-page-header",
+                "services-02-gallery",
+                "services-03-features",
+                "services-04-team",
+                "services-05-portfolio",
+                "services-06-faq",
+                "home-10-stats"
+            ]
+        },
+        {
+            "key": "plans",
+            "title": "Maintenance plans",
+            "slug": "maintenance-plans",
+            "navLabel": "Maintenance plans",
+            "inNav": true,
+            "type": "pricing",
+            "template": "page-landing",
+            "sections": [
+                "plans-01-page-header",
+                "plans-02-pricing",
+                "plans-03-gallery",
+                "plans-04-features",
+                "plans-05-faq",
+                "home-10-stats"
+            ]
+        },
+        {
+            "key": "about",
+            "title": "About",
+            "slug": "about",
+            "navLabel": "About",
+            "inNav": true,
+            "type": "about",
+            "template": "page-landing",
+            "sections": [
+                "about-01-page-header",
+                "about-02-about",
+                "about-03-features",
+                "about-04-team",
+                "about-05-careers",
+                "about-06-credentials"
+            ]
+        },
+        {
+            "key": "contact",
+            "title": "Book a visit",
+            "slug": "book",
+            "navLabel": "Book",
+            "inNav": true,
+            "type": "contact",
+            "template": "page-landing",
+            "sections": [
+                "contact-01-page-header",
+                "contact-02-contact",
+                "contact-03-features",
+                "home-08-schedule"
+            ]
+        }
+    ],
+    "units": {
+        "home-01-hero": {
+            "scope": "section",
+            "role": "hero",
+            "summary": "Home page hero from the home page, headed (H1) \"Heat that holds at −10°F. Cooling that keeps up at 100°F.\": 1 paragraph, 2 buttons, 1 photo, 9 drawn icons or graphics, 23 repeatable items. Has a demo form that does not send anything yet.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 1,
+            "file": "units/home-01-hero.html",
+            "images": [
+                "hero-house"
+            ],
+            "needs": [
+                "form"
+            ],
+            "slots": 39,
+            "repeatable": 23,
+            "ksesStable": false
+        },
+        "home-02-credentials": {
+            "scope": "section",
+            "role": "credentials",
+            "summary": "Credentials section from the home page: 5 drawn icons or graphics, 5 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 2,
+            "file": "units/home-02-credentials.html",
+            "slots": 5,
+            "repeatable": 5,
+            "ksesStable": false
+        },
+        "home-03-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the home page, headed (H2) \"Everything that heats, cools or moves the air in your house.\": 7 headings, 2 paragraphs, 1 photo, 12 drawn icons or graphics, 2 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 3,
+            "file": "units/home-03-services.html",
+            "images": [
+                "minisplit-room"
+            ],
+            "slots": 23,
+            "repeatable": 2,
+            "ksesStable": false
+        },
+        "home-04-content": {
+            "scope": "section",
+            "role": "content",
+            "summary": "Content section from the home page, headed (H2) \"Colorado swings 110 degrees a year. Your house shouldn’t.\": 3 headings, 1 paragraph, 3 drawn icons or graphics, 4 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 4,
+            "file": "units/home-04-content.html",
+            "slots": 17,
+            "repeatable": 4,
+            "fixedText": [
+                "HOLDING",
+                "Heat 68 · Cool 74"
+            ],
+            "ksesStable": false
+        },
+        "home-05-contact": {
+            "scope": "section",
+            "role": "contact",
+            "summary": "Contact section from the home page, headed (H2) \"No waiting around. No surprise invoice.\": 5 headings, 2 paragraphs, 4 drawn icons or graphics, 6 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 5,
+            "file": "units/home-05-contact.html",
+            "slots": 20,
+            "repeatable": 6,
+            "ksesStable": false
+        },
+        "home-06-pricing": {
+            "scope": "section",
+            "role": "pricing",
+            "summary": "Pricing section from the home page, headed (H2) \"The cheapest repair is the one you never need.\": 2 paragraphs, 1 button, 12 drawn icons or graphics, 14 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 6,
+            "file": "units/home-06-pricing.html",
+            "slots": 26,
+            "repeatable": 14,
+            "ksesStable": false
+        },
+        "home-07-testimonials": {
+            "scope": "section",
+            "role": "testimonials",
+            "summary": "Testimonials section from the home page: 20 drawn icons or graphics, 8 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 7,
+            "file": "units/home-07-testimonials.html",
+            "slots": 18,
+            "repeatable": 8,
+            "ksesStable": false
+        },
+        "home-08-schedule": {
+            "scope": "section",
+            "role": "schedule",
+            "summary": "Schedule section from the home page, headed (H2) \"Inside the ring? We can be there today.\": 2 paragraphs, 2 drawn icons or graphics, 15 repeatable items.",
+            "pageTypes": [
+                "home",
+                "contact"
+            ],
+            "sourcePage": "home",
+            "position": 8,
+            "file": "units/home-08-schedule.html",
+            "slots": 19,
+            "repeatable": 15,
+            "fixedText": [
+                "I-25",
+                "I-70",
+                "C-470",
+                "E-470",
+                "30 MIN",
+                "60 MIN",
+                "Broomfield",
+                "Thornton",
+                "Westminster",
+                "Arvada",
+                "Northglenn",
+                "Wheat Ridge",
+                "Golden",
+                "Aurora",
+                "Lakewood",
+                "Englewood",
+                "Littleton",
+                "Centennial",
+                "Highlands Ranch",
+                "Parker",
+                "Northwind HQ",
+                "Denver · RiNo"
+            ],
+            "ksesStable": false,
+            "alsoOn": [
+                "contact"
+            ]
+        },
+        "home-09-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the home page, headed (H2) \"Replace it now. Pay over 18 months at 0% APR.\": 1 drawn icon or graphic.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 9,
+            "file": "units/home-09-process.html",
+            "slots": 7,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "home-10-stats": {
+            "scope": "section",
+            "role": "stats",
+            "summary": "Stats section from the home page, headed (H2) \"No heat at 2 a.m.? A real person answers.\": 2 paragraphs, 1 drawn icon or graphic, 3 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any",
+                "services",
+                "pricing"
+            ],
+            "sourcePage": "home",
+            "position": 10,
+            "file": "units/home-10-stats.html",
+            "slots": 9,
+            "repeatable": 3,
+            "ksesStable": false,
+            "alsoOn": [
+                "services",
+                "plans"
+            ]
+        },
+        "services-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the services page, headed (H1) \"Every system in the house. One crew who knows it.\": 2 paragraphs, 6 drawn icons or graphics, 5 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 1,
+            "file": "units/services-01-page-header.html",
+            "slots": 14,
+            "repeatable": 5,
+            "ksesStable": false
+        },
+        "services-02-gallery": {
+            "scope": "section",
+            "role": "gallery",
+            "summary": "Gallery section from the services page, headed (H2) \"Air conditioning\": 5 headings, 5 paragraphs, 5 photos, 25 drawn icons or graphics, 50 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 2,
+            "file": "units/services-02-gallery.html",
+            "images": [
+                "wall-unit",
+                "burner-flame",
+                "heatpump-garden",
+                "minisplit-room",
+                "living-sofa"
+            ],
+            "slots": 85,
+            "repeatable": 50,
+            "ksesStable": false
+        },
+        "services-03-features": {
+            "scope": "section",
+            "role": "features",
+            "summary": "Features section from the services page, headed (H2) \"We’ll tell you honestly, even when the answer is “fix it.”\": 2 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 3,
+            "file": "units/services-03-features.html",
+            "slots": 11,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "services-04-team": {
+            "scope": "section",
+            "role": "team",
+            "summary": "Team section from the services page, headed (H2) \"Light commercial, with the same people.\": 2 paragraphs, 1 button, 1 photo, 3 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 4,
+            "file": "units/services-04-team.html",
+            "images": [
+                "crew-roof"
+            ],
+            "slots": 7,
+            "repeatable": 3,
+            "ksesStable": false
+        },
+        "services-05-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the services page, headed (H2) \"Jobs from the last twelve months.\": 2 paragraphs. Lists the site's portfolio projects.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 5,
+            "file": "units/services-05-portfolio.html",
+            "needs": [
+                "projects"
+            ],
+            "slots": 3,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "services-06-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ from the services page, headed (H2) \"Before you book.\": 7 paragraphs, 5 questions, 5 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 6,
+            "file": "units/services-06-faq.html",
+            "slots": 13,
+            "repeatable": 5,
+            "ksesStable": true
+        },
+        "plans-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the maintenance plans page, headed (H1) \"Two tune-ups a year. Fewer 2 a.m. phone calls.\": 3 paragraphs, 20 drawn icons or graphics, 19 repeatable items.",
+            "pageTypes": [
+                "pricing"
+            ],
+            "sourcePage": "plans",
+            "position": 1,
+            "file": "units/plans-01-page-header.html",
+            "slots": 37,
+            "repeatable": 19,
+            "ksesStable": false
+        },
+        "plans-02-pricing": {
+            "scope": "section",
+            "role": "pricing",
+            "summary": "Pricing section from the maintenance plans page, headed (H2) \"Exactly what each plan includes.\": 2 paragraphs, 2 drawn icons or graphics, 28 repeatable items.",
+            "pageTypes": [
+                "pricing"
+            ],
+            "sourcePage": "plans",
+            "position": 2,
+            "file": "units/plans-02-pricing.html",
+            "slots": 42,
+            "repeatable": 28,
+            "ksesStable": false
+        },
+        "plans-03-gallery": {
+            "scope": "section",
+            "role": "gallery",
+            "summary": "Gallery section from the maintenance plans page, headed (H2) \"Twenty-one checks, with photos, every visit.\": 2 paragraphs, 1 photo, 2 drawn icons or graphics, 21 repeatable items.",
+            "pageTypes": [
+                "pricing"
+            ],
+            "sourcePage": "plans",
+            "position": 3,
+            "file": "units/plans-03-gallery.html",
+            "images": [
+                "thermostat-hand"
+            ],
+            "slots": 26,
+            "repeatable": 21,
+            "ksesStable": false
+        },
+        "plans-04-features": {
+            "scope": "section",
+            "role": "features",
+            "summary": "Features section from the maintenance plans page, headed (H2) \"Members saved $312 on average last year.\": 2 paragraphs, 5 repeatable items.",
+            "pageTypes": [
+                "pricing",
+                "any"
+            ],
+            "sourcePage": "plans",
+            "position": 4,
+            "file": "units/plans-04-features.html",
+            "slots": 17,
+            "repeatable": 5,
+            "ksesStable": true
+        },
+        "plans-05-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ from the maintenance plans page, headed (H2) \"Plan questions.\": 7 paragraphs, 5 questions, 5 repeatable items.",
+            "pageTypes": [
+                "pricing",
+                "any"
+            ],
+            "sourcePage": "plans",
+            "position": 5,
+            "file": "units/plans-05-faq.html",
+            "slots": 13,
+            "repeatable": 5,
+            "ksesStable": true
+        },
+        "about-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the about page, headed (H1) \"Family-owned. Denver-built. Twenty-two winters and counting.\": 1 paragraph, 1 photo, 4 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 1,
+            "file": "units/about-01-page-header.html",
+            "images": [
+                "denver"
+            ],
+            "slots": 6,
+            "repeatable": 4,
+            "ksesStable": false
+        },
+        "about-02-about": {
+            "scope": "section",
+            "role": "about",
+            "summary": "About section from the about page, headed (H3) \"One van, one phone\": 5 headings, 3 paragraphs, 7 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 2,
+            "file": "units/about-02-about.html",
+            "slots": 18,
+            "repeatable": 7,
+            "ksesStable": true
+        },
+        "about-03-features": {
+            "scope": "section",
+            "role": "features",
+            "summary": "Features section from the about page, headed (H2) \"Three promises on every job sheet.\": 4 headings, 1 paragraph, 3 drawn icons or graphics, 3 repeatable items.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 3,
+            "file": "units/about-03-features.html",
+            "slots": 8,
+            "repeatable": 3,
+            "ksesStable": false
+        },
+        "about-04-team": {
+            "scope": "section",
+            "role": "team",
+            "summary": "Team section from the about page, headed (H2) \"Who you’ll speak to, and who’ll turn up.\": 7 headings, 2 paragraphs, 6 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 4,
+            "file": "units/about-04-team.html",
+            "slots": 27,
+            "repeatable": 6,
+            "ksesStable": true
+        },
+        "about-05-careers": {
+            "scope": "section",
+            "role": "careers",
+            "summary": "Careers section from the about page, headed (H2) \"Paid to learn a trade that isn’t going anywhere.\": 2 paragraphs, 1 button, 1 photo, 4 drawn icons or graphics, 4 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 5,
+            "file": "units/about-05-careers.html",
+            "images": [
+                "tools-wall"
+            ],
+            "slots": 8,
+            "repeatable": 4,
+            "ksesStable": false
+        },
+        "about-06-credentials": {
+            "scope": "section",
+            "role": "credentials",
+            "summary": "Credentials section from the about page: 5 repeatable items.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 6,
+            "file": "units/about-06-credentials.html",
+            "slots": 6,
+            "repeatable": 5,
+            "ksesStable": true
+        },
+        "contact-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the book a visit page, headed (H1) \"Tell us what’s up. We’ll take it from there.\": 2 paragraphs, 11 drawn icons or graphics, 26 repeatable items. Has a demo form that does not send anything yet.",
+            "pageTypes": [
+                "contact"
+            ],
+            "sourcePage": "contact",
+            "position": 1,
+            "file": "units/contact-01-page-header.html",
+            "needs": [
+                "form"
+            ],
+            "slots": 51,
+            "repeatable": 26,
+            "ksesStable": false
+        },
+        "contact-02-contact": {
+            "scope": "section",
+            "role": "contact",
+            "summary": "Contact section from the book a visit page, headed (H2) \"Three things that make the visit faster.\": 4 headings, 2 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "contact",
+            "position": 2,
+            "file": "units/contact-02-contact.html",
+            "slots": 12,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "contact-03-features": {
+            "scope": "section",
+            "role": "features",
+            "summary": "Features section from the book a visit page, headed (H2) \"Smell gas or hear a CO alarm?\": 1 drawn icon or graphic.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "contact",
+            "position": 3,
+            "file": "units/contact-03-features.html",
+            "slots": 4,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "header": {
+            "scope": "header",
+            "role": "header",
+            "summary": "Header template part.",
+            "file": "units/header.html",
+            "slots": 7,
+            "ksesStable": false
+        },
+        "footer": {
+            "scope": "footer",
+            "role": "footer",
+            "summary": "Footer template part.",
+            "file": "units/footer.html",
+            "slots": 16,
+            "ksesStable": false
+        }
+    },
+    "assets": {
+        "burner-flame": {
+            "file": "images/burner-flame.jpg",
+            "alt": "Gas burner flame",
+            "title": "Gas burner flame",
+            "width": 1600,
+            "height": 2400
+        },
+        "crew-roof": {
+            "file": "images/crew-roof.jpg",
+            "alt": "Technicians on a commercial roof",
+            "title": "Technicians on a commercial roof",
+            "width": 1600,
+            "height": 1067
+        },
+        "denver": {
+            "file": "images/denver.jpg",
+            "alt": "Denver skyline and mountains",
+            "title": "Denver skyline and mountains",
+            "width": 1600,
+            "height": 900
+        },
+        "heatpump-garden": {
+            "file": "images/heatpump-garden.jpg",
+            "alt": "Heat pump beside a house",
+            "title": "Heat pump beside a house",
+            "width": 1600,
+            "height": 1067
+        },
+        "hero-house": {
+            "file": "images/hero-house.jpg",
+            "alt": "Modern home with a heat pump",
+            "title": "Modern home with a heat pump",
+            "width": 1600,
+            "height": 1067
+        },
+        "living-sofa": {
+            "file": "images/living-sofa.jpg",
+            "alt": "Bright living room",
+            "title": "Bright living room",
+            "width": 1600,
+            "height": 2400
+        },
+        "minisplit-room": {
+            "file": "images/minisplit-room.jpg",
+            "alt": "Ductless mini-split indoor unit",
+            "title": "Ductless mini-split indoor unit",
+            "width": 1600,
+            "height": 2213
+        },
+        "thermostat-hand": {
+            "file": "images/thermostat-hand.jpg",
+            "alt": "Adjusting a thermostat",
+            "title": "Adjusting a thermostat",
+            "width": 1600,
+            "height": 1067
+        },
+        "tools-wall": {
+            "file": "images/tools-wall.jpg",
+            "alt": "Workshop tool wall",
+            "title": "Workshop tool wall",
+            "width": 1600,
+            "height": 1067
+        },
+        "wall-unit": {
+            "file": "images/wall-unit.jpg",
+            "alt": "Air conditioner on a brick wall",
+            "title": "Air conditioner on a brick wall",
+            "width": 1600,
+            "height": 1067
+        }
+    },
+    "source": {
+        "dir": "seed/sites/hvac",
+        "hash": "7274a303291c1efff218d0845989d7e4"
+    }
+}

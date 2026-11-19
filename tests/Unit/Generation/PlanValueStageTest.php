@@ -16,11 +16,32 @@ class PlanValueStageTest extends GenerationTestCase
         return (new PlanValueStage())->process($plan, $context);
     }
 
-    private function applySection(array $content)
+    private function applySection(array $texts = [], array $attrs = [])
     {
         return $this->apply($this->plan([
-            'pages' => [$this->page(['sections' => [$this->patternSection($content)]])],
+            'pages' => [$this->page(['sections' => [$this->patternSection($this->edits($texts, $attrs))]])],
         ]));
+    }
+
+    /**
+     * The fixture hero's edits with some replaced.
+     */
+    private function edits(array $texts, array $attrs)
+    {
+        $merge = function (array $pairs, array $over, $field) {
+            foreach ($pairs as $i => $pair) {
+                if (array_key_exists($pair['id'], $over)) {
+                    $pairs[$i][$field] = $over[$pair['id']];
+                }
+            }
+
+            return $pairs;
+        };
+
+        return [
+            'texts' => $merge($this->heroTexts(), $texts, 'html'),
+            'attrs' => $merge($this->heroAttrs(), $attrs, 'value'),
+        ];
     }
 
     private function assertRejected(array $plan, $expectedPath = null)
@@ -37,75 +58,93 @@ class PlanValueStageTest extends GenerationTestCase
         }
     }
 
-    private function assertSectionRejected(array $content, $expectedPath = null)
+    private function assertSectionRejected(array $texts, array $attrs, $expectedPath)
     {
         $this->assertRejected(
-            $this->plan(['pages' => [$this->page(['sections' => [$this->patternSection($content)]])]]),
+            $this->plan(['pages' => [$this->page(['sections' => [$this->patternSection($this->edits($texts, $attrs))]])]]),
             $expectedPath
         );
     }
 
     public function test_slot_copy_within_its_limit_passes_and_is_trimmed()
     {
-        $result = $this->applySection(['headline' => '  Built to last  ']);
+        $result = $this->applySection(['t0' => '  Built to last  ']);
 
-        $this->assertSame('Built to last', $result['pages'][0]['sections'][0]['content']['headline']);
+        $this->assertSame('Built to last', $result['pages'][0]['sections'][0]['texts']['t0']);
     }
 
-    public function test_slot_copy_over_its_maximum_length_is_rejected()
+    public function test_slot_copy_over_the_maximum_length_is_rejected()
+    {
+        $this->assertSectionRejected(['t1' => str_repeat('a', 1201)], [], 'pages.0.sections.0.texts.t1');
+    }
+
+    public function test_an_empty_slot_is_rejected_in_favour_of_removing_its_unit()
+    {
+        $this->assertSectionRejected(['t2' => '   '], [], 'pages.0.sections.0.texts.t2');
+    }
+
+    public function test_an_input_value_slot_may_be_cleared_but_other_attributes_may_not()
+    {
+        $check = new \ReflectionMethod(PlanValueStage::class, 'checkValues');
+        $check->setAccessible(true);
+        $slots = [
+            'a1' => ['type' => 'attr', 'attr' => 'value', 'value' => '2026-11-20'],
+            'a2' => ['type' => 'attr', 'attr' => 'aria-label', 'value' => 'Table request'],
+        ];
+
+        $this->assertSame(['a1' => ''], $check->invoke(new PlanValueStage(), ['a1' => ' '], $slots, 'p'));
+
+        $this->expectException(ValidationException::class);
+        $check->invoke(new PlanValueStage(), ['a2' => ''], $slots, 'p');
+    }
+
+    public function test_copy_cannot_introduce_placeholder_syntax()
+    {
+        $this->assertSectionRejected(['t1' => 'See {{kit-image:photo}}'], [], 'pages.0.sections.0.texts.t1');
+        $this->assertSectionRejected(['t1' => '<a href="{{link:contact}}">Go</a>'], [], 'pages.0.sections.0.texts.t1');
+    }
+
+    public function test_copy_may_keep_the_link_placeholder_its_demo_copy_had()
+    {
+        $result = $this->applySection();
+
+        $this->assertStringContainsString('{{link:contact}}', $result['pages'][0]['sections'][0]['texts']['t4']);
+    }
+
+    public function test_a_demo_link_may_point_at_another_template_page_but_not_multiply_or_leave_the_kit()
+    {
+        $result = $this->applySection(['t4' => '<a class="btn" href="{{link:home}}">Back home</a>']);
+        $this->assertStringContainsString('{{link:home}}', $result['pages'][0]['sections'][0]['texts']['t4']);
+
+        $this->assertSectionRejected(['t4' => '<a href="{{link:nowhere}}">Go</a>'], [], 'pages.0.sections.0.texts.t4');
+        $this->assertSectionRejected(['t4' => '<a href="{{link:home}}">A</a><a href="{{link:contact}}">B</a>'], [], 'pages.0.sections.0.texts.t4');
+    }
+
+    public function test_a_phone_link_slot_must_stay_a_tel_or_mailto_address()
+    {
+        $this->assertSectionRejected([], ['a0' => 'https://evil.test'], 'pages.0.sections.0.attrs.a0');
+
+        $result = $this->applySection([], ['a0' => 'mailto:hello@oak.test']);
+        $this->assertSame('mailto:hello@oak.test', $result['pages'][0]['sections'][0]['attrs']['a0']);
+    }
+
+    public function test_a_link_in_copy_cannot_use_a_script_scheme()
     {
         $this->assertSectionRejected(
-            ['headline' => str_repeat('a', 41)],
-            'pages.0.sections.0.content.headline'
+            ['t4' => '<a class="wp-block-button__link" href="javascript:alert(1)">Go</a>'],
+            [],
+            'pages.0.sections.0.texts.t4'
         );
-    }
-
-    public function test_a_slot_stored_in_a_block_comment_refuses_an_ampersand()
-    {
-        $this->assertSectionRejected(['label' => 'Design & build'], 'pages.0.sections.0.content.label');
-    }
-
-    public function test_a_slot_stored_in_a_block_comment_refuses_angle_brackets()
-    {
-        $this->assertSectionRejected(['label' => 'a <b> c'], 'pages.0.sections.0.content.label');
-    }
-
-    public function test_a_slot_stored_in_a_block_comment_refuses_a_double_hyphen()
-    {
-        $this->assertSectionRejected(['label' => 'wait -- what'], 'pages.0.sections.0.content.label');
-    }
-
-    public function test_a_slot_stored_only_in_markup_accepts_an_ampersand()
-    {
-        $result = $this->applySection(['headline' => 'Design & build']);
-
-        $this->assertSame('Design & build', $result['pages'][0]['sections'][0]['content']['headline']);
-    }
-
-    public function test_a_url_slot_with_a_disallowed_scheme_is_rejected()
-    {
-        $this->assertSectionRejected(['ctaUrl' => 'javascript:alert(1)'], 'pages.0.sections.0.content.ctaUrl');
-    }
-
-    public function test_a_url_slot_accepts_https_and_relative_values()
-    {
-        foreach (['https://example.com/x', '/about', '#'] as $url) {
-            $result = $this->applySection(['ctaUrl' => $url]);
-
-            $this->assertSame($url, $result['pages'][0]['sections'][0]['content']['ctaUrl']);
-        }
-    }
-
-    public function test_an_internal_page_reference_survives_the_url_check()
-    {
-        $result = $this->applySection(['ctaUrl' => '{{page:home}}']);
-
-        $this->assertSame('{{page:home}}', $result['pages'][0]['sections'][0]['content']['ctaUrl']);
     }
 
     public function test_an_array_slot_value_is_rejected()
     {
-        $this->assertSectionRejected(['headline' => ['nope']], 'pages.0.sections.0.content.headline');
+        try {
+            $this->applySection(['t0' => ['nope']]);
+            $this->fail('Expected ValidationException');
+        } catch (ValidationException $e) {
+            $this->assertSame('pages.0.sections.0.texts.t0', $e->getPath());
+        }
     }
 
     public function test_block_attributes_go_through_the_existing_action_pipeline()
@@ -164,25 +203,6 @@ class PlanValueStageTest extends GenerationTestCase
         ]);
 
         $this->assertRejected($this->plan(['pages' => [$page]]), 'pages.0.sections.2.attributes.columns');
-    }
-
-    public function test_an_unknown_style_variation_is_rejected()
-    {
-        $this->assertRejected(
-            $this->plan(['site' => ['frontPage' => 'home', 'navigation' => [], 'styleVariation' => 'Bauhaus']]),
-            'site.styleVariation'
-        );
-    }
-
-    public function test_a_shipped_style_variation_is_accepted_by_title_or_by_slug()
-    {
-        foreach (['Swiss International', 'swiss-international'] as $title) {
-            $result = $this->apply($this->plan([
-                'site' => ['frontPage' => 'home', 'navigation' => [], 'styleVariation' => $title],
-            ]));
-
-            $this->assertSame($title, $result['site']['styleVariation']);
-        }
     }
 
     public function test_a_block_attribute_containing_an_ampersand_is_refused()

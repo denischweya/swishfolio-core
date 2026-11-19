@@ -1,0 +1,32 @@
+{
+    "phones": [
+        "0117 496 0142"
+    ],
+    "emails": [
+        "events@lumbre.example",
+        "hello@lumbre.example"
+    ],
+    "domains": [
+        "lumbre.example"
+    ],
+    "addresses": [
+        "14 Tannery Row",
+        "Lumbre opens at 14 Tannery Row with Tom Adeyemi on the floor.",
+        "Old Quay, Bristol BS1",
+        "Old Quay, Bristol BS1 9ZQ",
+        "Old Quay, Bristol, Est. 2021"
+    ],
+    "places": [
+        "Bristol",
+        "Old Quay",
+        "Tannery Row",
+        "Temple Meads",
+        "Hide Street"
+    ],
+    "people": [
+        "Inés Carvalho",
+        "Maya Okafor",
+        "Pedro Ximénez",
+        "Tom Adeyemi"
+    ]
+}

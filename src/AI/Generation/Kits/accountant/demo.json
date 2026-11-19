@@ -1,0 +1,29 @@
+{
+    "phones": [
+        "0161 555 0184"
+    ],
+    "emails": [
+        "hello@ledgerline.example"
+    ],
+    "domains": [
+        "ledgerline.example"
+    ],
+    "addresses": [
+        "3rd floor, 27 Hatter’s Yard"
+    ],
+    "places": [
+        "Manchester",
+        "Hatter’s Yard"
+    ],
+    "people": [
+        "Aisha Rahman",
+        "Ben Ashworth",
+        "Ciaran Doyle",
+        "Grace Mensah",
+        "Jordan Ellis",
+        "Mei Lin",
+        "Priya Nair",
+        "Sarah Okafor",
+        "Tom Brennan"
+    ]
+}

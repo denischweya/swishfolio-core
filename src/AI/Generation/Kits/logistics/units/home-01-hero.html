@@ -1,0 +1,125 @@
+<!-- wp:group {"tagName":"section","align":"full","className":"lg-sec lg-hero","layout":{"type":"default"}} -->
+<section class="wp-block-group alignfull lg-sec lg-hero">
+<!-- wp:group {"className":"lg-wrap lg-hero__grid","layout":{"type":"default"}} -->
+<div class="wp-block-group lg-wrap lg-hero__grid">
+<!-- wp:group {"className":"lg-hero__text","layout":{"type":"default"}} -->
+<div class="wp-block-group lg-hero__text">
+<!-- wp:html -->
+<ul class="lg-manifest-row"><li><span>Ref</span>MRD/26</li><li><span>Est.</span>1998</li><li><span>HQ</span>Rotterdam</li><li><span>Status</span><b class="lg-ok">● All lanes normal</b></li></ul>
+<!-- /wp:html -->
+
+<!-- wp:heading {"level":1,"className":"lg-h1"} -->
+<h1 class="wp-block-heading lg-h1">Freight that keeps <mark>its promises.</mark></h1>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"lg-lead"} -->
+<p class="lg-lead">Meridian moves goods by road, ocean and air, stores them in 23 warehouses, clears them through customs and delivers the last mile. One contract, one control tower, and a person who picks up the phone.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons"><!-- wp:button {"className":"lg-btn-y"} -->
+<div class="wp-block-button lg-btn-y"><a class="wp-block-button__link wp-element-button" href="{{link:quote}}">Get a quote</a></div>
+<!-- /wp:button -->
+
+<!-- wp:button {"className":"lg-btn-ghost"} -->
+<div class="wp-block-button lg-btn-ghost"><a class="wp-block-button__link wp-element-button" href="{{link:services}}">Explore services</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons -->
+
+<!-- wp:html -->
+<dl class="lg-hero__facts"><div><dt>On-time delivery</dt><dd>98.6<small>%</small></dd></div><div><dt>Countries served</dt><dd>41</dd></div><div><dt>Control tower</dt><dd>24/7</dd></div></dl>
+<!-- /wp:html -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"lg-hero__media","layout":{"type":"default"}} -->
+<div class="wp-block-group lg-hero__media">
+<!-- wp:image {"className":"lg-hero__img"} -->
+<figure class="wp-block-image lg-hero__img"><img src="{{kit-image:yard-top}}" alt="Container yard seen from above"/></figure>
+<!-- /wp:image -->
+
+<!-- wp:html -->
+<div class="lg-calc" id="calculator">
+<div class="lg-calc__top"><p class="lg-mono">Freight calculator</p><span class="lg-calc__badge">Instant estimate</span></div>
+<form class="lg-calc__form" action="{{link:quote}}" method="get" novalidate>
+<div class="lg-calc__lane">
+<label class="lg-calc__f"><span>From</span><select id="lgc-from" name="from"><option value="RTM" selected>Rotterdam, NL</option><option value="ANR">Antwerp, BE</option><option value="HAM">Hamburg, DE</option><option value="FXT">Felixstowe, UK</option><option value="VNO">Venlo, NL</option><option value="MUC">Munich, DE</option><option value="MIL">Milan, IT</option><option value="LYS">Lyon, FR</option><option value="WAW">Warsaw, PL</option><option value="EWR">Newark, US</option><option value="ORD">Chicago, US</option><option value="SHA">Shanghai, CN</option><option value="SIN">Singapore, SG</option><option value="JNB">Johannesburg, ZA</option></select></label>
+<button type="button" class="lg-calc__swap" aria-label="Swap origin and destination"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 4v16M3.5 7.5 7 4l3.5 3.5M17 20V4M13.5 16.5 17 20l3.5-3.5"/></svg></button>
+<label class="lg-calc__f"><span>To</span><select id="lgc-to" name="to"><option value="RTM">Rotterdam, NL</option><option value="ANR">Antwerp, BE</option><option value="HAM">Hamburg, DE</option><option value="FXT">Felixstowe, UK</option><option value="VNO">Venlo, NL</option><option value="MUC">Munich, DE</option><option value="MIL" selected>Milan, IT</option><option value="LYS">Lyon, FR</option><option value="WAW">Warsaw, PL</option><option value="EWR">Newark, US</option><option value="ORD">Chicago, US</option><option value="SHA">Shanghai, CN</option><option value="SIN">Singapore, SG</option><option value="JNB">Johannesburg, ZA</option></select></label>
+</div>
+<fieldset class="lg-calc__modes"><legend class="screen-reader-text">Transport mode</legend><label><input type="radio" name="lgc-mode" value="ftl"><span>Road · FTL</span></label><label><input type="radio" name="lgc-mode" value="ltl" checked><span>Road · LTL</span></label><label><input type="radio" name="lgc-mode" value="rail"><span>Rail</span></label><label><input type="radio" name="lgc-mode" value="fcl"><span>Ocean · FCL</span></label><label><input type="radio" name="lgc-mode" value="lcl"><span>Ocean · LCL</span></label><label><input type="radio" name="lgc-mode" value="air"><span>Air</span></label></fieldset>
+<div class="lg-calc__cargo">
+<label class="lg-calc__f"><span>Weight <em>kg</em></span><input id="lgc-kg" name="kg" type="number" inputmode="numeric" min="1" step="1" value="2400"></label>
+<label class="lg-calc__f"><span>Volume <em>m³</em></span><input id="lgc-m3" name="m3" type="number" inputmode="decimal" min="0.1" step="0.1" value="6"></label>
+</div>
+<fieldset class="lg-calc__extras"><legend class="screen-reader-text">Extras</legend>
+<label><input type="checkbox" id="lgc-customs"><span>Customs</span></label>
+<label><input type="checkbox" id="lgc-ins"><span>Insurance</span></label>
+<label><input type="checkbox" id="lgc-lm"><span>Tail-lift</span></label>
+</fieldset>
+<div class="lg-calc__out" aria-live="polite" aria-atomic="true">
+<div class="lg-calc__price"><span class="lg-mono">Estimated all-in</span><b id="lgc-price">€0</b></div>
+<dl class="lg-calc__dl">
+<div><dt>Transit</dt><dd id="lgc-transit">n/a</dd></div>
+<div><dt>Chargeable</dt><dd id="lgc-cw">n/a</dd></div>
+<div><dt>CO₂e</dt><dd id="lgc-co2">n/a</dd></div>
+<div><dt>Distance</dt><dd id="lgc-dist">n/a</dd></div>
+</dl>
+</div>
+<div class="lg-calc__foot"><p>Estimate only, excl. VAT and duties. Book a firm quote for a fixed price.</p><a id="lgc-cta" class="lg-calc__cta" href="{{link:quote}}">Get a firm quote <svg class="lg-arr" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"><path d="M4.5 12h15M13.5 6l6 6-6 6"/></svg></a></div>
+</form>
+</div>
+<script>
+(function(){
+var C={"RTM":["Rotterdam",51.92,4.48,"eu",1],"ANR":["Antwerp",51.26,4.4,"eu",1],"HAM":["Hamburg",53.55,9.99,"eu",1],"FXT":["Felixstowe",51.96,1.35,"eu",1],"VNO":["Venlo",51.37,6.17,"eu",0],"MUC":["Munich",48.14,11.58,"eu",0],"MIL":["Milan",45.46,9.19,"eu",0],"LYS":["Lyon",45.76,4.84,"eu",0],"WAW":["Warsaw",52.23,21.01,"eu",0],"EWR":["Newark",40.73,-74.17,"na",1],"ORD":["Chicago",41.88,-87.63,"na",0],"SHA":["Shanghai",31.23,121.47,"as",1],"SIN":["Singapore",1.29,103.85,"as",1],"JNB":["Johannesburg",-26.2,28.05,"af",0]};
+var root=document.getElementById('calculator');if(!root)return;
+var $=function(id){return document.getElementById(id);};
+function all(){for(var i=0;i<arguments.length;i++){if(!arguments[i])return false;}return true;}
+var from=$('lgc-from'),to=$('lgc-to'),kg=$('lgc-kg'),m3=$('lgc-m3'),cu=$('lgc-customs'),ins=$('lgc-ins'),lm=$('lgc-lm');
+var eur=function(n){return '€'+(Math.round(n/10)*10).toLocaleString('en-GB');};
+var fmt=function(n){return Math.round(n).toLocaleString('en-GB');};
+function hav(a,b){var r=Math.PI/180,dl=(b[1]-a[1])*r,dn=(b[2]-a[2])*r,x=Math.sin(dl/2)*Math.sin(dl/2)+Math.cos(a[1]*r)*Math.cos(b[1]*r)*Math.sin(dn/2)*Math.sin(dn/2);return 12742*Math.asin(Math.sqrt(x));}
+function mode(){var m=root.querySelector('input[name="lgc-mode"]:checked');return m?m.value:'ltl';}
+function days(a,b){return a===b?a+' days':a+'–'+b+' days';}
+function calc(){
+ var A=C[from.value],B=C[to.value],md=mode(),w=Math.max(1,+kg.value||0),v=Math.max(.1,+m3.value||0);
+ var g=hav(A,B),same=A[3]===B[3],silk=all((A[3]+B[3]).indexOf('as')>-1,(A[3]+B[3]).indexOf('eu')>-1);
+ var price=0,cw='',transit='',dist=0,factor=0,note='',ok=true;
+ if(from.value===to.value){ok=false;note='Choose two different places';}
+ else if(all(md==='ftl'||md==='ltl',!same)){ok=false;note='Road isn’t available on this lane: try ocean or air';}
+ else if(all(md==='rail',!same,!silk)){ok=false;note='No rail service on this lane: try ocean or air';}
+ else if(all(md==='fcl'||md==='lcl',same,A[3]!=='eu')){ok=false;note='Ocean isn’t available on this lane: try road or rail';}
+ if(ok){
+  if(md==='ftl'){dist=g*1.22;var t=Math.max(1,Math.ceil(Math.max(w/24000,v/82)));price=t*Math.max(450,dist*1.55+120);cw=t+(t>1?' trucks':' truck');var h=dist/62+2;transit=h<20?Math.ceil(h)+' h':days(Math.ceil(h/22),Math.ceil(h/22)+1);factor=62;}
+  if(md==='ltl'){dist=g*1.22;var c=Math.max(w,v*333);price=Math.max(95,c/100*(6+dist*.012));cw=fmt(c)+' kg'+(v*333>w?' (vol.)':'');transit=days(Math.ceil(dist/650)+1,Math.ceil(dist/650)+2);factor=75;}
+  if(md==='rail'){dist=g*(silk?1.25:1.3);var u=Math.max(1,Math.ceil(Math.max(w/24000,v/67)));price=u*(dist*.62+400);cw=u+' × 40ft';transit=silk?days(16,20):days(Math.ceil(dist/600)+2,Math.ceil(dist/600)+3);factor=22;}
+  if(md==='fcl'||md==='lcl'){dist=g*(silk?2.1:(all(A[3]==='eu',B[3]==='eu')?1.3:1.4));var inland=(A[4]?0:380)+(B[4]?0:380);
+   if(md==='fcl'){var k=Math.max(1,Math.ceil(Math.max(w/26000,v/67)));price=k*(350+dist*.16)+inland;cw=k+' × 40ft';}
+   else{var rt=Math.max(1,w/1000,v);price=rt*(45+dist*.0095)+140+inland*.5;cw=rt.toFixed(1)+' w/m';}
+   var sd=Math.ceil(dist/700)+4+(inland?2:0);transit=days(sd,sd+(md==='lcl'?5:3));factor=8;}
+  if(md==='air'){dist=g*1.05;var ca=Math.max(w,v*167);price=Math.max(120,ca*(1.1+dist*.00042))+85;cw=fmt(ca)+' kg'+(v*167>w?' (vol.)':'');transit=dist<3000?days(1,2):days(2,4);factor=602;}
+  if(cu.checked)price+=all(same,A[3]==='eu',A[0]!=='FXT',B[0]!=='FXT')?0:(md==='air'?110:135);
+  if(ins.checked)price+=Math.max(35,w*12*.003);
+  if(lm.checked)price+=(md==='ftl'||md==='ltl')?65:145;
+ }
+ $('lgc-price').textContent=ok?eur(price*.94)+'–'+eur(price*1.12):'Not available';
+ $('lgc-price').classList.toggle('is-na',!ok);
+ $('lgc-transit').textContent=ok?transit:'n/a';$('lgc-cw').textContent=ok?cw:'n/a';
+ $('lgc-co2').textContent=ok?fmt(w/1000*dist*factor/1000)+' kg':'n/a';
+ $('lgc-dist').textContent=ok?fmt(dist)+' km':note;
+ root.classList.toggle('is-na',!ok);
+ $('lgc-cta').href='{{link:quote}}?'+new URLSearchParams({from:from.value,to:to.value,mode:md,kg:Math.round(w)}).toString();
+}
+root.querySelector('.lg-calc__swap').addEventListener('click',function(){var x=from.value;from.value=to.value;to.value=x;calc();});
+root.querySelector('form').addEventListener('input',calc);root.querySelector('form').addEventListener('change',calc);
+root.querySelector('form').addEventListener('submit',function(e){e.preventDefault();location.href=$('lgc-cta').href;});
+calc();
+})();
+</script>
+<!-- /wp:html -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:group -->
+</section>
+<!-- /wp:group -->

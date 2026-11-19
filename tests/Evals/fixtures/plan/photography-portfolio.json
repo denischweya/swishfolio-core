@@ -1,18 +1,11 @@
 {
-  "vertical": "photography-portfolio",
+  "vertical": "photography",
   "label": "Photography portfolio: four page site led by a project grid",
   "scope": "site",
   "instruction": "I am a documentary photographer in Bristol. I need a portfolio site with a strong home page, a full archive of my series, an about page and a way to commission me.",
   "brief": {
     "siteTitle": "Mara Ellison",
-    "styleVariation": "",
-    "styleVariations": [
-      "Default",
-      "Neo-Brutalist",
-      "Swiss International",
-      "Sasha",
-      "Terminal"
-    ],
+    "kit": "photographer",
     "customTemplates": [
       "page-no-title",
       "page-landing",
@@ -22,7 +15,8 @@
   },
   "response": {
     "schemaVersion": "1.0",
-    "summary": "A four page site for a documentary photographer: a hero-led home page with a project grid, a full work archive, an about page and a contact page.",
+    "kit": "photographer",
+    "summary": "A four page portfolio for a documentary photographer: a full bleed home page, the series archive, an about page and a contact page.",
     "site": {
       "title": "Mara Ellison",
       "tagline": "Documentary photography",
@@ -42,59 +36,52 @@
         "status": "draft",
         "sections": [
           {
-            "pattern": "swiss-hero",
-            "content": {
-              "eyebrow": "01. Documentary Photography",
-              "headline": "Pictures That Stay Still",
-              "body": "Long-form documentary work for magazines, NGOs and cultural institutions. Available for commission worldwide, based in Bristol.",
-              "primaryCtaLabel": "See the work",
-              "primaryCtaUrl": "{{page:work}}",
-              "secondaryCtaLabel": "Commission me",
-              "secondaryCtaUrl": "{{page:contact}}",
-              "statsLabel": "In numbers",
-              "stat1Value": "14",
-              "stat1Label": "Years photographing",
-              "stat2Value": "31",
-              "stat2Label": "Countries worked in",
-              "stat3Value": "6",
-              "stat3Label": "Awards and grants"
-            }
+            "pattern": "home-01-hero",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Documentary photographs of Bristol, and the people who make it."
+              }
+            ],
+            "attrs": [],
+            "remove": [
+              "u1",
+              "u2"
+            ]
           },
           {
             "block": "swishfolio-core/portfolio",
             "attributes": {
               "layout": "grid",
-              "columns": 3,
-              "gap": 24,
-              "postsPerPage": 9,
+              "columns": 2,
+              "gap": 40,
+              "postsPerPage": 12,
               "showFilters": true,
-              "showExcerpt": false,
+              "showExcerpt": true,
               "showCategory": true,
+              "showProjectType": true,
               "showViewButton": true,
-              "viewButtonText": "Open series",
-              "cardStyle": "minimal",
-              "imageAspectRatio": "portrait",
-              "hoverEffect": "zoom",
-              "taxonomyStyle": "underline",
+              "viewButtonText": "Read the case study",
+              "cardStyle": "stacked",
+              "imageAspectRatio": "wide",
+              "hoverEffect": "reveal",
+              "taxonomyStyle": "border",
               "imageBorderRadius": 0,
-              "taxonomyColor": "accent-1",
-              "orderBy": "date",
-              "order": "DESC"
+              "taxonomyColor": "accent-2",
+              "cardContentBackground": "base",
+              "orderBy": "menu_order",
+              "order": "ASC"
             }
           },
           {
-            "pattern": "swiss-contact-cta",
-            "content": {
-              "eyebrow": "04. Commissions",
-              "headline": "Tell me about the story",
-              "body": "Editorial, NGO and long-form personal work. Send an outline, a rough timeline and where the story sits, and I will reply within two days.",
-              "ctaLabel": "Start a commission",
-              "ctaUrl": "mailto:studio@maraellison.test",
-              "detail1Label": "Email",
-              "detail1Value": "studio@maraellison.test",
-              "detail2Label": "Based in",
-              "detail2Value": "Bristol, travelling anywhere"
-            }
+            "pattern": "contact-03-cta",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Commissions · Prints · Bristol"
+              }
+            ],
+            "attrs": []
           }
         ]
       },
@@ -105,26 +92,27 @@
         "status": "draft",
         "sections": [
           {
-            "block": "swishfolio-core/portfolio",
-            "attributes": {
-              "layout": "masonry",
-              "columns": 2,
-              "gap": 32,
-              "postsPerPage": 24,
-              "showFilters": true,
-              "showExcerpt": true,
-              "showCategory": true,
-              "showProjectType": true,
-              "showViewButton": false,
-              "cardStyle": "default",
-              "imageAspectRatio": "landscape",
-              "hoverEffect": "lift",
-              "taxonomyStyle": "plain",
-              "taxonomyColor": "accent-4",
-              "cardContentBackground": "base",
-              "orderBy": "date",
-              "order": "DESC"
-            }
+            "pattern": "work-01-page-header",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Work · Index of series"
+              },
+              {
+                "id": "t1",
+                "html": "Every series,<br>in one place."
+              },
+              {
+                "id": "t2",
+                "html": "Each series is edited down to the frames that still hold after a year. Open one to read how it was made."
+              }
+            ],
+            "attrs": []
+          },
+          {
+            "pattern": "work-02-portfolio",
+            "texts": [],
+            "attrs": []
           }
         ]
       },
@@ -135,23 +123,30 @@
         "status": "draft",
         "sections": [
           {
-            "pattern": "swiss-about-intro",
-            "content": {
-              "eyebrow": "About",
-              "headline": "Mara Ellison",
-              "subhead": "Documentary photographer",
-              "body": "I photograph slow stories: coastal towns losing their industry, the people who stay, and the shape a place takes when the work leaves. Most of my projects run for two years or more.",
-              "bodySecondary": "Commissions have taken me to thirty-one countries for editorial and NGO clients. The method never changes much: arrive early, stay late, and let people decide how they want to be seen."
-            }
-          },
-          {
-            "pattern": "swiss-statement",
-            "content": {
-              "eyebrow": "How I work",
-              "headline": "Access Before Composition",
-              "body": "A photograph is only as honest as the relationship behind it. I spend the first weeks of a project without a camera, which is why the later frames look like nobody is performing.",
-              "bodySecondary": "Everything is shot on film and scanned in house, so what you commission is what you receive. No retouching beyond dust, dodging and burning."
-            }
+            "pattern": "home-02-intro",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "(00) · About"
+              },
+              {
+                "id": "t1",
+                "html": "Mara Ellison is a documentary photographer based in Bristol, working on long series and on commissions for people who want the real thing."
+              },
+              {
+                "id": "t2",
+                "html": "Based"
+              },
+              {
+                "id": "t3",
+                "html": "Bristol, UK"
+              }
+            ],
+            "attrs": [],
+            "remove": [
+              "u2",
+              "u3"
+            ]
           }
         ]
       },
@@ -162,18 +157,22 @@
         "status": "draft",
         "sections": [
           {
-            "pattern": "swiss-contact-cta",
-            "content": {
-              "eyebrow": "Contact",
-              "headline": "Commissions and prints",
-              "body": "For commissions, print sales or licensing from the archive, email the studio directly. Press enquiries are answered the same day.",
-              "ctaLabel": "Email the studio",
-              "ctaUrl": "mailto:studio@maraellison.test",
-              "detail1Label": "Email",
-              "detail1Value": "studio@maraellison.test",
-              "detail2Label": "Telephone",
-              "detail2Value": "+44 117 496 0114"
-            }
+            "pattern": "contact-01-page-header",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Contact · Commissions and prints"
+              },
+              {
+                "id": "t1",
+                "html": "Write to the studio."
+              },
+              {
+                "id": "t2",
+                "html": "<a href=\"mailto:studio@maraellison.example\">studio@maraellison.example</a>"
+              }
+            ],
+            "attrs": []
           }
         ]
       }

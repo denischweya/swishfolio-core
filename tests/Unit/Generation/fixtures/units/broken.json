@@ -1,7 +1,0 @@
-{
-  "version": 1,
-  "id": "broken",
-  "scope": "section",
-  "role": "hero",
-  "summary": "Fixture unit naming neither a ref nor a file, so it must be dropped."
-}

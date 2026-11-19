@@ -4,23 +4,26 @@ namespace SwishfolioCore\Tests\Unit\Generation;
 
 require_once __DIR__ . '/wp-generation-stubs.php';
 
+if (! defined('SFCORE_PLUGIN_URL')) {
+    define('SFCORE_PLUGIN_URL', 'https://example.test/wp-content/plugins/swishfolio-core/');
+}
+
 use PHPUnit\Framework\TestCase;
 use SwishfolioCore\AI\Context\TokenResolver;
+use SwishfolioCore\AI\Generation\Kit;
 use SwishfolioCore\AI\Generation\PatternLibrary;
 use SwishfolioCore\AI\Generation\PlanContext;
 use SwishfolioCore\AI\Generation\PlanSchema;
 use SwishfolioCore\Blocks\BlockRegistry;
 
 /**
- * Shared fixture: a small generation library with one slot-bearing section, one
- * whole-page unit resolved through a fake pattern registry, one unit that needs
- * images and one that is variation-specific — so exclusion can be tested as well
- * as inclusion.
+ * Shared fixture: kit "alpha", one hero section (text, list items, a button
+ * link, a phone link and a photo) and one call to action, plus a header unit,
+ * a malformed unit, kit "beta" (styled by a variation only) and a version 1 kit
+ * that must be ignored.
  */
 abstract class GenerationTestCase extends TestCase
 {
-    const FAKE_PATTERN_MARKUP = "<!-- wp:paragraph -->\n<p>Registered pattern body.</p>\n<!-- /wp:paragraph -->";
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -33,7 +36,7 @@ abstract class GenerationTestCase extends TestCase
 
     protected function fixtureDir()
     {
-        return SFCORE_PLUGIN_DIR . 'tests/Unit/Generation/fixtures/units';
+        return SFCORE_PLUGIN_DIR . 'tests/Unit/Generation/fixtures/kits';
     }
 
     /**
@@ -41,22 +44,25 @@ abstract class GenerationTestCase extends TestCase
      */
     protected function library()
     {
-        return new PatternLibrary(
-            [$this->fixtureDir()],
-            function ($ref) {
-                return $ref === 'test/alpha-page' ? self::FAKE_PATTERN_MARKUP : null;
-            }
-        );
+        return new PatternLibrary($this->fixtureDir());
     }
 
     /**
-     * The real shipped library, for the conformance test.
+     * @return Kit
+     */
+    protected function kit()
+    {
+        return $this->library()->kit('alpha');
+    }
+
+    /**
+     * The real shipped kits, for the conformance test.
      *
      * @return PatternLibrary
      */
     protected function shippedLibrary()
     {
-        return new PatternLibrary([SFCORE_PLUGIN_DIR . 'src/AI/Generation/Patterns']);
+        return PatternLibrary::shipped();
     }
 
     /**
@@ -88,10 +94,9 @@ abstract class GenerationTestCase extends TestCase
      */
     protected function context($scope = 'site', array $existingSlugs = [])
     {
-        $context = new PlanContext($this->library(), $this->registry(), $this->tokens(), $scope);
+        $context = new PlanContext($this->kit(), $this->registry(), $this->tokens(), $scope);
 
         return $context
-            ->withStyleVariations(['Default', 'Neo-Brutalist', 'Swiss International'])
             ->withCustomTemplates(['page-no-title'])
             ->withExistingSlugs($existingSlugs);
     }
@@ -108,6 +113,7 @@ abstract class GenerationTestCase extends TestCase
         return array_merge([
             'schemaVersion' => PlanSchema::SCHEMA_VERSION,
             'summary'       => 'A one page site.',
+            'kit'           => 'alpha',
             'site'          => [
                 'title'      => 'Acme',
                 'frontPage'  => 'home',
@@ -137,14 +143,48 @@ abstract class GenerationTestCase extends TestCase
     }
 
     /**
-     * @param array  $content Slot values.
-     * @param string $unitId  Unit id.
+     * Every demo slot of the fixture hero, rewritten.
      *
      * @return array
      */
-    protected function patternSection(array $content = ['headline' => 'Built to last'], $unitId = 'alpha-hero')
+    protected function heroTexts()
     {
-        return ['pattern' => $unitId, 'content' => $content];
+        return [
+            ['id' => 't0', 'html' => 'Built to last'],
+            ['id' => 't1', 'html' => 'Joinery for kitchens and stairs.'],
+            ['id' => 't2', 'html' => 'Kitchens'],
+            ['id' => 't3', 'html' => 'Stairs'],
+            ['id' => 't4', 'html' => '<a class="wp-block-button__link wp-element-button" href="{{link:contact}}">Get a quote</a>'],
+            ['id' => 't5', 'html' => 'Ring the workshop'],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function heroAttrs()
+    {
+        return [
+            ['id' => 'a0', 'value' => 'tel:+447700900123'],
+            ['id' => 'a1', 'value' => 'Call Oak and Iron'],
+        ];
+    }
+
+    /**
+     * A fully rewritten kit section.
+     *
+     * @param array  $overrides Section keys to replace (texts, attrs, remove, clones).
+     * @param string $unitId    Unit id.
+     *
+     * @return array
+     */
+    protected function patternSection(array $overrides = [], $unitId = 'home-01-hero')
+    {
+        $section = $unitId === 'home-01-hero'
+            ? ['pattern' => $unitId, 'texts' => $this->heroTexts(), 'attrs' => $this->heroAttrs()]
+            : ['pattern' => $unitId, 'texts' => [['id' => 't0', 'html' => 'Ask for a quote']]];
+
+        return array_merge($section, $overrides);
     }
 
     /**

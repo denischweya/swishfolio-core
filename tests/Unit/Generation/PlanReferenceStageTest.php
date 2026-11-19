@@ -45,14 +45,6 @@ class PlanReferenceStageTest extends GenerationTestCase
         );
     }
 
-    public function test_a_unit_needing_media_is_rejected_even_when_named_directly()
-    {
-        $this->assertRejected(
-            $this->plan(['pages' => [$this->page(['sections' => [$this->patternSection([], 'needs-media')]])]]),
-            'pages.0.sections.0.pattern'
-        );
-    }
-
     public function test_a_static_block_cannot_be_named_as_a_section()
     {
         $this->assertRejected(
@@ -78,25 +70,6 @@ class PlanReferenceStageTest extends GenerationTestCase
 
             $this->assertSame($blockName, $result['pages'][0]['sections'][0]['block']);
         }
-    }
-
-    public function test_a_whole_page_unit_must_be_the_only_section_on_its_page()
-    {
-        $sections = [$this->patternSection([], 'alpha-page'), $this->patternSection()];
-
-        $this->assertRejected(
-            $this->plan(['pages' => [$this->page(['sections' => $sections])]]),
-            'pages.0.sections'
-        );
-    }
-
-    public function test_a_whole_page_unit_alone_is_accepted()
-    {
-        $result = $this->apply($this->plan([
-            'pages' => [$this->page(['sections' => [$this->patternSection([], 'alpha-page')]])],
-        ]));
-
-        $this->assertSame('alpha-page', $result['pages'][0]['sections'][0]['pattern']);
     }
 
     public function test_a_template_the_theme_does_not_declare_is_rejected()
@@ -130,32 +103,22 @@ class PlanReferenceStageTest extends GenerationTestCase
         );
     }
 
-    public function test_an_internal_page_link_must_name_a_page_in_the_plan()
+    public function test_a_header_part_is_not_a_section_a_plan_can_name()
     {
-        $section = $this->patternSection(['ctaUrl' => '{{page:ghost}}']);
-
         $this->assertRejected(
-            $this->plan(['pages' => [$this->page(['sections' => [$section]])]]),
-            'pages.0.sections.0.content.ctaUrl'
+            $this->plan(['pages' => [$this->page(['sections' => [$this->patternSection([], 'header')]])]]),
+            'pages.0.sections.0.pattern'
         );
     }
 
-    public function test_an_internal_page_link_in_a_text_slot_is_rejected()
+    public function test_a_plan_for_another_kit_is_rejected_before_any_unit_is_looked_up()
     {
-        $section = $this->patternSection(['headline' => '{{page:home}}']);
-
-        $this->assertRejected(
-            $this->plan(['pages' => [$this->page(['sections' => [$section]])]]),
-            'pages.0.sections.0.content.headline'
-        );
-    }
-
-    public function test_a_valid_internal_page_link_passes_through_untouched()
-    {
-        $section = $this->patternSection(['ctaUrl' => '{{page:home}}']);
-
-        $result = $this->apply($this->plan(['pages' => [$this->page(['sections' => [$section]])]]));
-
-        $this->assertSame('{{page:home}}', $result['pages'][0]['sections'][0]['content']['ctaUrl']);
+        try {
+            $this->apply($this->plan(['kit' => 'beta']));
+            $this->fail('Expected ValidationException');
+        } catch (ValidationException $e) {
+            $this->assertSame('plan-envelope', $e->getStage());
+            $this->assertSame('kit', $e->getPath());
+        }
     }
 }

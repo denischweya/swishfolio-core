@@ -17,7 +17,6 @@ use SwishfolioCore\Tools\ToolRunner;
 use SwishfolioCore\Tools\Write\CreateContentTool;
 use SwishfolioCore\Tools\Write\SetFrontPageTool;
 use SwishfolioCore\Tools\Write\SetNavigationTool;
-use SwishfolioCore\Tools\Write\SetStyleVariationTool;
 use SwishfolioCore\Tools\Write\UpdateContentTool;
 
 class PlanExecutorTest extends GenerationTestCase
@@ -39,7 +38,7 @@ class PlanExecutorTest extends GenerationTestCase
         $journal = new MutationJournal($this->repository);
 
         return new PlanExecutor(
-            new BlockComposer($this->library()),
+            new BlockComposer($this->kit()),
             new ActionExecutor(
                 new ToolRunner(
                     new ToolRegistry([
@@ -47,15 +46,6 @@ class PlanExecutorTest extends GenerationTestCase
                         new UpdateContentTool($journal),
                         new SetFrontPageTool($journal),
                         new SetNavigationTool($journal),
-                        new SetStyleVariationTool(
-                            $journal,
-                            function () {
-                                return [['title' => 'Swiss International', 'version' => 3, 'styles' => []]];
-                            },
-                            function () {
-                                return 23;
-                            }
-                        ),
                     ]),
                     $journal
                 )
@@ -65,8 +55,7 @@ class PlanExecutorTest extends GenerationTestCase
 
     /**
      * A generation run carries the user's approval of the plan, which the three
-     * site-level tools require: they publish a menu, repoint the front page and
-     * reskin the site.
+     * site-level tools require: they publish a menu and repoint the front page.
      *
      * @return ToolContext
      */
@@ -101,7 +90,7 @@ class PlanExecutorTest extends GenerationTestCase
                     'key'      => 'about',
                     'title'    => 'About',
                     'slug'     => 'about',
-                    'sections' => [$this->patternSection(['headline' => 'Who we are'])],
+                    'sections' => [$this->patternSection([], 'contact-01-cta')],
                 ]),
             ],
             'site' => [
@@ -132,30 +121,32 @@ class PlanExecutorTest extends GenerationTestCase
 
         $this->assertStringContainsString('<!-- wp:group', $content);
         $this->assertStringContainsString('Built to last', $content);
-        $this->assertStringNotContainsString('{{slot:', $content);
+        $this->assertStringNotContainsString('{{', $content);
+        $this->assertStringNotContainsString('Demo', $content);
     }
 
     public function test_an_internal_page_link_becomes_a_permalink_in_a_second_pass()
     {
         $plan = $this->twoPagePlan();
 
-        $plan['pages'][0]['sections'] = [
-            $this->patternSection(['headline' => 'Hello', 'ctaUrl' => '{{page:about}}']),
-        ];
-
+        // The hero's button points at the kit's "contact" page; the plan has
+        // none, so it lands on the last navigation page instead.
         $report  = $this->runPlan($plan);
         $homeId  = $report['pages'][0]['postId'];
         $aboutId = $report['pages'][1]['postId'];
         $content = $GLOBALS['sfcore_test_wp']['posts'][$homeId]['post_content'];
 
         $this->assertStringNotContainsString('{{page:', $content);
-        $this->assertStringContainsString('href="https://example.test/about/"', $content);
+        $this->assertStringContainsString('href="https://example.test/about/">Get a quote</a>', $content);
         $this->assertGreaterThan(0, $aboutId);
     }
 
     public function test_a_page_with_no_internal_link_is_never_updated_twice()
     {
-        $report = $this->runPlan($this->twoPagePlan());
+        $plan                         = $this->twoPagePlan();
+        $plan['pages'][0]['sections'] = [$this->patternSection([], 'contact-01-cta')];
+
+        $report = $this->runPlan($plan);
         $types  = [];
 
         foreach ($report['actions'] as $action) {
@@ -238,10 +229,8 @@ class PlanExecutorTest extends GenerationTestCase
 
         $plan                           = $this->twoPagePlan();
         $plan['pages'][1]['onConflict'] = 'skip';
-        // The skipped page links back to home, so the relink pass reaches it.
-        $plan['pages'][1]['sections']   = [
-            $this->patternSection(['headline' => 'About us', 'ctaUrl' => '{{page:home}}']),
-        ];
+        // The skipped page's hero links to a page, so the relink pass reaches it.
+        $plan['pages'][1]['sections']   = [$this->patternSection()];
 
         $report = $this->runPlan($plan, ['about' => 42]);
 
@@ -271,24 +260,6 @@ class PlanExecutorTest extends GenerationTestCase
         $this->assertSame('about-2', $GLOBALS['sfcore_test_wp']['posts'][$report['pages'][1]['postId']]['post_name']);
     }
 
-    public function test_a_style_variation_is_applied_after_the_pages_exist()
-    {
-        $this->givenPost(23, ['post_type' => 'wp_global_styles', 'post_content' => '{}']);
-
-        $plan                           = $this->twoPagePlan();
-        $plan['site']['styleVariation'] = 'Swiss International';
-
-        $report = $this->runPlan($plan);
-        $types  = [];
-
-        foreach ($report['actions'] as $action) {
-            $types[] = $action['type'];
-        }
-
-        $this->assertSame('set_style_variation', end($types));
-        $this->assertStringContainsString('isGlobalStylesUserThemeJSON', $GLOBALS['sfcore_test_wp']['posts'][23]['post_content']);
-    }
-
     public function test_a_run_records_what_it_created_so_it_can_be_undone()
     {
         $report = $this->runPlan($this->twoPagePlan());
@@ -316,7 +287,7 @@ class PlanExecutorTest extends GenerationTestCase
 
     public function test_a_page_scoped_plan_needs_no_site_actions()
     {
-        $plan = $this->plan();
+        $plan = $this->plan(['pages' => [$this->page(['sections' => [$this->patternSection([], 'contact-01-cta')]])]]);
         unset($plan['site']);
 
         $validated = PlanValidator::withDefaultStages()->validate($plan, $this->context('page'));
@@ -325,5 +296,20 @@ class PlanExecutorTest extends GenerationTestCase
         $this->assertCount(1, $report['createdIds']);
         $this->assertCount(1, $report['actions']);
         $this->assertSame('create_page', $report['actions'][0]['type']);
+    }
+
+    public function test_kit_markup_with_inline_svg_is_written_past_kses()
+    {
+        $report  = $this->runPlan($this->twoPagePlan());
+        $content = $GLOBALS['sfcore_test_wp']['posts'][$report['pages'][0]['postId']]['post_content'];
+
+        $this->assertStringContainsString('<svg viewBox="0 0 10 10"', $content);
+    }
+
+    public function test_pages_default_to_the_kit_page_template()
+    {
+        $report = $this->runPlan($this->twoPagePlan());
+
+        $this->assertSame('page-no-title', $GLOBALS['sfcore_test_wp']['meta'][$report['pages'][0]['postId']]['_wp_page_template']);
     }
 }

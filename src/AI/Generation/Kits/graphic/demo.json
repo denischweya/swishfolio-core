@@ -1,0 +1,26 @@
+{
+    "phones": [
+        "+31 10 555 0184",
+        "0123456789"
+    ],
+    "emails": [
+        "hoi@oddform.example"
+    ],
+    "domains": [
+        "oddform.example"
+    ],
+    "addresses": [
+        "Havenstraat 41-B"
+    ],
+    "places": [
+        "Rotterdam",
+        "Havenstraat"
+    ],
+    "people": [
+        "Amira Benali",
+        "Jasper Vermeulen",
+        "Joost Ammerlaan",
+        "Noor Halvorsen",
+        "Sanne Ouali"
+    ]
+}

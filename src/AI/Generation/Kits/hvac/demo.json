@@ -1,0 +1,32 @@
+{
+    "phones": [
+        "(303) 555-0148"
+    ],
+    "emails": [
+        "hello@northwindair.example"
+    ],
+    "domains": [
+        "northwindair.example"
+    ],
+    "addresses": [
+        "3940 Delgany Way",
+        "3940 Delgany Way, Denver, CO 80216"
+    ],
+    "places": [
+        "Denver",
+        "Metro Denver",
+        "Front Range",
+        "Wash Park",
+        "Highlands Ranch",
+        "Wheat Ridge",
+        "Delgany Way"
+    ],
+    "people": [
+        "Andre Whitfield",
+        "Linda Castellanos",
+        "Marcus Reyes",
+        "Mei Tanaka",
+        "Ray Castellanos",
+        "Sofia Adeyemi"
+    ]
+}

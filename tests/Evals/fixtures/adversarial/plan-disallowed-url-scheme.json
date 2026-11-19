@@ -1,20 +1,13 @@
 {
   "name": "plan-disallowed-url-scheme",
   "track": "plan",
-  "why": "Only http, https, mailto and tel may reach an href, in generated markup as much as in an edit.",
+  "why": "Only http, https, mailto and tel may reach an href, in a button's copy as much as in an edit.",
   "expectStage": "plan-value",
   "scope": "site",
   "instruction": "Build me a small site.",
   "brief": {
     "siteTitle": "Baseline",
-    "styleVariation": "",
-    "styleVariations": [
-      "Default",
-      "Neo-Brutalist",
-      "Swiss International",
-      "Sasha",
-      "Terminal"
-    ],
+    "kit": "designer",
     "customTemplates": [
       "page-no-title",
       "page-landing",
@@ -24,6 +17,7 @@
   },
   "response": {
     "schemaVersion": "1.0",
+    "kit": "designer",
     "summary": "A one page site used as the baseline for a rejection fixture.",
     "site": {
       "title": "Baseline",
@@ -40,14 +34,25 @@
         "status": "draft",
         "sections": [
           {
-            "pattern": "swiss-hero",
-            "content": {
-              "eyebrow": "01. Studio",
-              "headline": "A Short Headline",
-              "body": "A supporting sentence that sits under the headline and explains what the studio does.",
-              "primaryCtaLabel": "See the work",
-              "primaryCtaUrl": "javascript:alert(1)"
-            }
+            "pattern": "work-03-cta",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Next project"
+              },
+              {
+                "id": "t1",
+                "html": "Taking new work this spring."
+              },
+              {
+                "id": "t2",
+                "html": "Send a short note about what you are planning."
+              },
+              {
+                "id": "t3",
+                "html": "<a href=\"javascript:alert(1)\">Start a project →</a>"
+              }
+            ]
           }
         ]
       }

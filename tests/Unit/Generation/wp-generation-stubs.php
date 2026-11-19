@@ -317,3 +317,32 @@ if (! function_exists('esc_html')) {
         return htmlspecialchars((string) $text, ENT_QUOTES, 'UTF-8', false);
     }
 }
+
+if (! function_exists('_n')) {
+    function _n($single, $plural, $number, $domain = 'default')
+    {
+        return (int) $number === 1 ? $single : $plural;
+    }
+}
+
+if (! function_exists('add_filter')) {
+    function add_filter($hook, $callback, $priority = 10, $args = 1)
+    {
+        $GLOBALS['sfcore_test_filters'][$hook][] = $callback;
+
+        return true;
+    }
+}
+
+if (! function_exists('wp_kses')) {
+    /**
+     * Keeps only the allowed tags (attributes untouched); enough to prove the
+     * allowlist is applied.
+     */
+    function wp_kses($content, $allowed, $protocols = [])
+    {
+        $tags = is_array($allowed) ? '<' . implode('><', array_keys($allowed)) . '>' : '';
+
+        return strip_tags((string) $content, $tags);
+    }
+}

@@ -1,0 +1,562 @@
+{
+    "version": 2,
+    "slug": "consultancy",
+    "name": "Soft Precision",
+    "title": "Consulting Firm",
+    "industry": "professional",
+    "description": "A modern WordPress template for consultants and advisory firms, with service practices, drawn charts and case studies that lead with results.",
+    "look": "Type: Plus Jakarta Sans. Colours: Canvas #F5F6FA, Midnight #0D1330, Indigo #5B4BFF, Lilac wash #ECE9FF, Lilac #B9A8FF, Secondary text #4A5170.",
+    "demo": {
+        "business": "Northfold",
+        "tagline": "Strategy, operations and technology advisory"
+    },
+    "design": {
+        "file": "design.json",
+        "variation": "Default",
+        "classPrefix": "nf-",
+        "fingerprint": ".nf-foot",
+        "palette": {
+            "base": "Canvas #F5F6FA",
+            "contrast": "Midnight #0D1330",
+            "accent-1": "Indigo #5B4BFF",
+            "accent-2": "Lilac wash #ECE9FF",
+            "accent-3": "Lilac #B9A8FF",
+            "accent-4": "Secondary text #4A5170",
+            "accent-5": "Surface #FFFFFF",
+            "accent-6": "Deep navy #080C22"
+        },
+        "fonts": [
+            "Plus Jakarta Sans"
+        ],
+        "pageTemplate": "page-landing",
+        "header": "header",
+        "footer": "footer",
+        "assetsPath": "assets/kits/consultancy"
+    },
+    "frontPage": "home",
+    "navigation": [
+        "services",
+        "work",
+        "about",
+        "contact"
+    ],
+    "pages": [
+        {
+            "key": "home",
+            "title": "Home",
+            "slug": "home",
+            "navLabel": "Home",
+            "inNav": false,
+            "type": "home",
+            "template": "page-landing",
+            "sections": [
+                "home-01-hero",
+                "home-02-services",
+                "home-03-stats",
+                "home-04-services",
+                "home-05-process",
+                "home-06-testimonials",
+                "home-07-portfolio",
+                "home-08-cta"
+            ]
+        },
+        {
+            "key": "services",
+            "title": "Services",
+            "slug": "services",
+            "navLabel": "Services",
+            "inNav": true,
+            "type": "services",
+            "template": "page-landing",
+            "sections": [
+                "services-01-page-header",
+                "services-02-services",
+                "services-03-portfolio",
+                "services-04-faq",
+                "services-05-cta"
+            ]
+        },
+        {
+            "key": "work",
+            "title": "Case studies",
+            "slug": "case-studies",
+            "navLabel": "Case studies",
+            "inNav": true,
+            "type": "work",
+            "template": "page-landing",
+            "sections": [
+                "work-01-page-header",
+                "work-02-portfolio",
+                "work-03-services",
+                "work-04-testimonials",
+                "work-05-cta"
+            ]
+        },
+        {
+            "key": "about",
+            "title": "About",
+            "slug": "about",
+            "navLabel": "About",
+            "inNav": true,
+            "type": "about",
+            "template": "page-landing",
+            "sections": [
+                "about-01-page-header",
+                "about-02-about",
+                "about-03-features",
+                "about-04-team",
+                "about-05-contact",
+                "about-06-cta"
+            ]
+        },
+        {
+            "key": "contact",
+            "title": "Contact",
+            "slug": "contact",
+            "navLabel": "Contact",
+            "inNav": true,
+            "type": "contact",
+            "template": "page-landing",
+            "sections": [
+                "contact-01-page-header",
+                "contact-02-contact",
+                "contact-03-content"
+            ]
+        }
+    ],
+    "units": {
+        "home-01-hero": {
+            "scope": "section",
+            "role": "hero",
+            "summary": "Home page hero from the home page, headed (H1) \"Hard decisions, made measurably better.\": 2 paragraphs, 2 buttons, 4 drawn icons or graphics, 5 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 1,
+            "file": "units/home-01-hero.html",
+            "slots": 18,
+            "repeatable": 5,
+            "fixedText": [
+                "Jul",
+                "Oct",
+                "Jan",
+                "Apr",
+                "Jun",
+                "Q2: 4.92",
+                "Q2",
+                "Q3: 4.71",
+                "Q3",
+                "Q4: 4.38",
+                "Q4",
+                "Q1: 4.19",
+                "Q1",
+                "Q2: 4.03"
+            ],
+            "ksesStable": false
+        },
+        "home-02-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the home page: 1 paragraph, 7 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 2,
+            "file": "units/home-02-services.html",
+            "slots": 8,
+            "repeatable": 7,
+            "ksesStable": true
+        },
+        "home-03-stats": {
+            "scope": "section",
+            "role": "stats",
+            "summary": "Stats section from the home page: 4 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 3,
+            "file": "units/home-03-stats.html",
+            "slots": 12,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "home-04-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the home page, headed (H2) \"Four practices. One team around your question.\": 5 headings, 2 paragraphs, 7 drawn icons or graphics, 8 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 4,
+            "file": "units/home-04-services.html",
+            "slots": 32,
+            "repeatable": 8,
+            "ksesStable": false
+        },
+        "home-05-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the home page, headed (H2) \"From open question to moved number in four steps.\": 5 headings, 6 paragraphs, 1 button, 13 drawn icons or graphics, 17 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 5,
+            "file": "units/home-05-process.html",
+            "slots": 30,
+            "repeatable": 17,
+            "ksesStable": false
+        },
+        "home-06-testimonials": {
+            "scope": "section",
+            "role": "testimonials",
+            "summary": "Testimonials section from the home page, headed (H2) \"We are paid like we mean it.\": 2 paragraphs, 4 drawn icons or graphics, 3 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 6,
+            "file": "units/home-06-testimonials.html",
+            "slots": 10,
+            "repeatable": 3,
+            "ksesStable": false
+        },
+        "home-07-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the home page, headed (H2) \"The work, and what it was worth.\": 1 paragraph, 1 button, 4 drawn icons or graphics, 4 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 7,
+            "file": "units/home-07-portfolio.html",
+            "slots": 15,
+            "repeatable": 4,
+            "ksesStable": false
+        },
+        "home-08-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the home page, headed (H2) \"Bring us the question you cannot delegate.\": 1 paragraph, 2 buttons.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 8,
+            "file": "units/home-08-cta.html",
+            "slots": 4,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "services-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the services page, headed (H1) \"Four practices, staffed around your problem.\": 2 paragraphs, 4 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 1,
+            "file": "units/services-01-page-header.html",
+            "slots": 9,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "services-02-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the services page, headed (H3) \"Growth strategy\": 4 headings, 12 paragraphs, 48 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 2,
+            "file": "units/services-02-services.html",
+            "slots": 76,
+            "repeatable": 48,
+            "ksesStable": true
+        },
+        "services-03-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the services page, headed (H2) \"Three ways to work with us.\": 4 headings, 2 paragraphs, 3 drawn icons or graphics, 20 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 3,
+            "file": "units/services-03-portfolio.html",
+            "slots": 52,
+            "repeatable": 20,
+            "ksesStable": false
+        },
+        "services-04-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ from the services page, headed (H2) \"Straight answers.\": 7 paragraphs, 1 button, 5 questions, 5 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 4,
+            "file": "units/services-04-faq.html",
+            "slots": 14,
+            "repeatable": 5,
+            "ksesStable": true
+        },
+        "services-05-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the services page, headed (H2) \"Not sure which model fits?\": 1 paragraph, 1 button.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 5,
+            "file": "units/services-05-cta.html",
+            "slots": 3,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "work-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the case studies page, headed (H1) \"Evidence, not adjectives.\": 2 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 1,
+            "file": "units/work-01-page-header.html",
+            "slots": 9,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "work-02-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the case studies page. Lists the site's portfolio projects.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 2,
+            "file": "units/work-02-portfolio.html",
+            "needs": [
+                "projects"
+            ],
+            "slots": 0,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "work-03-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the case studies page, headed (H2) \"Six sectors, one common thread: operations that have to work on Monday.\": 2 paragraphs, 6 repeatable items.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 3,
+            "file": "units/work-03-services.html",
+            "slots": 17,
+            "repeatable": 6,
+            "ksesStable": true
+        },
+        "work-04-testimonials": {
+            "scope": "section",
+            "role": "testimonials",
+            "summary": "Testimonials section from the case studies page: 3 repeatable items.",
+            "pageTypes": [
+                "work",
+                "any"
+            ],
+            "sourcePage": "work",
+            "position": 4,
+            "file": "units/work-04-testimonials.html",
+            "slots": 6,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "work-05-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the case studies page, headed (H2) \"Have a problem that looks like one of these?\": 1 paragraph, 1 button.",
+            "pageTypes": [
+                "work",
+                "any"
+            ],
+            "sourcePage": "work",
+            "position": 5,
+            "file": "units/work-05-cta.html",
+            "slots": 3,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "about-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the about page, headed (H1) \"A small firm for large decisions. Forty-two people, three offices, and no slideware for it\": 1 paragraph.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 1,
+            "file": "units/about-01-page-header.html",
+            "slots": 2,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "about-02-about": {
+            "scope": "section",
+            "role": "about",
+            "summary": "About section from the about page: 3 paragraphs, 1 drawn icon or graphic, 5 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 2,
+            "file": "units/about-02-about.html",
+            "slots": 11,
+            "repeatable": 5,
+            "ksesStable": false
+        },
+        "about-03-features": {
+            "scope": "section",
+            "role": "features",
+            "summary": "Features section from the about page, headed (H2) \"Five rules we hold ourselves to.\": 6 headings, 2 paragraphs, 5 repeatable items.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 3,
+            "file": "units/about-03-features.html",
+            "slots": 18,
+            "repeatable": 5,
+            "ksesStable": true
+        },
+        "about-04-team": {
+            "scope": "section",
+            "role": "team",
+            "summary": "Team section from the about page, headed (H2) \"The people who will be in the room.\": 9 headings, 2 paragraphs, 8 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 4,
+            "file": "units/about-04-team.html",
+            "slots": 43,
+            "repeatable": 8,
+            "ksesStable": true
+        },
+        "about-05-contact": {
+            "scope": "section",
+            "role": "contact",
+            "summary": "Contact section from the about page, headed (H2) \"Three cities, one team.\": 4 headings, 2 paragraphs, 3 drawn icons or graphics, 3 repeatable items.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 5,
+            "file": "units/about-05-contact.html",
+            "slots": 18,
+            "repeatable": 3,
+            "ksesStable": false
+        },
+        "about-06-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the about page, headed (H2) \"We hire six analysts a year, and the occasional operator.\": 1 paragraph, 2 buttons.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 6,
+            "file": "units/about-06-cta.html",
+            "slots": 4,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "contact-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the contact page, headed (H1) \"Start with a forty-minute conversation.\": 2 paragraphs, 1 drawn icon or graphic, 14 repeatable items. Has a demo form that does not send anything yet.",
+            "pageTypes": [
+                "contact"
+            ],
+            "sourcePage": "contact",
+            "position": 1,
+            "file": "units/contact-01-page-header.html",
+            "needs": [
+                "form"
+            ],
+            "slots": 28,
+            "repeatable": 14,
+            "ksesStable": false
+        },
+        "contact-02-contact": {
+            "scope": "section",
+            "role": "contact",
+            "summary": "Contact section from the contact page, headed (H2) \"Find us.\": 4 headings, 2 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "contact",
+            "position": 2,
+            "file": "units/contact-02-contact.html",
+            "slots": 15,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "contact-03-content": {
+            "scope": "section",
+            "role": "content",
+            "summary": "Content section from the contact page, headed (H3) \"Media and speaking requests\": 3 headings, 3 drawn icons or graphics, 3 repeatable items.",
+            "pageTypes": [
+                "contact"
+            ],
+            "sourcePage": "contact",
+            "position": 3,
+            "file": "units/contact-03-content.html",
+            "slots": 11,
+            "repeatable": 3,
+            "ksesStable": false
+        },
+        "header": {
+            "scope": "header",
+            "role": "header",
+            "summary": "Header template part.",
+            "file": "units/header.html",
+            "slots": 3,
+            "ksesStable": false
+        },
+        "footer": {
+            "scope": "footer",
+            "role": "footer",
+            "summary": "Footer template part.",
+            "file": "units/footer.html",
+            "slots": 12,
+            "ksesStable": false
+        }
+    },
+    "assets": [],
+    "source": {
+        "dir": "seed/sites/consultancy",
+        "hash": "a8a3735e861fb5f06587b7c401011b4f"
+    }
+}

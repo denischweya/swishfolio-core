@@ -1,0 +1,37 @@
+{
+    "phones": [
+        "+31 20 555 0147",
+        "+351 21 555 0163",
+        "+44 20 7946 0112"
+    ],
+    "emails": [
+        "amsterdam@northfold.example",
+        "careers@northfold.example",
+        "lisboa@northfold.example",
+        "london@northfold.example",
+        "partners@northfold.example",
+        "press@northfold.example"
+    ],
+    "domains": [
+        "northfold.example"
+    ],
+    "addresses": [
+        "Rua do Alecrim Novo 41",
+        "Veemkade 318"
+    ],
+    "places": [
+        "London",
+        "Amsterdam",
+        "Lisbon"
+    ],
+    "people": [
+        "Callum Westbrook",
+        "Dele Okafor",
+        "Hanne Vos",
+        "Ingrid Solheim",
+        "Mariana Coutinho",
+        "Priya Raman",
+        "Rui Antunes",
+        "Tobias Achterberg"
+    ]
+}

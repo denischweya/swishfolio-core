@@ -2,134 +2,110 @@
 
 namespace SwishfolioCore\Tests\Unit\Generation;
 
+use SwishfolioCore\AI\Generation\Kit;
+use SwishfolioCore\AI\Generation\PatternUnit;
+
 class PatternLibraryTest extends GenerationTestCase
 {
-    public function test_it_discovers_every_well_formed_sidecar()
+    public function test_it_discovers_every_version_2_kit_and_ignores_older_ones()
     {
-        $ids = array_keys($this->library()->all());
+        $kits = $this->library()->kits();
 
-        $this->assertContains('alpha-hero', $ids);
-        $this->assertContains('alpha-page', $ids);
-        $this->assertContains('needs-media', $ids);
-        $this->assertContains('swiss-only', $ids);
+        $this->assertSame(['alpha', 'beta'], array_keys($kits));
+        $this->assertContainsOnlyInstancesOf(Kit::class, $kits);
+        $this->assertNull($this->library()->kit('old'));
     }
 
-    public function test_a_sidecar_naming_neither_ref_nor_file_is_dropped_rather_than_fatal()
+    public function test_a_kit_is_got_by_slug()
     {
-        $library = $this->library();
+        $kit = $this->library()->kit('alpha');
 
-        $this->assertNull($library->get('broken'));
-        $this->assertNotSame([], $library->all());
+        $this->assertSame('Alpha', $kit->getName());
+        $this->assertSame('creative', $kit->getIndustry());
+        $this->assertSame(['home', 'contact'], $kit->getPageKeys());
+        $this->assertSame('page-no-title', $kit->getPageTemplate());
+        $this->assertNull($this->library()->kit('nope'));
     }
 
-    public function test_slots_are_parsed_with_their_constraints()
+    public function test_a_malformed_unit_is_dropped_rather_than_fatal()
     {
-        $slot = $this->library()->get('alpha-hero')->getSlot('label');
+        $kit = $this->kit();
 
-        $this->assertSame('{{slot:label}}', $slot->getToken());
-        $this->assertTrue($slot->isInComment());
-        $this->assertSame(30, $slot->getMaxLength());
+        $this->assertNull($kit->get('broken'));
+        $this->assertInstanceOf(PatternUnit::class, $kit->get('home-01-hero'));
+        $this->assertSame(['home-01-hero', 'contact-01-cta'], array_keys($kit->units('section')));
     }
 
-    public function test_a_slot_token_defaults_to_its_name()
+    public function test_only_section_units_can_be_named_by_a_plan()
     {
-        $slot = $this->library()->get('alpha-hero')->getSlot('headline');
-
-        $this->assertSame('{{slot:headline}}', $slot->getToken());
-        $this->assertFalse($slot->isInComment());
+        $this->assertNotNull($this->kit()->section('home-01-hero'));
+        $this->assertNull($this->kit()->section('header'));
+        $this->assertSame('header', $this->kit()->header()->getId());
+        $this->assertNull($this->kit()->footer());
     }
 
-    public function test_markup_comes_from_the_sidecar_directory_for_file_units()
+    public function test_markup_comes_from_the_kit_directory()
     {
-        $markup = $this->library()->markup('alpha-hero');
-
-        $this->assertStringContainsString('{{slot:headline}}', $markup);
-        $this->assertStringContainsString('wp:group', $markup);
-    }
-
-    public function test_markup_comes_from_the_pattern_registry_for_ref_units()
-    {
-        $this->assertSame(self::FAKE_PATTERN_MARKUP, $this->library()->markup('alpha-page'));
+        $this->assertStringContainsString('<h1 class="wp-block-heading">Demo headline</h1>', $this->kit()->markup('home-01-hero'));
     }
 
     public function test_an_unknown_unit_raises_rather_than_composing_nothing()
     {
         $this->expectException(\RuntimeException::class);
-        $this->library()->markup('no-such-unit');
+
+        $this->kit()->markup('nope');
     }
 
-    public function test_an_unregistered_pattern_reference_raises()
+    public function test_required_slots_are_the_ones_holding_demo_copy()
     {
-        $library = new \SwishfolioCore\AI\Generation\PatternLibrary(
-            [$this->fixtureDir()],
-            function ($ref) {
-                return null;
-            }
-        );
-
-        $this->expectException(\RuntimeException::class);
-        $library->markup('alpha-page');
+        $this->assertSame(['t0', 't1', 't2', 't3', 't4', 'a0', 'a1', 't5'], $this->kit()->requiredSlots('home-01-hero'));
+        $this->assertSame(['t0'], $this->kit()->requiredSlots('contact-01-cta'), 'An ordinal like "01" is decoration.');
     }
 
-    public function test_usable_excludes_units_that_need_images()
+    public function test_the_catalogue_lists_pages_units_and_outlines_but_never_markup()
     {
-        $this->assertArrayNotHasKey('needs-media', $this->library()->usable('section'));
+        $catalogue = $this->kit()->catalogue();
+
+        $this->assertStringContainsString('- home "Home" (home): home-01-hero', $catalogue);
+        $this->assertStringContainsString('## home-01-hero | role: hero | suits: home', $catalogue);
+        $this->assertStringContainsString('t0 <h1>: Demo headline', $catalogue);
+        $this->assertStringContainsString('1 placeholder photo', $catalogue);
+        $this->assertStringNotContainsString('<!-- wp:', $catalogue);
+        $this->assertStringNotContainsString('## header', $catalogue, 'Parts belong to the design, not the plan.');
     }
 
-    public function test_usable_excludes_a_variation_specific_unit_under_another_variation()
+    public function test_the_matching_description_carries_no_markup()
     {
-        $this->assertArrayNotHasKey('swiss-only', $this->library()->usable('section', 'Neo-Brutalist'));
-        $this->assertArrayNotHasKey('swiss-only', $this->library()->usable('section'));
+        $described = $this->library()->describeKits();
+
+        $this->assertSame(['hero', 'cta'], $described['alpha']['roles']);
+        $this->assertSame(2, $described['alpha']['sections']);
+        $this->assertStringNotContainsString('<', json_encode($described));
     }
 
-    public function test_usable_includes_a_variation_specific_unit_under_its_own_variation()
+    public function test_a_kit_is_detected_from_its_css_fingerprint_or_its_variation()
     {
-        $this->assertArrayHasKey('swiss-only', $this->library()->usable('section', 'Swiss International'));
+        $library = $this->library();
+
+        $this->assertSame('alpha', $library->detect('.x{} .al-hero{color:red}'));
+        $this->assertSame('beta', $library->detect('', 'Terminal'));
+        $this->assertNull($library->detect('.other{}', 'Default'));
     }
 
-    public function test_usable_separates_page_units_from_section_units()
+    public function test_resolve_prefers_the_requested_kit_then_the_applied_one()
     {
-        $this->assertArrayHasKey('alpha-page', $this->library()->usable('page'));
-        $this->assertArrayNotHasKey('alpha-hero', $this->library()->usable('page'));
-        $this->assertArrayHasKey('alpha-hero', $this->library()->usable('section'));
+        $library = $this->library();
+
+        $this->assertSame('beta', $library->resolve('beta')->getSlug());
+
+        $GLOBALS['sfcore_test_options']['swish_kit'] = ['slug' => 'alpha'];
+
+        $this->assertSame('alpha', $library->resolve('')->getSlug());
+        $this->assertSame('alpha', $library->resolve('unknown')->getSlug(), 'An unknown request falls back to the current kit.');
     }
 
-    public function test_the_promptable_description_never_carries_markup()
+    public function test_resolve_falls_back_to_a_kit_when_the_site_has_none()
     {
-        $described = $this->library()->describe('section');
-        $encoded   = json_encode($described);
-
-        $this->assertStringNotContainsString('wp:group', $encoded);
-        $this->assertStringNotContainsString('{{slot:', $encoded);
-        $this->assertSame('hero', $described['alpha-hero']['role']);
-        $this->assertArrayHasKey('headline', $described['alpha-hero']['slots']);
-    }
-
-    public function test_discovery_is_cached_in_a_transient_keyed_per_directory_set()
-    {
-        $this->library()->all();
-
-        $keys = array_keys($GLOBALS['sfcore_test_transients']);
-        $ours = [];
-
-        foreach ($keys as $key) {
-            if (strpos($key, 'sfcore_generation_units_') === 0) {
-                $ours[] = $key;
-            }
-        }
-
-        $this->assertCount(1, $ours);
-
-        $this->shippedLibrary()->all();
-
-        $shipped = [];
-
-        foreach (array_keys($GLOBALS['sfcore_test_transients']) as $key) {
-            if (strpos($key, 'sfcore_generation_units_') === 0) {
-                $shipped[] = $key;
-            }
-        }
-
-        $this->assertCount(2, $shipped, 'A second directory set must not reuse the first cache entry.');
+        $this->assertSame('alpha', $this->library()->resolve('')->getSlug());
     }
 }

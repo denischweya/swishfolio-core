@@ -19,7 +19,7 @@ class PlanValidatorTest extends GenerationTestCase
         $this->assertSame('draft', $plan['pages'][0]['status']);
         $this->assertSame('home', $plan['pages'][0]['slug']);
         $this->assertNull($plan['pages'][0]['existingPostId']);
-        $this->assertSame('Built to last', $plan['pages'][0]['sections'][0]['content']['headline']);
+        $this->assertSame('Built to last', $plan['pages'][0]['sections'][0]['texts']['t0']);
     }
 
     public function test_one_bad_page_rejects_the_whole_plan()
@@ -42,7 +42,7 @@ class PlanValidatorTest extends GenerationTestCase
         // and the slot stage (undeclared slot) at once. Envelope must win.
         $plan = $this->plan([
             'schemaVersion' => '9.9',
-            'pages'         => [$this->page(['sections' => [$this->patternSection(['nope' => 'x'], 'ghost')]])],
+            'pages'         => [$this->page(['sections' => [$this->patternSection(['texts' => [['id' => 't99', 'html' => 'x']]], 'ghost')]])],
         ]);
 
         try {
@@ -56,7 +56,7 @@ class PlanValidatorTest extends GenerationTestCase
     public function test_reference_runs_before_slot()
     {
         $plan = $this->plan([
-            'pages' => [$this->page(['sections' => [$this->patternSection(['nope' => 'x'], 'ghost')]])],
+            'pages' => [$this->page(['sections' => [$this->patternSection(['texts' => [['id' => 't99', 'html' => 'x']]], 'ghost')]])],
         ]);
 
         try {
@@ -70,7 +70,7 @@ class PlanValidatorTest extends GenerationTestCase
     public function test_slot_runs_before_value()
     {
         $plan = $this->plan([
-            'pages' => [$this->page(['sections' => [$this->patternSection(['nope' => str_repeat('x', 500)])]])],
+            'pages' => [$this->page(['sections' => [$this->patternSection(['texts' => [['id' => 't99', 'html' => str_repeat('x', 1500)]]])]])],
         ]);
 
         try {
@@ -84,7 +84,7 @@ class PlanValidatorTest extends GenerationTestCase
     public function test_value_runs_before_collision()
     {
         $plan = $this->plan([
-            'pages' => [$this->page(['sections' => [$this->patternSection(['headline' => str_repeat('x', 99)])]])],
+            'pages' => [$this->page(['sections' => [$this->patternSection(['texts' => [['id' => 't0', 'html' => str_repeat('x', 1500)]]])]])],
         ]);
 
         try {
@@ -132,5 +132,33 @@ class PlanValidatorTest extends GenerationTestCase
 
         $this->assertArrayNotHasKey('site', $validated);
         $this->assertCount(1, $validated['pages']);
+    }
+
+    public function test_a_plan_leaving_demo_copy_is_refused_by_the_coverage_stage()
+    {
+        $section = $this->patternSection(['texts' => [['id' => 't0', 'html' => 'Built to last']]]);
+        $plan    = $this->plan(['pages' => [$this->page(['sections' => [$section]])]]);
+
+        try {
+            $this->validator()->validate($plan, $this->context());
+            $this->fail('Expected ValidationException');
+        } catch (ValidationException $e) {
+            $this->assertSame('plan-coverage', $e->getStage());
+            $this->assertStringContainsString('home-01-hero t1', $e->getMessage());
+        }
+
+        $partial = PlanValidator::withDefaultStages(false)->validate($plan, $this->context());
+        $this->assertSame('Built to last', $partial['pages'][0]['sections'][0]['texts']['t0']);
+    }
+
+    public function test_demo_copy_inside_a_removed_unit_does_not_count()
+    {
+        $texts   = array_values(array_filter($this->heroTexts(), function ($pair) {
+            return $pair['id'] !== 't3';
+        }));
+        $section = $this->patternSection(['texts' => $texts, 'remove' => ['u2']]);
+        $plan    = $this->validator()->validate($this->plan(['pages' => [$this->page(['sections' => [$section]])]]), $this->context());
+
+        $this->assertSame(['u2'], $plan['pages'][0]['sections'][0]['remove']);
     }
 }

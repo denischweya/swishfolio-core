@@ -14,10 +14,11 @@ use SwishfolioCore\Actions\ActionSchema;
  * with ActionSchema deliberately: one schemaVersion covers everything the AI is
  * asked to emit, so there is one number to bump rather than two to keep in step.
  *
- * Like ActionSchema this leaves the per-unit maps ("content", "attributes") open
- * on purpose. Which slots a unit declares and which attributes a block exposes
- * differ per unit and per block, and the authoritative constraint is the unit
- * sidecar and the capability manifest, enforced by the validation stages.
+ * Slot edits are lists of closed {id, html} / {id, value} objects rather than
+ * open maps, so structured-output providers can hold the model to the shape.
+ * Which ids a section has differs per unit; the authority is the unit's own
+ * markup (CopySlots) and, for dynamic blocks, the capability manifest, both
+ * enforced by the validation stages. "attributes" stays open for that reason.
  */
 class PlanSchema
 {
@@ -35,20 +36,24 @@ class PlanSchema
     /**
      * @param string $scope     "site" for a whole site, "page" for one page.
      * @param int    $maxPages  Page count cap.
+     * @param string $kit       Slug of the one kit the plan may use.
      *
      * @return array JSON Schema.
      */
-    public static function build($scope = 'site', $maxPages = self::MAX_PAGES)
+    public static function build($scope = 'site', $maxPages = self::MAX_PAGES, $kit = '')
     {
         $schema = [
             'type'                 => 'object',
             'additionalProperties' => false,
-            'required'             => ['schemaVersion', 'summary', 'pages'],
+            'required'             => ['schemaVersion', 'summary', 'kit', 'pages'],
             'properties'           => [
                 'schemaVersion' => [
                     'type' => 'string',
                     'enum' => [self::SCHEMA_VERSION],
                 ],
+                'kit' => $kit === ''
+                    ? ['type' => 'string', 'description' => 'Slug of the kit every section comes from.']
+                    : ['type' => 'string', 'enum' => [(string) $kit], 'description' => 'Slug of the kit every section comes from.'],
                 'summary' => [
                     'type'        => 'string',
                     'maxLength'   => 400,
@@ -83,10 +88,6 @@ class PlanSchema
             'properties'           => [
                 'title' => ['type' => 'string', 'maxLength' => 120],
                 'tagline' => ['type' => 'string', 'maxLength' => 200],
-                'styleVariation' => [
-                    'type'        => 'string',
-                    'description' => 'Title of a style variation this theme ships. Omit to leave the current one alone.',
-                ],
                 'frontPage' => [
                     'type'        => 'string',
                     'description' => 'The key of the page that should become the front page.',
@@ -150,17 +151,61 @@ class PlanSchema
      */
     private static function sectionSchema()
     {
+        $text = [
+            'type'                 => 'object',
+            'additionalProperties' => false,
+            'required'             => ['id', 'html'],
+            'properties'           => [
+                'id'   => ['type' => 'string', 'description' => 'A t* slot id from the unit\'s outline.'],
+                'html' => ['type' => 'string', 'description' => 'New inner HTML: the same inline tags and classes, new words.'],
+            ],
+        ];
+        $attr = [
+            'type'                 => 'object',
+            'additionalProperties' => false,
+            'required'             => ['id', 'value'],
+            'properties'           => [
+                'id'    => ['type' => 'string', 'description' => 'An a* slot id from the unit\'s outline.'],
+                'value' => ['type' => 'string'],
+            ],
+        ];
+
         return [
             'type'                 => 'object',
             'additionalProperties' => false,
             'properties'           => [
                 'pattern' => [
                     'type'        => 'string',
-                    'description' => 'Id of a generation unit from the catalogue. Use this or "block", never both.',
+                    'description' => 'Id of a section unit from the kit. Use this or "block", never both.',
                 ],
-                'content' => [
-                    'type'        => 'object',
-                    'description' => 'Slot name to copy, for the slots that unit declares.',
+                'texts' => [
+                    'type'        => 'array',
+                    'description' => 'New copy for the unit\'s text slots. Every slot with demo copy must be rewritten or sit in a removed unit.',
+                    'items'       => $text,
+                ],
+                'attrs' => [
+                    'type'        => 'array',
+                    'description' => 'New values for the unit\'s attribute slots (aria-labels, placeholders, tel:/mailto: links).',
+                    'items'       => $attr,
+                ],
+                'remove' => [
+                    'type'        => 'array',
+                    'description' => 'Ids of [u*] units to leave out (cards, list items, questions the owner has no use for).',
+                    'items'       => ['type' => 'string'],
+                ],
+                'clones' => [
+                    'type'        => 'array',
+                    'description' => 'Extra copies of a repeatable [u*] unit, each placed after the original with its own copy.',
+                    'items'       => [
+                        'type'                 => 'object',
+                        'additionalProperties' => false,
+                        'required'             => ['unit', 'texts'],
+                        'properties'           => [
+                            'unit'  => ['type' => 'string'],
+                            'texts' => ['type' => 'array', 'items' => $text],
+                            'attrs' => ['type' => 'array', 'items' => $attr],
+                        ],
+                    ],
                 ],
                 'block' => [
                     'type'        => 'string',

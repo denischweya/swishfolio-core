@@ -1,0 +1,34 @@
+{
+    "phones": [
+        "+1 312 555 0187",
+        "+27 11 555 0164",
+        "+31 10 555 0142",
+        "+65 6555 0123"
+    ],
+    "emails": [
+        "careers@meridianfreight.example",
+        "quotes@meridianfreight.example"
+    ],
+    "domains": [
+        "meridianfreight.example"
+    ],
+    "addresses": [
+        "12 Changi South Lane",
+        "55 Electron Avenue",
+        "Waalhaven Oostzijde 82"
+    ],
+    "places": [
+        "Rotterdam",
+        "Felixstowe",
+        "Waalhaven",
+        "Waalhaven Oostzijde"
+    ],
+    "people": [
+        "Annelies Vos",
+        "Kwame Mensah",
+        "Mei Lin",
+        "Pieter Maas",
+        "Rafael Ortega",
+        "Tunde Adeyemi"
+    ]
+}

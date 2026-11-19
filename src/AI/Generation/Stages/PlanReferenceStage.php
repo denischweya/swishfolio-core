@@ -85,8 +85,7 @@ class PlanReferenceStage implements PlanStageInterface
 
     private function checkSections(array $page, PlanContext $context, array $allowedBlocks, array $pageKeys, $path)
     {
-        $library    = $context->getLibrary();
-        $pageScoped = 0;
+        $kit = $context->getKit();
 
         foreach ($page['sections'] as $index => $section) {
             $sectionPath = $path . '.sections.' . $index;
@@ -96,45 +95,15 @@ class PlanReferenceStage implements PlanStageInterface
                 continue;
             }
 
-            $unit = $library->get($section['pattern']);
-
-            if ($unit === null) {
+            // Only this kit's sections: another kit's markup would render
+            // without the CSS it was designed for.
+            if ($kit->section($section['pattern']) === null) {
                 throw new ValidationException(
                     $this->getSlug(),
-                    sprintf('"%s" is not a generation unit in the catalogue.', (string) $section['pattern']),
+                    sprintf('"%s" is not a section in the "%s" kit.', (string) $section['pattern'], $kit->getSlug()),
                     $sectionPath . '.pattern'
                 );
             }
-
-            if ($unit->getRequiresMedia() > 0) {
-                throw new ValidationException(
-                    $this->getSlug(),
-                    sprintf('Unit "%s" needs images, and image handling is not available.', $unit->getId()),
-                    $sectionPath . '.pattern'
-                );
-            }
-
-            if (! $unit->isKsesStable()) {
-                throw new ValidationException(
-                    $this->getSlug(),
-                    sprintf('Unit "%s" does not survive content filtering on save.', $unit->getId()),
-                    $sectionPath . '.pattern'
-                );
-            }
-
-            if ($unit->getScope() === 'page') {
-                $pageScoped++;
-            }
-
-            $this->checkPageLinks($unit, $section, $pageKeys, $sectionPath);
-        }
-
-        if ($pageScoped > 0 && count($page['sections']) !== 1) {
-            throw new ValidationException(
-                $this->getSlug(),
-                'A whole-page unit must be the only section on its page.',
-                $path . '.sections'
-            );
         }
     }
 
@@ -156,45 +125,6 @@ class PlanReferenceStage implements PlanStageInterface
                 sprintf('Block "%s" has no AI capability manifest.', (string) $blockName),
                 $path . '.block'
             );
-        }
-    }
-
-    /**
-     * A slot value of the form {{page:about}} becomes a permalink at execution
-     * time, once the page it names actually exists and has an ID.
-     */
-    private function checkPageLinks($unit, array $section, array $pageKeys, $path)
-    {
-        foreach ($section['content'] as $name => $value) {
-            if (! is_string($value) || strpos($value, '{{page:') !== 0) {
-                continue;
-            }
-
-            if (! preg_match('/^\{\{page:([a-z0-9][a-z0-9-]{0,39})\}\}$/', $value, $matches)) {
-                throw new ValidationException(
-                    $this->getSlug(),
-                    sprintf('"%s" is not a usable internal page reference.', $value),
-                    $path . '.content.' . $name
-                );
-            }
-
-            if (! isset($pageKeys[$matches[1]])) {
-                throw new ValidationException(
-                    $this->getSlug(),
-                    sprintf('Internal link points at unknown page key "%s".', $matches[1]),
-                    $path . '.content.' . $name
-                );
-            }
-
-            $slot = $unit->getSlot($name);
-
-            if ($slot !== null && $slot->getType() !== 'url') {
-                throw new ValidationException(
-                    $this->getSlug(),
-                    sprintf('Slot "%s" is not a link, so it cannot reference a page.', $name),
-                    $path . '.content.' . $name
-                );
-            }
         }
     }
 

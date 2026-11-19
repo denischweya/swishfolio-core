@@ -12,14 +12,14 @@ use SwishfolioCore\Blocks\BlockRegistry;
 
 /**
  * The generation counterpart of Actions\ValidationContext. It carries different
- * facts because a plan is judged against different things: a catalogue of
- * generation units, the theme's custom templates and style variations, and the
- * slugs already taken on this site.
+ * facts because a plan is judged against different things: the one kit the
+ * plan may compose with, the theme's custom templates, and the slugs already
+ * taken on this site.
  */
 class PlanContext
 {
-    /** @var PatternLibrary */
-    private $library;
+    /** @var Kit */
+    private $kit;
 
     /** @var BlockRegistry */
     private $registry;
@@ -29,9 +29,6 @@ class PlanContext
 
     /** @var string */
     private $scope;
-
-    /** @var string[] Style variation titles this theme ships. */
-    private $styleVariations = [];
 
     /** @var string[] Custom template names from theme.json. */
     private $customTemplates = [];
@@ -49,32 +46,20 @@ class PlanContext
     private $maxSectionsTotal;
 
     /**
-     * @param PatternLibrary $library  Generation catalogue.
+     * @param Kit            $kit      The kit this plan composes with.
      * @param BlockRegistry  $registry Capability registry.
      * @param TokenResolver  $tokens   Live design tokens.
      * @param string         $scope    "site" or "page".
      */
-    public function __construct(PatternLibrary $library, BlockRegistry $registry, TokenResolver $tokens, $scope = 'site')
+    public function __construct(Kit $kit, BlockRegistry $registry, TokenResolver $tokens, $scope = 'site')
     {
-        $this->library            = $library;
+        $this->kit                = $kit;
         $this->registry           = $registry;
         $this->tokens             = $tokens;
         $this->scope              = $scope === 'page' ? 'page' : 'site';
         $this->maxPages           = PlanSchema::MAX_PAGES;
         $this->maxSectionsPerPage = PlanSchema::MAX_SECTIONS_PER_PAGE;
         $this->maxSectionsTotal   = PlanSchema::MAX_SECTIONS_TOTAL;
-    }
-
-    /**
-     * @param string[] $titles Style variation titles.
-     *
-     * @return self
-     */
-    public function withStyleVariations(array $titles)
-    {
-        $this->styleVariations = array_values(array_map('strval', $titles));
-
-        return $this;
     }
 
     /**
@@ -117,9 +102,9 @@ class PlanContext
         return $this;
     }
 
-    public function getLibrary()
+    public function getKit()
     {
-        return $this->library;
+        return $this->kit;
     }
 
     public function getRegistry()
@@ -135,11 +120,6 @@ class PlanContext
     public function getScope()
     {
         return $this->scope;
-    }
-
-    public function getStyleVariations()
-    {
-        return $this->styleVariations;
     }
 
     public function getCustomTemplates()

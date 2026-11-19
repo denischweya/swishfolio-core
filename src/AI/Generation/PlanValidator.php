@@ -8,6 +8,7 @@
 namespace SwishfolioCore\AI\Generation;
 
 use SwishfolioCore\AI\Generation\Stages\PlanCollisionStage;
+use SwishfolioCore\AI\Generation\Stages\PlanCoverageStage;
 use SwishfolioCore\AI\Generation\Stages\PlanEnvelopeStage;
 use SwishfolioCore\AI\Generation\Stages\PlanReferenceStage;
 use SwishfolioCore\AI\Generation\Stages\PlanSanitizeStage;
@@ -38,18 +39,29 @@ class PlanValidator
     }
 
     /**
+     * @param bool $requireCoverage Whether every demo slot must be rewritten.
+     *                              /ai/plan validates once without it, fills
+     *                              the gaps, then validates with it.
+     *
      * @return self
      */
-    public static function withDefaultStages()
+    public static function withDefaultStages($requireCoverage = true)
     {
-        return new self([
+        $stages = [
             new PlanEnvelopeStage(),
             new PlanReferenceStage(),
             new PlanSlotStage(),
             new PlanValueStage(),
             new PlanSanitizeStage(),
-            new PlanCollisionStage(),
-        ]);
+        ];
+
+        if ($requireCoverage) {
+            $stages[] = new PlanCoverageStage();
+        }
+
+        $stages[] = new PlanCollisionStage();
+
+        return new self($stages);
     }
 
     /**

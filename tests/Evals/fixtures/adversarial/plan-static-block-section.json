@@ -7,14 +7,7 @@
   "instruction": "Build me a small site.",
   "brief": {
     "siteTitle": "Baseline",
-    "styleVariation": "",
-    "styleVariations": [
-      "Default",
-      "Neo-Brutalist",
-      "Swiss International",
-      "Sasha",
-      "Terminal"
-    ],
+    "kit": "designer",
     "customTemplates": [
       "page-no-title",
       "page-landing",
@@ -24,6 +17,7 @@
   },
   "response": {
     "schemaVersion": "1.0",
+    "kit": "designer",
     "summary": "A one page site used as the baseline for a rejection fixture.",
     "site": {
       "title": "Baseline",

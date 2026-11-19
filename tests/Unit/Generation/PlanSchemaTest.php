@@ -80,4 +80,16 @@ class PlanSchemaTest extends GenerationTestCase
         $this->assertIsString($encoded);
         $this->assertSame(PlanSchema::build('site'), json_decode($encoded, true));
     }
+
+    public function test_a_plan_names_its_kit_and_a_section_edits_slots_by_id()
+    {
+        $schema  = PlanSchema::build('site', PlanSchema::MAX_PAGES, 'alpha');
+        $section = $schema['properties']['pages']['items']['properties']['sections']['items'];
+
+        $this->assertContains('kit', $schema['required']);
+        $this->assertSame(['alpha'], $schema['properties']['kit']['enum']);
+        $this->assertSame(['id', 'html'], $section['properties']['texts']['items']['required']);
+        $this->assertSame(['id', 'value'], $section['properties']['attrs']['items']['required']);
+        $this->assertArrayNotHasKey('styleVariation', $schema['properties']['site']['properties']);
+    }
 }

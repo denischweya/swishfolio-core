@@ -20,8 +20,12 @@ use SwishfolioCore\Actions\ValidationException;
 class PlanEnvelopeStage implements PlanStageInterface
 {
     const PAGE_KEYS    = ['key', 'title', 'slug', 'status', 'template', 'onConflict', 'sections'];
-    const SECTION_KEYS = ['pattern', 'content', 'block', 'attributes'];
-    const SITE_KEYS    = ['title', 'tagline', 'styleVariation', 'frontPage', 'blogPage', 'navigation'];
+    const SECTION_KEYS = ['pattern', 'texts', 'attrs', 'remove', 'clones', 'block', 'attributes'];
+    const SITE_KEYS    = ['title', 'tagline', 'frontPage', 'blogPage', 'navigation'];
+
+    /** Caps on what one section may carry, so a plan cannot balloon. */
+    const MAX_EDITS  = 200;
+    const MAX_CLONES = 24;
 
     public function getSlug()
     {
@@ -66,9 +70,21 @@ class PlanEnvelopeStage implements PlanStageInterface
             );
         }
 
+        // One plan, one kit: the plan may only name the kit it was planned with.
+        $kit = $context->getKit()->getSlug();
+
+        if (isset($plan['kit']) && (string) $plan['kit'] !== '' && (string) $plan['kit'] !== $kit) {
+            throw new ValidationException(
+                $this->getSlug(),
+                sprintf('This plan is for kit "%s", but this generation uses kit "%s".', (string) $plan['kit'], $kit),
+                'kit'
+            );
+        }
+
         $clean         = [
             'schemaVersion' => PlanSchema::SCHEMA_VERSION,
             'summary'       => isset($plan['summary']) ? (string) $plan['summary'] : '',
+            'kit'           => $kit,
         ];
         $seenKeys      = [];
         $sectionsTotal = 0;
@@ -203,10 +219,7 @@ class PlanEnvelopeStage implements PlanStageInterface
             }
 
             if ($isPattern) {
-                $clean[] = [
-                    'pattern' => (string) $section['pattern'],
-                    'content' => isset($section['content']) ? (array) $section['content'] : [],
-                ];
+                $clean[] = $this->checkPatternSection($section, $sectionPath);
                 continue;
             }
 
@@ -217,6 +230,116 @@ class PlanEnvelopeStage implements PlanStageInterface
         }
 
         return $clean;
+    }
+
+    /**
+     * A kit section: the unit id plus CopySlots edits, normalised to maps so a
+     * validated plan validates to itself. Texts and attrs arrive from a model as
+     * lists of {id, html} / {id, value}, and from the review UI as id => value.
+     *
+     * @param array  $section Section, reduced to known keys.
+     * @param string $path    Error path.
+     *
+     * @return array
+     */
+    private function checkPatternSection(array $section, $path)
+    {
+        $clean = [
+            'pattern' => (string) $section['pattern'],
+            'texts'   => $this->pairs(isset($section['texts']) ? $section['texts'] : [], 'html', $path . '.texts'),
+            'attrs'   => $this->pairs(isset($section['attrs']) ? $section['attrs'] : [], 'value', $path . '.attrs'),
+            'remove'  => [],
+            'clones'  => [],
+        ];
+
+        $remove = isset($section['remove']) ? $section['remove'] : [];
+
+        if (! is_array($remove)) {
+            throw new ValidationException($this->getSlug(), 'Remove must be a list of unit ids.', $path . '.remove');
+        }
+
+        foreach ($remove as $unitId) {
+            if (! is_string($unitId) || $unitId === '') {
+                throw new ValidationException($this->getSlug(), 'Remove must be a list of unit ids.', $path . '.remove');
+            }
+            $clean['remove'][] = $unitId;
+        }
+
+        $clean['remove'] = array_values(array_unique($clean['remove']));
+        $clones          = isset($section['clones']) ? $section['clones'] : [];
+
+        if (! is_array($clones) || count($clones) > self::MAX_CLONES) {
+            throw new ValidationException(
+                $this->getSlug(),
+                sprintf('Clones must be a list of at most %d items.', self::MAX_CLONES),
+                $path . '.clones'
+            );
+        }
+
+        foreach (array_values($clones) as $index => $clone) {
+            $clonePath = $path . '.clones.' . $index;
+
+            if (! is_array($clone) || ! isset($clone['unit']) || ! is_string($clone['unit']) || $clone['unit'] === '') {
+                throw new ValidationException($this->getSlug(), 'A clone must name the unit it copies.', $clonePath);
+            }
+
+            $clean['clones'][] = [
+                'unit'  => $clone['unit'],
+                'texts' => $this->pairs(isset($clone['texts']) ? $clone['texts'] : [], 'html', $clonePath . '.texts'),
+                'attrs' => $this->pairs(isset($clone['attrs']) ? $clone['attrs'] : [], 'value', $clonePath . '.attrs'),
+            ];
+        }
+
+        return $clean;
+    }
+
+    /**
+     * @param mixed  $list     [{id, <valueKey>}] or {id: value}.
+     * @param string $valueKey "html" or "value".
+     * @param string $path     Error path.
+     *
+     * @return array id => value.
+     */
+    private function pairs($list, $valueKey, $path)
+    {
+        if (! is_array($list)) {
+            throw new ValidationException($this->getSlug(), 'Expected a list of slot edits.', $path);
+        }
+
+        if (count($list) > self::MAX_EDITS) {
+            throw new ValidationException(
+                $this->getSlug(),
+                sprintf('Too many slot edits in one section (max %d).', self::MAX_EDITS),
+                $path
+            );
+        }
+
+        $out = [];
+
+        foreach ($list as $key => $item) {
+            if (is_array($item)) {
+                if (! isset($item['id']) || ! is_string($item['id']) || ! array_key_exists($valueKey, $item)) {
+                    throw new ValidationException(
+                        $this->getSlug(),
+                        sprintf('Each slot edit needs an "id" and a "%s".', $valueKey),
+                        $path . '.' . $key
+                    );
+                }
+                $id    = $item['id'];
+                $value = $item[$valueKey];
+            } else {
+                $id    = (string) $key;
+                $value = $item;
+            }
+
+            if (is_array($value) || is_object($value)) {
+                throw new ValidationException($this->getSlug(), 'Slot values must be strings.', $path . '.' . $id);
+            }
+
+            $out[(string) $id] = (string) $value;
+        }
+
+        return $out;
     }
 
     /**

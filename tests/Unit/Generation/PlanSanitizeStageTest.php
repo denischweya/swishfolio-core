@@ -15,13 +15,33 @@ class PlanSanitizeStageTest extends GenerationTestCase
         return (new PlanSanitizeStage())->process($plan, $context);
     }
 
-    public function test_slot_copy_is_stripped_of_markup()
+    private function withTexts(array $texts, array $attrs = [])
     {
-        $result = $this->apply($this->plan([
-            'pages' => [$this->page(['sections' => [$this->patternSection(['headline' => 'Bold <b>claim</b>'])]])],
-        ]));
+        return $this->plan([
+            'pages' => [$this->page(['sections' => [$this->patternSection(['texts' => $texts, 'attrs' => $attrs])]])],
+        ]);
+    }
 
-        $this->assertSame('Bold claim', $result['pages'][0]['sections'][0]['content']['headline']);
+    public function test_slot_copy_keeps_only_inline_markup()
+    {
+        $result = $this->apply($this->withTexts([['id' => 't0', 'html' => 'Bold <em>claim</em><script>x</script>']]));
+
+        $this->assertSame('Bold <em>claim</em>x', $result['pages'][0]['sections'][0]['texts']['t0']);
+    }
+
+    public function test_a_kit_link_in_a_button_survives_kses()
+    {
+        $html   = '<a class="wp-block-button__link" href="{{link:contact}}">Get a quote</a>';
+        $result = $this->apply($this->withTexts([['id' => 't4', 'html' => $html]]));
+
+        $this->assertSame($html, $result['pages'][0]['sections'][0]['texts']['t4']);
+    }
+
+    public function test_attribute_values_are_plain_text()
+    {
+        $result = $this->apply($this->withTexts([], [['id' => 'a1', 'value' => 'Call <b>us</b>']]));
+
+        $this->assertSame('Call us', $result['pages'][0]['sections'][0]['attrs']['a1']);
     }
 
     public function test_page_titles_are_sanitised_and_slugs_are_slugged()
@@ -32,24 +52,6 @@ class PlanSanitizeStageTest extends GenerationTestCase
 
         $this->assertSame('About Us', $result['pages'][0]['title']);
         $this->assertSame('about-us', $result['pages'][0]['slug']);
-    }
-
-    public function test_a_url_slot_is_escaped()
-    {
-        $result = $this->apply($this->plan([
-            'pages' => [$this->page(['sections' => [$this->patternSection(['ctaUrl' => 'https://example.com/x'])]])],
-        ]));
-
-        $this->assertSame('https://example.com/x', $result['pages'][0]['sections'][0]['content']['ctaUrl']);
-    }
-
-    public function test_an_internal_page_reference_survives_url_escaping()
-    {
-        $result = $this->apply($this->plan([
-            'pages' => [$this->page(['sections' => [$this->patternSection(['ctaUrl' => '{{page:home}}'])]])],
-        ]));
-
-        $this->assertSame('{{page:home}}', $result['pages'][0]['sections'][0]['content']['ctaUrl']);
     }
 
     public function test_site_title_and_tagline_are_sanitised()
@@ -65,23 +67,5 @@ class PlanSanitizeStageTest extends GenerationTestCase
 
         $this->assertSame('Acme x', $result['site']['title']);
         $this->assertSame('We build', $result['site']['tagline']);
-    }
-
-    public function test_a_markup_only_text_slot_is_escaped_so_kses_has_nothing_left_to_rewrite()
-    {
-        $result = $this->apply($this->plan([
-            'pages' => [$this->page(['sections' => [$this->patternSection(['headline' => 'Design & build'])]])],
-        ]));
-
-        $this->assertSame('Design &amp; build', $result['pages'][0]['sections'][0]['content']['headline']);
-    }
-
-    public function test_a_slot_stored_in_a_block_comment_is_left_raw()
-    {
-        $result = $this->apply($this->plan([
-            'pages' => [$this->page(['sections' => [$this->patternSection(['label' => "Sasha's studio"])]])],
-        ]));
-
-        $this->assertSame("Sasha's studio", $result['pages'][0]['sections'][0]['content']['label']);
     }
 }

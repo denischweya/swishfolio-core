@@ -18,7 +18,6 @@ use SwishfolioCore\Tools\ToolRunner;
 use SwishfolioCore\Tools\Write\CreateContentTool;
 use SwishfolioCore\Tools\Write\SetFrontPageTool;
 use SwishfolioCore\Tools\Write\SetNavigationTool;
-use SwishfolioCore\Tools\Write\SetStyleVariationTool;
 use SwishfolioCore\Tools\Write\UpdateContentTool;
 
 /**
@@ -103,10 +102,11 @@ class RecordedGenerationEvalTest extends EvalTestCase
 
         foreach ((array) $case['response']['pages'] as $page) {
             foreach ((array) $page['sections'] as $section) {
-                $named = isset($section['pattern']) ? (string) $section['pattern'] : (string) $section['block'];
+                $named  = isset($section['pattern']) ? (string) $section['pattern'] : (string) $section['block'];
+                $needle = isset($section['pattern']) ? '## ' . $named . ' |' : '"' . $named . '"';
 
                 $this->assertStringContainsString(
-                    '"' . $named . '"',
+                    $needle,
                     $prompt,
                     sprintf('The plan uses "%s" but the catalogue in the prompt never offered it.', $named)
                 );
@@ -164,7 +164,7 @@ class RecordedGenerationEvalTest extends EvalTestCase
 
         $this->seedExistingPages($case);
 
-        $report = $this->executor()->execute($result['validated'], self::EVAL_USER_ID, $this->approvedContext());
+        $report = $this->executor($case)->execute($result['validated'], self::EVAL_USER_ID, $this->approvedContext());
         $posts  = $GLOBALS['sfcore_test_wp']['posts'];
 
         $this->assertNotSame([], $report['createdIds'], 'The plan wrote nothing at all.');
@@ -202,7 +202,7 @@ class RecordedGenerationEvalTest extends EvalTestCase
 
         $this->seedExistingPages($case);
 
-        $report = $this->executor()->execute($result['validated'], self::EVAL_USER_ID, $this->approvedContext());
+        $report = $this->executor($case)->execute($result['validated'], self::EVAL_USER_ID, $this->approvedContext());
         $posts  = $GLOBALS['sfcore_test_wp']['posts'];
 
         foreach ($report['pages'] as $page) {
@@ -212,10 +212,10 @@ class RecordedGenerationEvalTest extends EvalTestCase
 
             $content = (string) $posts[$page['postId']]['post_content'];
 
-            $this->assertStringNotContainsString(
-                '{{slot:',
+            $this->assertDoesNotMatchRegularExpression(
+                '/\{\{(kit-[a-z-]+|link|nav)[:}]/',
                 $content,
-                sprintf('Page "%s" was stored with an unfilled slot token.', $page['key'])
+                sprintf('Page "%s" was stored with an unresolved kit placeholder.', $page['key'])
             );
             $this->assertStringNotContainsString(
                 '{{page:',
@@ -266,7 +266,7 @@ class RecordedGenerationEvalTest extends EvalTestCase
 
         $before = $GLOBALS['sfcore_test_wp']['posts'];
 
-        $this->executor()->execute($result['validated'], self::EVAL_USER_ID, $this->approvedContext());
+        $this->executor($case)->execute($result['validated'], self::EVAL_USER_ID, $this->approvedContext());
 
         foreach (array_keys($reused) as $postId) {
             $this->assertSame(
@@ -284,29 +284,17 @@ class RecordedGenerationEvalTest extends EvalTestCase
      *
      * @return PlanExecutor
      */
-    private function executor()
+    private function executor(array $case)
     {
         $journal = new MutationJournal(new InMemoryJournalRepository());
 
         return new PlanExecutor(
-            new BlockComposer($this->library()),
+            new BlockComposer($this->kitFor($case)),
             new ActionExecutor(new ToolRunner(new ToolRegistry([
                 new CreateContentTool($journal),
                 new UpdateContentTool($journal),
                 new SetFrontPageTool($journal),
                 new SetNavigationTool($journal),
-                new SetStyleVariationTool(
-                    $journal,
-                    function () {
-                        return [
-                            ['title' => 'Default', 'version' => 3, 'settings' => [], 'styles' => []],
-                            ['title' => 'Swiss International', 'version' => 3, 'settings' => [], 'styles' => []],
-                        ];
-                    },
-                    function () {
-                        return 23;
-                    }
-                ),
             ]), $journal))
         );
     }

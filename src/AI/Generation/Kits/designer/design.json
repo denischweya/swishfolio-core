@@ -1,0 +1,107 @@
+{
+    "variation": "Swiss International",
+    "globalStyles": {
+        "settings": {
+            "color": {
+                "palette": {
+                    "theme": [
+                        {
+                            "slug": "base",
+                            "name": "Paper",
+                            "color": "#F2EFE9"
+                        },
+                        {
+                            "slug": "contrast",
+                            "name": "Ink",
+                            "color": "#111111"
+                        },
+                        {
+                            "slug": "accent-1",
+                            "name": "Electric",
+                            "color": "#2B2BF5"
+                        },
+                        {
+                            "slug": "accent-2",
+                            "name": "Paper tint",
+                            "color": "#E4DFD4"
+                        },
+                        {
+                            "slug": "accent-3",
+                            "name": "Signal",
+                            "color": "#FF5A36"
+                        },
+                        {
+                            "slug": "accent-4",
+                            "name": "Muted",
+                            "color": "#6C675E"
+                        },
+                        {
+                            "slug": "accent-5",
+                            "name": "White",
+                            "color": "#FFFFFF"
+                        },
+                        {
+                            "slug": "accent-6",
+                            "name": "Near black",
+                            "color": "#0C0C0C"
+                        }
+                    ]
+                }
+            }
+        },
+        "styles": {
+            "color": {
+                "background": "var:preset|color|base",
+                "text": "var:preset|color|contrast"
+            },
+            "typography": {
+                "fontFamily": "var:preset|font-family|manrope",
+                "fontSize": "1.05rem",
+                "lineHeight": "1.6"
+            },
+            "elements": {
+                "heading": {
+                    "typography": {
+                        "fontFamily": "var:preset|font-family|space-grotesk",
+                        "fontWeight": "600",
+                        "letterSpacing": "-0.035em",
+                        "lineHeight": "0.98"
+                    }
+                },
+                "link": {
+                    "color": {
+                        "text": "var:preset|color|contrast"
+                    },
+                    "typography": {
+                        "textDecoration": "none"
+                    }
+                },
+                "button": {
+                    "color": {
+                        "background": "var:preset|color|contrast",
+                        "text": "var:preset|color|base"
+                    },
+                    "border": {
+                        "radius": "0px"
+                    },
+                    "typography": {
+                        "fontFamily": "var:preset|font-family|manrope",
+                        "fontWeight": "600",
+                        "fontSize": "0.9rem",
+                        "letterSpacing": "0.02em"
+                    },
+                    "spacing": {
+                        "padding": {
+                            "top": "1.05rem",
+                            "bottom": "1.05rem",
+                            "left": "1.9rem",
+                            "right": "1.9rem"
+                        }
+                    }
+                }
+            },
+            "css": ":root{--sf-hair:rgba(17,17,17,.16);--sf-hair-strong:rgba(17,17,17,.3)}body{-webkit-font-smoothing:antialiased}h1,h2,h3{text-wrap:balance}.sf-eyebrow{font-family:var(--wp--preset--font-family--space-grotesk);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600}.sf-hair{border-top:1px solid var(--sf-hair);padding-top:1.1rem}.sf-rowline{border-top:1px solid var(--sf-hair)}.sf-rowline:last-child{border-bottom:1px solid var(--sf-hair)}.sf-index-row{transition:background-color .25s ease,padding-left .25s ease}.sf-index-row:hover{background:var(--wp--preset--color--accent-2);padding-left:.9rem}.sf-arrow a{position:relative;display:inline-flex;align-items:center;gap:.5rem;border-bottom:1px solid var(--sf-hair-strong);padding-bottom:.25rem;transition:color .2s ease,border-color .2s ease}.sf-arrow a:hover{color:var(--wp--preset--color--accent-1);border-color:var(--wp--preset--color--accent-1)}.sf-display{letter-spacing:-.045em}.sf-marquee{font-family:var(--wp--preset--font-family--space-grotesk);letter-spacing:-.03em}.sfcore-portfolio .sfcore-portfolio__card{background:transparent;border:0;box-shadow:none;padding:0;border-radius:0}.sfcore-portfolio .sfcore-portfolio__image{border-radius:0;overflow:hidden}.sfcore-portfolio .sfcore-portfolio__image img{border-radius:0;transition:transform .6s cubic-bezier(.2,.7,.3,1)}.sfcore-portfolio .sfcore-portfolio__item:hover .sfcore-portfolio__image img{transform:scale(1.03)}.sfcore-portfolio .sfcore-portfolio__content{padding:1.1rem 0 0;margin-top:1.1rem;border-top:1px solid var(--sf-hair);display:flex;flex-direction:column;gap:.45rem}.sfcore-portfolio .sfcore-portfolio__title{font-family:var(--wp--preset--font-family--space-grotesk);letter-spacing:-.025em;font-size:1.5rem;font-weight:600;margin:0;order:2}.sfcore-portfolio .sfcore-portfolio__title a{border:0}.sfcore-portfolio .sfcore-portfolio__taxonomies{order:1;margin:0}.sfcore-portfolio .sfcore-portfolio__badge{background:none;padding:0;border:0;font-family:var(--wp--preset--font-family--space-grotesk);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--wp--preset--color--accent-1)}.sfcore-portfolio .sfcore-portfolio__meta-item{order:3;font-size:.84rem;color:var(--wp--preset--color--accent-4);display:flex;gap:.4rem}.sfcore-portfolio .sfcore-portfolio__meta-label{text-transform:uppercase;letter-spacing:.14em;font-size:.68rem;align-self:center}.sf-dark .wp-block-heading,.sf-dark p{color:var(--wp--preset--color--base)}.sf-dark a{color:var(--wp--preset--color--base)}.wp-block-separator{border:0;border-top:1px solid var(--sf-hair);opacity:1;margin:0}.sf-stat{font-family:var(--wp--preset--font-family--space-grotesk);letter-spacing:-.04em;line-height:1}@media(max-width:781px){.sf-index-row:hover{padding-left:0}}.sfcore-portfolio .sfcore-portfolio__excerpt{order:4;margin:.15rem 0 0;color:var(--wp--preset--color--accent-4);font-size:.92rem;line-height:1.55}.sfcore-portfolio .sfcore-portfolio__filters{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2.4rem;justify-content:flex-start}.sfcore-portfolio .sfcore-portfolio__filter{background:none;border:1px solid var(--sf-hair);border-radius:0;padding:.6rem 1.1rem;font-family:var(--wp--preset--font-family--space-grotesk);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--wp--preset--color--accent-4);transition:all .2s ease}.sfcore-portfolio .sfcore-portfolio__filter:hover{border-color:var(--wp--preset--color--contrast);color:var(--wp--preset--color--contrast)}.sfcore-portfolio .sfcore-portfolio__filter.is-active{background:var(--wp--preset--color--contrast);border-color:var(--wp--preset--color--contrast);color:var(--wp--preset--color--base)}.wp-block-details summary{font-family:var(--wp--preset--font-family--space-grotesk);font-size:1.18rem;font-weight:600;letter-spacing:-.02em;cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:1.5rem}.wp-block-details summary::-webkit-details-marker{display:none}.wp-block-details summary::after{content:'+';color:var(--wp--preset--color--accent-1);font-size:1.5rem;font-weight:400;line-height:1}.wp-block-details[open] summary::after{content:'\\2013'}.wp-block-list li::marker{color:var(--wp--preset--color--accent-1)}.wp-block-list li{padding-left:.2em}\nbody :focus:not(:focus-visible){outline:none!important}body :where(a,button,summary,[tabindex],[role=button],input[type=checkbox],input[type=radio],input[type=submit],input[type=button]):focus-visible{outline:2px solid #2563EB!important;outline-offset:3px!important;box-shadow:0 0 0 3px #fff}body :where(input,textarea,select):focus-visible{outline-color:#2563EB}.wp-block-navigation .wp-block-navigation-item__content:focus-visible{outline-offset:4px!important}"
+        }
+    },
+    "fonts": []
+}

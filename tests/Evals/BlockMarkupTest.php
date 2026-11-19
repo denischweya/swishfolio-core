@@ -54,28 +54,24 @@ class BlockMarkupTest extends EvalTestCase
         BlockMarkup::parse($markup);
     }
 
-    public function test_it_round_trips_every_slot_bearing_unit_the_plugin_ships()
+    public function test_it_round_trips_every_kit_section_the_plugin_ships()
     {
-        $library = $this->library();
         $checked = 0;
 
-        foreach ($library->all() as $id => $unit) {
-            if ($unit->getFile() === null) {
-                continue;
+        foreach ($this->library()->kits() as $slug => $kit) {
+            foreach (array_keys($kit->units('section')) as $id) {
+                $trip = BlockMarkup::roundTrip($kit->markup($id));
+
+                $this->assertTrue(
+                    $trip['identical'],
+                    sprintf('Kit section "%s/%s" does not survive a parse and re-serialise (offset %s).', $slug, $id, var_export($trip['diffAt'], true))
+                );
+
+                $checked++;
             }
-
-            $markup = $library->markup($id);
-            $trip   = BlockMarkup::roundTrip($markup);
-
-            $this->assertTrue(
-                $trip['identical'],
-                sprintf('Unit "%s" does not survive a parse and re-serialise (offset %s).', $id, var_export($trip['diffAt'], true))
-            );
-
-            $checked++;
         }
 
-        $this->assertGreaterThanOrEqual(5, $checked, 'Fewer slot-bearing units were found than the plugin ships.');
+        $this->assertGreaterThanOrEqual(100, $checked, 'Fewer kit sections were found than the plugin ships.');
     }
 
     public function test_it_reads_back_the_attributes_a_dynamic_block_stores()

@@ -111,7 +111,7 @@ class PlanEnvelopeStageTest extends GenerationTestCase
 
     public function test_a_section_naming_both_a_pattern_and_a_block_is_rejected()
     {
-        $section = ['pattern' => 'alpha-hero', 'block' => 'swishfolio-core/portfolio'];
+        $section = ['pattern' => 'home-01-hero', 'block' => 'swishfolio-core/portfolio'];
 
         $this->assertRejected(
             $this->plan(['pages' => [$this->page(['sections' => [$section]])]]),
@@ -139,11 +139,33 @@ class PlanEnvelopeStageTest extends GenerationTestCase
 
     public function test_unknown_section_keys_are_discarded()
     {
-        $section = ['pattern' => 'alpha-hero', 'content' => [], 'innerHTML' => '<script>x</script>'];
+        $section = ['pattern' => 'home-01-hero', 'content' => [], 'innerHTML' => '<script>x</script>'];
 
         $result = $this->apply($this->plan(['pages' => [$this->page(['sections' => [$section]])]]));
 
-        $this->assertSame(['pattern', 'content'], array_keys($result['pages'][0]['sections'][0]));
+        $this->assertSame(['pattern', 'texts', 'attrs', 'remove', 'clones'], array_keys($result['pages'][0]['sections'][0]));
+    }
+
+    public function test_slot_edit_lists_become_id_maps()
+    {
+        $result  = $this->apply($this->plan());
+        $section = $result['pages'][0]['sections'][0];
+
+        $this->assertSame('Built to last', $section['texts']['t0']);
+        $this->assertSame('tel:+447700900123', $section['attrs']['a0']);
+    }
+
+    public function test_a_plan_for_another_kit_is_rejected()
+    {
+        $this->assertRejected($this->plan(['kit' => 'beta']), 'kit');
+    }
+
+    public function test_the_context_kit_is_carried_forward_even_when_the_plan_omits_it()
+    {
+        $plan = $this->plan();
+        unset($plan['kit']);
+
+        $this->assertSame('alpha', $this->apply($plan)['kit']);
     }
 
     public function test_a_site_plan_without_a_site_block_is_rejected()

@@ -1,0 +1,801 @@
+{
+    "version": 2,
+    "slug": "photographer",
+    "name": "Still Frame",
+    "title": "Photography Portfolio",
+    "industry": "creative",
+    "description": "A minimal monochrome WordPress template for photographers, with a gallery wall, photo series and commission enquiries.",
+    "look": "Type: Hanken Grotesk, DM Mono. Colours: White #FFFFFF, Black #000000, Ink #000000, Paper grey #F4F4F4, Mid grey #9A9A9A, Caption grey #6B6B6B.",
+    "demo": {
+        "business": "Idun Marlowe",
+        "tagline": "Photographer · editorial, travel and portrait commissions. Lisbon."
+    },
+    "design": {
+        "file": "design.json",
+        "variation": "Default",
+        "classPrefix": "ph-",
+        "fingerprint": ".ph-sec",
+        "palette": {
+            "base": "White #FFFFFF",
+            "contrast": "Black #000000",
+            "accent-1": "Ink #000000",
+            "accent-2": "Paper grey #F4F4F4",
+            "accent-3": "Mid grey #9A9A9A",
+            "accent-4": "Caption grey #6B6B6B",
+            "accent-5": "Hairline #E4E4E4",
+            "accent-6": "Soft black #111111"
+        },
+        "fonts": [
+            "Hanken Grotesk",
+            "DM Mono"
+        ],
+        "pageTemplate": "page-landing",
+        "header": "header",
+        "footer": "footer",
+        "assetsPath": "assets/kits/photographer"
+    },
+    "frontPage": "home",
+    "navigation": [
+        "work",
+        "commissions",
+        "about",
+        "contact"
+    ],
+    "pages": [
+        {
+            "key": "home",
+            "title": "Home",
+            "slug": "home",
+            "navLabel": "Home",
+            "inNav": false,
+            "type": "home",
+            "template": "page-landing",
+            "sections": [
+                "home-01-hero",
+                "home-02-intro",
+                "home-03-gallery",
+                "home-04-content",
+                "home-05-gallery",
+                "home-06-gallery",
+                "home-07-logos",
+                "home-08-cta"
+            ]
+        },
+        {
+            "key": "work",
+            "title": "Work",
+            "slug": "work",
+            "navLabel": "Work",
+            "inNav": true,
+            "type": "work",
+            "template": "page-landing",
+            "sections": [
+                "work-01-page-header",
+                "work-02-portfolio",
+                "work-03-gallery",
+                "work-04-gallery",
+                "work-05-cta"
+            ]
+        },
+        {
+            "key": "commissions",
+            "title": "Commissions",
+            "slug": "commissions",
+            "navLabel": "Commissions",
+            "inNav": true,
+            "type": "services",
+            "template": "page-landing",
+            "sections": [
+                "commissions-01-page-header",
+                "commissions-02-services",
+                "commissions-03-pricing",
+                "commissions-04-process",
+                "commissions-05-cta",
+                "commissions-06-faq",
+                "commissions-07-cta"
+            ]
+        },
+        {
+            "key": "about",
+            "title": "About",
+            "slug": "about",
+            "navLabel": "About",
+            "inNav": true,
+            "type": "about",
+            "template": "page-landing",
+            "sections": [
+                "about-01-page-header",
+                "about-02-contact",
+                "about-03-about",
+                "about-04-about",
+                "about-05-cta"
+            ]
+        },
+        {
+            "key": "contact",
+            "title": "Contact",
+            "slug": "contact",
+            "navLabel": "Contact",
+            "inNav": true,
+            "type": "contact",
+            "template": "page-landing",
+            "sections": [
+                "contact-01-page-header",
+                "contact-02-contact",
+                "contact-03-cta",
+                "contact-04-faq"
+            ]
+        }
+    ],
+    "units": {
+        "home-01-hero": {
+            "scope": "section",
+            "role": "hero",
+            "summary": "Home page hero from the home page, headed (H1) \"Quiet photographs of places, and the people in them.\": 2 paragraphs, 1 photo, 2 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 1,
+            "file": "units/home-01-hero.html",
+            "images": [
+                "coast-shore"
+            ],
+            "slots": 3,
+            "repeatable": 2,
+            "ksesStable": false
+        },
+        "home-02-intro": {
+            "scope": "section",
+            "role": "intro",
+            "summary": "Intro band from the home page: 2 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 2,
+            "file": "units/home-02-intro.html",
+            "slots": 8,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "home-03-gallery": {
+            "scope": "section",
+            "role": "gallery",
+            "summary": "Gallery section from the home page, headed (H2) \"Recent work\": 14 paragraphs, 1 button, 6 photos.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 3,
+            "file": "units/home-03-gallery.html",
+            "images": [
+                "white-figure",
+                "white-curve",
+                "coast-walkers",
+                "coast-fog",
+                "struct-beam",
+                "dune-figure"
+            ],
+            "slots": 16,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "home-04-content": {
+            "scope": "section",
+            "role": "content",
+            "summary": "Content section from the home page, headed (H2) \"North Window\": 8 paragraphs, 1 button, 3 photos.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 4,
+            "file": "units/home-04-content.html",
+            "images": [
+                "port-window",
+                "port-sill",
+                "port-glasses"
+            ],
+            "slots": 10,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "home-05-gallery": {
+            "scope": "section",
+            "role": "gallery",
+            "summary": "Gallery section from the home page, headed (H2) \"Frames from the road\": 2 paragraphs, 9 photos, 9 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 5,
+            "file": "units/home-05-gallery.html",
+            "images": [
+                "coast-palm",
+                "white-alley",
+                "dune-pale",
+                "struct-house",
+                "dune-dark",
+                "white-court",
+                "port-dapple",
+                "white-edge",
+                "room-curtain"
+            ],
+            "slots": 13,
+            "repeatable": 9,
+            "ksesStable": false
+        },
+        "home-06-gallery": {
+            "scope": "section",
+            "role": "gallery",
+            "summary": "Gallery section from the home page, headed (H2) \"Series\": 2 paragraphs, 6 photos, 6 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 6,
+            "file": "units/home-06-gallery.html",
+            "images": [
+                "coast-shore",
+                "white-figure",
+                "dune-figure",
+                "port-window",
+                "struct-beam",
+                "room-curtain"
+            ],
+            "slots": 40,
+            "repeatable": 6,
+            "ksesStable": false
+        },
+        "home-07-logos": {
+            "scope": "section",
+            "role": "logos",
+            "summary": "Logos section from the home page: 1 paragraph, 5 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 7,
+            "file": "units/home-07-logos.html",
+            "slots": 6,
+            "repeatable": 5,
+            "ksesStable": true
+        },
+        "home-08-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the home page, headed (H2) \"Booking editorial and portrait work from March 2027.\": 2 paragraphs, 2 buttons.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 8,
+            "file": "units/home-08-cta.html",
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "work-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the work page, headed (H1) \"Six series, one hundred and forty frames.\": 2 paragraphs.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 1,
+            "file": "units/work-01-page-header.html",
+            "slots": 3,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "work-02-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the work page. Lists the site's portfolio projects.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 2,
+            "file": "units/work-02-portfolio.html",
+            "needs": [
+                "projects"
+            ],
+            "slots": 0,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "work-03-gallery": {
+            "scope": "section",
+            "role": "gallery",
+            "summary": "Gallery section from the work page, headed (H2) \"Roll 2023–2025\": 2 paragraphs, 19 photos, 19 repeatable items.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 3,
+            "file": "units/work-03-gallery.html",
+            "images": [
+                "coast-shore",
+                "coast-fog",
+                "coast-walkers",
+                "coast-palm",
+                "white-curve",
+                "white-figure",
+                "white-edge",
+                "white-court",
+                "white-alley",
+                "dune-figure",
+                "dune-pale",
+                "dune-dark",
+                "port-window",
+                "port-sill",
+                "port-glasses",
+                "port-dapple",
+                "struct-beam",
+                "struct-house",
+                "room-curtain"
+            ],
+            "slots": 23,
+            "repeatable": 19,
+            "ksesStable": false
+        },
+        "work-04-gallery": {
+            "scope": "section",
+            "role": "gallery",
+            "summary": "Gallery section from the work page, headed (H2) \"All series\": 1 paragraph, 6 photos, 6 repeatable items.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 4,
+            "file": "units/work-04-gallery.html",
+            "images": [
+                "coast-shore",
+                "white-figure",
+                "dune-figure",
+                "port-window",
+                "struct-beam",
+                "room-curtain"
+            ],
+            "slots": 39,
+            "repeatable": 6,
+            "ksesStable": false
+        },
+        "work-05-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the work page, headed (H2) \"Every frame here can be printed.\": 2 paragraphs, 2 buttons.",
+            "pageTypes": [
+                "work",
+                "any"
+            ],
+            "sourcePage": "work",
+            "position": 5,
+            "file": "units/work-05-cta.html",
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "commissions-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the commissions page, headed (H1) \"Photographs made slowly, for people who print them.\": 4 paragraphs, 2 buttons, 1 photo.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "commissions",
+            "position": 1,
+            "file": "units/commissions-01-page-header.html",
+            "images": [
+                "white-court"
+            ],
+            "slots": 7,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "commissions-02-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the commissions page, headed (H2) \"Three kinds of commission\": 4 headings, 13 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "commissions",
+            "position": 2,
+            "file": "units/commissions-02-services.html",
+            "slots": 17,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "commissions-03-pricing": {
+            "scope": "section",
+            "role": "pricing",
+            "summary": "Pricing section from the commissions page, headed (H2) \"Where budgets usually land\": 2 paragraphs, 4 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "commissions",
+            "position": 3,
+            "file": "units/commissions-03-pricing.html",
+            "slots": 15,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "commissions-04-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the commissions page, headed (H2) \"From first note to final print\": 5 headings, 13 paragraphs, 4 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "commissions",
+            "position": 4,
+            "file": "units/commissions-04-process.html",
+            "slots": 18,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "commissions-05-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the commissions page: 1 paragraph, 3 photos.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "commissions",
+            "position": 5,
+            "file": "units/commissions-05-cta.html",
+            "images": [
+                "dune-pale",
+                "coast-fog",
+                "white-edge"
+            ],
+            "slots": 1,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "commissions-06-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ from the commissions page, headed (H2) \"Before you write\": 8 paragraphs, 6 questions, 6 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "commissions",
+            "position": 6,
+            "file": "units/commissions-06-faq.html",
+            "slots": 15,
+            "repeatable": 6,
+            "ksesStable": true
+        },
+        "commissions-07-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the commissions page, headed (H2) \"Tell me about the story.\": 2 paragraphs, 2 buttons.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "commissions",
+            "position": 7,
+            "file": "units/commissions-07-cta.html",
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "about-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the about page, headed (H1) \"I photograph the hour when nothing much is happening.\": 6 paragraphs, 1 photo, 2 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 1,
+            "file": "units/about-01-page-header.html",
+            "images": [
+                "about-portrait"
+            ],
+            "slots": 7,
+            "repeatable": 2,
+            "ksesStable": false
+        },
+        "about-02-contact": {
+            "scope": "section",
+            "role": "contact",
+            "summary": "Contact section from the about page: 2 paragraphs.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 2,
+            "file": "units/about-02-contact.html",
+            "slots": 2,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "about-03-about": {
+            "scope": "section",
+            "role": "about",
+            "summary": "About section from the about page, headed (H2) \"Published, shown, taught\": 4 paragraphs, 17 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 3,
+            "file": "units/about-03-about.html",
+            "slots": 19,
+            "repeatable": 17,
+            "ksesStable": true
+        },
+        "about-04-about": {
+            "scope": "section",
+            "role": "about",
+            "summary": "About section from the about page, headed (H2) \"One bag, two cameras, whatever light there is.\": 3 paragraphs, 1 photo, 5 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 4,
+            "file": "units/about-04-about.html",
+            "images": [
+                "room-curtain"
+            ],
+            "slots": 14,
+            "repeatable": 5,
+            "ksesStable": false
+        },
+        "about-05-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the about page, headed (H2) \"Visits by appointment, Tuesday to Thursday.\": 2 paragraphs, 2 buttons.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 5,
+            "file": "units/about-05-cta.html",
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "contact-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the contact page, headed (H1) \"Write to the studio.\": 1 paragraph.",
+            "pageTypes": [
+                "contact"
+            ],
+            "sourcePage": "contact",
+            "position": 1,
+            "file": "units/contact-01-page-header.html",
+            "slots": 3,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "contact-02-contact": {
+            "scope": "section",
+            "role": "contact",
+            "summary": "Contact section from the contact page, headed (H2) \"Dates, a place, and a paragraph.\": 1 paragraph, 16 repeatable items. Has a demo form that does not send anything yet.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "contact",
+            "position": 2,
+            "file": "units/contact-02-contact.html",
+            "needs": [
+                "form"
+            ],
+            "slots": 31,
+            "repeatable": 16,
+            "ksesStable": false
+        },
+        "contact-03-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the contact page: 1 paragraph, 3 photos.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "contact",
+            "position": 3,
+            "file": "units/contact-03-cta.html",
+            "images": [
+                "white-alley",
+                "coast-palm",
+                "struct-house"
+            ],
+            "slots": 1,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "contact-04-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ from the contact page, headed (H2) \"Three quick answers\": 4 paragraphs, 3 questions, 3 repeatable items.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "contact",
+            "position": 4,
+            "file": "units/contact-04-faq.html",
+            "slots": 8,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "header": {
+            "scope": "header",
+            "role": "header",
+            "summary": "Header template part.",
+            "file": "units/header.html",
+            "slots": 3,
+            "ksesStable": false
+        },
+        "footer": {
+            "scope": "footer",
+            "role": "footer",
+            "summary": "Footer template part.",
+            "file": "units/footer.html",
+            "slots": 10,
+            "ksesStable": false
+        }
+    },
+    "assets": {
+        "about-portrait": {
+            "file": "images/about-portrait.jpg",
+            "alt": "Portrait of the photographer in a field at dusk, looking away",
+            "title": "Idun Marlowe",
+            "width": 1300,
+            "height": 1950
+        },
+        "coast-fog": {
+            "file": "images/coast-fog.jpg",
+            "alt": "Pale beach dissolving into sea fog with a few shorebirds",
+            "title": "Shorebirds, fog",
+            "width": 1600,
+            "height": 900
+        },
+        "coast-palm": {
+            "file": "images/coast-palm.jpg",
+            "alt": "A single palm tree on a foggy shoreline",
+            "title": "Palm in weather",
+            "width": 1300,
+            "height": 1625
+        },
+        "coast-shore": {
+            "file": "images/coast-shore.jpg",
+            "alt": "Dark volcanic beach with sea stacks fading into fog",
+            "title": "Black sand, first light",
+            "width": 1600,
+            "height": 1067
+        },
+        "coast-walkers": {
+            "file": "images/coast-walkers.jpg",
+            "alt": "Three small figures walking a wide, empty beach under a white sky",
+            "title": "Walkers, low tide",
+            "width": 1300,
+            "height": 1950
+        },
+        "dune-dark": {
+            "file": "images/dune-dark.jpg",
+            "alt": "A dark dune silhouette under a grey sky",
+            "title": "Dune at dusk",
+            "width": 1600,
+            "height": 900
+        },
+        "dune-figure": {
+            "file": "images/dune-figure.jpg",
+            "alt": "Sand dunes under a grey-green sky with one tiny distant figure",
+            "title": "One walker",
+            "width": 1300,
+            "height": 1509
+        },
+        "dune-pale": {
+            "file": "images/dune-pale.jpg",
+            "alt": "Pale wind-combed dunes with sparse grass",
+            "title": "White sand, wind",
+            "width": 1300,
+            "height": 1950
+        },
+        "port-dapple": {
+            "file": "images/port-dapple.jpg",
+            "alt": "Close portrait of a young man in dappled sunlight",
+            "title": "Rafael, dancer",
+            "width": 1300,
+            "height": 1950
+        },
+        "port-glasses": {
+            "file": "images/port-glasses.jpg",
+            "alt": "Man in glasses lit by window light against a teal wall",
+            "title": "Jonas, architect",
+            "width": 1300,
+            "height": 1950
+        },
+        "port-sill": {
+            "file": "images/port-sill.jpg",
+            "alt": "Man leaning at a window sill looking out, lit from the side",
+            "title": "Tomás, at the sill",
+            "width": 1600,
+            "height": 1067
+        },
+        "port-window": {
+            "file": "images/port-window.jpg",
+            "alt": "Man standing by a tall industrial window in warm side light",
+            "title": "Tomás, ceramicist",
+            "width": 1300,
+            "height": 1950
+        },
+        "room-curtain": {
+            "file": "images/room-curtain.jpg",
+            "alt": "Linen curtain lit by a blade of afternoon sun in a dark room",
+            "title": "Curtain, 4 p.m.",
+            "width": 1300,
+            "height": 1950
+        },
+        "struct-beam": {
+            "file": "images/struct-beam.jpg",
+            "alt": "Concrete canopy and column against a pale sky",
+            "title": "Canopy",
+            "width": 1600,
+            "height": 1068
+        },
+        "struct-house": {
+            "file": "images/struct-house.jpg",
+            "alt": "Angular concrete house in raking light",
+            "title": "House on the slope",
+            "width": 1300,
+            "height": 1950
+        },
+        "white-alley": {
+            "file": "images/white-alley.jpg",
+            "alt": "Sunlit whitewashed alley with steps and deep shadow",
+            "title": "Passage, late morning",
+            "width": 1600,
+            "height": 1201
+        },
+        "white-court": {
+            "file": "images/white-court.jpg",
+            "alt": "White building with a small door and two clipped trees in soft light",
+            "title": "Courtyard with two trees",
+            "width": 1300,
+            "height": 1733
+        },
+        "white-curve": {
+            "file": "images/white-curve.jpg",
+            "alt": "Curved white modernist facade against a pale sky",
+            "title": "Travertine curve",
+            "width": 1600,
+            "height": 1067
+        },
+        "white-edge": {
+            "file": "images/white-edge.jpg",
+            "alt": "The edge of a white wall against a clear blue sky",
+            "title": "Edge, noon",
+            "width": 1300,
+            "height": 1973
+        },
+        "white-figure": {
+            "file": "images/white-figure.jpg",
+            "alt": "A small figure standing before a tall curved white wall and reflecting pool",
+            "title": "Figure and wall",
+            "width": 1300,
+            "height": 1950
+        }
+    },
+    "source": {
+        "dir": "seed/sites/photographer",
+        "hash": "1085c7a0a800d54d34a727df2e50aec1"
+    }
+}

@@ -7,14 +7,7 @@
   "instruction": "Build me a small site.",
   "brief": {
     "siteTitle": "Baseline",
-    "styleVariation": "",
-    "styleVariations": [
-      "Default",
-      "Neo-Brutalist",
-      "Swiss International",
-      "Sasha",
-      "Terminal"
-    ],
+    "kit": "designer",
     "customTemplates": [
       "page-no-title",
       "page-landing",
@@ -26,6 +19,7 @@
   },
   "response": {
     "schemaVersion": "1.0",
+    "kit": "designer",
     "summary": "A one page site used as the baseline for a rejection fixture.",
     "site": {
       "title": "Baseline",
@@ -42,14 +36,25 @@
         "status": "draft",
         "sections": [
           {
-            "pattern": "swiss-hero",
-            "content": {
-              "eyebrow": "01. Studio",
-              "headline": "A Short Headline",
-              "body": "A supporting sentence that sits under the headline and explains what the studio does.",
-              "primaryCtaLabel": "See the work",
-              "primaryCtaUrl": "https://example.test/work"
-            }
+            "pattern": "contact-02-cta",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Not ready to brief yet?"
+              },
+              {
+                "id": "t1",
+                "html": "Send the short version and we can shape it together."
+              },
+              {
+                "id": "t2",
+                "html": "Availability"
+              },
+              {
+                "id": "t3",
+                "html": "Taking new work this spring."
+              }
+            ]
           }
         ]
       }

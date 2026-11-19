@@ -10,7 +10,7 @@ class PlanAssemblerTest extends GenerationTestCase
     private function assembler()
     {
         return new PlanAssembler(
-            $this->library(),
+            $this->kit(),
             $this->registry(),
             $this->tokens(),
             new PromptManager(SFCORE_PLUGIN_DIR . 'src/AI/Prompt')
@@ -22,22 +22,20 @@ class PlanAssemblerTest extends GenerationTestCase
         return array_merge([
             'instruction'     => 'A studio site for a two person design practice.',
             'siteTitle'       => 'Acme',
-            'styleVariation'  => '',
-            'styleVariations' => ['Default', 'Swiss International'],
             'customTemplates' => ['page-no-title'],
             'existingSlugs'   => ['home'],
         ], $overrides);
     }
 
-    public function test_the_system_prompt_carries_the_catalogue_but_never_its_markup()
+    public function test_the_system_prompt_carries_only_its_kit_catalogue_and_never_markup()
     {
-        $request = $this->assembler()->forSitePlan($this->brief(), 'gpt-4o');
-        $system  = $request->getSystemPrompt();
+        $system = $this->assembler()->forSitePlan($this->brief(), 'gpt-4o')->getSystemPrompt();
 
-        $this->assertStringContainsString('alpha-hero', $system);
-        $this->assertStringContainsString('"role": "hero"', $system);
+        $this->assertStringContainsString('Kit "alpha"', $system);
+        $this->assertStringContainsString('## home-01-hero | role: hero', $system);
+        $this->assertStringContainsString('t0 <h1>: Demo headline', $system);
         $this->assertStringNotContainsString('wp:group', $system);
-        $this->assertStringNotContainsString('{{slot:', $system);
+        $this->assertStringNotContainsString('Second fixture', $system, 'Another kit never reaches the prompt.');
     }
 
     public function test_the_system_prompt_carries_the_theme_design_tokens()
@@ -58,35 +56,32 @@ class PlanAssemblerTest extends GenerationTestCase
         $this->assertStringNotContainsString('swishfolio-core/swish-form', $system);
     }
 
-    public function test_a_unit_needing_media_is_never_offered_to_the_planner()
-    {
-        $system = $this->assembler()->forSitePlan($this->brief(), 'gpt-4o')->getSystemPrompt();
-
-        $this->assertStringNotContainsString('needs-media', $system);
-    }
-
-    public function test_a_variation_specific_unit_is_offered_only_under_its_variation()
-    {
-        $assembler = $this->assembler();
-
-        $this->assertStringNotContainsString(
-            'swiss-only',
-            $assembler->forSitePlan($this->brief(), 'gpt-4o')->getSystemPrompt()
-        );
-
-        $this->assertStringContainsString(
-            'swiss-only',
-            $assembler->forSitePlan($this->brief(['styleVariation' => 'Swiss International']), 'gpt-4o')->getSystemPrompt()
-        );
-    }
-
     public function test_the_user_prompt_carries_the_brief_and_leaves_no_placeholder()
     {
         $user = $this->assembler()->forSitePlan($this->brief(), 'gpt-4o')->getUserPrompt();
 
         $this->assertStringContainsString('two person design practice', $user);
         $this->assertStringContainsString('"existingSlugs"', $user);
+        $this->assertStringContainsString('"alpha"', $user);
         $this->assertSame(0, preg_match('/\{\{[a-z0-9_]+\}\}/i', $user));
+    }
+
+    public function test_the_site_schema_pins_the_kit()
+    {
+        $schema = $this->assembler()->forSitePlan($this->brief(), 'gpt-4o')->getSchema();
+
+        $this->assertContains('kit', $schema['required']);
+        $this->assertSame(['alpha'], $schema['properties']['kit']['enum']);
+    }
+
+    public function test_the_copy_fill_request_lists_only_the_gaps()
+    {
+        $gaps    = [['page' => 0, 'section' => 0, 'unit' => 'home-01-hero', 'slot' => 't1', 'kind' => 'text', 'demo' => 'Demo body copy.']];
+        $request = $this->assembler()->forCopyFill($this->brief(), $this->plan(), $gaps, 'gpt-4o');
+
+        $this->assertStringContainsString('Demo body copy.', $request->getUserPrompt());
+        $this->assertSame(['fills'], $request->getSchema()['required']);
+        $this->assertSame(0, preg_match('/\{\{[a-z0-9_]+\}\}/i', $request->getUserPrompt()));
     }
 
     public function test_the_site_request_carries_the_site_schema()

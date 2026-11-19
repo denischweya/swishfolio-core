@@ -8,7 +8,7 @@
 namespace SwishfolioCore\Tests\Evals\Support;
 
 use SwishfolioCore\AI\Context\TokenResolver;
-use SwishfolioCore\AI\Generation\PatternLibrary;
+use SwishfolioCore\AI\Generation\Kit;
 use SwishfolioCore\AI\Generation\Stages\PlanReferenceStage;
 use SwishfolioCore\AI\Generation\PlanSchema;
 use SwishfolioCore\Blocks\BlockRegistry;
@@ -18,18 +18,20 @@ use SwishfolioCore\Blocks\BlockRegistry;
  * looks like block editing.
  *
  * A "block" section is a dynamic block named directly, and is judged exactly as
- * an in-editor attribute write is. A "pattern" section is copy dropped into slots
- * in markup the plugin ships, and is judged against the unit's own slot list —
- * whose real teeth are the maximum lengths, because a headline twice its slot's
- * length does not fail, it wraps into four lines and ruins the section.
+ * an in-editor attribute write is. A "pattern" section is copy dropped into the
+ * slots of a kit unit (a template's own section), and is judged against that
+ * unit's slots: every slot holding demo copy must be rewritten or removed, and
+ * copy far longer than the demo it replaces is flagged, because a headline
+ * twice its slot's length does not fail, it wraps into four lines and ruins
+ * the section.
  *
  * The third surface is the composed page itself, which is the only place the two
  * meet, and is checked by parsing it.
  */
 final class PlanAudit
 {
-    /** @var PatternLibrary */
-    private $library;
+    /** @var Kit */
+    private $kit;
 
     /** @var BlockRegistry */
     private $registry;
@@ -46,17 +48,14 @@ final class PlanAudit
     /** @var string[] Custom template names this theme declares. */
     private $customTemplates = [];
 
-    /** @var string[] Style variation titles this theme ships. */
-    private $styleVariations = [];
-
     public function __construct(
-        PatternLibrary $library,
+        Kit $kit,
         BlockRegistry $registry,
         TokenResolver $tokens,
         BlockCatalogue $catalogue,
         ManifestIndex $manifests
     ) {
-        $this->library   = $library;
+        $this->kit       = $kit;
         $this->registry  = $registry;
         $this->tokens    = $tokens;
         $this->catalogue = $catalogue;
@@ -65,18 +64,15 @@ final class PlanAudit
 
     /**
      * Facts that belong to the site rather than to the plugin: which templates
-     * this theme declares and which style variations it ships. Without them a
-     * template name and a variation title cannot be judged at all.
+     * this theme declares. Without them a template name cannot be judged.
      *
      * @param string[] $customTemplates Template names.
-     * @param string[] $styleVariations Variation titles.
      *
      * @return self
      */
-    public function withSiteFacts(array $customTemplates, array $styleVariations)
+    public function withSiteFacts(array $customTemplates)
     {
         $this->customTemplates = array_values(array_map('strval', $customTemplates));
-        $this->styleVariations = array_values(array_map('strval', $styleVariations));
 
         return $this;
     }
@@ -95,7 +91,11 @@ final class PlanAudit
             return ['pages: the model planned nothing, so this case proves nothing.'];
         }
 
-        $pageKeys = [];
+        $pageKeys   = [];
+
+        if (isset($plan['kit']) && (string) $plan['kit'] !== $this->kit->getSlug()) {
+            $violations[] = sprintf('kit: the plan names "%s" but was asked for "%s".', (string) $plan['kit'], $this->kit->getSlug());
+        }
 
         foreach ($pages as $page) {
             if (isset($page['key'])) {
@@ -119,8 +119,6 @@ final class PlanAudit
                 $violations[] = $violation;
             }
 
-            $wholePageUnits = 0;
-
             foreach ($sections as $sectionIndex => $section) {
                 $where = $path . '.sections.' . $sectionIndex;
 
@@ -131,22 +129,9 @@ final class PlanAudit
                     continue;
                 }
 
-                $unit = $this->library->get(isset($section['pattern']) ? (string) $section['pattern'] : '');
-
-                if ($unit !== null && $unit->getScope() === 'page') {
-                    $wholePageUnits++;
-                }
-
-                foreach ($this->auditPatternSection($section, $pageKeys, $where) as $violation) {
+                foreach ($this->auditPatternSection($section, $where) as $violation) {
                     $violations[] = $violation;
                 }
-            }
-
-            if ($wholePageUnits > 0 && count($sections) !== 1) {
-                $violations[] = sprintf(
-                    '%s.sections: a whole-page unit is an entire page body, so it cannot share a page.',
-                    $path
-                );
             }
         }
 
@@ -211,26 +196,6 @@ final class PlanAudit
             if (! isset($pageKeys[(string) $key])) {
                 $violations[] = sprintf('site.navigation.%d: names unknown page key "%s".', $index, (string) $key);
             }
-        }
-
-        if (! isset($site['styleVariation']) || (string) $site['styleVariation'] === '') {
-            return $violations;
-        }
-
-        $title = (string) $site['styleVariation'];
-
-        if ($this->styleVariations === []) {
-            $violations[] = sprintf('site.styleVariation: "%s" cannot be verified — no variation list was supplied.', $title);
-
-            return $violations;
-        }
-
-        if (! in_array($title, $this->styleVariations, true)) {
-            $violations[] = sprintf(
-                'site.styleVariation: "%s" is not a variation this theme ships. Shipped: %s.',
-                $title,
-                implode(', ', $this->styleVariations)
-            );
         }
 
         return $violations;
@@ -316,8 +281,8 @@ final class PlanAudit
                 continue;
             }
 
-            if (strpos((string) $markup, '{{slot:') !== false) {
-                $violations[] = $where . ': an unfilled slot token survived composition.';
+            if (preg_match('/\{\{(kit-[a-z-]+|link|nav|slot|art)[:}]/', (string) $markup) === 1) {
+                $violations[] = $where . ': a kit placeholder survived composition.';
             }
 
             preg_match_all('/\{\{page:([a-z0-9-]+)\}\}/', (string) $markup, $matches);
@@ -415,78 +380,129 @@ final class PlanAudit
     }
 
     /**
-     * @param array  $section  Section payload.
-     * @param array  $pageKeys Page keys declared by the plan.
-     * @param string $where    Error path.
+     * @param array  $section Section payload.
+     * @param string $where   Error path.
      *
      * @return string[]
      */
-    private function auditPatternSection(array $section, array $pageKeys, $where)
+    private function auditPatternSection(array $section, $where)
     {
         $unitId = isset($section['pattern']) ? (string) $section['pattern'] : '';
-        $unit   = $this->library->get($unitId);
 
-        if ($unit === null) {
-            return [sprintf('%s.pattern: "%s" is not a generation unit in the catalogue.', $where, $unitId)];
+        if ($this->kit->section($unitId) === null) {
+            return [sprintf('%s.pattern: "%s" is not a section in the %s kit.', $where, $unitId, $this->kit->getSlug())];
         }
 
+        $slots      = $this->kit->slots($unitId)->slots();
+        $units      = $this->kit->slots($unitId)->units();
         $violations = [];
+        $written    = [];
 
-        if ($unit->getRequiresMedia() > 0) {
-            $violations[] = sprintf('%s.pattern: "%s" needs images, which generation cannot supply.', $where, $unitId);
-        }
+        foreach (['texts' => ['html', ['text', 'run']], 'attrs' => ['value', ['attr']]] as $key => $spec) {
+            foreach ((array) (isset($section[$key]) ? $section[$key] : []) as $index => $pair) {
+                $path  = $where . '.' . $key . '.' . $index;
+                $id    = is_array($pair) && isset($pair['id']) ? (string) $pair['id'] : '';
+                $value = is_array($pair) && isset($pair[$spec[0]]) ? $pair[$spec[0]] : null;
 
-        if (! $unit->isKsesStable()) {
-            $violations[] = sprintf('%s.pattern: "%s" does not survive content filtering on save.', $where, $unitId);
-        }
+                if (! isset($slots[$id]) || ! in_array($slots[$id]['type'], $spec[1], true)) {
+                    $violations[] = sprintf('%s: unit "%s" has no %s slot "%s".', $path, $unitId, $key === 'attrs' ? 'attribute' : 'text', $id);
+                    continue;
+                }
 
-        foreach ((array) (isset($section['content']) ? $section['content'] : []) as $name => $value) {
-            $path = $where . '.content.' . $name;
-            $slot = $unit->getSlot((string) $name);
+                if (! is_string($value)) {
+                    $violations[] = sprintf('%s: slot values must be strings, got %s.', $path, gettype($value));
+                    continue;
+                }
 
-            if ($slot === null) {
-                $violations[] = sprintf('%s: unit "%s" declares no slot "%s".', $path, $unitId, (string) $name);
-                continue;
-            }
+                $written[$id] = true;
 
-            if (! is_string($value)) {
-                $violations[] = sprintf('%s: slot values must be strings, got %s.', $path, gettype($value));
-                continue;
-            }
-
-            if ($slot->getType() === 'url') {
-                foreach ($this->auditSlotUrl($value, $pageKeys, $path) as $violation) {
+                foreach ($this->auditSlotValue($value, $slots[$id], $path) as $violation) {
                     $violations[] = $violation;
                 }
+            }
+        }
+
+        $removed = [];
+
+        foreach ((array) (isset($section['remove']) ? $section['remove'] : []) as $index => $id) {
+            if (! isset($units[(string) $id])) {
+                $violations[] = sprintf('%s.remove.%d: unit "%s" has no "%s" to remove.', $where, $index, $unitId, (string) $id);
                 continue;
             }
 
-            $max = $slot->getMaxLength();
+            $removed[] = $units[(string) $id];
+        }
 
-            if ($max !== null && CapabilityAudit::length($value) > $max) {
-                $violations[] = sprintf(
-                    '%s: %d characters exceeds the slot maximum of %d.',
-                    $path,
-                    CapabilityAudit::length($value),
-                    $max
-                );
+        foreach ($this->kit->requiredSlots($unitId) as $id) {
+            if (isset($written[$id])) {
+                continue;
             }
 
-            $literal = CapabilityAudit::literalReason($value);
-
-            if ($literal !== null) {
-                $violations[] = sprintf('%s: "%s" is %s, not copy.', $path, $value, $literal);
+            foreach ($removed as $unit) {
+                if ($slots[$id]['start'] >= $unit['start'] && $slots[$id]['end'] <= $unit['end']) {
+                    continue 2;
+                }
             }
 
-            if ($slot->isInComment()) {
-                foreach (['<', '>', '&', '"', '\\', '--'] as $needle) {
-                    if (strpos($value, $needle) !== false) {
-                        $violations[] = sprintf(
-                            '%s: this slot is stored inside a block comment and cannot contain "%s".',
-                            $path,
-                            $needle
-                        );
-                    }
+            $violations[] = sprintf('%s: slot "%s" of "%s" still holds the demo copy "%s".', $where, $id, $unitId, self::plain($slots[$id]['value']));
+        }
+
+        return $violations;
+    }
+
+    /**
+     * @param string $value Copy for one slot.
+     * @param array  $slot  The CopySlots slot it replaces.
+     * @param string $path  Error path.
+     *
+     * @return string[]
+     */
+    private function auditSlotValue($value, array $slot, $path)
+    {
+        $violations = [];
+        $plain      = self::plain($value);
+        $demo       = self::plain($slot['value']);
+
+        if ($plain === '') {
+            $violations[] = $path . ': empty copy; the unit should be removed instead.';
+        }
+
+        if (CapabilityAudit::length($plain) > 40 && CapabilityAudit::length($plain) > 2.5 * CapabilityAudit::length($demo)) {
+            $violations[] = sprintf(
+                '%s: %d characters replaces %d of demo copy, so it will not fit the design.',
+                $path,
+                CapabilityAudit::length($plain),
+                CapabilityAudit::length($demo)
+            );
+        }
+
+        preg_match_all('/\{\{[^}]*\}\}/', $value, $placeholders);
+
+        foreach ($placeholders[0] as $placeholder) {
+            if (strpos((string) $slot['value'], $placeholder) === false) {
+                $violations[] = sprintf('%s: "%s" is not a placeholder the demo copy had.', $path, $placeholder);
+            }
+        }
+
+        if ($slot['type'] === 'attr' && isset($slot['attr']) && $slot['attr'] === 'href'
+            && preg_match('/^(tel:\+?[0-9]{3,20}|mailto:[^@\s]+@[^@\s]+)$/', $value) !== 1) {
+            $violations[] = sprintf('%s: "%s" is not a tel: or mailto: address.', $path, $value);
+        }
+
+        $literal = CapabilityAudit::literalReason($plain);
+
+        if ($literal !== null) {
+            $violations[] = sprintf('%s: "%s" is %s, not copy.', $path, $plain, $literal);
+        }
+
+        if (preg_match_all('/href="([^"]*)"/', $value, $hrefs)) {
+            foreach ($hrefs[1] as $href) {
+                if (strpos($href, '{{link:') === 0 || strpos($href, '#') === 0 || preg_match('/^(tel|mailto):/', $href)) {
+                    continue;
+                }
+
+                foreach (CapabilityAudit::auditUrl($href, $path) as $violation) {
+                    $violations[] = $violation;
                 }
             }
         }
@@ -495,26 +511,12 @@ final class PlanAudit
     }
 
     /**
-     * @param string $value    Slot value.
-     * @param array  $pageKeys Page keys declared by the plan.
-     * @param string $path     Error path.
+     * @param string $html Slot HTML.
      *
-     * @return string[]
+     * @return string Its text.
      */
-    private function auditSlotUrl($value, array $pageKeys, $path)
+    private static function plain($html)
     {
-        if (preg_match('/^\{\{page:([a-z0-9][a-z0-9-]{0,39})\}\}$/', $value, $matches) === 1) {
-            if (! isset($pageKeys[$matches[1]])) {
-                return [sprintf('%s: internal link names unknown page key "%s".', $path, $matches[1])];
-            }
-
-            return [];
-        }
-
-        if (strpos($value, '{{page:') === 0) {
-            return [sprintf('%s: "%s" is not a usable internal page reference.', $path, $value)];
-        }
-
-        return CapabilityAudit::auditUrl($value, $path);
+        return trim(preg_replace('/\s+/', ' ', html_entity_decode(strip_tags((string) $html), ENT_QUOTES, 'UTF-8')));
     }
 }

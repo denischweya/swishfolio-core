@@ -1,18 +1,11 @@
 {
-  "vertical": "freelancer-portfolio",
+  "vertical": "freelancer",
   "label": "Freelancer portfolio: selected work, a journal listing and a contact page",
   "scope": "site",
   "instruction": "I am a freelance interface designer in Glasgow. I need a home page with a few selected projects, a journal for my writing, and a contact page. I only take two clients at a time.",
   "brief": {
     "siteTitle": "Tobias Reeve",
-    "styleVariation": "",
-    "styleVariations": [
-      "Default",
-      "Neo-Brutalist",
-      "Swiss International",
-      "Sasha",
-      "Terminal"
-    ],
+    "kit": "designer",
     "customTemplates": [
       "page-no-title",
       "page-landing",
@@ -22,12 +15,12 @@
   },
   "response": {
     "schemaVersion": "1.0",
-    "summary": "A three page site for a freelance interface designer: a hero-led home page with selected work, a journal listing recent writing, and a contact page.",
+    "kit": "designer",
+    "summary": "A three page portfolio for a freelance interface designer: selected work on the home page, a journal and a contact page.",
     "site": {
       "title": "Tobias Reeve",
       "tagline": "Freelance interface design",
       "frontPage": "home",
-      "blogPage": "journal",
       "navigation": [
         "home",
         "journal",
@@ -42,59 +35,86 @@
         "status": "draft",
         "sections": [
           {
-            "pattern": "swiss-hero",
-            "content": {
-              "eyebrow": "01. Interface design",
-              "headline": "Design That Ships",
-              "body": "I am a freelance interface designer working with small product teams. I draw in the browser, hand over components rather than pictures, and stay until it is live.",
-              "primaryCtaLabel": "Read the journal",
-              "primaryCtaUrl": "{{page:journal}}",
-              "secondaryCtaLabel": "Work with me",
-              "secondaryCtaUrl": "{{page:contact}}",
-              "statsLabel": "Currently",
-              "stat1Value": "2",
-              "stat1Label": "Clients at a time",
-              "stat2Value": "8",
-              "stat2Label": "Years freelance",
-              "stat3Value": "Q3",
-              "stat3Label": "Next availability"
-            }
+            "pattern": "work-01-page-header",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Interface design · Glasgow"
+              },
+              {
+                "id": "t1",
+                "html": "Interfaces people stop noticing."
+              },
+              {
+                "id": "t2",
+                "html": "I design product interfaces for small teams: flows, screens and the components that hold them together."
+              },
+              {
+                "id": "t3",
+                "html": "I take two clients at a time, so each project gets my full attention from first call to launch."
+              }
+            ],
+            "attrs": []
+          },
+          {
+            "pattern": "home-03-portfolio",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Selected work"
+              },
+              {
+                "id": "t1",
+                "html": "<a href=\"{{link:work}}\">All projects →</a>"
+              }
+            ],
+            "attrs": []
           },
           {
             "block": "swishfolio-core/portfolio",
             "attributes": {
-              "layout": "list",
-              "columns": 1,
-              "gap": 48,
-              "postsPerPage": 6,
-              "showFilters": false,
+              "layout": "grid",
+              "columns": 2,
+              "gap": 40,
+              "postsPerPage": 12,
+              "showFilters": true,
               "showExcerpt": true,
               "showCategory": true,
+              "showProjectType": true,
               "showViewButton": true,
-              "viewButtonText": "Read the write-up",
-              "cardStyle": "overlay",
+              "viewButtonText": "Read the case study",
+              "cardStyle": "stacked",
               "imageAspectRatio": "wide",
-              "hoverEffect": "lift",
-              "taxonomyStyle": "rounded",
-              "imageBorderRadius": 4,
-              "taxonomyColor": "accent-3",
+              "hoverEffect": "reveal",
+              "taxonomyStyle": "border",
+              "imageBorderRadius": 0,
+              "taxonomyColor": "accent-2",
+              "cardContentBackground": "base",
               "orderBy": "menu_order",
               "order": "ASC"
             }
           },
           {
-            "pattern": "swiss-contact-cta",
-            "content": {
-              "eyebrow": "03. Availability",
-              "headline": "Two clients at a time",
-              "body": "I take two engagements at once and book a quarter ahead. Tell me roughly what you are building and when it needs to be live.",
-              "ctaLabel": "Check availability",
-              "ctaUrl": "{{page:contact}}",
-              "detail1Label": "Email",
-              "detail1Value": "tobias@reeve.test",
-              "detail2Label": "Based in",
-              "detail2Value": "Glasgow, working remotely"
-            }
+            "pattern": "work-03-cta",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Next project"
+              },
+              {
+                "id": "t1",
+                "html": "Two clients at a time."
+              },
+              {
+                "id": "t2",
+                "html": "If you are planning a product launch or a redesign, the useful conversation usually happens early."
+              },
+              {
+                "id": "t3",
+                "html": "<a href=\"{{link:contact}}\">Start a project →</a>"
+              }
+            ],
+            "attrs": []
           }
         ]
       },
@@ -130,18 +150,26 @@
         "status": "draft",
         "sections": [
           {
-            "pattern": "swiss-contact-cta",
-            "content": {
-              "eyebrow": "Contact",
-              "headline": "Tell me what you are building",
-              "body": "Email is the fastest route. Include a sentence about the product, the team size and the date it has to be live, and I will reply with availability and a rough shape.",
-              "ctaLabel": "Email me",
-              "ctaUrl": "mailto:tobias@reeve.test",
-              "detail1Label": "Email",
-              "detail1Value": "tobias@reeve.test",
-              "detail2Label": "Elsewhere",
-              "detail2Value": "Glasgow, working remotely"
-            }
+            "pattern": "contact-02-cta",
+            "texts": [
+              {
+                "id": "t0",
+                "html": "Not ready to brief yet?"
+              },
+              {
+                "id": "t1",
+                "html": "That is fine. Send the half-formed version and we can shape it together."
+              },
+              {
+                "id": "t2",
+                "html": "Availability"
+              },
+              {
+                "id": "t3",
+                "html": "Two client slots.<br>Write to ask when the next one opens."
+              }
+            ],
+            "attrs": []
           }
         ]
       }

@@ -8,10 +8,8 @@
 namespace SwishfolioCore\AI\Generation\Stages;
 
 use SwishfolioCore\AI\Generation\PlanContext;
-use SwishfolioCore\AI\Generation\SlotSpec;
 use SwishfolioCore\Actions\ActionSchema;
 use SwishfolioCore\Actions\ActionValidator;
-use SwishfolioCore\Actions\Stages\ValueStage;
 use SwishfolioCore\Actions\ValidationContext;
 use SwishfolioCore\Actions\ValidationException;
 
@@ -22,20 +20,19 @@ use SwishfolioCore\Actions\ValidationException;
  * are the same code that guards in-editor edits. Only the failure path is
  * rewritten, from an action index back to a page and section.
  *
- * Slot values get their own rules, because a slot is a literal token in markup
- * rather than an attribute. The strict rule is for slots whose token also lands
- * inside a block comment: KSES rewrites comment bodies on save, so a bare "&" or
- * an angle bracket there silently corrupts the block.
+ * Slot edits get their own rules: a bounded length, no kit placeholder syntax
+ * beyond the {{link:key}} hrefs the demo copy already had (any other "{{" in
+ * copy would be resolved like the kit's own links and images), and
+ * a link target only in the tel:/mailto: form CopySlots accepts. CopySlots
+ * would silently keep the demo number for anything else, so it is refused.
  */
 class PlanValueStage implements PlanStageInterface
 {
-    /**
-     * Characters a slot may not carry when its token is substituted raw into a
-     * block comment: angle brackets and ampersands are rewritten by KSES, and a
-     * quote, a backslash or a double hyphen breaks the comment's JSON or its
-     * delimiter outright.
-     */
-    const COMMENT_UNSAFE = ['<', '>', '&', '"', '\\', '--'];
+    /** Longest copy one slot may take. */
+    const MAX_SLOT_CHARS = 1200;
+
+    /** Link targets an attribute slot on an href may take (CopySlots' own rule). */
+    const HREF_PATTERN = '#^(tel:\+?[0-9 ().-]{3,30}|mailto:[^\s"\'<>]{3,200})$#i';
 
     /**
      * Characters a dynamic block's attribute may not carry. Narrower than the
@@ -54,33 +51,35 @@ class PlanValueStage implements PlanStageInterface
     public function process(array $plan, PlanContext $context)
     {
         $plan = $this->checkSlots($plan, $context);
-        $plan = $this->checkBlockAttributes($plan, $context);
 
-        if (isset($plan['site']['styleVariation']) && (string) $plan['site']['styleVariation'] !== '') {
-            $this->checkStyleVariation((string) $plan['site']['styleVariation'], $context);
-        }
-
-        return $plan;
+        return $this->checkBlockAttributes($plan, $context);
     }
 
     private function checkSlots(array $plan, PlanContext $context)
     {
+        $kit = $context->getKit();
+
         foreach ($plan['pages'] as $pageIndex => $page) {
             foreach ($page['sections'] as $sectionIndex => $section) {
                 if (! isset($section['pattern'])) {
                     continue;
                 }
 
-                $unit = $context->getLibrary()->get($section['pattern']);
-                $path = 'pages.' . $pageIndex . '.sections.' . $sectionIndex . '.content';
+                $slots = $kit->slots($section['pattern'])->slots();
+                $path  = 'pages.' . $pageIndex . '.sections.' . $sectionIndex;
+                $ref   = &$plan['pages'][$pageIndex]['sections'][$sectionIndex];
 
-                foreach ($section['content'] as $name => $value) {
-                    $plan['pages'][$pageIndex]['sections'][$sectionIndex]['content'][$name] = $this->checkSlot(
-                        $unit->getSlot($name),
-                        $value,
-                        $path . '.' . $name
-                    );
+                $keys = $kit->getPageKeys();
+
+                $ref['texts'] = $this->checkValues($section['texts'], $slots, $path . '.texts', $keys);
+                $ref['attrs'] = $this->checkValues($section['attrs'], $slots, $path . '.attrs', $keys);
+
+                foreach ($section['clones'] as $index => $clone) {
+                    $ref['clones'][$index]['texts'] = $this->checkValues($clone['texts'], $slots, $path . '.clones.' . $index . '.texts', $keys);
+                    $ref['clones'][$index]['attrs'] = $this->checkValues($clone['attrs'], $slots, $path . '.clones.' . $index . '.attrs', $keys);
                 }
+
+                unset($ref);
             }
         }
 
@@ -88,73 +87,96 @@ class PlanValueStage implements PlanStageInterface
     }
 
     /**
-     * @param SlotSpec $slot  Slot being filled.
-     * @param mixed    $value Proposed value.
-     * @param string   $path  Error path.
+     * @param array  $values id => value.
+     * @param array  $slots  CopySlots slots.
+     * @param string   $path   Error path.
+     * @param string[] $keys   The kit's page keys.
      *
-     * @return string
+     * @return array Trimmed values.
      */
-    private function checkSlot(SlotSpec $slot, $value, $path)
+    private function checkValues(array $values, array $slots, $path, array $keys = [])
     {
-        if (is_array($value) || is_object($value)) {
-            throw new ValidationException($this->getSlug(), 'Slot values must be strings.', $path);
-        }
+        foreach ($values as $id => $value) {
+            $string = trim((string) $value);
+            $length = function_exists('mb_strlen') ? mb_strlen($string) : strlen($string);
 
-        $string = trim((string) $value);
+            // A form field's default (a date input's value="2026-11-20") is
+            // rightly cleared: a stale demo date is worse than an empty field.
+            if ($string === '' && isset($slots[$id]['type'], $slots[$id]['attr'])
+                && $slots[$id]['type'] === 'attr' && $slots[$id]['attr'] === 'value') {
+                $values[$id] = '';
+                continue;
+            }
 
-        if ($slot->getType() === 'url') {
-            return $this->checkUrlSlot($string, $path);
-        }
+            if ($string === '') {
+                throw new ValidationException(
+                    $this->getSlug(),
+                    sprintf('Slot "%s" is empty. Remove its unit instead of emptying it.', $id),
+                    $path . '.' . $id
+                );
+            }
 
-        $max = $slot->getMaxLength();
+            if ($length > self::MAX_SLOT_CHARS) {
+                throw new ValidationException(
+                    $this->getSlug(),
+                    sprintf('Slot "%s" exceeds %d characters.', $id, self::MAX_SLOT_CHARS),
+                    $path . '.' . $id
+                );
+            }
 
-        $length = function_exists('mb_strlen') ? mb_strlen($string) : strlen($string);
+            // The only placeholders copy may carry are the ones its demo copy
+            // had (a button's {{link:key}} href), kept where they were.
+            $demo = isset($slots[$id]['value']) ? (string) $slots[$id]['value'] : '';
+            $bare = preg_replace('/\{\{link:[a-z0-9-]+\}\}/', '', $string);
 
-        if ($max !== null && $length > $max) {
-            throw new ValidationException(
-                $this->getSlug(),
-                sprintf('Slot "%s" exceeds %d characters.', $slot->getName(), $max),
-                $path
-            );
-        }
+            preg_match_all('/\{\{link:[a-z0-9-]+\}\}/', $string, $used);
 
-        if ($slot->isInComment()) {
-            foreach (self::COMMENT_UNSAFE as $needle) {
-                if (strpos($string, $needle) !== false) {
-                    throw new ValidationException(
-                        $this->getSlug(),
-                        sprintf(
-                            'Slot "%s" is stored inside a block comment, so it cannot contain "%s".',
-                            $slot->getName(),
-                            $needle
-                        ),
-                        $path
-                    );
+            // A button that linked to a template page may point at another
+            // template page instead (the plan dropped "private dining", so the
+            // button now says "Visit us"): same number of links, kit keys only.
+            preg_match_all('/\{\{link:([a-z0-9-]+)\}\}/', $demo, $demoLinks);
+            $retarget = count($used[0]) <= count($demoLinks[0]);
+
+            foreach ($used[0] as $placeholder) {
+                $key = substr($placeholder, 7, -2);
+                if (strpos($demo, $placeholder) === false && ! ($retarget && in_array($key, $keys, true))) {
+                    $bare .= '{{';
                 }
             }
+
+            if (strpos($bare, '{{') !== false || strpos($bare, '}}') !== false) {
+                throw new ValidationException(
+                    $this->getSlug(),
+                    sprintf('Slot "%s" may only keep the {{link:...}} its demo copy had; it cannot add "{{" or "}}".', $id),
+                    $path . '.' . $id
+                );
+            }
+
+            // A link inside copy keeps to the schemes an edit may use.
+            if (preg_match_all('/\bhref\s*=\s*["\']?\s*([a-z][a-z0-9+.-]*):/i', $string, $schemes)) {
+                foreach ($schemes[1] as $scheme) {
+                    if (! in_array(strtolower($scheme), ['http', 'https', 'mailto', 'tel'], true)) {
+                        throw new ValidationException(
+                            $this->getSlug(),
+                            sprintf('Slot "%s" links with "%s:"; only http, https, mailto and tel are allowed.', $id, $scheme),
+                            $path . '.' . $id
+                        );
+                    }
+                }
+            }
+
+            if (isset($slots[$id]['attr']) && $slots[$id]['attr'] === 'href' && ! preg_match(self::HREF_PATTERN, $string)) {
+                throw new ValidationException(
+                    $this->getSlug(),
+                    sprintf('Slot "%s" is a phone or email link, so it must be a tel: or mailto: address.', $id),
+                    $path . '.' . $id
+                );
+            }
+
+            $values[$id] = $string;
         }
 
-        return $string;
-    }
-
-    private function checkUrlSlot($url, $path)
-    {
-        if (preg_match('/^\{\{page:[a-z0-9][a-z0-9-]{0,39}\}\}$/', $url)) {
-            // Resolved to a permalink once the page it names has an ID.
-            return $url;
-        }
-
-        $scheme = strtolower((string) parse_url($url, PHP_URL_SCHEME));
-
-        if ($url !== '' && $scheme !== '' && ! in_array($scheme, ValueStage::ALLOWED_URL_SCHEMES, true)) {
-            throw new ValidationException(
-                $this->getSlug(),
-                sprintf('URL scheme "%s" is not permitted.', $scheme),
-                $path
-            );
-        }
-
-        return $url;
+        return $values;
     }
 
     private function checkBlockAttributes(array $plan, PlanContext $context)
@@ -298,25 +320,6 @@ class PlanValueStage implements PlanStageInterface
             $map[$index]['page'],
             $map[$index]['section'],
             $suffix
-        );
-    }
-
-    private function checkStyleVariation($title, PlanContext $context)
-    {
-        foreach ($context->getStyleVariations() as $known) {
-            if ($known === $title || sanitize_title($known) === sanitize_title($title)) {
-                return;
-            }
-        }
-
-        throw new ValidationException(
-            $this->getSlug(),
-            sprintf(
-                '"%s" is not a style variation this theme ships. Available: %s.',
-                $title,
-                implode(', ', $context->getStyleVariations())
-            ),
-            'site.styleVariation'
         );
     }
 }

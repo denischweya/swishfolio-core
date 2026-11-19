@@ -1,0 +1,12 @@
+{
+    "version": 2,
+    "slug": "beta",
+    "name": "Beta",
+    "title": "Second fixture",
+    "description": "Styled by a theme variation only.",
+    "design": {"variation": "Terminal", "fingerprint": "", "assetsPath": "assets/kits/beta"},
+    "frontPage": "home",
+    "navigation": [],
+    "pages": [],
+    "units": {}
+}

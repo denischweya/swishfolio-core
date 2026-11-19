@@ -8,35 +8,80 @@ class BlockComposerTest extends GenerationTestCase
 {
     private function composer()
     {
-        return new BlockComposer($this->library());
+        return new BlockComposer($this->kit());
     }
 
-    public function test_a_filled_slot_replaces_its_token_everywhere_it_occurs()
+    /**
+     * The fixture section as the validator hands it on: id => copy maps.
+     */
+    private function section(array $overrides = [], $unitId = 'home-01-hero')
     {
-        $composed = $this->composer()->composePattern('alpha-hero', [
-            'label'    => 'Opening',
-            'headline' => 'Built to last',
-        ]);
+        $section = $this->patternSection($overrides, $unitId);
 
-        $this->assertStringContainsString('"name":"Opening"', $composed);
-        $this->assertStringContainsString('<h2 class="wp-block-heading">Built to last</h2>', $composed);
-        $this->assertStringNotContainsString('{{slot:', $composed);
+        foreach (['texts' => 'html', 'attrs' => 'value'] as $key => $field) {
+            $map = [];
+            foreach (isset($section[$key]) ? $section[$key] : [] as $id => $pair) {
+                if (is_array($pair)) {
+                    $map[$pair['id']] = $pair[$field];
+                } else {
+                    $map[$id] = $pair;
+                }
+            }
+            $section[$key] = $map;
+        }
+
+        return $section;
     }
 
-    public function test_an_unfilled_slot_falls_back_to_its_declared_default()
+    public function test_copy_is_spliced_into_the_kit_markup_and_the_rest_is_kept_byte_for_byte()
     {
-        $composed = $this->composer()->composePattern('alpha-hero', ['headline' => 'Only this']);
+        $composed = $this->composer()->composePattern('home-01-hero', $this->section());
 
-        $this->assertStringContainsString('Fixture body copy.', $composed);
-        $this->assertStringContainsString('href="#"', $composed);
+        $this->assertStringContainsString('<h1 class="wp-block-heading">Built to last</h1>', $composed);
+        $this->assertStringContainsString('<!-- wp:group {"className":"al-hero","layout":{"type":"default"}} -->', $composed);
+        $this->assertStringContainsString('<path d="M0 0h10v10z"/>', $composed, 'Inline SVG survives: kit markup is kept verbatim.');
+        $this->assertStringContainsString('href="tel:+447700900123"', $composed);
+        $this->assertStringContainsString('aria-label="Call Oak and Iron"', $composed);
+        $this->assertStringNotContainsString('Demo', $composed);
     }
 
-    public function test_a_page_unit_is_composed_verbatim()
+    public function test_kit_links_resolve_through_the_link_map_or_to_a_hash()
     {
-        $this->assertSame(
-            self::FAKE_PATTERN_MARKUP,
-            $this->composer()->composePattern('alpha-page', [])
-        );
+        $composer = $this->composer();
+
+        $mapped = $composer->composePattern('home-01-hero', $this->section(), ['contact' => '{{page:enquire}}']);
+        $this->assertStringContainsString('href="{{page:enquire}}">Get a quote</a>', $mapped);
+
+        $unmapped = $composer->composePattern('home-01-hero', $this->section());
+        $this->assertStringContainsString('href="#">Get a quote</a>', $unmapped);
+    }
+
+    public function test_kit_images_resolve_to_the_shipped_asset()
+    {
+        $composed = $this->composer()->composePattern('home-01-hero', $this->section());
+
+        $this->assertStringContainsString('src="https://example.test/wp-content/plugins/swishfolio-core/assets/kits/alpha/images/photo.jpg"', $composed);
+        $this->assertStringNotContainsString('{{kit-image', $composed);
+    }
+
+    public function test_removed_units_are_left_out_and_clones_are_added_after_their_original()
+    {
+        $composed = $this->composer()->composePattern('home-01-hero', $this->section([
+            'remove' => ['u2'],
+            'clones' => [['unit' => 'u1', 'texts' => ['t2' => 'Wardrobes'], 'attrs' => []]],
+        ]));
+
+        $this->assertStringNotContainsString('Stairs', $composed);
+        $this->assertSame(1, substr_count($composed, '<li>Kitchens</li>'));
+        $this->assertLessThan(strpos($composed, '<li>Wardrobes</li>'), strpos($composed, '<li>Kitchens</li>'));
+    }
+
+    public function test_link_protection_round_trips()
+    {
+        $html = '<a href="{{link:contact}}">Go</a>';
+
+        $this->assertSame('<a href="#sf-link-contact">Go</a>', BlockComposer::protectLinks($html));
+        $this->assertSame($html, BlockComposer::restoreLinks(BlockComposer::protectLinks($html)));
     }
 
     public function test_a_dynamic_block_is_serialised_as_a_self_closing_comment()
@@ -66,7 +111,7 @@ class BlockComposerTest extends GenerationTestCase
     public function test_sections_are_joined_with_a_blank_line()
     {
         $composed = $this->composer()->compose([
-            $this->patternSection(['headline' => 'One']),
+            $this->section([], 'contact-01-cta'),
             $this->blockSection(['columns' => 2]),
         ]);
 
@@ -82,18 +127,5 @@ class BlockComposerTest extends GenerationTestCase
     {
         $this->expectException(\RuntimeException::class);
         $this->composer()->composePattern('no-such-unit', []);
-    }
-
-    public function test_an_undeclared_token_left_in_markup_raises()
-    {
-        $library = new \SwishfolioCore\AI\Generation\PatternLibrary(
-            [$this->fixtureDir()],
-            function ($ref) {
-                return '<!-- wp:paragraph --><p>{{slot:ghost}}</p><!-- /wp:paragraph -->';
-            }
-        );
-
-        $this->expectException(\RuntimeException::class);
-        (new BlockComposer($library))->composePattern('alpha-page', []);
     }
 }

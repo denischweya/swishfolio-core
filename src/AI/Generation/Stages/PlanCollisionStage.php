@@ -1,6 +1,6 @@
 <?php
 /**
- * Stage 6: nothing already on the site is overwritten by accident.
+ * Stage 7: nothing already on the site is overwritten by accident.
  *
  * @package SwishfolioCore
  */

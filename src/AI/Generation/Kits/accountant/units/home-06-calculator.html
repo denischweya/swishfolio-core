@@ -1,0 +1,62 @@
+<!-- wp:group {"tagName":"section","align":"full","className":"ll-sec ll-calcsec","layout":{"type":"default"}} -->
+<section class="wp-block-group alignfull ll-sec ll-calcsec">
+<!-- wp:group {"className":"ll-wrap","layout":{"type":"default"}} -->
+<div class="wp-block-group ll-wrap">
+<!-- wp:group {"className":"ll-calc ll-card","layout":{"type":"default"}} -->
+<div class="wp-block-group ll-calc ll-card">
+<!-- wp:group {"className":"ll-calc__intro","layout":{"type":"default"}} -->
+<div class="wp-block-group ll-calc__intro">
+<!-- wp:paragraph {"className":"ll-eyebrow"} -->
+<p class="ll-eyebrow">Should you go limited?</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"className":"ll-h2"} -->
+<h2 class="wp-block-heading ll-h2">See how the tax bill changes.</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"ll-lead"} -->
+<p class="ll-lead">Move the sliders to compare a sole trader with a one-director company paying a £12,570 salary and dividends. On the free call we run the same numbers properly, with your pension and plans included.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:html -->
+<p class="ll-calc__disc">Illustration on simplified 2026/27 rules. Money left in the company is taxed again when you take it out. Not tax advice.</p>
+<!-- /wp:html -->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons"><!-- wp:button {"className":"ll-btn-ghost"} -->
+<div class="wp-block-button ll-btn-ghost"><a class="wp-block-button__link wp-element-button" href="{{link:contact}}">Run my real numbers</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:html -->
+<div class="ll-calc__tool">
+<label class="ll-range"><span>Annual profit<b data-o="p">£70,000</b></span><input type="range" name="ll-profit" min="20000" max="150000" step="1000" value="70000" style="--p:38.5%"><em><i>£20k</i><i>£150k</i></em></label>
+<label class="ll-range"><span>Money you take out<b data-o="d">£45,000</b></span><input type="range" name="ll-draw" min="15000" max="150000" step="1000" value="45000" style="--p:22.2%"><em><i>£15k</i><i>£150k</i></em></label>
+<div class="ll-compare">
+<div class="ll-compare__row"><span>Sole trader · tax this year</span><div><i data-b="s" style="width:100.0%"></i></div><b data-o="s">£18,089</b></div>
+<div class="ll-compare__row is-best"><span>Limited company · tax &amp; extra fees</span><div><i data-b="l" style="width:91.6%"></i></div><b data-o="l">£16,574</b></div>
+</div>
+<div class="ll-calc__result"><p class="ll-k">Difference</p><p class="ll-calc__big"><span data-o="x">−£1,515</span><span class="ll-calc__unit" data-o="xl"> less tax this year</span></p><p class="ll-sub">Includes corporation tax, employer NI, dividend tax and £1,140 a year of extra accounting costs.</p></div>
+</div><script>(function(){var r=document.querySelector('.ll-calc__tool');if(!r)return;var p=r.querySelector('[name=ll-profit]'),d=r.querySelector('[name=ll-draw]');
+function it(x){var pa=Math.max(0,12570-Math.max(0,x-100000)/2),t=Math.max(0,x-pa),b1=Math.min(t,37700),b2=Math.min(Math.max(t-37700,0),87440),b3=Math.max(t-125140,0);return b1*.2+b2*.4+b3*.45}
+function sole(x){return it(x)+Math.max(0,Math.min(x,50270)-12570)*.06+Math.max(0,x-50270)*.02}
+function ltd(x,w){var s=12570,e=(s-5000)*.15,c=Math.max(0,x-1140-s-e),ct=c<=50000?c*.19:(c>=250000?c*.25:c*.25-(250000-c)*3/200),dv=Math.max(0,Math.min(w-s,c-ct)),dd=Math.max(0,dv-500),u=Math.min(500,dv),d1=Math.min(dd,Math.max(0,37700-u)),d2=Math.max(0,dd-d1);return ct+e+d1*.1075+d2*.3575+1140}
+function f(v){return '\u00a3'+Math.round(v).toLocaleString('en-GB')}
+function go(){var P=+p.value,D=Math.min(+d.value,P);var a=sole(P),b=ltd(P,D),m=Math.max(a,b);
+[p,d].forEach(function(i){i.style.setProperty('--p',((i.value-i.min)/(i.max-i.min)*100)+'%')});
+r.querySelector('[data-o=p]').textContent=f(P);r.querySelector('[data-o=d]').textContent=f(D);
+r.querySelector('[data-o=s]').textContent=f(a);r.querySelector('[data-o=l]').textContent=f(b);
+r.querySelector('[data-b=s]').style.width=(a/m*100)+'%';r.querySelector('[data-b=l]').style.width=(b/m*100)+'%';
+var diff=a-b,el=r.querySelector('[data-o=x]');el.textContent=(diff>=0?'\u2212':'+')+f(Math.abs(diff));
+r.querySelector('[data-o=xl]').textContent=diff>=0?' less tax this year':' more tax this year';
+r.classList.toggle('is-worse',diff<0);r.querySelectorAll('.ll-compare__row')[0].classList.toggle('is-best',diff<0);r.querySelectorAll('.ll-compare__row')[1].classList.toggle('is-best',diff>=0)}
+p.addEventListener('input',go);d.addEventListener('input',go);go()})();</script>
+<!-- /wp:html -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:group -->
+</section>
+<!-- /wp:group -->
