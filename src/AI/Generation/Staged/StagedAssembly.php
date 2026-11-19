@@ -154,13 +154,20 @@ class StagedAssembly
             $site['tagline'] = $outline['site']['tagline'];
         }
 
-        return [
+        $plan = [
             'schemaVersion' => PlanSchema::SCHEMA_VERSION,
             'summary'       => $outline['summary'],
             'kit'           => (string) $kit,
             'site'          => $site,
             'pages'         => $list,
         ];
+
+        // The outline's projects decision and sample projects, for /ai/generate.
+        if (isset($outline['projects']) && is_array($outline['projects'])) {
+            $plan['projects'] = $outline['projects'];
+        }
+
+        return $plan;
     }
 
     /**

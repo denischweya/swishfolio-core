@@ -541,7 +541,74 @@
             "ksesStable": false
         }
     },
-    "assets": [],
+    "assets": {
+        "project-1": {
+            "file": "images/project-1.jpg",
+            "alt": "Project cover image",
+            "title": "Project cover",
+            "width": 1200,
+            "height": 900,
+            "kind": "decorative"
+        },
+        "project-2": {
+            "file": "images/project-2.jpg",
+            "alt": "Project cover image",
+            "title": "Project cover",
+            "width": 1200,
+            "height": 900,
+            "kind": "decorative"
+        },
+        "project-3": {
+            "file": "images/project-3.jpg",
+            "alt": "Project cover image",
+            "title": "Project cover",
+            "width": 1200,
+            "height": 900,
+            "kind": "decorative"
+        },
+        "project-4": {
+            "file": "images/project-4.jpg",
+            "alt": "Project cover image",
+            "title": "Project cover",
+            "width": 1200,
+            "height": 900,
+            "kind": "decorative"
+        },
+        "project-5": {
+            "file": "images/project-5.jpg",
+            "alt": "Project cover image",
+            "title": "Project cover",
+            "width": 1200,
+            "height": 900,
+            "kind": "decorative"
+        },
+        "project-6": {
+            "file": "images/project-6.jpg",
+            "alt": "Project cover image",
+            "title": "Project cover",
+            "width": 1200,
+            "height": 900,
+            "kind": "decorative"
+        }
+    },
+    "projects": {
+        "titles": [
+            "A café group that finally knows its numbers by Tuesday",
+            "From sole trader to limited company at the right moment",
+            "Five rental flats, one tidy Making Tax Digital routine",
+            "Board-ready management accounts for a growing engineering firm",
+            "Untangling three years of late returns for a self-employed electrician",
+            "Selling a buy-to-let without a surprise tax bill"
+        ],
+        "covers": [
+            "project-1",
+            "project-2",
+            "project-3",
+            "project-4",
+            "project-5",
+            "project-6"
+        ]
+    },
     "source": {
         "dir": "seed/sites/accountant",
         "hash": "209c551828270c2b0a65053334cffc82"

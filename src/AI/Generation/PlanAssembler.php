@@ -140,6 +140,7 @@ class PlanAssembler
                 'instruction' => (string) (isset($brief['instruction']) ? $brief['instruction'] : ''),
                 'plan'        => $this->encode(['pages' => $plan['pages']]),
                 'gaps'        => implode("\n", $lines),
+                'proof'       => SocialProof::asText(isset($brief['proof']) ? (array) $brief['proof'] : []) ?: 'None given.',
             ]),
             [
                 'type'                 => 'object',
@@ -329,6 +330,8 @@ class PlanAssembler
             'siteTitle'       => isset($brief['siteTitle']) ? (string) $brief['siteTitle'] : '',
             'customTemplates' => isset($brief['customTemplates']) ? array_values((array) $brief['customTemplates']) : [],
             'existingSlugs'   => isset($brief['existingSlugs']) ? array_values((array) $brief['existingSlugs']) : [],
+            // The owner's own social proof, and the placeholders for what they left out (rule 3).
+            'ownerProof'      => SocialProof::forPrompt(isset($brief['proof']) ? (array) $brief['proof'] : []),
         ];
     }
 

@@ -152,7 +152,7 @@ class PatternUnit
         }
 
         if (in_array('projects', $this->getNeeds(), true)) {
-            $notes[] = 'shows the site\'s portfolio projects (empty until the owner adds some)';
+            $notes[] = 'lists the site\'s projects: use it only when the outline\'s "projects" show is true (the sample projects written there fill it)';
         }
 
         if (in_array('form', $this->getNeeds(), true)) {

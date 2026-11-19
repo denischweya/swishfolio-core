@@ -142,7 +142,7 @@
                 "cover-halde",
                 "cover-maas"
             ],
-            "slots": 14,
+            "slots": 15,
             "repeatable": 3,
             "fixedText": [
                 "BRAND ✺ PACKAGING ✺ PRINT ✺ TYPE ✺ POSTERS ✺"
@@ -258,7 +258,7 @@
             "sourcePage": "home",
             "position": 8,
             "file": "units/home-08-cta.html",
-            "slots": 6,
+            "slots": 7,
             "repeatable": 0,
             "fixedText": [
                 "AVAILABLE FROM FEBRUARY 2027 ✺ SAY HOI ✺"
@@ -306,7 +306,7 @@
             "sourcePage": "work",
             "position": 3,
             "file": "units/work-03-portfolio.html",
-            "slots": 9,
+            "slots": 27,
             "repeatable": 6,
             "fixedText": [
                 "Noordzee",
@@ -348,7 +348,7 @@
             "sourcePage": "work",
             "position": 5,
             "file": "units/work-05-cta.html",
-            "slots": 6,
+            "slots": 7,
             "repeatable": 0,
             "fixedText": [
                 "AVAILABLE FROM FEBRUARY 2027 ✺ SAY HOI ✺"
@@ -365,7 +365,7 @@
             "sourcePage": "services",
             "position": 1,
             "file": "units/services-01-page-header.html",
-            "slots": 4,
+            "slots": 5,
             "repeatable": 0,
             "fixedText": [
                 "FIXED FEES ✺ NO SURPRISES ✺"
@@ -441,7 +441,7 @@
             "sourcePage": "services",
             "position": 6,
             "file": "units/services-06-cta.html",
-            "slots": 6,
+            "slots": 7,
             "repeatable": 0,
             "fixedText": [
                 "AVAILABLE FROM FEBRUARY 2027 ✺ SAY HOI ✺"
@@ -517,7 +517,7 @@
             "sourcePage": "about",
             "position": 5,
             "file": "units/about-05-cta.html",
-            "slots": 6,
+            "slots": 7,
             "repeatable": 0,
             "fixedText": [
                 "AVAILABLE FROM FEBRUARY 2027 ✺ SAY HOI ✺"
@@ -579,43 +579,67 @@
             "alt": "Fjell Outdoor Co., A calmer, warmer identity for a Norwegian-Dutch outdoor brand.",
             "title": "Fjell Outdoor Co.",
             "width": 1600,
-            "height": 1200
+            "height": 1200,
+            "kind": "photo"
         },
         "cover-halde": {
             "file": "images/cover-halde.jpg",
             "alt": "Halde Koffie, A packaging system for a Rotterdam roaster that changes its beans every season.",
             "title": "Halde Koffie",
             "width": 1600,
-            "height": 1200
+            "height": 1200,
+            "kind": "photo"
         },
         "cover-kade": {
             "file": "images/cover-kade.jpg",
             "alt": "Kade Biennale 2026, Poster and campaign identity for a summer of architecture on the water.",
             "title": "Kade Biennale 2026",
             "width": 1600,
-            "height": 1200
+            "height": 1200,
+            "kind": "photo"
         },
         "cover-maas": {
             "file": "images/cover-maas.jpg",
             "alt": "Radio Maas, A custom typeface and lettering for a community radio station.",
             "title": "Radio Maas",
             "width": 1600,
-            "height": 1200
+            "height": 1200,
+            "kind": "photo"
         },
         "cover-paperwork": {
             "file": "images/cover-paperwork.jpg",
             "alt": "Paperwork Quarterly, A 196-page quarterly about craft, printed in two colours.",
             "title": "Paperwork Quarterly",
             "width": 1600,
-            "height": 1200
+            "height": 1200,
+            "kind": "photo"
         },
         "cover-verde": {
             "file": "images/cover-verde.jpg",
             "alt": "Verde Botanicals, Plastic-free packaging for a range of fourteen skincare products.",
             "title": "Verde Botanicals",
             "width": 1600,
-            "height": 1200
+            "height": 1200,
+            "kind": "photo"
         }
+    },
+    "projects": {
+        "titles": [
+            "Halde Koffie",
+            "Kade Biennale 2026",
+            "Fjell Outdoor Co.",
+            "Paperwork Quarterly",
+            "Verde Botanicals",
+            "Radio Maas"
+        ],
+        "covers": [
+            "cover-halde",
+            "cover-kade",
+            "cover-fjell",
+            "cover-paperwork",
+            "cover-verde",
+            "cover-maas"
+        ]
     },
     "source": {
         "dir": "seed/sites/graphic",

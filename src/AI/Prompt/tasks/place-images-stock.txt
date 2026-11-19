@@ -1,0 +1,6 @@
+Stock photos ("stock"). This site can also use photos from a stock library:
+9. For each placeholder you did not fill with an owner's photo, give a short stock photo search query (two to five plain English words) that would find a photo fitting this business and that spot, such as "barista pouring latte" or "accountant meeting client". Describe what a visitor should see, not the business.
+10. orientation: landscape, portrait or square, matching the placeholder's shape where you can tell (a tall portrait photo spot gets portrait).
+11. Skip any placeholder that is decorative art, an illustration, a pattern, a logo or an icon, and skip every portrait of the owner or of a named person: those wait for the owner's own photo.
+12. Never put a brand, a person's name or the business name in a query.
+13. List the most visible spots first, the home page's first photo before anything else. An empty list is fine.

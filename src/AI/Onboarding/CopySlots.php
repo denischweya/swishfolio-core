@@ -476,8 +476,14 @@ class CopySlots
         }
 
         // A plugin image (a kit photo, flagged kitAsset by server code) has no
-        // attachment: only the file changes.
+        // attachment: only the file changes, and the old attachment's
+        // wp-image-<id> class goes, as core/image saves none without an id.
         if ($id <= 0) {
+            if (preg_match('/\sclass\s*=\s*"([^"]*)"/i', $tag, $m) && preg_match('/\bwp-image-\d+\b/', $m[1])) {
+                $classes = trim(preg_replace('/\s+/', ' ', preg_replace('/\bwp-image-\d+\b/', '', $m[1])));
+                $tag     = $classes === '' ? preg_replace('/\sclass\s*=\s*"[^"]*"/i', '', $tag) : $this->setAttr($tag, 'class', $classes);
+            }
+
             return $tag;
         }
 

@@ -1,19 +1,15 @@
-<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}},"border":{"bottom":{"color":"var:preset|color|accent-4","width":"1px"}}},"backgroundColor":"base","layout":{"type":"constrained","contentSize":"1360px"}} -->
-<div class="wp-block-group has-base-background-color has-background" style="border-bottom-color:var(--wp--preset--color--accent-4);border-bottom-width:1px;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--50)">
-<!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
-<div class="wp-block-group">
-<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
-<div class="wp-block-group">
-<!-- wp:site-title {"level":0,"style":{"typography":{"fontWeight":"600","letterSpacing":"-0.03em"},"elements":{"link":{"color":{"text":"var:preset|color|contrast"}}}},"fontSize":"large","fontFamily":"space-grotesk"} /-->
+<!-- wp:group {"className":"eb-header","layout":{"type":"default"}} -->
+<div class="wp-block-group eb-header">
+<!-- wp:html -->
+<a class="eb-logo" href="/" aria-label="Elias Brandt, home"><span class="eb-logo__word">Elias Brandt<i aria-hidden="true">.</i></span><span class="eb-logo__sub">Brand &amp; product design</span></a>
+<!-- /wp:html -->
 
-<!-- wp:paragraph {"className":"sf-eyebrow","textColor":"accent-4"} -->
-<p class="sf-eyebrow has-accent-4-color has-text-color">Design studio</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:group -->
+<!-- wp:navigation {"ref":{{nav}},"overlayBackgroundColor":"base","overlayTextColor":"contrast","className":"eb-nav","layout":{"type":"flex","justifyContent":"right"}} /-->
 
-<!-- wp:navigation {"ref":{{nav}},"textColor":"contrast","overlayBackgroundColor":"base","overlayTextColor":"contrast","className":"sf-eyebrow","style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"flex","justifyContent":"right"}} /-->
-</div>
-<!-- /wp:group -->
+<!-- wp:buttons {"className":"eb-header__cta"} -->
+<div class="wp-block-buttons eb-header__cta"><!-- wp:button {"className":"eb-btn-sm"} -->
+<div class="wp-block-button eb-btn-sm"><a class="wp-block-button__link wp-element-button" href="{{link:contact}}">Start a project</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons -->
 </div>
 <!-- /wp:group -->

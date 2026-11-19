@@ -578,113 +578,171 @@
             "alt": "A table set with candles, plates and food",
             "title": "Dinner party table",
             "width": 1400,
-            "height": 2100
+            "height": 2100,
+            "kind": "photo"
         },
         "canapes-bites": {
             "file": "images/canapes-bites.jpg",
             "alt": "Small appetisers with salmon and herbs",
             "title": "Appetisers",
             "width": 1400,
-            "height": 1051
+            "height": 1051,
+            "kind": "photo"
+        },
+        "canapes-slate": {
+            "file": "images/canapes-slate.jpg",
+            "alt": "Bruschetta canapés on a dark slate",
+            "title": "Canapés",
+            "width": 1400,
+            "height": 2098,
+            "kind": "photo"
         },
         "candle-long": {
             "file": "images/candle-long.jpg",
             "alt": "A long dining table set with flowers and candles",
             "title": "Candle-lit table",
             "width": 1600,
-            "height": 1067
+            "height": 1067,
+            "kind": "photo"
         },
         "chef-plating": {
             "file": "images/chef-plating.jpg",
             "alt": "A chef garnishes a seafood dish with herbs",
             "title": "Garnishing",
             "width": 1400,
-            "height": 2100
+            "height": 2100,
+            "kind": "photo"
         },
         "chef-portrait": {
             "file": "images/chef-portrait.jpg",
             "alt": "Chef Tomás Valadares plating a course under the pass lamps",
             "title": "Chef Tomás Valadares",
             "width": 1400,
-            "height": 2155
+            "height": 2155,
+            "kind": "photo"
+        },
+        "corridor": {
+            "file": "images/corridor.jpg",
+            "alt": "A long table set for a formal dinner in a white arcade",
+            "title": "Long table",
+            "width": 1400,
+            "height": 2488,
+            "kind": "photo"
         },
         "dessert": {
             "file": "images/dessert.jpg",
             "alt": "A chef finishing a chocolate dessert",
             "title": "Dessert",
             "width": 1400,
-            "height": 2100
+            "height": 2100,
+            "kind": "photo"
         },
         "dough": {
             "file": "images/dough.jpg",
             "alt": "Two people kneading dough on a floured wooden table",
             "title": "Cooking class",
             "width": 1400,
-            "height": 933
+            "height": 933,
+            "kind": "photo"
         },
         "feast": {
             "file": "images/feast.jpg",
             "alt": "Friends sharing plates of food around a round table",
             "title": "Sharing feast",
             "width": 1400,
-            "height": 948
+            "height": 948,
+            "kind": "photo"
         },
         "flowers-dish": {
             "file": "images/flowers-dish.jpg",
             "alt": "A vegetable patty with couscous and edible flowers",
             "title": "Spring plate",
             "width": 1400,
-            "height": 2160
+            "height": 2160,
+            "kind": "photo"
         },
         "guests": {
             "file": "images/guests.jpg",
             "alt": "Friends raising glasses around a candle-lit dinner table",
             "title": "Guests",
             "width": 1400,
-            "height": 1750
+            "height": 1750,
+            "kind": "photo"
         },
         "hero-tuna": {
             "file": "images/hero-tuna.jpg",
             "alt": "A chef presents a plated raw tuna dish in a stone bowl",
             "title": "Plated tuna",
             "width": 1600,
-            "height": 2400
+            "height": 2400,
+            "kind": "photo"
         },
         "market": {
             "file": "images/market.jpg",
             "alt": "Spring onions and carrots on a market stall",
             "title": "Market",
             "width": 1400,
-            "height": 933
+            "height": 933,
+            "kind": "photo"
+        },
+        "ocean": {
+            "file": "images/ocean.jpg",
+            "alt": "A dining table set on a terrace overlooking the ocean",
+            "title": "Terrace by the sea",
+            "width": 1400,
+            "height": 933,
+            "kind": "photo"
         },
         "oyster": {
             "file": "images/oyster.jpg",
             "alt": "A chef preparing an oyster with a spoon",
             "title": "Oysters",
             "width": 1400,
-            "height": 2100
+            "height": 2100,
+            "kind": "photo"
         },
         "pergola": {
             "file": "images/pergola.jpg",
             "alt": "A table set for lunch under a pergola",
             "title": "Pergola table",
             "width": 1600,
-            "height": 1067
+            "height": 1067,
+            "kind": "photo"
         },
         "plate-tweezers": {
             "file": "images/plate-tweezers.jpg",
             "alt": "A chef plating a dish with tweezers",
             "title": "Plating",
             "width": 1400,
-            "height": 1908
+            "height": 1908,
+            "kind": "photo"
         },
         "wedding-white": {
             "file": "images/wedding-white.jpg",
             "alt": "A long table with white linen and floral centrepieces",
             "title": "Wedding table",
             "width": 1400,
-            "height": 2100
+            "height": 2100,
+            "kind": "photo"
         }
+    },
+    "projects": {
+        "titles": [
+            "A long-table wedding lunch in Comporta",
+            "Seven courses for a fortieth in Notting Hill",
+            "A week of villa cooking above Lagos",
+            "Canapés for a gallery opening in Mayfair",
+            "A seafood supper on a terrace in Carvoeiro",
+            "A pasta and pastry class for a family reunion"
+        ],
+        "covers": [
+            "corridor",
+            "candle-long",
+            "feast",
+            "canapes-slate",
+            "ocean",
+            "dough"
+        ]
     },
     "source": {
         "dir": "seed/sites/chef",

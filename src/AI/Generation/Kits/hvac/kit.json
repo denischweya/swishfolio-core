@@ -193,7 +193,7 @@
             "sourcePage": "home",
             "position": 4,
             "file": "units/home-04-content.html",
-            "slots": 17,
+            "slots": 20,
             "repeatable": 4,
             "fixedText": [
                 "HOLDING",
@@ -256,7 +256,7 @@
             "sourcePage": "home",
             "position": 8,
             "file": "units/home-08-schedule.html",
-            "slots": 19,
+            "slots": 42,
             "repeatable": 15,
             "fixedText": [
                 "I-25",
@@ -659,71 +659,123 @@
             "alt": "Gas burner flame",
             "title": "Gas burner flame",
             "width": 1600,
-            "height": 2400
+            "height": 2400,
+            "kind": "photo"
+        },
+        "commercial-ceiling": {
+            "file": "images/commercial-ceiling.jpg",
+            "alt": "Commercial ceiling install",
+            "title": "Commercial ceiling install",
+            "width": 1600,
+            "height": 1067,
+            "kind": "photo"
         },
         "crew-roof": {
             "file": "images/crew-roof.jpg",
             "alt": "Technicians on a commercial roof",
             "title": "Technicians on a commercial roof",
             "width": 1600,
-            "height": 1067
+            "height": 1067,
+            "kind": "photo"
         },
         "denver": {
             "file": "images/denver.jpg",
             "alt": "Denver skyline and mountains",
             "title": "Denver skyline and mountains",
             "width": 1600,
-            "height": 900
+            "height": 900,
+            "kind": "photo"
+        },
+        "heatpump-brick": {
+            "file": "images/heatpump-brick.jpg",
+            "alt": "Heat pump beside a brick house",
+            "title": "Heat pump beside a brick house",
+            "width": 1600,
+            "height": 1067,
+            "kind": "photo"
         },
         "heatpump-garden": {
             "file": "images/heatpump-garden.jpg",
             "alt": "Heat pump beside a house",
             "title": "Heat pump beside a house",
             "width": 1600,
-            "height": 1067
+            "height": 1067,
+            "kind": "photo"
         },
         "hero-house": {
             "file": "images/hero-house.jpg",
             "alt": "Modern home with a heat pump",
             "title": "Modern home with a heat pump",
             "width": 1600,
-            "height": 1067
+            "height": 1067,
+            "kind": "photo"
+        },
+        "living-calm": {
+            "file": "images/living-calm.jpg",
+            "alt": "Calm living room",
+            "title": "Calm living room",
+            "width": 1600,
+            "height": 2000,
+            "kind": "photo"
         },
         "living-sofa": {
             "file": "images/living-sofa.jpg",
             "alt": "Bright living room",
             "title": "Bright living room",
             "width": 1600,
-            "height": 2400
+            "height": 2400,
+            "kind": "photo"
         },
         "minisplit-room": {
             "file": "images/minisplit-room.jpg",
             "alt": "Ductless mini-split indoor unit",
             "title": "Ductless mini-split indoor unit",
             "width": 1600,
-            "height": 2213
+            "height": 2213,
+            "kind": "photo"
         },
         "thermostat-hand": {
             "file": "images/thermostat-hand.jpg",
             "alt": "Adjusting a thermostat",
             "title": "Adjusting a thermostat",
             "width": 1600,
-            "height": 1067
+            "height": 1067,
+            "kind": "photo"
         },
         "tools-wall": {
             "file": "images/tools-wall.jpg",
             "alt": "Workshop tool wall",
             "title": "Workshop tool wall",
             "width": 1600,
-            "height": 1067
+            "height": 1067,
+            "kind": "photo"
         },
         "wall-unit": {
             "file": "images/wall-unit.jpg",
             "alt": "Air conditioner on a brick wall",
             "title": "Air conditioner on a brick wall",
             "width": 1600,
-            "height": 1067
+            "height": 1067,
+            "kind": "photo"
         }
+    },
+    "projects": {
+        "titles": [
+            "Heat pump conversion for a 1924 Park Hill bungalow",
+            "Ductless mini-splits for a converted Highland loft",
+            "Rooftop unit replacement for a Lakewood dental practice",
+            "A high-efficiency furnace for a Littleton family of five",
+            "Whole-home air purification during wildfire season",
+            "Make-up air and cooling for a RiNo taproom"
+        ],
+        "covers": [
+            "heatpump-brick",
+            "minisplit-room",
+            "crew-roof",
+            "burner-flame",
+            "living-calm",
+            "commercial-ceiling"
+        ]
     },
     "source": {
         "dir": "seed/sites/hvac",

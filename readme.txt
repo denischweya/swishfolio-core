@@ -4,7 +4,7 @@ Tags: ai, blocks, block-editor, portfolio, forms
 Requires at least: 6.7
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.3.0
+Stable tag: 1.4.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -258,6 +258,39 @@ posts would change, then run without `--dry-run` to apply. Use `--network` on a
 multisite install to walk every subsite.
 
 == Changelog ==
+
+= 1.4.0 =
+* AI site builder: social proof sections (client logos, testimonials, stats)
+  are kept with clearly marked placeholders when the owner gives none, and
+  listed in "Left to check". Owners can add clients, a testimonial and key
+  numbers in the wizard. Explicit requests map to the right sections, never to
+  an empty portfolio block.
+* Template matching returns a fit score; poor fits recommend a custom design.
+* Custom designs recolour the kit's decorative art to the new palette, may add
+  a small, strictly sanitised kit-scoped polish CSS block, and a contrast guard
+  keeps text and links readable on coloured bands.
+* Optional stock photo sourcing (Unsplash hotlinked, Pexels imported) with a
+  vision check, off until a network admin adds a key. Demo portraits are no
+  longer left on customer sites.
+* Optional visual review pass after a site goes live: screenshots are reviewed
+  and a bounded set of fixes is applied as one undoable run.
+* New sites no longer inherit a template's AI usage log, journal or job data.
+* A page is no longer dropped when the model names an unknown slot; the edit
+  is skipped with a warning.
+* New kits: Editorial Studio (designer), Midnight Build (developer), Quiet
+  Practice (coaching) redesigns and Amethyst (wealth advisers).
+
+= 1.3.1 =
+* Onboarding: the owner's description of their business or bio is required on
+  the routes that build from it (template match and template customisation),
+  and has room for up to 6000 characters.
+* AI site builder: the planner decides whether the business shows past work.
+  If it does, a site that lists projects gets 3 to 6 sample projects written
+  for the business (marked `_swish_sample`, with the template's project covers),
+  replacing a cloned template's demo projects but never the owner's own. If it
+  does not, projects sections, a page that only framed them and its menu links
+  are left out, and a template's demo projects are moved to the bin. Applies to
+  kit builds, blank builds and template customisation.
 
 = 1.3.0 =
 * AI site builder: build a whole site from one of the Swishfolio site templates

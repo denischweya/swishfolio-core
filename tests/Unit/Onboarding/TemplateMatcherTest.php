@@ -119,6 +119,37 @@ class TemplateMatcherTest extends TestCase
         $this->assertSame('keywords', $result['source']);
     }
 
+    public function test_a_low_fit_from_the_model_recommends_a_custom_design()
+    {
+        $provider          = new FakeProvider();
+        $provider->payload = ['slug' => 'consultancy', 'alternatives' => [], 'reason' => 'Closest structure.', 'designWishes' => '', 'fit' => 42, 'business' => 'a wedding florist'];
+
+        $result = (new TemplateMatcher($provider, new PromptManager(SFCORE_PLUGIN_DIR . 'src/AI/Prompt')))->match(['business' => ['brief' => 'Wedding flowers in Bath']], $this->templates());
+
+        $this->assertSame(42, $result['fit']);
+        $this->assertTrue($result['lowFit']);
+        $this->assertSame('a wedding florist', $result['business']);
+        $this->assertContains('fit', TemplateMatcher::schema(['a'])['required']);
+    }
+
+    public function test_the_fit_threshold_and_its_edge_cases()
+    {
+        $this->assertTrue(TemplateMatcher::lowFit(TemplateMatcher::LOW_FIT - 1));
+        $this->assertFalse(TemplateMatcher::lowFit(TemplateMatcher::LOW_FIT));
+
+        // Out of range is clamped; a reply without a fit is not nudged.
+        $this->assertSame(100, TemplateMatcher::fromModel(['slug' => 'chef', 'fit' => 400], $this->templates(), [])['fit']);
+        $this->assertSame(0, TemplateMatcher::fromModel(['slug' => 'chef', 'fit' => -5], $this->templates(), [])['fit']);
+        $this->assertFalse(TemplateMatcher::fromModel(['slug' => 'chef'], $this->templates(), [])['lowFit']);
+    }
+
+    public function test_keyword_fallback_scores_fit_from_its_best_match()
+    {
+        $this->assertFalse((new TemplateMatcher())->match($this->coffee(), $this->templates())['lowFit'], 'A clear keyword match is a good fit.');
+        $none = (new TemplateMatcher())->match(['business' => ['brief' => 'Something lovely']], $this->templates());
+        $this->assertTrue($none['lowFit'], 'Nothing in the brief points at any design.');
+    }
+
     public function test_normalise_rejects_entries_without_a_blog_and_cleans_slugs()
     {
         $this->assertNull(SiteTemplates::normalise(['slug' => 'x']));

@@ -1,51 +1,49 @@
-<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|90","left":"var:preset|spacing|60","right":"var:preset|spacing|60"}}},"backgroundColor":"base","layout":{"type":"constrained","contentSize":"1200px"}} -->
-<div class="wp-block-group alignfull has-base-background-color has-background" style="padding-top:var(--wp--preset--spacing--70);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--60)">
-<!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|70","left":"var:preset|spacing|80"}}}} -->
-<div class="wp-block-columns are-vertically-aligned-center">
-<!-- wp:column {"verticalAlignment":"center","width":"54%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:54%">
-<!-- wp:paragraph {"className":"sf-label","textColor":"accent-1","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|40"}}}} -->
-<p class="sf-label has-accent-1-color has-text-color" style="margin-bottom:var(--wp--preset--spacing--40)">Coaching &amp; consulting</p>
-<!-- /wp:paragraph -->
+<!-- wp:group {"tagName":"section","align":"full","className":"qp-sec qp-hero","layout":{"type":"default"}} -->
+<section class="wp-block-group alignfull qp-sec qp-hero">
+<!-- wp:group {"className":"qp-wrap qp-hero__grid","layout":{"type":"default"}} -->
+<div class="wp-block-group qp-wrap qp-hero__grid">
+<!-- wp:group {"className":"qp-hero__text","layout":{"type":"default"}} -->
+<div class="wp-block-group qp-hero__text">
+<!-- wp:html -->
+<p class="qp-avail"><span class="qp-avail__dot" aria-hidden="true"></span>Three places open for January 2027</p>
+<!-- /wp:html -->
 
-<!-- wp:heading {"level":1,"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|50"}}}} -->
-<h1 class="wp-block-heading" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--50)">Lead with clarity, and take your team with you.</h1>
+<!-- wp:heading {"level":1,"className":"qp-h1"} -->
+<h1 class="wp-block-heading qp-h1">Room to think, and the courage to <em>act on it</em>.</h1>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"textColor":"accent-4","style":{"typography":{"lineHeight":"1.7"}},"fontSize":"large"} -->
-<p class="has-accent-4-color has-text-color has-large-font-size" style="line-height:1.7">I'm Elena Marsh. I work with founders, executives and their teams on the decisions that are hard to make alone, and on building the kind of company people stay at. Fifteen years running operations, ten years coaching the people who do.</p>
+<!-- wp:paragraph {"className":"qp-lead"} -->
+<p class="qp-lead">I’m Maren Lindqvist, an executive and life coach in Edinburgh. For twelve years I’ve helped leaders, founders and people at a crossroads slow down long enough to see clearly, then move with purpose.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|60","margin":{"top":"var:preset|spacing|60"}}},"layout":{"type":"flex","flexWrap":"wrap","verticalAlignment":"center"}} -->
-<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--60)">
 <!-- wp:buttons -->
-<div class="wp-block-buttons">
-<!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="{{link:contact}}">Book a free discovery call</a></div>
+<div class="wp-block-buttons"><!-- wp:button -->
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="{{link:contact}}">Book a free call</a></div>
 <!-- /wp:button -->
-</div>
+
+<!-- wp:button {"className":"qp-btn-ghost"} -->
+<div class="wp-block-button qp-btn-ghost"><a class="wp-block-button__link wp-element-button" href="{{link:coaching}}">Explore coaching</a></div>
+<!-- /wp:button --></div>
 <!-- /wp:buttons -->
 
-<!-- wp:paragraph {"className":"sf-link","fontSize":"medium"} -->
-<p class="sf-link has-medium-font-size"><a href="{{link:coaching}}">See how coaching works →</a></p>
-<!-- /wp:paragraph -->
+<!-- wp:html -->
+<ul class="qp-creds"><li><b>ICF PCC</b><span>Professional Certified Coach</span></li><li><b>600+</b><span>clients since 2014</span></li><li><b>20 yrs</b><span>leading teams before coaching</span></li></ul>
+<!-- /wp:html -->
 </div>
 <!-- /wp:group -->
 
-<!-- wp:paragraph {"className":"sf-label","textColor":"accent-4","style":{"spacing":{"margin":{"top":"var:preset|spacing|60"}}}} -->
-<p class="sf-label has-accent-4-color has-text-color" style="margin-top:var(--wp--preset--spacing--60)">ICF-accredited · 400+ leaders coached</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:column -->
-
-<!-- wp:column {"verticalAlignment":"center","width":"46%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:46%">
-<!-- wp:image {"sizeSlug":"large","linkDestination":"none","className":"sf-soft","aspectRatio":"4/5","scale":"cover"} -->
-<figure class="wp-block-image size-large sf-soft"><img src="{{kit-image:portrait}}" alt="Soft organic wash in sage and sand tones" style="aspect-ratio:4/5;object-fit:cover"/></figure>
+<!-- wp:group {"className":"qp-hero__media","layout":{"type":"default"}} -->
+<div class="wp-block-group qp-hero__media">
+<!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"qp-photo qp-hero__img"} -->
+<figure class="wp-block-image size-full qp-photo qp-hero__img"><img src="{{kit-image:portrait-bench-smile}}" alt="A smiling coach with long grey hair, sitting on a park bench in autumn sunshine"/></figure>
 <!-- /wp:image -->
+
+<!-- wp:html -->
+<figure class="qp-hero__quote"><blockquote><p>“She asks the question you’ve been avoiding, and makes it feel safe to answer.”</p></blockquote><figcaption>Fiona R., Chief Executive</figcaption></figure>
+<!-- /wp:html -->
 </div>
-<!-- /wp:column -->
+<!-- /wp:group -->
 </div>
-<!-- /wp:columns -->
-</div>
+<!-- /wp:group -->
+</section>
 <!-- /wp:group -->

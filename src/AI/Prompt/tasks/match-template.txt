@@ -9,6 +9,8 @@ Rules:
 5. alternatives: the next three best designs, best first, never the one you picked.
 6. reason: one short, friendly sentence to the customer, in plain words, about why this design fits them. Do not use dashes as punctuation.
 7. designWishes: only concrete visual instructions they actually gave (colours, light or dark, fonts, shapes, a named style such as minimal or brutalist), in a few words. Not their audience, their personality or a general feel. Empty string when they gave none. Do not invent any.
+8. fit: how closely the design you picked fits this business, from 0 to 100. 80 or more when it was made for this kind of business (same industry, the same pages and content). 60 to 79 when it is a related business whose pages adapt with small changes. Below 60 when none of the designs is a close match and theirs would borrow an unrelated look (for example a florist matched to a law firm). Be honest: a low score is useful, it lets us offer them a design of their own.
+9. business: what the business is, in a few plain words, as you would finish the sentence "a site for ..." (for example "a dog grooming salon" or "a wedding florist").
 
 Designs (slug: name, what it is for, look):
 

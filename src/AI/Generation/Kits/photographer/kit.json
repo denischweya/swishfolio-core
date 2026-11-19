@@ -658,141 +658,179 @@
             "alt": "Portrait of the photographer in a field at dusk, looking away",
             "title": "Idun Marlowe",
             "width": 1300,
-            "height": 1950
+            "height": 1950,
+            "kind": "photo"
         },
         "coast-fog": {
             "file": "images/coast-fog.jpg",
             "alt": "Pale beach dissolving into sea fog with a few shorebirds",
             "title": "Shorebirds, fog",
             "width": 1600,
-            "height": 900
+            "height": 900,
+            "kind": "photo"
         },
         "coast-palm": {
             "file": "images/coast-palm.jpg",
             "alt": "A single palm tree on a foggy shoreline",
             "title": "Palm in weather",
             "width": 1300,
-            "height": 1625
+            "height": 1625,
+            "kind": "photo"
         },
         "coast-shore": {
             "file": "images/coast-shore.jpg",
             "alt": "Dark volcanic beach with sea stacks fading into fog",
             "title": "Black sand, first light",
             "width": 1600,
-            "height": 1067
+            "height": 1067,
+            "kind": "photo"
         },
         "coast-walkers": {
             "file": "images/coast-walkers.jpg",
             "alt": "Three small figures walking a wide, empty beach under a white sky",
             "title": "Walkers, low tide",
             "width": 1300,
-            "height": 1950
+            "height": 1950,
+            "kind": "photo"
         },
         "dune-dark": {
             "file": "images/dune-dark.jpg",
             "alt": "A dark dune silhouette under a grey sky",
             "title": "Dune at dusk",
             "width": 1600,
-            "height": 900
+            "height": 900,
+            "kind": "photo"
         },
         "dune-figure": {
             "file": "images/dune-figure.jpg",
             "alt": "Sand dunes under a grey-green sky with one tiny distant figure",
             "title": "One walker",
             "width": 1300,
-            "height": 1509
+            "height": 1509,
+            "kind": "photo"
         },
         "dune-pale": {
             "file": "images/dune-pale.jpg",
             "alt": "Pale wind-combed dunes with sparse grass",
             "title": "White sand, wind",
             "width": 1300,
-            "height": 1950
+            "height": 1950,
+            "kind": "photo"
         },
         "port-dapple": {
             "file": "images/port-dapple.jpg",
             "alt": "Close portrait of a young man in dappled sunlight",
             "title": "Rafael, dancer",
             "width": 1300,
-            "height": 1950
+            "height": 1950,
+            "kind": "photo"
         },
         "port-glasses": {
             "file": "images/port-glasses.jpg",
             "alt": "Man in glasses lit by window light against a teal wall",
             "title": "Jonas, architect",
             "width": 1300,
-            "height": 1950
+            "height": 1950,
+            "kind": "photo"
         },
         "port-sill": {
             "file": "images/port-sill.jpg",
             "alt": "Man leaning at a window sill looking out, lit from the side",
             "title": "Tomás, at the sill",
             "width": 1600,
-            "height": 1067
+            "height": 1067,
+            "kind": "photo"
         },
         "port-window": {
             "file": "images/port-window.jpg",
             "alt": "Man standing by a tall industrial window in warm side light",
             "title": "Tomás, ceramicist",
             "width": 1300,
-            "height": 1950
+            "height": 1950,
+            "kind": "photo"
         },
         "room-curtain": {
             "file": "images/room-curtain.jpg",
             "alt": "Linen curtain lit by a blade of afternoon sun in a dark room",
             "title": "Curtain, 4 p.m.",
             "width": 1300,
-            "height": 1950
+            "height": 1950,
+            "kind": "photo"
         },
         "struct-beam": {
             "file": "images/struct-beam.jpg",
             "alt": "Concrete canopy and column against a pale sky",
             "title": "Canopy",
             "width": 1600,
-            "height": 1068
+            "height": 1068,
+            "kind": "photo"
         },
         "struct-house": {
             "file": "images/struct-house.jpg",
             "alt": "Angular concrete house in raking light",
             "title": "House on the slope",
             "width": 1300,
-            "height": 1950
+            "height": 1950,
+            "kind": "photo"
         },
         "white-alley": {
             "file": "images/white-alley.jpg",
             "alt": "Sunlit whitewashed alley with steps and deep shadow",
             "title": "Passage, late morning",
             "width": 1600,
-            "height": 1201
+            "height": 1201,
+            "kind": "photo"
         },
         "white-court": {
             "file": "images/white-court.jpg",
             "alt": "White building with a small door and two clipped trees in soft light",
             "title": "Courtyard with two trees",
             "width": 1300,
-            "height": 1733
+            "height": 1733,
+            "kind": "photo"
         },
         "white-curve": {
             "file": "images/white-curve.jpg",
             "alt": "Curved white modernist facade against a pale sky",
             "title": "Travertine curve",
             "width": 1600,
-            "height": 1067
+            "height": 1067,
+            "kind": "photo"
         },
         "white-edge": {
             "file": "images/white-edge.jpg",
             "alt": "The edge of a white wall against a clear blue sky",
             "title": "Edge, noon",
             "width": 1300,
-            "height": 1973
+            "height": 1973,
+            "kind": "photo"
         },
         "white-figure": {
             "file": "images/white-figure.jpg",
             "alt": "A small figure standing before a tall curved white wall and reflecting pool",
             "title": "Figure and wall",
             "width": 1300,
-            "height": 1950
+            "height": 1950,
+            "kind": "photo"
         }
+    },
+    "projects": {
+        "titles": [
+            "Low Tide",
+            "White Volumes",
+            "Erg",
+            "North Window",
+            "Soft Concrete",
+            "Slow Rooms"
+        ],
+        "covers": [
+            "coast-shore",
+            "white-figure",
+            "dune-figure",
+            "port-window",
+            "struct-beam",
+            "room-curtain"
+        ]
     },
     "source": {
         "dir": "seed/sites/photographer",

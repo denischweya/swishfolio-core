@@ -16,6 +16,7 @@ use SwishfolioCore\AI\Generation\PlanAssembler;
 use SwishfolioCore\AI\Generation\PlanCoverage;
 use SwishfolioCore\AI\Generation\PlanSchema;
 use SwishfolioCore\AI\Generation\PlanValidator;
+use SwishfolioCore\AI\Generation\ProjectsPolicy;
 use SwishfolioCore\AI\Prompt\PromptManager;
 use SwishfolioCore\AI\ProviderException;
 use SwishfolioCore\AI\UsageLogger;
@@ -116,24 +117,36 @@ class StagedPlanner
      * @throws ValidationException When no usable site plan comes out.
      * @throws ProviderException   When the outline call fails.
      *
-     * @return array {plan, outline, failed: [{key, title, reason}], calls}
+     * @return array {plan, outline, failed: [{key, title, reason}], calls, warnings: [{stage, message, path}]}
      */
     public function plan(array $brief, $outlineModel, $pageModel, JobProgress $progress)
     {
-        $outline = $this->outline($brief, $outlineModel, $progress);
-        $result  = $this->writePages($outline, array_column($outline['pages'], 'key'), $brief, $pageModel, $progress);
-        $pages   = $result['pages'];
-        $failed  = $result['failed'];
+        // Edits the validation dropped instead of refusing a page (PlanSlotStage), kept with the result.
+        $warnings = [];
+        $listen   = static function ($stage, $message, $path) use (&$warnings) {
+            $warnings[$stage . '|' . $message] = ['stage' => (string) $stage, 'message' => (string) $message, 'path' => (string) $path];
+        };
+        add_action('swishfolio_ai_plan_warning', $listen, 10, 3);
 
-        $progress->step('check', __('Checking the plan', 'swishfolio-core'));
+        try {
+            $outline = $this->outline($brief, $outlineModel, $progress);
+            $result  = $this->writePages($outline, array_column($outline['pages'], 'key'), $brief, $pageModel, $progress);
+            $pages   = $result['pages'];
+            $failed  = $result['failed'];
 
-        $plan = $this->check($outline, $pages, $failed, $brief, $pageModel, $progress);
+            $progress->step('check', __('Checking the plan', 'swishfolio-core'));
+
+            $plan = $this->check($outline, $pages, $failed, $brief, $pageModel, $progress);
+        } finally {
+            remove_action('swishfolio_ai_plan_warning', $listen, 10);
+        }
 
         return [
-            'plan'    => $plan,
-            'outline' => $outline,
-            'failed'  => $this->describeFailed($outline, $failed),
-            'calls'   => $this->calls,
+            'plan'     => $plan,
+            'outline'  => $outline,
+            'failed'   => $this->describeFailed($outline, $failed),
+            'calls'    => $this->calls,
+            'warnings' => array_values($warnings),
         ];
     }
 
@@ -356,7 +369,9 @@ class StagedPlanner
         }
 
         $context = call_user_func($this->contextFor, 'site');
-        $plan    = PlanValidator::withDefaultStages(false)->validate(StagedAssembly::sitePlan($outline, $pages, $this->kit->getSlug()), $context);
+        // A page call may still name a projects section the outline ruled out.
+        $site    = ProjectsPolicy::enforce(StagedAssembly::sitePlan($outline, $pages, $this->kit->getSlug()), $this->kit)['plan'];
+        $plan    = PlanValidator::withDefaultStages(false)->validate($site, $context);
         $plan    = $this->fillGaps($plan, $brief, $model);
 
         for ($guard = 0; $guard <= count($pages); $guard++) {
@@ -417,7 +432,15 @@ class StagedPlanner
         $progress->step('check', __('Checking the page', 'swishfolio-core'));
 
         $context = call_user_func($this->contextFor, 'page');
-        $plan    = PlanValidator::withDefaultStages(false)->validate(StagedAssembly::pagePlan($result['pages'][$key], $this->kit->getSlug()), $context);
+        $single  = StagedAssembly::pagePlan($result['pages'][$key], $this->kit->getSlug());
+        // The saved outline's projects decision holds for a retried page too.
+        if (isset($outline['projects'])) {
+            $checked = ProjectsPolicy::enforce(array_merge($single, ['projects' => $outline['projects']]), $this->kit)['plan'];
+            if ($checked['pages'] !== []) {
+                $single['pages'] = $checked['pages'];
+            }
+        }
+        $plan    = PlanValidator::withDefaultStages(false)->validate($single, $context);
         $plan    = $this->fillGaps($plan, $brief, $model);
 
         return PlanValidator::withDefaultStages()->validate($plan, $context);

@@ -70,7 +70,8 @@ class PlanValidatorTest extends GenerationTestCase
     public function test_slot_runs_before_value()
     {
         $plan = $this->plan([
-            'pages' => [$this->page(['sections' => [$this->patternSection(['texts' => [['id' => 't99', 'html' => str_repeat('x', 1500)]]])]])],
+            // An unknown unit to remove (still refused) beside an over-long copy slot.
+            'pages' => [$this->page(['sections' => [$this->patternSection(['remove' => ['u9'], 'texts' => [['id' => 't0', 'html' => str_repeat('x', 1500)]]])]])],
         ]);
 
         try {

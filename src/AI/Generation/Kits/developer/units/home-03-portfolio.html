@@ -1,25 +1,145 @@
-<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}},"border":{"top":{"color":"var:preset|color|accent-5","width":"1px"}}},"backgroundColor":"base","layout":{"type":"constrained","contentSize":"1240px"}} -->
-<div class="wp-block-group alignfull has-base-background-color has-background" style="border-top-color:var(--wp--preset--color--accent-5);border-top-width:1px;padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--50)">
-<!-- wp:group {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|60"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"bottom"}} -->
-<div class="wp-block-group" style="margin-bottom:var(--wp--preset--spacing--60)">
-<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"default"}} -->
-<div class="wp-block-group">
-<!-- wp:paragraph {"className":"sf-mono","textColor":"accent-4","style":{"spacing":{"margin":{"top":"0"}}}} -->
-<p class="sf-mono has-accent-4-color has-text-color" style="margin-top:0">// selected work</p>
+<!-- wp:group {"tagName":"section","align":"full","className":"mb-sec mb-work","layout":{"type":"default"}} -->
+<section class="wp-block-group alignfull mb-sec mb-work">
+<!-- wp:group {"className":"mb-wrap","layout":{"type":"default"}} -->
+<div class="wp-block-group mb-wrap">
+<!-- wp:group {"className":"mb-head mb-head\u002d\u002dsplit","layout":{"type":"default"}} -->
+<div class="wp-block-group mb-head mb-head--split">
+<!-- wp:group {"className":"mb-head__main","layout":{"type":"default"}} -->
+<div class="wp-block-group mb-head__main">
+<!-- wp:paragraph {"className":"mb-eyebrow"} -->
+<p class="mb-eyebrow"><span class="mb-eyebrow__n">01</span>Selected work</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":2,"className":"sf-display","style":{"spacing":{"margin":{"bottom":"0"}}},"fontSize":"3-x-large"} -->
-<h2 class="wp-block-heading sf-display has-3-x-large-font-size" style="margin-bottom:0">Four systems, all in production.</h2>
+<!-- wp:heading {"className":"mb-h2"} -->
+<h2 class="wp-block-heading mb-h2">Recent builds, <em>still running</em> in production.</h2>
 <!-- /wp:heading -->
 </div>
 <!-- /wp:group -->
 
-<!-- wp:paragraph {"className":"sf-arrow sf-mono"} -->
-<p class="sf-arrow sf-mono"><a href="{{link:work}}">all projects →</a></p>
+<!-- wp:paragraph {"className":"mb-lead"} -->
+<p class="mb-lead">Payments, analytics, field apps and storefronts. Every project below is live, measured and maintained by the team I handed it to.</p>
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->
 
-<!-- wp:swishfolio-core/portfolio {"columns":2,"gap":28,"postsPerPage":4,"cardStyle":"default","imageAspectRatio":"wide","hoverEffect":"lift","showExcerpt":true,"showCategory":true,"showProjectType":true,"showClient":true,"showViewButton":false,"imageBorderRadius":0,"orderBy":"menu_order","order":"ASC"} /-->
+<!-- wp:group {"className":"mb-cases","layout":{"type":"default"}} -->
+<div class="wp-block-group mb-cases">
+<!-- wp:group {"className":"mb-case is-lead","layout":{"type":"default"}} -->
+<div class="wp-block-group mb-case is-lead">
+<!-- wp:group {"className":"mb-case__media","layout":{"type":"default"}} -->
+<div class="wp-block-group mb-case__media">
+<!-- wp:image {"sizeSlug":"large","linkDestination":"none","className":"mb-photo mb-case__img"} -->
+<figure class="wp-block-image size-large mb-photo mb-case__img"><img src="{{kit-image:cover-tallo}}" alt=""/></figure>
+<!-- /wp:image -->
+
+<!-- wp:html -->
+<p class="mb-case__metric"><b>4 min</b><span>median payout, down from 2 days</span></p>
+<!-- /wp:html -->
 </div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"mb-case__body","layout":{"type":"default"}} -->
+<div class="wp-block-group mb-case__body">
+<!-- wp:paragraph {"className":"mb-case__k"} -->
+<p class="mb-case__k"><span>Tallo</span><span>Fintech</span></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3,"className":"mb-case__t"} -->
+<h3 class="wp-block-heading mb-case__t">Rebuilding marketplace payouts so sellers get paid in minutes</h3>
+<!-- /wp:heading -->
+
+<!-- wp:html -->
+<ul class="mb-chips mb-chips--sm"><li>Go</li><li>PostgreSQL</li><li>Next.js</li><li>AWS</li></ul>
+<!-- /wp:html -->
+
+<!-- wp:html -->
+<a class="mb-textlink" href="{{link:case-study}}">Read the case study <svg class="mb-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+<!-- /wp:html -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"mb-case","layout":{"type":"default"}} -->
+<div class="wp-block-group mb-case">
+<!-- wp:group {"className":"mb-case__media","layout":{"type":"default"}} -->
+<div class="wp-block-group mb-case__media">
+<!-- wp:image {"sizeSlug":"large","linkDestination":"none","className":"mb-photo mb-case__img"} -->
+<figure class="wp-block-image size-large mb-photo mb-case__img"><img src="{{kit-image:cover-copperline}}" alt=""/></figure>
+<!-- /wp:image -->
+
+<!-- wp:html -->
+<p class="mb-case__metric"><b>142 ms</b><span>p95 query over 2B rows</span></p>
+<!-- /wp:html -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"mb-case__body","layout":{"type":"default"}} -->
+<div class="wp-block-group mb-case__body">
+<!-- wp:paragraph {"className":"mb-case__k"} -->
+<p class="mb-case__k"><span>Copperline</span><span>Analytics</span></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3,"className":"mb-case__t"} -->
+<h3 class="wp-block-heading mb-case__t">A real-time analytics pipeline that answers in milliseconds</h3>
+<!-- /wp:heading -->
+
+<!-- wp:html -->
+<ul class="mb-chips mb-chips--sm"><li>ClickHouse</li><li>Kafka</li><li>TypeScript</li><li>React</li></ul>
+<!-- /wp:html -->
+
+<!-- wp:html -->
+<a class="mb-textlink" href="{{link:work}}#copperline">View the project <svg class="mb-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+<!-- /wp:html -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"mb-case","layout":{"type":"default"}} -->
+<div class="wp-block-group mb-case">
+<!-- wp:group {"className":"mb-case__media","layout":{"type":"default"}} -->
+<div class="wp-block-group mb-case__media">
+<!-- wp:image {"sizeSlug":"large","linkDestination":"none","className":"mb-photo mb-case__img"} -->
+<figure class="wp-block-image size-large mb-photo mb-case__img"><img src="{{kit-image:cover-gridwalk}}" alt=""/></figure>
+<!-- /wp:image -->
+
+<!-- wp:html -->
+<p class="mb-case__metric"><b>0</b><span>reports lost since launch</span></p>
+<!-- /wp:html -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"mb-case__body","layout":{"type":"default"}} -->
+<div class="wp-block-group mb-case__body">
+<!-- wp:paragraph {"className":"mb-case__k"} -->
+<p class="mb-case__k"><span>Gridwalk</span><span>Energy</span></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3,"className":"mb-case__t"} -->
+<h3 class="wp-block-heading mb-case__t">An offline-first inspection app for crews beyond the cell towers</h3>
+<!-- /wp:heading -->
+
+<!-- wp:html -->
+<ul class="mb-chips mb-chips--sm"><li>React Native</li><li>SQLite</li><li>Node.js</li><li>PostgreSQL</li></ul>
+<!-- /wp:html -->
+
+<!-- wp:html -->
+<a class="mb-textlink" href="{{link:work}}#gridwalk">View the project <svg class="mb-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+<!-- /wp:html -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:buttons {"className":"mb-center"} -->
+<div class="wp-block-buttons mb-center"><!-- wp:button {"className":"mb-btn-ghost"} -->
+<div class="wp-block-button mb-btn-ghost"><a class="wp-block-button__link wp-element-button" href="{{link:work}}">All projects</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons -->
+</div>
+<!-- /wp:group -->
+</section>
 <!-- /wp:group -->

@@ -1,0 +1,25 @@
+{
+    "phones": [
+        "+43 1 555 0187"
+    ],
+    "emails": [
+        "hello@claranovak.example"
+    ],
+    "domains": [
+        "claranovak.example"
+    ],
+    "addresses": [],
+    "places": [
+        "Vienna",
+        "Neubau",
+        "Kirchengasse",
+        "Graz",
+        "Linz"
+    ],
+    "people": [
+        "Clara Novak",
+        "Jonas Feld",
+        "Marco Lenz",
+        "Ruth Ambler"
+    ]
+}

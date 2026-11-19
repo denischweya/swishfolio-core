@@ -98,6 +98,11 @@ class KitController
         $brief    = self::brief((array) $request->get_param('brief'));
         $provider = null;
 
+        // A blank site is built from the owner's description; matching starts that build.
+        if (($missing = CustomiseController::requireBrief($brief)) !== null) {
+            return $missing;
+        }
+
         if ($this->settings->get()['enabled']) {
             try {
                 $provider = $this->providers->configured();
@@ -129,6 +134,20 @@ class KitController
                 'demo'        => $t['demo'],
             ];
         }
+
+        /**
+         * Fires after a brief is matched to a design, so the onboarding record
+         * can keep the fit score (swishfolio-extra stores it in swish_onboarding).
+         *
+         * @param array $match {slug, fit, lowFit, business, source}
+         */
+        do_action('swishfolio_ai_template_matched', [
+            'slug'     => $result['slug'],
+            'fit'      => $result['fit'],
+            'lowFit'   => $result['lowFit'],
+            'business' => $result['business'],
+            'source'   => $result['source'],
+        ]);
 
         return rest_ensure_response($result);
     }
@@ -167,7 +186,7 @@ class KitController
         }
 
         return [
-            'business'  => $group(isset($raw['business']) ? $raw['business'] : [], 3000),
+            'business'  => CustomiseController::withLongBrief($group(isset($raw['business']) ? $raw['business'] : [], 3000), isset($raw['business']) ? $raw['business'] : [], $text),
             'design'    => $group(isset($raw['design']) ? $raw['design'] : [], 60),
             'prompt'    => $text(isset($raw['prompt']) ? $raw['prompt'] : '', 3000),
             'documents' => $text(isset($raw['documents']) ? $raw['documents'] : '', TemplateMatcher::DOC_CHARS),

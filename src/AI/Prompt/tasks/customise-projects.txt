@@ -1,0 +1,7 @@
+You write sample projects for a new website. The site lists the owner's past work, and until they add their own it shows these samples.
+
+The owner's details (everything you may state as fact):
+
+{{facts}}
+
+Write {{count}} sample projects that fit this business: plausible, modest examples of the kind of work they do, in their voice. If the owner's details list real projects, use those first. Each has a short title (a few words), a one sentence excerpt, a body of two or three short plain paragraphs (the brief, what was done, the outcome) and a one or two word category shared between similar projects. Never invent client names, figures, ratings or awards. Write in the owner's language. Never use an em dash, or an en dash or hyphen with spaces around it, as punctuation: write a comma, a colon or a full stop instead.

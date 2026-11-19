@@ -8,7 +8,9 @@
 namespace SwishfolioCore\REST;
 
 use SwishfolioCore\AI\ModelRouter;
+use SwishfolioCore\AI\Onboarding\SampleProjects;
 use SwishfolioCore\AI\Onboarding\TemplateCustomiser;
+use SwishfolioCore\AI\Onboarding\TemplateProjects;
 use SwishfolioCore\AI\Prompt\PromptManager;
 use SwishfolioCore\AI\ProviderException;
 use SwishfolioCore\AI\ProviderRegistry;
@@ -50,6 +52,9 @@ class CustomiseController
 {
     const NAMESPACE_V1 = 'swishfolio/v1';
     const KIND         = ModelRouter::KIND_TEMPLATE_CUSTOMISE;
+
+    /** The owner's own description of their business or bio (business.brief): generous on purpose. */
+    const BRIEF_MAX = 6000;
 
     /** @var Settings */
     private $settings;
@@ -143,6 +148,11 @@ class CustomiseController
         $stage = (string) $request->get_param('stage');
         $brief = $this->brief((array) $request->get_param('brief'));
 
+        // The template's AI pass rewrites pages from the owner's description, so it needs one.
+        if (($stage === 'preview' || $stage === 'run') && ($missing = self::requireBrief($brief)) !== null) {
+            return $missing;
+        }
+
         if ($stage === 'preview') {
             return rest_ensure_response($this->preview($brief));
         }
@@ -156,7 +166,7 @@ class CustomiseController
 
             $target = (string) $request->get_param('target');
 
-            if (! ($target === 'design' && $scope['design']) && ! in_array((int) $target, $scope['posts'], true)) {
+            if (! ($target === 'design' && $scope['design']) && ! ($target === 'projects' && $scope['projects'] !== '') && ! in_array((int) $target, $scope['posts'], true)) {
                 return new \WP_Error('sfcore_ai_bad_request', __('That is not part of the approved changes.', 'swishfolio-core'), ['status' => 400]);
             }
 
@@ -210,24 +220,86 @@ class CustomiseController
      */
     private function preview(array $brief)
     {
-        $targets = TemplateCustomiser::targets();
-        $design  = trim($brief['prompt']) !== '' || ($brief['useLogoColors'] && $this->logoId($brief) > 0);
+        $targets  = TemplateCustomiser::targets();
+        $design   = trim($brief['prompt']) !== '' || ($brief['useLogoColors'] && $this->logoId($brief) > 0);
+        $projects = $this->projectsPlan($brief, $targets);
 
         $scope = [
-            'posts'  => array_map(static function ($t) {
+            'posts'  => array_values(array_map(static function ($t) {
                 return (int) $t['postId'];
-            }, $targets),
+            }, $projects['targets'])),
             'design' => $design && current_user_can('edit_theme_options'),
             'runId'  => ToolContext::newRunId(),
             // Pinned here and signed into the token, so every parallel job of
             // one customisation runs on the same model whatever finishes first.
             'model'  => (new ModelRouter($this->settings))->modelFor(self::KIND),
+            // Decided before any rewrite (TemplateProjects): "keep", "remove" or ''.
+            'projects'  => $projects['mode'],
+            'dropPages' => $projects['drop'],
         ];
+
+        $targets = $projects['targets'];
+
+        if ($projects['mode'] !== '') {
+            $targets[] = $projects['mode'] === TemplateProjects::KEEP
+                ? ['postId' => 'projects', 'title' => __('Sample projects written for your business', 'swishfolio-core'), 'type' => 'projects', 'label' => __('Writing sample projects for your business', 'swishfolio-core')]
+                : ['postId' => 'projects', 'title' => __('The projects section, which your business does not need', 'swishfolio-core'), 'type' => 'projects', 'label' => __('Removing the projects section', 'swishfolio-core')];
+        }
 
         return [
             'targets'      => $targets,
             'scope'        => $scope,
             'confirmToken' => ConfirmToken::issue(self::calls($scope), get_current_user_id()),
+        ];
+    }
+
+    /**
+     * Whether this template's projects stay (rewritten for the owner) or go,
+     * decided before any page is rewritten. See TemplateProjects.
+     *
+     * @param array   $brief   Owner facts.
+     * @param array[] $targets Rewrite targets.
+     *
+     * @return array {mode: "keep"|"remove"|'', drop: int[], targets: array[]}
+     */
+    private function projectsPlan(array $brief, array $targets)
+    {
+        $none = ['mode' => '', 'drop' => [], 'targets' => $targets];
+
+        if (! current_user_can('edit_posts')) {
+            return $none;
+        }
+
+        $survey = TemplateProjects::survey($targets);
+
+        if ($survey['listed'] === []) {
+            // Nothing lists projects: a template's leftover demo projects just go.
+            return $survey['demo'] ? ['mode' => TemplateProjects::REMOVE, 'drop' => [], 'targets' => $targets] : $none;
+        }
+
+        try {
+            $provider   = $this->providers->configured();
+            $prompts    = new PromptManager(SFCORE_PLUGIN_DIR . 'src/AI/Prompt');
+            $journal    = new MutationJournal(new WpdbJournalRepository());
+            $customiser = new TemplateCustomiser($provider, $prompts, new ToolRunner(new ToolRegistry([]), $journal));
+            $keep       = TemplateProjects::decide($provider, $prompts, $customiser->facts($brief), (new ModelRouter($this->settings))->modelFor(ModelRouter::KIND_TEMPLATE_MATCH));
+        } catch (ProviderException $e) {
+            // Undecided: keep the section and give it projects that fit.
+            $keep = true;
+        }
+
+        if ($keep) {
+            return $survey['real'] ? $none : ['mode' => TemplateProjects::KEEP, 'drop' => [], 'targets' => $targets];
+        }
+
+        $drop = TemplateProjects::framePages($survey['listed']);
+
+        return [
+            'mode'    => TemplateProjects::REMOVE,
+            'drop'    => $drop,
+            'targets' => array_values(array_filter($targets, static function ($t) use ($drop) {
+                return ! in_array((int) $t['postId'], $drop, true);
+            })),
         ];
     }
 
@@ -271,7 +343,21 @@ class CustomiseController
                 }
                 $result = $customiser->customiseDesign($brief, $scope['model'], $context);
                 $progress->done('design', $result['applied'] ? implode(', ', $result['changes']) : __('No design changes needed', 'swishfolio-core'));
+            } elseif ($target === 'projects') {
+                $progress->step('projects', $scope['projects'] === TemplateProjects::KEEP ? __('Writing sample projects', 'swishfolio-core') : __('Removing the projects section', 'swishfolio-core'));
+                $written = $scope['projects'] === TemplateProjects::KEEP
+                    ? TemplateProjects::write($provider, new PromptManager(SFCORE_PLUGIN_DIR . 'src/AI/Prompt'), $customiser->facts($brief), $scope['model'], count(SampleProjects::classify()['demo']))
+                    : ['items' => [], 'response' => null];
+                $result             = TemplateProjects::finish($scope['projects'], $scope['dropPages'], $written['items'], $journal, $context);
+                $result['response'] = $written['response'];
+                $result['changes']  = [];
+                $progress->done('projects', $result['summary']);
             } else {
+                // Projects sections (and links to pages that went with them) go before the rewrite reads the page.
+                if ($scope['projects'] === TemplateProjects::REMOVE) {
+                    TemplateProjects::strip((int) $target, $scope['dropPages'], $journal, $context);
+                    $brief['noProjects'] = true;
+                }
                 $title = (string) get_the_title((int) $target);
                 $progress->step('copy', sprintf(/* translators: %s: page title. */ __('Rewriting %s', 'swishfolio-core'), $title));
                 $result = $customiser->customisePost((int) $target, $brief, $scope['model'], $context);
@@ -504,6 +590,8 @@ class CustomiseController
             'design' => ! empty($raw['design']),
             'runId'  => isset($raw['runId']) && preg_match('/^[a-f0-9]{32}$/', (string) $raw['runId']) ? (string) $raw['runId'] : '',
             'model'  => isset($raw['model']) ? (string) $raw['model'] : '',
+            'projects'  => isset($raw['projects']) && in_array($raw['projects'], [TemplateProjects::KEEP, TemplateProjects::REMOVE], true) ? (string) $raw['projects'] : '',
+            'dropPages' => array_values(array_map('intval', isset($raw['dropPages']) ? (array) $raw['dropPages'] : [])),
         ];
     }
 
@@ -517,6 +605,46 @@ class CustomiseController
     public static function cleanBrief(array $raw)
     {
         return self::brief($raw);
+    }
+
+    /**
+     * Routes that build a site from the owner's description refuse to run without it.
+     *
+     * @param array $brief Clean brief.
+     *
+     * @return \WP_Error|null Error when business.brief is empty, else null.
+     */
+    public static function requireBrief(array $brief)
+    {
+        $text = isset($brief['business']['brief']) && is_scalar($brief['business']['brief']) ? trim((string) $brief['business']['brief']) : '';
+
+        if ($text !== '') {
+            return null;
+        }
+
+        return new \WP_Error(
+            'sfcore_brief_required',
+            __('Describe your business or bio first. We build your site from it.', 'swishfolio-core'),
+            ['status' => 400]
+        );
+    }
+
+    /**
+     * A brief's business group: each value capped at $max, the owner's description at BRIEF_MAX.
+     *
+     * @param array    $group Clean business values.
+     * @param mixed    $raw   Raw business group from the client.
+     * @param callable $text  Cleaner: ($value, $max) => string.
+     *
+     * @return array
+     */
+    public static function withLongBrief(array $group, $raw, callable $text)
+    {
+        $raw = (array) $raw;
+        if (isset($group['brief'], $raw['brief']) && is_scalar($raw['brief'])) {
+            $group['brief'] = $text($raw['brief'], self::BRIEF_MAX);
+        }
+        return $group;
     }
 
     /**
@@ -554,7 +682,7 @@ class CustomiseController
         $profile = isset($raw['profile']) && is_array($raw['profile']) ? map_deep($raw['profile'], 'sanitize_textarea_field') : [];
 
         return [
-            'business'      => $group(isset($raw['business']) ? $raw['business'] : [], 3000),
+            'business'      => self::withLongBrief($group(isset($raw['business']) ? $raw['business'] : [], 3000), isset($raw['business']) ? $raw['business'] : [], $text),
             'contact'       => $group(isset($raw['contact']) ? $raw['contact'] : [], 300),
             'prompt'        => $text(isset($raw['prompt']) ? $raw['prompt'] : '', 3000),
             'documents'     => $text(isset($raw['documents']) ? $raw['documents'] : '', TemplateCustomiser::MAX_DOC_CHARS),

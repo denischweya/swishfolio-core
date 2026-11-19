@@ -73,6 +73,17 @@ class ModelRouter
     // Staged site plan: one page's copy, written from an outline the strong
     // model already decided (KIND_SITE_DESIGN), so the follow-up model.
     const KIND_SITE_PAGE         = 'site-page';
+    // Onboarding photo sourcing: a vision check of stock photo thumbnails
+    // against one photo slot. On Anthropic it always runs on the cheap model
+    // below, whatever the strong and follow-up models are.
+    const KIND_PHOTO_CHECK       = 'photo-check';
+    const PHOTO_CHECK_MODEL      = 'claude-haiku-5-5';
+    // Visual review after go-live: screenshots of the built site judged by
+    // the same strong model that designs sites, always (the site's first
+    // design is long done by then, so the design-heavy rule would downgrade it).
+    const KIND_VISUAL_REVIEW     = 'visual-review';
+    // Copy for a section the visual review swapped in: follow-up model.
+    const KIND_VISUAL_REVIEW_COPY = 'visual-review-copy';
 
     const DESIGN_KINDS = [
         self::KIND_SITE_DESIGN,
@@ -109,6 +120,14 @@ class ModelRouter
         if ($followup !== '' && $followup !== $strong
             && ! ($this->isDesignHeavy($kind) && ! $this->firstDesignDone())) {
             $model = $followup;
+        }
+
+        if ($kind === self::KIND_VISUAL_REVIEW) {
+            $model = $strong;
+        }
+
+        if ($kind === self::KIND_PHOTO_CHECK && $this->settings->getActive() === 'anthropic') {
+            $model = self::PHOTO_CHECK_MODEL;
         }
 
         /**

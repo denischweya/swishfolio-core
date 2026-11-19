@@ -7,6 +7,8 @@
 
 namespace SwishfolioCore\AI\Generation\Staged;
 
+use SwishfolioCore\AI\Generation\ProjectsPolicy;
+
 use SwishfolioCore\Actions\ValidationException;
 use SwishfolioCore\AI\Generation\Kit;
 use SwishfolioCore\AI\Generation\PlanContext;
@@ -28,6 +30,9 @@ class SiteOutline
 {
     const STAGE = 'plan-outline';
 
+    /** Page slugs WordPress already routes elsewhere, and what to use instead. */
+    const RESERVED_SLUGS = ['projects' => 'our-work'];
+
     /**
      * @param string $kit Kit slug.
      *
@@ -40,7 +45,7 @@ class SiteOutline
         return [
             'type'                 => 'object',
             'additionalProperties' => false,
-            'required'             => ['schemaVersion', 'kit', 'summary', 'site', 'facts', 'pages'],
+            'required'             => ['schemaVersion', 'kit', 'summary', 'site', 'facts', 'projects', 'pages'],
             'properties'           => [
                 'schemaVersion' => ['type' => 'string', 'enum' => [PlanSchema::SCHEMA_VERSION]],
                 'kit'           => ['type' => 'string', 'enum' => [(string) $kit]],
@@ -72,6 +77,7 @@ class SiteOutline
                         'contact'      => ['type' => 'string', 'description' => 'Contact details, address and hours exactly as the owner gave them, or an empty string.'],
                     ],
                 ],
+                'projects' => ProjectsPolicy::outlineSchema(),
                 'pages' => [
                     'type'     => 'array',
                     'minItems' => 1,
@@ -128,6 +134,10 @@ class SiteOutline
         $maxPages = max(1, (int) $context->getMaxPages());
         $perPage  = max(1, (int) $context->getMaxSectionsPerPage());
         $maxTotal = max(1, (int) $context->getMaxSectionsTotal());
+        // Whether the business shows past work: when it never does, sections
+        // listing projects go, and a page that only framed them goes too.
+        $projects = ProjectsPolicy::decision(isset($outline['projects']) ? $outline['projects'] : null);
+        $rawFront = isset($outline['site']['frontPage']) ? strtolower(trim((string) $outline['site']['frontPage'])) : '';
 
         foreach ($pages as $page) {
             if (! is_array($page) || count($clean) >= $maxPages) {
@@ -145,6 +155,11 @@ class SiteOutline
 
             if ($slug === '') {
                 $slug = $key;
+            }
+
+            // /projects/ is the project archive (ProjectPostType): a page there would never show.
+            if (isset(self::RESERVED_SLUGS[$slug])) {
+                $slug = self::RESERVED_SLUGS[$slug];
             }
 
             if (isset($slugs[$slug])) {
@@ -169,7 +184,11 @@ class SiteOutline
                 }
             }
 
-            if ($sections === []) {
+            if (! $projects['show']) {
+                $sections = ProjectsPolicy::withoutProjects($sections, $kit, $key === $rawFront);
+            }
+
+            if ($sections === null || $sections === []) {
                 continue;
             }
 
@@ -238,6 +257,7 @@ class SiteOutline
                 'contact'      => trim((string) (isset($facts['contact']) ? $facts['contact'] : '')),
             ],
             'pages'   => $clean,
+            'projects' => $projects,
         ];
     }
 

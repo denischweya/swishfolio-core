@@ -399,6 +399,8 @@ class Plugin
         $this->customiseController  = new CustomiseController($aiSettings, $aiProviders, $aiLogger, $this->backgroundJobs, $this->aiBuilderController);
         $this->kitController        = new KitController($aiSettings, $aiProviders, $aiLogger);
         $this->kitBuildController   = new KitBuildController($aiSettings, $aiProviders, $aiLogger, $this->aiPatternLibrary, $this->backgroundJobs);
+        // Credit line for imported stock photos (Unsplash / Pexels terms).
+        \SwishfolioCore\AI\Photos\PhotoCredits::register();
         $this->customDesignController = new \SwishfolioCore\REST\CustomDesignController($aiSettings, $aiProviders, $aiLogger, $this->aiPatternLibrary, $this->backgroundJobs);
 
         $this->agentController = new AgentController(
@@ -571,6 +573,11 @@ class Plugin
             \WP_CLI::add_command(
                 'swishfolio migrate-credentials',
                 \SwishfolioCore\Commands\MigrateCredentialsCommand::class
+            );
+
+            \WP_CLI::add_command(
+                'swishfolio visual-review',
+                \SwishfolioCore\Commands\VisualReviewCommand::class
             );
         }
     }

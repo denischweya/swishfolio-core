@@ -145,6 +145,17 @@ class Dashes
             }
         }
 
+        foreach (isset($plan['projects']['items']) && is_array($plan['projects']['items']) ? $plan['projects']['items'] : [] as $i => $item) {
+            foreach (['title', 'excerpt', 'category'] as $key) {
+                if (isset($item[$key]) && is_string($item[$key])) {
+                    $plan['projects']['items'][$i][$key] = self::text($item[$key]);
+                }
+            }
+            if (isset($item['body']) && is_array($item['body'])) {
+                $plan['projects']['items'][$i]['body'] = array_map([self::class, 'text'], array_map('strval', $item['body']));
+            }
+        }
+
         foreach (isset($plan['pages']) && is_array($plan['pages']) ? $plan['pages'] : [] as $p => $page) {
             if (isset($page['title']) && is_string($page['title'])) {
                 $plan['pages'][$p]['title'] = self::text($page['title']);

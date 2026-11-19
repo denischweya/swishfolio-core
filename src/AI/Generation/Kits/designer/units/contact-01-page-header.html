@@ -1,113 +1,40 @@
-<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"backgroundColor":"base","layout":{"type":"constrained","contentSize":"1360px"}} -->
-<div class="wp-block-group alignfull has-base-background-color has-background" style="padding-top:var(--wp--preset--spacing--70);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--50)">
-<!-- wp:paragraph {"className":"sf-eyebrow sf-hair","textColor":"accent-4"} -->
-<p class="sf-eyebrow sf-hair has-accent-4-color has-text-color">Contact</p>
+<!-- wp:group {"tagName":"section","align":"full","className":"eb-sec eb-contact","layout":{"type":"default"}} -->
+<section class="wp-block-group alignfull eb-sec eb-contact">
+<!-- wp:group {"className":"eb-wrap eb-contact__grid","layout":{"type":"default"}} -->
+<div class="wp-block-group eb-wrap eb-contact__grid">
+<!-- wp:group {"className":"eb-contact__text","layout":{"type":"default"}} -->
+<div class="wp-block-group eb-contact__text">
+<!-- wp:paragraph {"className":"eb-eyebrow"} -->
+<p class="eb-eyebrow">Contact</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":1,"className":"sf-display","style":{"spacing":{"margin":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50"}}},"fontSize":"display-large"} -->
-<h1 class="wp-block-heading sf-display has-display-large-font-size" style="margin-top:var(--wp--preset--spacing--50);margin-bottom:var(--wp--preset--spacing--50)">Let's talk.</h1>
+<!-- wp:heading {"level":1,"className":"eb-h1 eb-h1\u002d\u002dpage"} -->
+<h1 class="wp-block-heading eb-h1 eb-h1--page">Let’s make something <em>worth keeping</em>.</h1>
 <!-- /wp:heading -->
 
-<!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|50","left":"var:preset|spacing|70"}}}} -->
-<div class="wp-block-columns">
-<!-- wp:column {"width":"54%"} -->
-<div class="wp-block-column" style="flex-basis:54%">
-<!-- wp:paragraph {"style":{"typography":{"lineHeight":"1.55"},"spacing":{"margin":{"bottom":"var:preset|spacing|50"}}},"fontSize":"large"} -->
-<p class="has-large-font-size" style="margin-bottom:var(--wp--preset--spacing--50);line-height:1.55">Email is best. I read everything myself and reply within two working days, even if the answer is that I'm not the right fit.</p>
+<!-- wp:paragraph {"className":"eb-lead"} -->
+<p class="eb-lead">Tell me a little about the business and what you need. I read every enquiry myself, and I am happy to talk early, before the brief is finished.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"className":"sf-eyebrow","textColor":"accent-4","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|30"}}}} -->
-<p class="sf-eyebrow has-accent-4-color has-text-color" style="margin-bottom:var(--wp--preset--spacing--30)">Worth including</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:list {"style":{"typography":{"lineHeight":"2"}},"fontSize":"medium"} -->
-<ul class="wp-block-list has-medium-font-size" style="line-height:2"><!-- wp:list-item -->
-<li>What the company does, in one line</li>
-<!-- /wp:list-item -->
-
-<!-- wp:list-item -->
-<li>What you think the problem is</li>
-<!-- /wp:list-item -->
-
-<!-- wp:list-item -->
-<li>When it needs to be live, and why then</li>
-<!-- /wp:list-item -->
-
-<!-- wp:list-item -->
-<li>Roughly what you've set aside for it</li>
-<!-- /wp:list-item --></ul>
-<!-- /wp:list -->
-
-<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|60"}}}} -->
-<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--60)">
-<!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="mailto:studio@maralindqvist.se">Email the studio</a></div>
-<!-- /wp:button -->
+<!-- wp:html -->
+<ul class="eb-direct"><li><span class="eb-direct__k">Email</span><a href="mailto:studio@eliasbrandt.example">studio@eliasbrandt.example</a></li><li><span class="eb-direct__k">Phone</span><a href="tel:+64215550147">+64 21 555 0147</a></li><li><span class="eb-direct__k">Studio</span><span>Level 1, 212 Cuba Street, Te Aro, Wellington</span></li><li><span class="eb-direct__k">Hours</span><span>Monday to Thursday, 9:00–17:30 NZT</span></li></ul>
+<!-- /wp:html -->
 </div>
-<!-- /wp:buttons -->
-</div>
-<!-- /wp:column -->
+<!-- /wp:group -->
 
-<!-- wp:column {"width":"46%"} -->
-<div class="wp-block-column" style="flex-basis:46%">
-<!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|40","left":"var:preset|spacing|40"}}}} -->
-<div class="wp-block-columns">
-<!-- wp:column {"className":"sf-hair"} -->
-<div class="wp-block-column sf-hair">
-<!-- wp:paragraph {"className":"sf-eyebrow","textColor":"accent-4","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|20"}}}} -->
-<p class="sf-eyebrow has-accent-4-color has-text-color" style="margin-bottom:var(--wp--preset--spacing--20)">Email</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"className":"sf-arrow"} -->
-<p class="sf-arrow"><a href="mailto:studio@maralindqvist.se">studio@maralindqvist.se</a></p>
-<!-- /wp:paragraph -->
+<!-- wp:html -->
+<form class="eb-form" action="#" method="post" onsubmit="event.preventDefault();this.classList.add('is-sent');this.querySelector('.eb-form__done').focus()">
+<p class="eb-form__title">Tell me about your project</p>
+<div class="eb-form__row"><label>Your name<input type="text" name="name" required placeholder="Hana Rāwiri" autocomplete="name"></label><label>Email<input type="email" name="email" required placeholder="hana@brand.example" autocomplete="email"></label></div>
+<div class="eb-form__row"><label>Company<input type="text" name="company" placeholder="Aulde Skin" autocomplete="organization"></label><label>Website<input type="text" name="site" placeholder="aulde.example"></label></div>
+<fieldset><legend>What do you need?</legend><div class="eb-opts"><label><input type="checkbox" name="services" value="Strategy &amp; naming"><span>Strategy &amp; naming</span></label><label><input type="checkbox" name="services" value="Visual identity"><span>Visual identity</span></label><label><input type="checkbox" name="services" value="Packaging"><span>Packaging</span></label><label><input type="checkbox" name="services" value="Digital product"><span>Digital product</span></label><label><input type="checkbox" name="services" value="Art direction"><span>Art direction</span></label></div></fieldset>
+<fieldset><legend>Budget</legend><div class="eb-opts"><label><input type="radio" name="budget" value="Under NZ$15k"><span>Under NZ$15k</span></label><label><input type="radio" name="budget" value="NZ$15k to 30k" checked><span>NZ$15k to 30k</span></label><label><input type="radio" name="budget" value="NZ$30k to 60k"><span>NZ$30k to 60k</span></label><label><input type="radio" name="budget" value="NZ$60k+"><span>NZ$60k+</span></label></div></fieldset>
+<label>About the project<textarea name="message" rows="5" required placeholder="What you make, who it is for, what is not working yet and when you would like to launch."></textarea></label>
+<div class="eb-form__foot"><button type="submit" class="eb-form__btn">Send enquiry <svg class="eb-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><p>I reply personally within two working days. This demo form does not send.</p></div>
+<div class="eb-form__done" tabindex="-1" role="status"><p class="eb-form__done-t">Thank you. It’s with me.</p><p>I read every enquiry myself and will reply within two working days with a few times for a call.</p></div>
+</form>
+<!-- /wp:html -->
 </div>
-<!-- /wp:column -->
-
-<!-- wp:column {"className":"sf-hair"} -->
-<div class="wp-block-column sf-hair">
-<!-- wp:paragraph {"className":"sf-eyebrow","textColor":"accent-4","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|20"}}}} -->
-<p class="sf-eyebrow has-accent-4-color has-text-color" style="margin-bottom:var(--wp--preset--spacing--20)">Phone</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>+46 70 123 45 67</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:column -->
-</div>
-<!-- /wp:columns -->
-
-<!-- wp:columns {"style":{"spacing":{"margin":{"top":"var:preset|spacing|40"},"blockGap":{"top":"var:preset|spacing|40","left":"var:preset|spacing|40"}}}} -->
-<div class="wp-block-columns" style="margin-top:var(--wp--preset--spacing--40)">
-<!-- wp:column {"className":"sf-hair"} -->
-<div class="wp-block-column sf-hair">
-<!-- wp:paragraph {"className":"sf-eyebrow","textColor":"accent-4","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|20"}}}} -->
-<p class="sf-eyebrow has-accent-4-color has-text-color" style="margin-bottom:var(--wp--preset--spacing--20)">Studio</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"style":{"typography":{"lineHeight":"1.6"}}} -->
-<p style="line-height:1.6">Åsögatan 140<br>116 24 Stockholm<br>Sweden</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:column -->
-
-<!-- wp:column {"className":"sf-hair"} -->
-<div class="wp-block-column sf-hair">
-<!-- wp:paragraph {"className":"sf-eyebrow","textColor":"accent-4","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|20"}}}} -->
-<p class="sf-eyebrow has-accent-4-color has-text-color" style="margin-bottom:var(--wp--preset--spacing--20)">Elsewhere</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"style":{"typography":{"lineHeight":"1.9"}},"fontSize":"small"} -->
-<p class="has-small-font-size" style="line-height:1.9"><a href="#">Instagram</a><br><a href="#">Are.na</a><br><a href="#">LinkedIn</a></p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:column -->
-</div>
-<!-- /wp:columns -->
-</div>
-<!-- /wp:column -->
-</div>
-<!-- /wp:columns -->
-</div>
+<!-- /wp:group -->
+</section>
 <!-- /wp:group -->

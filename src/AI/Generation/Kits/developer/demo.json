@@ -1,16 +1,21 @@
 {
-    "phones": [],
+    "phones": [
+        "+1 514 555 0147"
+    ],
     "emails": [
-        "kai@okafor.dev"
+        "hello@ezrabeaulieu.example"
     ],
     "domains": [
-        "okafor.dev"
+        "ezrabeaulieu.example"
     ],
     "addresses": [],
     "places": [
-        "Berlin"
+        "Montréal",
+        "Mile End",
+        "Québec",
+        "Saint-Viateur"
     ],
     "people": [
-        "Kai Okafor"
+        "Ezra Beaulieu"
     ]
 }

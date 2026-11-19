@@ -559,43 +559,99 @@
             "alt": "Carved stone capital of a classical column in low light",
             "title": "Column capital",
             "width": 1200,
-            "height": 1500
+            "height": 1500,
+            "kind": "photo"
+        },
+        "chancery": {
+            "file": "images/chancery.jpg",
+            "alt": "Worn leather-bound Chancery Division law reports",
+            "title": "Chancery reports",
+            "width": 1600,
+            "height": 1000,
+            "kind": "photo"
         },
         "colonnade": {
             "file": "images/colonnade.jpg",
             "alt": "Stone columns framed by a dark portico",
             "title": "Colonnade",
             "width": 1400,
-            "height": 1600
+            "height": 1600,
+            "kind": "photo"
         },
         "columns-up": {
             "file": "images/columns-up.jpg",
             "alt": "Looking up between fluted stone columns",
             "title": "Columns",
             "width": 1400,
-            "height": 1600
+            "height": 1600,
+            "kind": "photo"
         },
         "facade-grid": {
             "file": "images/facade-grid.jpg",
             "alt": "Modern stone facade with a regular grid of windows",
             "title": "Facade",
             "width": 1600,
-            "height": 1100
+            "height": 1100,
+            "kind": "photo"
+        },
+        "lamp": {
+            "file": "images/lamp.jpg",
+            "alt": "A table lamp lit in a dark room",
+            "title": "Lamp",
+            "width": 1400,
+            "height": 1000,
+            "kind": "photo"
         },
         "law-reports": {
             "file": "images/law-reports.jpg",
             "alt": "Bound law reports on a library shelf",
             "title": "Law reports",
             "width": 1600,
-            "height": 1100
+            "height": 1100,
+            "kind": "photo"
+        },
+        "old-books": {
+            "file": "images/old-books.jpg",
+            "alt": "Old books on library shelves beside a ladder",
+            "title": "Library",
+            "width": 1400,
+            "height": 1000,
+            "kind": "photo"
+        },
+        "portico": {
+            "file": "images/portico.jpg",
+            "alt": "Classical portico with columns under a cloudy sky",
+            "title": "Portico",
+            "width": 1600,
+            "height": 1000,
+            "kind": "photo"
         },
         "tower": {
             "file": "images/tower.jpg",
             "alt": "Dark modern tower against a pale sky",
             "title": "Tower",
             "width": 1200,
-            "height": 1500
+            "height": 1500,
+            "kind": "photo"
         }
+    },
+    "projects": {
+        "titles": [
+            "Sale of a medtech group to a US strategic buyer",
+            "A shareholder dispute resolved eight weeks before trial",
+            "Restructuring 1,400 roles across two manufacturing sites",
+            "Harbourside regeneration, phase two",
+            "Succession for a family estate across four generations",
+            "A cross-border financial settlement agreed out of court"
+        ],
+        "covers": [
+            "portico",
+            "chancery",
+            "facade-grid",
+            "tower",
+            "old-books",
+            "lamp"
+        ]
     },
     "source": {
         "dir": "seed/sites/law",

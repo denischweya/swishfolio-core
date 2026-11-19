@@ -184,7 +184,7 @@ class Kit
     }
 
     /**
-     * @return array name => {file, alt, title, width, height}
+     * @return array name => {file, alt, title, width, height, kind} (kind: photo or decorative, KitArt)
      */
     public function getAssets()
     {
@@ -461,6 +461,48 @@ class Kit
         }
 
         return SFCORE_PLUGIN_URL . trim((string) $design['assetsPath'], '/') . '/' . ltrim((string) $assets[$name]['file'], '/');
+    }
+
+    /**
+     * @param string $name Kit image name.
+     *
+     * @return string|null Local path of the image shipped with the plugin.
+     */
+    public function assetPath($name)
+    {
+        $assets = $this->getAssets();
+        $design = $this->getDesign();
+
+        if (! isset($assets[$name]['file']) || empty($design['assetsPath']) || ! defined('SFCORE_PLUGIN_DIR')) {
+            return null;
+        }
+
+        return SFCORE_PLUGIN_DIR . trim((string) $design['assetsPath'], '/') . '/' . ltrim((string) $assets[$name]['file'], '/');
+    }
+
+    /**
+     * The template's project covers (kit image names), for sample projects.
+     *
+     * @return string[]
+     */
+    public function getProjectCovers()
+    {
+        $covers = isset($this->data['projects']['covers']) ? array_map('strval', (array) $this->data['projects']['covers']) : [];
+
+        return array_values(array_filter($covers, function ($name) {
+            return isset($this->getAssets()[$name]);
+        }));
+    }
+
+    /**
+     * Titles of the template's demo projects: a site cloned from the template
+     * still holds them, and they are the demo business's work, not the owner's.
+     *
+     * @return string[]
+     */
+    public function getDemoProjectTitles()
+    {
+        return isset($this->data['projects']['titles']) ? array_values(array_map('strval', (array) $this->data['projects']['titles'])) : [];
     }
 
     /**

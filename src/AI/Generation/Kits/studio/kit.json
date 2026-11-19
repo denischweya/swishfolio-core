@@ -541,43 +541,67 @@
             "alt": "Afterglow, A product film where sound becomes glass.",
             "title": "Afterglow cover",
             "width": 1600,
-            "height": 1200
+            "height": 1200,
+            "kind": "photo"
         },
         "cover-northbound": {
             "file": "images/cover-northbound.jpg",
             "alt": "Northbound, A night train, an aurora and nine hours of quiet.",
             "title": "Northbound cover",
             "width": 1600,
-            "height": 1200
+            "height": 1200,
+            "kind": "photo"
         },
         "cover-slow-light": {
             "file": "images/cover-slow-light.jpg",
             "alt": "Slow Light, A web ritual that times your tea with your breath.",
             "title": "Slow Light cover",
             "width": 1600,
-            "height": 1200
+            "height": 1200,
+            "kind": "photo"
         },
         "cover-smoke-atlas": {
             "file": "images/cover-smoke-atlas.jpg",
             "alt": "Smoke Atlas, Seven villages, seven smokes, one golden agave.",
             "title": "Smoke Atlas cover",
             "width": 1600,
-            "height": 1200
+            "height": 1200,
+            "kind": "photo"
         },
         "cover-tidal": {
             "file": "images/cover-tidal.jpg",
             "alt": "Tidal, A lobby that breathes with the Pacific tide.",
             "title": "Tidal cover",
             "width": 1600,
-            "height": 1200
+            "height": 1200,
+            "kind": "photo"
         },
         "cover-weather-room": {
             "file": "images/cover-weather-room.jpg",
             "alt": "Weather Room, An interactive room where visitors become the weather.",
             "title": "Weather Room cover",
             "width": 1600,
-            "height": 1200
+            "height": 1200,
+            "kind": "photo"
         }
+    },
+    "projects": {
+        "titles": [
+            "Tidal",
+            "Afterglow",
+            "Northbound",
+            "Smoke Atlas",
+            "Slow Light",
+            "Weather Room"
+        ],
+        "covers": [
+            "cover-tidal",
+            "cover-afterglow",
+            "cover-northbound",
+            "cover-smoke-atlas",
+            "cover-slow-light",
+            "cover-weather-room"
+        ]
     },
     "source": {
         "dir": "seed/sites/studio",

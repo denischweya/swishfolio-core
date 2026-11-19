@@ -1,0 +1,365 @@
+{
+    "version": 2,
+    "slug": "dankimbo",
+    "name": "Amethyst",
+    "title": "Wealth Adviser",
+    "industry": "professional",
+    "description": "Independent wealth adviser in Dubai: a clean white site with one deep purple accent, Space Grotesk headings, drawn charts and soft glass cards.",
+    "look": "Crisp white canvas, deep purple #7f42de accent with soft lilac auroras, Space Grotesk display over Geist body, uppercase pill buttons, rounded bordered cards, drawn SVG charts and dark plum CTA bands.",
+    "demo": {
+        "business": "Dan Kimbo",
+        "tagline": "Independent wealth advisory in Dubai for private clients investing in industries that matter"
+    },
+    "design": {
+        "file": "design.json",
+        "variation": "Default",
+        "classPrefix": "dk-",
+        "fingerprint": ".dk-foot",
+        "palette": {
+            "base": "Background (base) #fdfdff",
+            "contrast": "Text (contrast) #17102b",
+            "accent-1": "Accent (accent-1) #7f42de",
+            "accent-2": "Surface (accent-2) #f4f1fa",
+            "accent-3": "Accent (accent-3) #c38fff",
+            "accent-4": "Muted text (accent-4) #5b5470",
+            "accent-5": "Background (accent-5) #fdfdff",
+            "accent-6": "Inverse (accent-6) #1e1038"
+        },
+        "fonts": [
+            "Space Grotesk",
+            "Geist"
+        ],
+        "pageTemplate": "page-landing",
+        "header": "header",
+        "footer": "footer",
+        "assetsPath": "assets/kits/dankimbo"
+    },
+    "frontPage": "home",
+    "navigation": [
+        "home",
+        "services",
+        "about",
+        "contact"
+    ],
+    "pages": [
+        {
+            "key": "home",
+            "title": "Home",
+            "slug": "home",
+            "navLabel": "Home",
+            "inNav": true,
+            "type": "home",
+            "template": "page-landing",
+            "sections": [
+                "home-01-hero",
+                "home-02-services",
+                "home-03-services",
+                "home-04-process",
+                "home-05-cta"
+            ]
+        },
+        {
+            "key": "services",
+            "title": "Services",
+            "slug": "services",
+            "navLabel": "Services",
+            "inNav": true,
+            "type": "services",
+            "template": "page-landing",
+            "sections": [
+                "services-01-page-header",
+                "services-02-services",
+                "services-03-portfolio",
+                "services-04-faq",
+                "services-05-cta"
+            ]
+        },
+        {
+            "key": "about",
+            "title": "About",
+            "slug": "about",
+            "navLabel": "About",
+            "inNav": true,
+            "type": "about",
+            "template": "page-landing",
+            "sections": [
+                "about-01-page-header",
+                "about-02-features",
+                "about-03-cta"
+            ]
+        },
+        {
+            "key": "contact",
+            "title": "Contact",
+            "slug": "contact",
+            "navLabel": "Contact",
+            "inNav": true,
+            "type": "contact",
+            "template": "page-landing",
+            "sections": [
+                "contact-01-page-header",
+                "contact-02-content"
+            ]
+        }
+    ],
+    "units": {
+        "home-01-hero": {
+            "scope": "section",
+            "role": "hero",
+            "summary": "Home page hero from the home page, headed (H1) \"Wealth invested where it matters most.\": 2 paragraphs, 2 buttons, 4 drawn icons or graphics, 5 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 1,
+            "file": "units/home-01-hero.html",
+            "slots": 35,
+            "repeatable": 5,
+            "fixedText": [
+                "Yr1",
+                "Yr2",
+                "Yr3",
+                "Yr4",
+                "Yr5",
+                "Phase 1",
+                "P1",
+                "Phase 2",
+                "P2",
+                "Phase 3",
+                "P3",
+                "Phase 4",
+                "P4",
+                "Phase 5",
+                "P5"
+            ],
+            "ksesStable": false
+        },
+        "home-02-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "A slim strip of pill chips listing the industries and situations the adviser focuses on, under the hero.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 2,
+            "file": "units/home-02-services.html",
+            "slots": 8,
+            "repeatable": 7,
+            "ksesStable": true
+        },
+        "home-03-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Bento grid of four advice areas, each card with a number, title, short text, a Learn more link and a small drawn chart or diagram.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 3,
+            "file": "units/home-03-services.html",
+            "slots": 33,
+            "repeatable": 8,
+            "ksesStable": false
+        },
+        "home-04-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the home page, headed (H2) \"From first conversation to capital at work in four steps.\": 5 headings, 6 paragraphs, 1 button, 13 drawn icons or graphics, 16 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 4,
+            "file": "units/home-04-process.html",
+            "slots": 28,
+            "repeatable": 16,
+            "ksesStable": false
+        },
+        "home-05-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the home page, headed (H2) \"Begin with a private conversation.\": 1 paragraph, 2 buttons.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 5,
+            "file": "units/home-05-cta.html",
+            "slots": 4,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "services-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the services page, headed (H1) \"Four focus areas, built around your wealth.\": 2 paragraphs, 4 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 1,
+            "file": "units/services-01-page-header.html",
+            "slots": 9,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "services-02-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the services page, headed (H3) \"Industry selection\": 4 headings, 12 paragraphs, 36 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 2,
+            "file": "units/services-02-services.html",
+            "slots": 60,
+            "repeatable": 36,
+            "ksesStable": true
+        },
+        "services-03-portfolio": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Three ways to work together on a dark aurora band: three engagement cards (the middle one featured with a flag), each with format, outcome, best-for line and a link. No prices.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 3,
+            "file": "units/services-03-portfolio.html",
+            "slots": 28,
+            "repeatable": 8,
+            "ksesStable": false
+        },
+        "services-04-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ from the services page, headed (H2) \"Straight answers.\": 7 paragraphs, 1 button, 5 questions, 5 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 4,
+            "file": "units/services-04-faq.html",
+            "slots": 14,
+            "repeatable": 5,
+            "ksesStable": true
+        },
+        "services-05-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the services page, headed (H2) \"Not sure where to begin?\": 1 paragraph, 1 button.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 5,
+            "file": "units/services-05-cta.html",
+            "slots": 3,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "about-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the about page, headed (H1) \"A small firm for significant wealth. Based in Dubai, and focused on work that matters in t\": 1 paragraph.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 1,
+            "file": "units/about-01-page-header.html",
+            "slots": 2,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "about-02-features": {
+            "scope": "section",
+            "role": "features",
+            "summary": "Features section from the about page, headed (H2) \"Five rules we hold ourselves to.\": 6 headings, 2 paragraphs, 5 repeatable items.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 2,
+            "file": "units/about-02-features.html",
+            "slots": 18,
+            "repeatable": 5,
+            "ksesStable": true
+        },
+        "about-03-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the about page, headed (H2) \"What should your wealth do?\": 1 paragraph, 1 button.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 3,
+            "file": "units/about-03-cta.html",
+            "slots": 3,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "contact-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Contact page opener: H1, lead, three numbered next steps and a direct email line beside a glass card holding the enquiry form.",
+            "pageTypes": [
+                "contact"
+            ],
+            "sourcePage": "contact",
+            "position": 1,
+            "file": "units/contact-01-page-header.html",
+            "needs": [
+                "form"
+            ],
+            "slots": 28,
+            "repeatable": 14,
+            "ksesStable": false
+        },
+        "contact-02-content": {
+            "scope": "section",
+            "role": "contact",
+            "summary": "Two side-by-side contact cards (general and media), each with a label, short heading and an email link with an arrow.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "contact",
+            "position": 2,
+            "file": "units/contact-02-content.html",
+            "slots": 8,
+            "repeatable": 2,
+            "ksesStable": false
+        },
+        "header": {
+            "scope": "header",
+            "role": "header",
+            "summary": "Header template part.",
+            "file": "units/header.html",
+            "slots": 3,
+            "ksesStable": false
+        },
+        "footer": {
+            "scope": "footer",
+            "role": "footer",
+            "summary": "Footer template part.",
+            "file": "units/footer.html",
+            "slots": 10,
+            "ksesStable": false
+        }
+    },
+    "assets": [],
+    "source": {
+        "dir": "seed/sites/dankimbo",
+        "hash": "82dacb4a14e0ac654162a537cebb0323"
+    }
+}

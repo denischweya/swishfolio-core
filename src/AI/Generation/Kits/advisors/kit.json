@@ -143,7 +143,7 @@
                 "team-5",
                 "hero-team"
             ],
-            "slots": 17,
+            "slots": 18,
             "repeatable": 4,
             "fixedText": [
                 "OWNER-LED · SINCE 2009 · AUSTIN TX ·"
@@ -521,7 +521,7 @@
             "sourcePage": "about",
             "position": 4,
             "file": "units/about-04-map.html",
-            "slots": 9,
+            "slots": 13,
             "repeatable": 3,
             "fixedText": [
                 "Austin",
@@ -610,85 +610,163 @@
             "alt": "Oakline partners at work",
             "title": "Oakline partners at work",
             "width": 1600,
-            "height": 1100
+            "height": 1100,
+            "kind": "photo"
+        },
+        "case-ceramics": {
+            "file": "images/case-ceramics.jpg",
+            "alt": "Ceramics studio owner",
+            "title": "Ceramics studio owner",
+            "width": 1400,
+            "height": 1000,
+            "kind": "photo"
+        },
+        "case-engineering": {
+            "file": "images/case-engineering.jpg",
+            "alt": "Engineering workshop",
+            "title": "Engineering workshop",
+            "width": 1400,
+            "height": 1000,
+            "kind": "photo"
+        },
+        "case-it": {
+            "file": "images/case-it.jpg",
+            "alt": "IT services team",
+            "title": "IT services team",
+            "width": 1400,
+            "height": 1000,
+            "kind": "photo"
+        },
+        "case-joinery": {
+            "file": "images/case-joinery.jpg",
+            "alt": "Joinery workshop",
+            "title": "Joinery workshop",
+            "width": 1400,
+            "height": 1000,
+            "kind": "photo"
+        },
+        "case-retail": {
+            "file": "images/case-retail.jpg",
+            "alt": "Retail store owner",
+            "title": "Retail store owner",
+            "width": 1400,
+            "height": 1000,
+            "kind": "photo"
+        },
+        "case-studio": {
+            "file": "images/case-studio.jpg",
+            "alt": "Design and print studio",
+            "title": "Design and print studio",
+            "width": 1400,
+            "height": 1000,
+            "kind": "photo"
         },
         "hero-team": {
             "file": "images/hero-team.jpg",
             "alt": "Owner and managers reviewing plans",
             "title": "Owner and managers reviewing plans",
             "width": 1600,
-            "height": 1250
+            "height": 1250,
+            "kind": "photo"
         },
         "office-whiteboard": {
             "file": "images/office-whiteboard.jpg",
             "alt": "Team planning at a whiteboard",
             "title": "Team planning at a whiteboard",
             "width": 1400,
-            "height": 1000
+            "height": 1000,
+            "kind": "photo"
         },
         "owner-dev": {
             "file": "images/owner-dev.jpg",
             "alt": "Jordan Pike",
             "title": "Jordan Pike",
             "width": 600,
-            "height": 720
+            "height": 720,
+            "kind": "photo"
         },
         "owner-maya": {
             "file": "images/owner-maya.jpg",
             "alt": "Maya Lindgren",
             "title": "Maya Lindgren",
             "width": 600,
-            "height": 720
+            "height": 720,
+            "kind": "photo"
         },
         "owner-potter": {
             "file": "images/owner-potter.jpg",
             "alt": "Walter Brandt",
             "title": "Walter Brandt",
             "width": 600,
-            "height": 720
+            "height": 720,
+            "kind": "photo"
         },
         "team-1": {
             "file": "images/team-1.jpg",
             "alt": "Rosa Delgado-Whitfield",
             "title": "Rosa Delgado-Whitfield",
             "width": 600,
-            "height": 720
+            "height": 720,
+            "kind": "photo"
         },
         "team-2": {
             "file": "images/team-2.jpg",
             "alt": "Marcus Oyelaran",
             "title": "Marcus Oyelaran",
             "width": 600,
-            "height": 720
+            "height": 720,
+            "kind": "photo"
         },
         "team-3": {
             "file": "images/team-3.jpg",
             "alt": "Hannah Kwok",
             "title": "Hannah Kwok",
             "width": 600,
-            "height": 720
+            "height": 720,
+            "kind": "photo"
         },
         "team-4": {
             "file": "images/team-4.jpg",
             "alt": "Daniel Reyes",
             "title": "Daniel Reyes",
             "width": 600,
-            "height": 720
+            "height": 720,
+            "kind": "photo"
         },
         "team-5": {
             "file": "images/team-5.jpg",
             "alt": "Tess Abernathy",
             "title": "Tess Abernathy",
             "width": 600,
-            "height": 720
+            "height": 720,
+            "kind": "photo"
         },
         "workshop-session": {
             "file": "images/workshop-session.jpg",
             "alt": "Planning workshop",
             "title": "Planning workshop",
             "width": 1600,
-            "height": 1000
+            "height": 1000,
+            "kind": "photo"
         }
+    },
+    "projects": {
+        "titles": [
+            "From 12-hour days to a four-day week for a joinery founder",
+            "Doubling wholesale for a family ceramics studio",
+            "A succession plan that kept a 40-year-old store in the family",
+            "Pricing that finally paid for the work",
+            "Building a leadership team for a precision engineering shop",
+            "Getting an IT services firm ready to sell"
+        ],
+        "covers": [
+            "case-joinery",
+            "case-ceramics",
+            "case-retail",
+            "case-studio",
+            "case-engineering",
+            "case-it"
+        ]
     },
     "source": {
         "dir": "seed/sites/advisors",

@@ -1,0 +1,17 @@
+{
+    "phones": [],
+    "emails": [
+        "hello@dankimbo.example",
+        "media@dankimbo.example"
+    ],
+    "domains": [
+        "dankimbo.example"
+    ],
+    "addresses": [],
+    "places": [
+        "Dubai"
+    ],
+    "people": [
+        "Dan Kimbo"
+    ]
+}

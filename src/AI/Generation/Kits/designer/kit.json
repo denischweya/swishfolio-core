@@ -4,28 +4,31 @@
     "name": "Editorial Studio",
     "title": "Designer Portfolio",
     "industry": "creative",
-    "description": "An editorial WordPress portfolio template for designers and studios, with oversized type and a filterable work index.",
-    "look": "Colours: Paper #F2EFE9, Ink #111111, Electric #2B2BF5, Paper tint #E4DFD4, Signal #FF5A36, Muted #6C675E.",
+    "description": "An editorial portfolio for brand and product designers: magazine-style work spreads, a full case study with challenge, process and outcome, services with fixed-fee packages, and warm serif typography.",
+    "look": "Editorial Studio: a design magazine on warm bone paper. Cormorant display serif with vermilion italics, Host Grotesk text, ink black, hairline rules, figure captions, square buttons and big warm photography; ink and vermilion bands for emphasis.",
     "demo": {
-        "business": "Mara Lindqvist",
-        "tagline": "Independent brand and product designer, Stockholm"
+        "business": "Elias Brandt",
+        "tagline": "Independent brand & product designer · Wellington, New Zealand"
     },
     "design": {
         "file": "design.json",
-        "variation": "Swiss International",
-        "classPrefix": "sf-",
-        "fingerprint": "",
+        "variation": "Default",
+        "classPrefix": "eb-",
+        "fingerprint": ".eb-foot",
         "palette": {
-            "base": "Paper #F2EFE9",
-            "contrast": "Ink #111111",
-            "accent-1": "Electric #2B2BF5",
-            "accent-2": "Paper tint #E4DFD4",
-            "accent-3": "Signal #FF5A36",
-            "accent-4": "Muted #6C675E",
-            "accent-5": "White #FFFFFF",
-            "accent-6": "Near black #0C0C0C"
+            "base": "Bone #F2EDE4",
+            "contrast": "Ink #1D1A16",
+            "accent-1": "Vermilion #C23A12",
+            "accent-2": "Sand #E7DFD2",
+            "accent-3": "Clay #D8CBB6",
+            "accent-4": "Secondary text #5E564C",
+            "accent-5": "Bright vermilion #FF6A3D",
+            "accent-6": "Paper white #FAF7F2"
         },
-        "fonts": [],
+        "fonts": [
+            "Cormorant",
+            "Host Grotesk"
+        ],
         "pageTemplate": "page-landing",
         "header": "header",
         "footer": "footer",
@@ -41,19 +44,22 @@
     "pages": [
         {
             "key": "home",
-            "title": "Index",
+            "title": "Home",
             "slug": "home",
-            "navLabel": "Index",
+            "navLabel": "Home",
             "inNav": false,
             "type": "home",
             "template": "page-landing",
             "sections": [
                 "home-01-hero",
-                "home-02-services",
-                "home-03-portfolio",
-                "home-04-stats",
-                "home-05-marquee",
-                "home-06-services"
+                "home-02-portfolio",
+                "home-03-logos",
+                "home-04-services",
+                "home-05-process",
+                "home-06-stats",
+                "home-07-testimonials",
+                "home-08-about",
+                "home-09-cta"
             ]
         },
         {
@@ -66,8 +72,32 @@
             "template": "page-landing",
             "sections": [
                 "work-01-page-header",
-                "work-02-portfolio",
-                "work-03-cta"
+                "work-02-content",
+                "work-03-portfolio",
+                "work-04-portfolio",
+                "work-05-logos",
+                "work-06-cta"
+            ]
+        },
+        {
+            "key": "case-study",
+            "title": "Aulde Skin case study",
+            "slug": "aulde-skin-case-study",
+            "navLabel": "Aulde Skin case study",
+            "inNav": false,
+            "type": "case-study",
+            "template": "page-landing",
+            "sections": [
+                "case-study-01-page-header",
+                "case-study-02-portfolio",
+                "case-study-03-portfolio",
+                "case-study-04-gallery",
+                "case-study-05-portfolio",
+                "case-study-06-portfolio",
+                "case-study-07-gallery",
+                "case-study-08-testimonials",
+                "case-study-09-process",
+                "case-study-10-cta"
             ]
         },
         {
@@ -80,9 +110,10 @@
             "template": "page-landing",
             "sections": [
                 "services-01-page-header",
-                "services-02-stats",
-                "services-03-process",
-                "services-04-faq"
+                "services-02-gallery",
+                "services-03-pricing",
+                "services-04-faq",
+                "home-09-cta"
             ]
         },
         {
@@ -96,7 +127,9 @@
             "sections": [
                 "about-01-page-header",
                 "about-02-about",
-                "about-03-content"
+                "about-03-features",
+                "about-04-content",
+                "about-05-cta"
             ]
         },
         {
@@ -109,7 +142,8 @@
             "template": "page-landing",
             "sections": [
                 "contact-01-page-header",
-                "contact-02-cta"
+                "contact-02-process",
+                "contact-03-faq"
             ]
         }
     ],
@@ -117,189 +151,462 @@
         "home-01-hero": {
             "scope": "section",
             "role": "hero",
-            "summary": "Home page hero from the index page, headed (H1) \"Brands that refuse to blend in.\": 13 paragraphs, 12 repeatable items.",
+            "summary": "Editorial magazine hero: a masthead strip of small caps facts, a huge serif headline with one italic accent word, intro and two square buttons, a captioned portrait with a round Est. stamp, then four fact columns.",
             "pageTypes": [
                 "home"
             ],
             "sourcePage": "home",
             "position": 1,
             "file": "units/home-01-hero.html",
-            "slots": 14,
-            "repeatable": 12,
-            "ksesStable": true
+            "images": [
+                "portrait"
+            ],
+            "slots": 18,
+            "repeatable": 7,
+            "ksesStable": false
         },
-        "home-02-services": {
+        "home-02-portfolio": {
             "scope": "section",
-            "role": "services",
-            "summary": "Services section from the index page, headed (H3) \"Brand identity\": 4 headings, 9 paragraphs, 16 repeatable items.",
+            "role": "portfolio",
+            "summary": "Magazine work spread: one wide featured project (photo plus title), then four staggered project features with numbered photos, uppercase client and discipline meta, serif titles and excerpts.",
             "pageTypes": [
                 "home"
             ],
             "sourcePage": "home",
             "position": 2,
-            "file": "units/home-02-services.html",
-            "slots": 13,
-            "repeatable": 16,
-            "ksesStable": true
-        },
-        "home-03-portfolio": {
-            "scope": "section",
-            "role": "portfolio",
-            "summary": "Portfolio or work section from the index page: 2 paragraphs. Lists the site's portfolio projects.",
-            "pageTypes": [
-                "home"
+            "file": "units/home-02-portfolio.html",
+            "images": [
+                "amber-stone",
+                "hotel-lounge",
+                "app-hand",
+                "kraft-bag",
+                "arrow-sign"
             ],
-            "sourcePage": "home",
-            "position": 3,
-            "file": "units/home-03-portfolio.html",
-            "needs": [
-                "projects"
-            ],
-            "slots": 2,
-            "repeatable": 0,
-            "ksesStable": true
+            "slots": 25,
+            "repeatable": 6,
+            "ksesStable": false
         },
-        "home-04-stats": {
+        "home-03-logos": {
             "scope": "section",
-            "role": "stats",
-            "summary": "Stats section from the index page, headed (H2) \"Strategy first. Then the beautiful part.\": 9 paragraphs, 7 repeatable items.",
+            "role": "logos",
+            "summary": "Fictional client wordmarks as live styled text in a hairline 4 by 2 grid, with a note that the names are fictional.",
             "pageTypes": [
                 "home",
                 "any"
             ],
             "sourcePage": "home",
-            "position": 4,
-            "file": "units/home-04-stats.html",
+            "position": 3,
+            "file": "units/home-03-logos.html",
             "slots": 10,
-            "repeatable": 7,
+            "repeatable": 8,
             "ksesStable": true
         },
-        "home-05-marquee": {
+        "home-04-services": {
             "scope": "section",
-            "role": "marquee",
-            "summary": "Marquee section from the index page: 3 paragraphs, 1 photo, 4 repeatable items.",
+            "role": "services",
+            "summary": "Numbered services index: five full-width hairline rows with a big serif service name, a one-line description and a round arrow.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 4,
+            "file": "units/home-04-services.html",
+            "slots": 18,
+            "repeatable": 5,
+            "ksesStable": false
+        },
+        "home-05-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Dark ink band: intro with a photo on the left, four numbered process steps with week labels on the right.",
             "pageTypes": [
                 "home",
                 "any"
             ],
             "sourcePage": "home",
             "position": 5,
-            "file": "units/home-05-marquee.html",
+            "file": "units/home-05-process.html",
             "images": [
-                "studio"
+                "sketching"
             ],
-            "slots": 3,
+            "slots": 19,
             "repeatable": 4,
             "ksesStable": false
         },
-        "home-06-services": {
+        "home-06-stats": {
             "scope": "section",
-            "role": "services",
-            "summary": "Services section from the index page, headed (H2) \"Tell me what you're building.\": 6 paragraphs, 1 button, 2 repeatable items.",
+            "role": "stats",
+            "summary": "Four large serif figures over hairline rules, one in vermilion italic, labelled illustrative.",
             "pageTypes": [
-                "home"
+                "home",
+                "any"
             ],
             "sourcePage": "home",
             "position": 6,
-            "file": "units/home-06-services.html",
+            "file": "units/home-06-stats.html",
+            "slots": 9,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "home-07-testimonials": {
+            "scope": "section",
+            "role": "testimonials",
+            "summary": "Sand band: one very large italic pull quote with attribution, then two smaller quotes side by side.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 7,
+            "file": "units/home-07-testimonials.html",
             "slots": 8,
             "repeatable": 2,
             "ksesStable": true
         },
+        "home-08-about": {
+            "scope": "section",
+            "role": "about",
+            "summary": "About section from the home page, headed (H2) \"One designer, a few trusted friends and a lot of paper.\": 2 paragraphs, 1 photo, 1 drawn icon or graphic, 3 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 8,
+            "file": "units/home-08-about.html",
+            "images": [
+                "studio-window"
+            ],
+            "slots": 8,
+            "repeatable": 3,
+            "ksesStable": false
+        },
+        "home-09-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the home page, headed (H2) \"Have something worth making?\": 2 paragraphs, 2 buttons, 1 drawn icon or graphic.",
+            "pageTypes": [
+                "home",
+                "any",
+                "services"
+            ],
+            "sourcePage": "home",
+            "position": 9,
+            "file": "units/home-09-cta.html",
+            "slots": 7,
+            "repeatable": 0,
+            "ksesStable": false,
+            "alsoOn": [
+                "services"
+            ]
+        },
         "work-01-page-header": {
             "scope": "section",
             "role": "page-header",
-            "summary": "Page header from the work page, headed (H1) \"Sixty-one launches. Six worth showing.\": 3 paragraphs, 2 repeatable items.",
+            "summary": "Page header from the work page, headed (H1) \"Selected projects &amp; case studies.\": 2 paragraphs, 1 photo.",
             "pageTypes": [
                 "work"
             ],
             "sourcePage": "work",
             "position": 1,
             "file": "units/work-01-page-header.html",
-            "slots": 4,
-            "repeatable": 2,
-            "ksesStable": true
+            "images": [
+                "hotel-room"
+            ],
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": false
         },
-        "work-02-portfolio": {
+        "work-02-content": {
             "scope": "section",
             "role": "portfolio",
-            "summary": "Portfolio or work section from the work page. Lists the site's portfolio projects.",
+            "summary": "Featured case study spotlight: a large photo beside a card with title, Challenge / Approach / Outcome rows and a button.",
             "pageTypes": [
                 "work"
             ],
             "sourcePage": "work",
             "position": 2,
-            "file": "units/work-02-portfolio.html",
+            "file": "units/work-02-content.html",
+            "images": [
+                "amber-line"
+            ],
+            "slots": 10,
+            "repeatable": 3,
+            "ksesStable": false
+        },
+        "work-03-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Project index table: year, client, serif project title and discipline per row, with a hairline under each.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 3,
+            "file": "units/work-03-portfolio.html",
+            "slots": 27,
+            "repeatable": 6,
+            "ksesStable": false
+        },
+        "work-04-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the work page, headed (H2) \"Filter by discipline.\": 2 paragraphs. Lists the site's portfolio projects.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 4,
+            "file": "units/work-04-portfolio.html",
             "needs": [
                 "projects"
             ],
-            "slots": 0,
+            "slots": 3,
             "repeatable": 0,
             "ksesStable": true
         },
-        "work-03-cta": {
+        "work-05-logos": {
             "scope": "section",
-            "role": "cta",
-            "summary": "Call-to-action band from the work page, headed (H2) \"Two slots open for spring 2027.\": 3 paragraphs, 2 repeatable items.",
+            "role": "logos",
+            "summary": "Logos section from the work page: 2 paragraphs, 8 repeatable items.",
             "pageTypes": [
                 "work",
                 "any"
             ],
             "sourcePage": "work",
-            "position": 3,
-            "file": "units/work-03-cta.html",
-            "slots": 4,
-            "repeatable": 2,
+            "position": 5,
+            "file": "units/work-05-logos.html",
+            "slots": 10,
+            "repeatable": 8,
             "ksesStable": true
+        },
+        "work-06-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the work page, headed (H2) \"Want your brand in this index?\": 2 paragraphs, 2 buttons, 1 drawn icon or graphic.",
+            "pageTypes": [
+                "work",
+                "any"
+            ],
+            "sourcePage": "work",
+            "position": 6,
+            "file": "units/work-06-cta.html",
+            "slots": 7,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "case-study-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Case study header: breadcrumb, eyebrow, large serif title with an italic accent, intro, and a meta list (client, year, role, team, timeline).",
+            "pageTypes": [
+                "case-study"
+            ],
+            "sourcePage": "case-study",
+            "position": 1,
+            "file": "units/case-study-01-page-header.html",
+            "slots": 14,
+            "repeatable": 5,
+            "ksesStable": true
+        },
+        "case-study-02-portfolio": {
+            "scope": "section",
+            "role": "gallery",
+            "summary": "Full-bleed cinematic cover photo with an editorial figure caption.",
+            "pageTypes": [
+                "case-study"
+            ],
+            "sourcePage": "case-study",
+            "position": 2,
+            "file": "units/case-study-02-portfolio.html",
+            "images": [
+                "amber-stone"
+            ],
+            "slots": 1,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "case-study-03-portfolio": {
+            "scope": "section",
+            "role": "content",
+            "summary": "Numbered case study chapter (The challenge): sticky number and heading on the left, a large serif lead, body copy and three key facts.",
+            "pageTypes": [
+                "case-study"
+            ],
+            "sourcePage": "case-study",
+            "position": 3,
+            "file": "units/case-study-03-portfolio.html",
+            "slots": 7,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "case-study-04-gallery": {
+            "scope": "section",
+            "role": "gallery",
+            "summary": "Two captioned photos side by side, the second offset lower.",
+            "pageTypes": [
+                "case-study"
+            ],
+            "sourcePage": "case-study",
+            "position": 4,
+            "file": "units/case-study-04-gallery.html",
+            "images": [
+                "blank-card",
+                "swatch-orange"
+            ],
+            "slots": 2,
+            "repeatable": 2,
+            "ksesStable": false
+        },
+        "case-study-05-portfolio": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Numbered case study chapter (The process): serif lead and four labelled steps (research, concept, system, rollout) in a 2 by 2 grid.",
+            "pageTypes": [
+                "case-study",
+                "any"
+            ],
+            "sourcePage": "case-study",
+            "position": 5,
+            "file": "units/case-study-05-portfolio.html",
+            "slots": 11,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "case-study-06-portfolio": {
+            "scope": "section",
+            "role": "features",
+            "summary": "Brand system cards on sand: a typography specimen, four colour swatches with hex codes, and a tone of voice sample.",
+            "pageTypes": [
+                "case-study",
+                "any"
+            ],
+            "sourcePage": "case-study",
+            "position": 6,
+            "file": "units/case-study-06-portfolio.html",
+            "slots": 12,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "case-study-07-gallery": {
+            "scope": "section",
+            "role": "gallery",
+            "summary": "Captioned four-photo mosaic in two staggered rows.",
+            "pageTypes": [
+                "case-study"
+            ],
+            "sourcePage": "case-study",
+            "position": 7,
+            "file": "units/case-study-07-gallery.html",
+            "images": [
+                "amber-line",
+                "white-bottles",
+                "kraft-box",
+                "sketching"
+            ],
+            "slots": 4,
+            "repeatable": 4,
+            "ksesStable": false
+        },
+        "case-study-08-testimonials": {
+            "scope": "section",
+            "role": "stats",
+            "summary": "Dark outcome chapter: serif lead, three big vermilion result figures and a client quote, labelled illustrative.",
+            "pageTypes": [
+                "case-study",
+                "any"
+            ],
+            "sourcePage": "case-study",
+            "position": 8,
+            "file": "units/case-study-08-testimonials.html",
+            "slots": 12,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "case-study-09-process": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Full-width next project link with a large serif title and arrow between two rules.",
+            "pageTypes": [
+                "case-study"
+            ],
+            "sourcePage": "case-study",
+            "position": 9,
+            "file": "units/case-study-09-process.html",
+            "slots": 2,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "case-study-10-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the aulde skin case study page, headed (H2) \"Need a brand that’s ready for the shelf?\": 2 paragraphs, 2 buttons, 1 drawn icon or graphic.",
+            "pageTypes": [
+                "case-study",
+                "any"
+            ],
+            "sourcePage": "case-study",
+            "position": 10,
+            "file": "units/case-study-10-cta.html",
+            "slots": 7,
+            "repeatable": 0,
+            "ksesStable": false
         },
         "services-01-page-header": {
             "scope": "section",
             "role": "page-header",
-            "summary": "Page header from the services page, headed (H1) \"One designer. Three ways in.\": 2 paragraphs.",
+            "summary": "Page header from the services page, headed (H1) \"Strategy, identity and the things people hold.\": 2 paragraphs, 1 photo.",
             "pageTypes": [
                 "services"
             ],
             "sourcePage": "services",
             "position": 1,
             "file": "units/services-01-page-header.html",
-            "slots": 3,
+            "images": [
+                "swatch-yellow"
+            ],
+            "slots": 4,
             "repeatable": 0,
-            "ksesStable": true
+            "ksesStable": false
         },
-        "services-02-stats": {
+        "services-02-gallery": {
             "scope": "section",
-            "role": "stats",
-            "summary": "Stats section from the services page, headed (H2) \"Brand sprint\": 3 headings, 12 paragraphs, 8 list items, 24 repeatable items.",
+            "role": "services",
+            "summary": "Five alternating service rows: photo, numbered serif title, description, deliverable ticks, and timeline plus starting price.",
             "pageTypes": [
-                "services",
-                "any"
+                "services"
             ],
             "sourcePage": "services",
             "position": 2,
-            "file": "units/services-02-stats.html",
-            "slots": 27,
-            "repeatable": 24,
-            "ksesStable": true
+            "file": "units/services-02-gallery.html",
+            "images": [
+                "sketching",
+                "swatch-orange",
+                "kraft-box",
+                "app-phone",
+                "poster-red"
+            ],
+            "slots": 40,
+            "repeatable": 25,
+            "ksesStable": false
         },
-        "services-03-process": {
+        "services-03-pricing": {
             "scope": "section",
-            "role": "process",
-            "summary": "Process section from the services page, headed (H3) \"Listen\": 4 headings, 9 paragraphs, 4 repeatable items.",
+            "role": "pricing",
+            "summary": "Three engagement packages in one ruled box, the middle one inverted to ink with a vermilion button.",
             "pageTypes": [
-                "services",
-                "any"
+                "services"
             ],
             "sourcePage": "services",
             "position": 3,
-            "file": "units/services-03-process.html",
-            "slots": 13,
-            "repeatable": 4,
-            "ksesStable": true
+            "file": "units/services-03-pricing.html",
+            "slots": 30,
+            "repeatable": 15,
+            "ksesStable": false
         },
         "services-04-faq": {
             "scope": "section",
             "role": "faq",
-            "summary": "FAQ from the services page, headed (H2) \"Practical questions\": 4 paragraphs, 1 button, 4 questions, 6 repeatable items.",
+            "summary": "FAQ from the services page, headed (H2) \"Before we start.\": 7 paragraphs, 5 questions, 5 repeatable items.",
             "pageTypes": [
                 "services",
                 "any"
@@ -307,14 +614,14 @@
             "sourcePage": "services",
             "position": 4,
             "file": "units/services-04-faq.html",
-            "slots": 10,
-            "repeatable": 6,
+            "slots": 13,
+            "repeatable": 5,
             "ksesStable": true
         },
         "about-01-page-header": {
             "scope": "section",
             "role": "page-header",
-            "summary": "Page header from the about page, headed (H1) \"Eleven years of making things look like what they are.\": 5 paragraphs, 1 photo, 5 repeatable items.",
+            "summary": "Page header from the about page, headed (H1) \"I design brands the way good editors cut copy.\": 2 paragraphs, 1 photo.",
             "pageTypes": [
                 "about"
             ],
@@ -322,67 +629,119 @@
             "position": 1,
             "file": "units/about-01-page-header.html",
             "images": [
-                "portrait"
+                "portrait-window"
             ],
-            "slots": 6,
-            "repeatable": 5,
+            "slots": 4,
+            "repeatable": 0,
             "ksesStable": false
         },
         "about-02-about": {
             "scope": "section",
             "role": "about",
-            "summary": "About section from the about page, headed (H3) \"Independent studio\": 3 headings, 7 paragraphs, 12 repeatable items.",
+            "summary": "Story column with an italic serif lead, beside a ruled career timeline (year, role, note).",
             "pageTypes": [
                 "about"
             ],
             "sourcePage": "about",
             "position": 2,
             "file": "units/about-02-about.html",
-            "slots": 10,
-            "repeatable": 12,
+            "slots": 19,
+            "repeatable": 8,
             "ksesStable": true
         },
-        "about-03-content": {
+        "about-03-features": {
             "scope": "section",
-            "role": "content",
-            "summary": "Content section from the about page: 7 paragraphs, 3 repeatable items.",
+            "role": "features",
+            "summary": "Four numbered principles over hairline rules on a sand band.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 3,
+            "file": "units/about-03-features.html",
+            "slots": 14,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "about-04-content": {
+            "scope": "section",
+            "role": "skills",
+            "summary": "Toolkit: captioned photo beside a heading, intro and pill list of tools.",
             "pageTypes": [
                 "about"
             ],
             "sourcePage": "about",
-            "position": 3,
-            "file": "units/about-03-content.html",
+            "position": 4,
+            "file": "units/about-04-content.html",
+            "images": [
+                "studio-desk"
+            ],
+            "slots": 15,
+            "repeatable": 10,
+            "ksesStable": false
+        },
+        "about-05-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the about page, headed (H2) \"Let’s see if we’re a good fit.\": 2 paragraphs, 2 buttons, 1 drawn icon or graphic.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 5,
+            "file": "units/about-05-cta.html",
             "slots": 7,
-            "repeatable": 3,
-            "ksesStable": true
+            "repeatable": 0,
+            "ksesStable": false
         },
         "contact-01-page-header": {
             "scope": "section",
-            "role": "page-header",
-            "summary": "Page header from the contact page, headed (H1) \"Let's talk.\": 11 paragraphs, 1 button, 4 list items, 12 repeatable items.",
+            "role": "contact",
+            "summary": "Contact hero: heading, intro and a ruled list of email, phone, studio and hours beside an enquiry form with chip options.",
             "pageTypes": [
-                "contact"
+                "contact",
+                "any"
             ],
             "sourcePage": "contact",
             "position": 1,
             "file": "units/contact-01-page-header.html",
-            "slots": 17,
-            "repeatable": 12,
-            "ksesStable": true
+            "needs": [
+                "form"
+            ],
+            "slots": 41,
+            "repeatable": 21,
+            "ksesStable": false
         },
-        "contact-02-cta": {
+        "contact-02-process": {
             "scope": "section",
-            "role": "cta",
-            "summary": "Call-to-action band from the contact page, headed (H2) \"Not ready to brief yet?\": 3 paragraphs, 2 repeatable items.",
+            "role": "process",
+            "summary": "Three numbered next steps over hairline rules on a sand band.",
             "pageTypes": [
                 "contact",
                 "any"
             ],
             "sourcePage": "contact",
             "position": 2,
-            "file": "units/contact-02-cta.html",
-            "slots": 4,
-            "repeatable": 2,
+            "file": "units/contact-02-process.html",
+            "slots": 11,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "contact-03-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ from the contact page, headed (H2) \"The practical bits.\": 4 paragraphs, 3 questions, 3 repeatable items.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "contact",
+            "position": 3,
+            "file": "units/contact-03-faq.html",
+            "slots": 8,
+            "repeatable": 3,
             "ksesStable": true
         },
         "header": {
@@ -390,7 +749,7 @@
             "role": "header",
             "summary": "Header template part.",
             "file": "units/header.html",
-            "slots": 1,
+            "slots": 3,
             "ksesStable": true
         },
         "footer": {
@@ -398,28 +757,192 @@
             "role": "footer",
             "summary": "Footer template part.",
             "file": "units/footer.html",
-            "slots": 8,
+            "slots": 12,
             "ksesStable": true
         }
     },
     "assets": {
+        "amber-line": {
+            "file": "images/amber-line.jpg",
+            "alt": "A full line of amber skincare bottles and jars on a warm beige set",
+            "title": "Amber skincare range",
+            "width": 1600,
+            "height": 1162,
+            "kind": "photo"
+        },
+        "amber-stone": {
+            "file": "images/amber-stone.jpg",
+            "alt": "Amber glass skincare bottles arranged on a rough stone plinth",
+            "title": "Amber bottles on stone",
+            "width": 1600,
+            "height": 1600,
+            "kind": "photo"
+        },
+        "app-hand": {
+            "file": "images/app-hand.jpg",
+            "alt": "Hands holding a phone with a finance app open above a desk",
+            "title": "Finance app",
+            "width": 1333,
+            "height": 2000,
+            "kind": "photo"
+        },
+        "app-phone": {
+            "file": "images/app-phone.jpg",
+            "alt": "A phone showing a clean app screen, standing on a white surface",
+            "title": "App on a phone",
+            "width": 1333,
+            "height": 2000,
+            "kind": "photo"
+        },
+        "arrow-sign": {
+            "file": "images/arrow-sign.jpg",
+            "alt": "A white wayfinding sign with a bold black arrow on a dark stone wall",
+            "title": "Wayfinding sign",
+            "width": 1600,
+            "height": 1066,
+            "kind": "photo"
+        },
+        "blank-card": {
+            "file": "images/blank-card.jpg",
+            "alt": "A blank business card resting on crumpled white linen",
+            "title": "Business card",
+            "width": 1600,
+            "height": 1066,
+            "kind": "photo"
+        },
+        "hotel-lounge": {
+            "file": "images/hotel-lounge.jpg",
+            "alt": "A warm hotel lounge with a leather armchair and glowing shelves",
+            "title": "Hotel lounge",
+            "width": 1600,
+            "height": 1600,
+            "kind": "photo"
+        },
+        "hotel-room": {
+            "file": "images/hotel-room.jpg",
+            "alt": "A light-filled hotel suite with floor-to-ceiling windows",
+            "title": "Hotel suite",
+            "width": 1600,
+            "height": 1066,
+            "kind": "photo"
+        },
+        "kraft-bag": {
+            "file": "images/kraft-bag.jpg",
+            "alt": "A plain kraft coffee bag casting a long shadow",
+            "title": "Kraft coffee bag",
+            "width": 1600,
+            "height": 1066,
+            "kind": "photo"
+        },
+        "kraft-box": {
+            "file": "images/kraft-box.jpg",
+            "alt": "A kraft paper gift box with a sliding drawer, lit warmly",
+            "title": "Kraft gift box",
+            "width": 1600,
+            "height": 1066,
+            "kind": "photo"
+        },
         "portrait": {
             "file": "images/portrait.jpg",
-            "alt": "Abstract editorial composition in blue and ink",
-            "title": "Studio portrait",
-            "width": 1200,
-            "height": 1500
+            "alt": "A designer with glasses and a moustache, photographed against a pale wall",
+            "title": "Portrait",
+            "width": 1372,
+            "height": 2000,
+            "kind": "photo"
         },
-        "studio": {
-            "file": "images/studio.jpg",
-            "alt": "Abstract geometric composition on paper",
-            "title": "Studio",
+        "portrait-window": {
+            "file": "images/portrait-window.jpg",
+            "alt": "A designer in glasses standing by a studio window in soft light",
+            "title": "Portrait by the window",
+            "width": 1333,
+            "height": 2000,
+            "kind": "photo"
+        },
+        "poster-red": {
+            "file": "images/poster-red.jpg",
+            "alt": "A framed typographic poster on a sunlit red wall beside a red chair",
+            "title": "Red poster wall",
+            "width": 1332,
+            "height": 2000,
+            "kind": "photo"
+        },
+        "poster-wall": {
+            "file": "images/poster-wall.jpg",
+            "alt": "A row of typographic posters on a coral wall",
+            "title": "Poster wall",
             "width": 1600,
-            "height": 1000
+            "height": 1066,
+            "kind": "photo"
+        },
+        "sketching": {
+            "file": "images/sketching.jpg",
+            "alt": "Hands sketching layouts at a cluttered design desk",
+            "title": "Sketching",
+            "width": 1333,
+            "height": 2000,
+            "kind": "photo"
+        },
+        "studio-desk": {
+            "file": "images/studio-desk.jpg",
+            "alt": "A glass desk on trestles with a yellow lamp in a bright white studio",
+            "title": "Studio desk",
+            "width": 1350,
+            "height": 2000,
+            "kind": "photo"
+        },
+        "studio-window": {
+            "file": "images/studio-window.jpg",
+            "alt": "A long work table beneath a tall window in a quiet, dark studio",
+            "title": "Studio table",
+            "width": 1500,
+            "height": 2000,
+            "kind": "photo"
+        },
+        "swatch-orange": {
+            "file": "images/swatch-orange.jpg",
+            "alt": "Orange and red colour swatches fanned across a table",
+            "title": "Orange swatches",
+            "width": 1600,
+            "height": 1066,
+            "kind": "photo"
+        },
+        "swatch-yellow": {
+            "file": "images/swatch-yellow.jpg",
+            "alt": "A fan of yellow colour swatches on a bright yellow background",
+            "title": "Yellow swatches",
+            "width": 1600,
+            "height": 1600,
+            "kind": "photo"
+        },
+        "white-bottles": {
+            "file": "images/white-bottles.jpg",
+            "alt": "Three white bottles of body care beside a potted aloe",
+            "title": "Body care bottles",
+            "width": 1600,
+            "height": 1066,
+            "kind": "photo"
         }
+    },
+    "projects": {
+        "titles": [
+            "An apothecary brand for a modern skincare line",
+            "A quiet identity for a loud city hotel",
+            "Making money feel calm in a budgeting app",
+            "Packaging that lets the coffee do the talking",
+            "Wayfinding for a gallery with no straight lines",
+            "A poster campaign set entirely in type"
+        ],
+        "covers": [
+            "amber-stone",
+            "hotel-lounge",
+            "app-hand",
+            "kraft-bag",
+            "arrow-sign",
+            "poster-wall"
+        ]
     },
     "source": {
         "dir": "seed/sites/designer",
-        "hash": "237f0692d7406f1930394dc8ccc0c57e"
+        "hash": "e31a05d826ec55cbb0f12122b4d85c48"
     }
 }

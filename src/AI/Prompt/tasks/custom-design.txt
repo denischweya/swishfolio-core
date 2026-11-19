@@ -27,3 +27,4 @@ Choose:
 - headingWeight 100 to 900 (within the display font's weights), headingCase, headingTracking, headingScale (0.8 restrained to 1.4 huge).
 - labelStyle, radius (none for hard edges, pill for very round), borderWidth 0 to 4 px, shadow (hard = offset solid shadows), buttons, links, cards, sections (alternate bands, bordered rules between bands, or flat), spacing, imageStyle, imageFrame, decor (the one decorative motif the site uses, or none).
 - name: one or two words. summary: one sentence for the owner about the look, plain words, no dashes.
+{{polish}}

@@ -9,6 +9,7 @@ namespace SwishfolioCore\AI\Generation\Stages;
 
 use SwishfolioCore\AI\Generation\PlanContext;
 use SwishfolioCore\AI\Generation\PlanSchema;
+use SwishfolioCore\AI\Generation\ProjectsPolicy;
 use SwishfolioCore\Actions\ValidationException;
 
 /**
@@ -171,6 +172,11 @@ class PlanEnvelopeStage implements PlanStageInterface
 
         if ($context->getScope() === 'site') {
             $clean['site'] = $this->checkSite(isset($plan['site']) ? $plan['site'] : null);
+        }
+
+        // The planner's projects decision (see ProjectsPolicy), reduced to known fields.
+        if (isset($plan['projects']) && is_array($plan['projects'])) {
+            $clean['projects'] = ProjectsPolicy::decision($plan['projects']);
         }
 
         return $clean;

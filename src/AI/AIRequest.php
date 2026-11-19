@@ -30,6 +30,12 @@ class AIRequest
     /** @var bool Whether the system prompt is a shared prefix worth caching. */
     private $cacheSystem = false;
 
+    /** @var string[] Image URLs shown with the user prompt. */
+    private $images = [];
+
+    /** @var string Reasoning effort for this request ('' = the provider's filtered default). */
+    private $effort = '';
+
     /**
      * @param string $systemPrompt Stable prefix: instructions, manifests, tokens.
      * @param string $userPrompt   Volatile suffix: selection context and instruction.
@@ -119,5 +125,55 @@ class AIRequest
     public function cachesSystem()
     {
         return $this->cacheSystem;
+    }
+
+    /**
+     * A copy that shows these images (public https URLs, or data:image/...;base64
+     * URIs for images with no public URL) before the user
+     * prompt, for providers that accept images. Others ignore them, so a
+     * caller that depends on the model seeing them checks the provider first.
+     *
+     * @param string[] $urls Image URLs.
+     *
+     * @return self
+     */
+    public function withImages(array $urls)
+    {
+        $copy         = clone $this;
+        $copy->images = array_values(array_map('strval', $urls));
+
+        return $copy;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * A copy with its own reasoning effort (low|medium|high|xhigh|max), for
+     * providers that take one. '' keeps the provider's default.
+     *
+     * @param string $effort Effort.
+     *
+     * @return self
+     */
+    public function withEffort($effort)
+    {
+        $copy         = clone $this;
+        $copy->effort = (string) $effort;
+
+        return $copy;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEffort()
+    {
+        return $this->effort;
     }
 }

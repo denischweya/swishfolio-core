@@ -148,7 +148,7 @@
             "images": [
                 "octopus-pan"
             ],
-            "slots": 18,
+            "slots": 19,
             "repeatable": 5,
             "fixedText": [
                 "Open Tue–Sun · Reservations · Walk-ins at the counter ·"
@@ -218,7 +218,7 @@
             "images": [
                 "sauce"
             ],
-            "slots": 13,
+            "slots": 14,
             "repeatable": 9,
             "fixedText": [
                 "Seven courses · One fire · Whole table · Tue to Sat ·"
@@ -308,7 +308,7 @@
             "sourcePage": "menu",
             "position": 1,
             "file": "units/menu-01-page-header.html",
-            "slots": 3,
+            "slots": 4,
             "repeatable": 0,
             "fixedText": [
                 "Oak · Applewood · Ash · Ember · Smoke · Salt · Time ·"
@@ -407,7 +407,7 @@
             "images": [
                 "sauce"
             ],
-            "slots": 13,
+            "slots": 14,
             "repeatable": 9,
             "fixedText": [
                 "Seven courses · One fire · Whole table · Tue to Sat ·"
@@ -511,7 +511,7 @@
             "images": [
                 "plating"
             ],
-            "slots": 8,
+            "slots": 9,
             "repeatable": 5,
             "fixedText": [
                 "Flame · Ember · Ash · Three heats · One hearth ·"
@@ -579,7 +579,7 @@
             "images": [
                 "longtable"
             ],
-            "slots": 7,
+            "slots": 8,
             "repeatable": 0,
             "fixedText": [
                 "From 8 to 70 guests · Feasts from £65 · Enquire ·"
@@ -672,7 +672,7 @@
         "reservations-01-page-header": {
             "scope": "section",
             "role": "page-header",
-            "summary": "Page header from the reservations page, headed (H1) \"Book a table\": 2 paragraphs, 1 photo, 39 repeatable items.",
+            "summary": "Page header from the reservations page, headed (H1) \"Book a table\": 2 paragraphs, 1 photo, 39 repeatable items. Has a demo form that does not send anything yet.",
             "pageTypes": [
                 "contact"
             ],
@@ -682,11 +682,11 @@
             "images": [
                 "room-warm"
             ],
-            "slots": 71,
-            "repeatable": 39,
             "needs": [
                 "form"
             ],
+            "slots": 71,
+            "repeatable": 39,
             "ksesStable": false
         },
         "reservations-02-content": {
@@ -756,133 +756,152 @@
             "alt": "Hands tearing a dark sourdough loaf",
             "title": "Wessex rye",
             "width": 1400,
-            "height": 2098
+            "height": 2098,
+            "kind": "photo"
         },
         "cheesecake": {
             "file": "images/cheesecake.jpg",
             "alt": "A slice of burnt Basque cheesecake",
             "title": "Burnt cheesecake",
             "width": 1400,
-            "height": 2100
+            "height": 2100,
+            "kind": "photo"
         },
         "flame": {
             "file": "images/flame.jpg",
             "alt": "A pan flaring over the coals",
             "title": "Second service",
             "width": 1400,
-            "height": 1750
+            "height": 1750,
+            "kind": "photo"
         },
         "flatbread": {
             "file": "images/flatbread.jpg",
             "alt": "Flatbreads baking beside the fire",
             "title": "Hearth flatbreads",
             "width": 1600,
-            "height": 1067
+            "height": 1067,
+            "kind": "photo"
         },
         "grains": {
             "file": "images/grains.jpg",
             "alt": "A cook dressing a bowl of grains with herb oil",
             "title": "Finishing touch",
             "width": 1400,
-            "height": 2100
+            "height": 2100,
+            "kind": "photo"
         },
         "hearth": {
             "file": "images/hearth.jpg",
             "alt": "Oak logs burning in the hearth",
             "title": "The hearth",
             "width": 1600,
-            "height": 1067
+            "height": 1067,
+            "kind": "photo"
         },
         "lamb": {
             "file": "images/lamb.jpg",
             "alt": "Lamb rump, sliced pink, with a glossy sauce",
             "title": "Lamb rump",
             "width": 1600,
-            "height": 2000
+            "height": 2000,
+            "kind": "photo"
         },
         "longtable": {
             "file": "images/longtable.jpg",
             "alt": "A long candlelit table set for dinner",
             "title": "The long table",
             "width": 1600,
-            "height": 1067
+            "height": 1067,
+            "kind": "photo"
         },
         "negroni": {
             "file": "images/negroni.jpg",
             "alt": "A red Negroni with orange peel",
             "title": "Lumbre Negroni",
             "width": 1200,
-            "height": 2133
+            "height": 2133,
+            "kind": "photo"
         },
         "octopus": {
             "file": "images/octopus.jpg",
             "alt": "Grilled octopus tentacle with dressed leaves",
             "title": "Octopus, dressed leaves",
             "width": 1400,
-            "height": 2488
+            "height": 2488,
+            "kind": "photo"
         },
         "octopus-pan": {
             "file": "images/octopus-pan.jpg",
             "alt": "Ember-roast octopus with crushed potatoes in a steel pan",
             "title": "Ember-roast octopus",
             "width": 1600,
-            "height": 1067
+            "height": 1067,
+            "kind": "photo"
         },
         "plating": {
             "file": "images/plating.jpg",
             "alt": "A chef finishing a plate with tweezers",
             "title": "At the pass",
             "width": 1400,
-            "height": 1908
+            "height": 1908,
+            "kind": "photo"
         },
         "ribs": {
             "file": "images/ribs.jpg",
             "alt": "Aged rib on the bone in a cast-iron pan",
             "title": "Hereford rib",
             "width": 1600,
-            "height": 1068
+            "height": 1068,
+            "kind": "photo"
         },
         "room": {
             "file": "images/room.jpg",
             "alt": "Corner table under a woven pendant lamp",
             "title": "Table nine",
             "width": 1400,
-            "height": 2100
+            "height": 2100,
+            "kind": "photo"
         },
         "room-warm": {
             "file": "images/room-warm.jpg",
             "alt": "Low-lit dining room with candlelit tables",
             "title": "The dining room",
             "width": 1400,
-            "height": 2100
+            "height": 2100,
+            "kind": "photo"
         },
         "sauce": {
             "file": "images/sauce.jpg",
             "alt": "Sauce spooned over duck on a white plate",
             "title": "The Long Fire",
             "width": 1600,
-            "height": 1600
+            "height": 1600,
+            "kind": "photo"
         },
         "sharing": {
             "file": "images/sharing.jpg",
             "alt": "Friends sharing bread, olives and wine",
             "title": "The long lunch",
             "width": 1600,
-            "height": 1067
+            "height": 1067,
+            "kind": "photo"
         },
         "tomatoes": {
             "file": "images/tomatoes.jpg",
             "alt": "Heirloom tomatoes on a wooden table",
             "title": "Hollow Oak tomatoes",
             "width": 1400,
-            "height": 1750
+            "height": 1750,
+            "kind": "photo"
         },
         "wine": {
             "file": "images/wine.jpg",
             "alt": "Red wine poured into a glass",
             "title": "Garnacha",
             "width": 1400,
-            "height": 2100
+            "height": 2100,
+            "kind": "photo"
         }
     },
     "source": {

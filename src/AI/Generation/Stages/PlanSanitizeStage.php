@@ -58,6 +58,15 @@ class PlanSanitizeStage implements PlanStageInterface
             }
         }
 
+        if (isset($plan['projects']['items'])) {
+            foreach ($plan['projects']['items'] as $i => $item) {
+                foreach (['title', 'excerpt', 'category'] as $field) {
+                    $plan['projects']['items'][$i][$field] = sanitize_text_field($item[$field]);
+                }
+                $plan['projects']['items'][$i]['body'] = array_map('sanitize_text_field', $item['body']);
+            }
+        }
+
         if (isset($plan['site'])) {
             foreach (['title', 'tagline'] as $field) {
                 if (isset($plan['site'][$field])) {

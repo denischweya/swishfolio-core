@@ -1,0 +1,713 @@
+{
+    "version": 2,
+    "slug": "marketer",
+    "name": "Rosewater",
+    "title": "Social Media Manager",
+    "industry": "creative",
+    "description": "A soft, polished WordPress template for social media managers and digital marketers, with a portrait hero, a brand logo wall, campaign results, packages and a project enquiry form.",
+    "look": "Type: DM Serif Display, Urbanist. Colours: Cream #FFF8F3, Plum #3B1838, Berry #9C2C64, Blush #FADDE1, Lilac #E7DDFB, Secondary text #6A4A63.",
+    "demo": {
+        "business": "Yasmin Haddad",
+        "tagline": "Social media strategist & digital marketer for beauty, wellness and lifestyle brands · Toronto"
+    },
+    "design": {
+        "file": "design.json",
+        "variation": "Default",
+        "classPrefix": "ym-",
+        "fingerprint": ".ym-foot",
+        "palette": {
+            "base": "Cream #FFF8F3",
+            "contrast": "Plum #3B1838",
+            "accent-1": "Berry #9C2C64",
+            "accent-2": "Blush #FADDE1",
+            "accent-3": "Lilac #E7DDFB",
+            "accent-4": "Secondary text #6A4A63",
+            "accent-5": "Peach #FFDCC7",
+            "accent-6": "Rose #F6C6CF"
+        },
+        "fonts": [
+            "DM Serif Display",
+            "Urbanist"
+        ],
+        "pageTemplate": "page-landing",
+        "header": "header",
+        "footer": "footer",
+        "assetsPath": "assets/kits/marketer"
+    },
+    "frontPage": "home",
+    "navigation": [
+        "services",
+        "work",
+        "about",
+        "contact"
+    ],
+    "pages": [
+        {
+            "key": "home",
+            "title": "Home",
+            "slug": "home",
+            "navLabel": "Home",
+            "inNav": false,
+            "type": "home",
+            "template": "page-landing",
+            "sections": [
+                "home-01-hero",
+                "home-02-logos",
+                "home-03-services",
+                "home-04-stats",
+                "home-05-portfolio",
+                "home-06-process",
+                "home-07-testimonials",
+                "home-08-about",
+                "home-09-cta"
+            ]
+        },
+        {
+            "key": "services",
+            "title": "Services",
+            "slug": "services",
+            "navLabel": "Services",
+            "inNav": true,
+            "type": "services",
+            "template": "page-landing",
+            "sections": [
+                "services-01-page-header",
+                "services-02-gallery",
+                "services-03-pricing",
+                "services-04-faq",
+                "home-09-cta"
+            ]
+        },
+        {
+            "key": "work",
+            "title": "Work",
+            "slug": "work",
+            "navLabel": "Work",
+            "inNav": true,
+            "type": "work",
+            "template": "page-landing",
+            "sections": [
+                "work-01-page-header",
+                "work-02-portfolio",
+                "work-03-portfolio",
+                "work-04-logos",
+                "work-05-testimonials",
+                "work-06-cta"
+            ]
+        },
+        {
+            "key": "about",
+            "title": "About",
+            "slug": "about",
+            "navLabel": "About",
+            "inNav": true,
+            "type": "about",
+            "template": "page-landing",
+            "sections": [
+                "about-01-page-header",
+                "about-02-about",
+                "about-03-features",
+                "about-04-skills",
+                "about-05-cta"
+            ]
+        },
+        {
+            "key": "contact",
+            "title": "Contact",
+            "slug": "contact",
+            "navLabel": "Contact",
+            "inNav": true,
+            "type": "contact",
+            "template": "page-landing",
+            "sections": [
+                "contact-01-page-header",
+                "contact-02-process",
+                "contact-03-faq"
+            ]
+        }
+    ],
+    "units": {
+        "home-01-hero": {
+            "scope": "section",
+            "role": "hero",
+            "summary": "Home page hero from the home page, headed (H1) \"Scroll-stopping social for brands people love to follow.\": 1 paragraph, 2 buttons, 1 photo, 3 drawn icons or graphics, 3 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 1,
+            "file": "units/home-01-hero.html",
+            "images": [
+                "yasmin-portrait"
+            ],
+            "slots": 16,
+            "repeatable": 3,
+            "fixedText": [
+                "Strategy · Content · Community · Growth ·"
+            ],
+            "ksesStable": false
+        },
+        "home-02-logos": {
+            "scope": "section",
+            "role": "logos",
+            "summary": "Fictional client wordmarks (SVG text logos) in a slow marquee strip.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 2,
+            "file": "units/home-02-logos.html",
+            "slots": 18,
+            "repeatable": 18,
+            "ksesStable": false
+        },
+        "home-03-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Services section from the home page, headed (H2) \"Everything your social needs, under one roof.\": 7 headings, 2 paragraphs, 1 button, 12 drawn icons or graphics, 6 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 3,
+            "file": "units/home-03-services.html",
+            "slots": 22,
+            "repeatable": 6,
+            "ksesStable": false
+        },
+        "home-04-stats": {
+            "scope": "section",
+            "role": "stats",
+            "summary": "Four headline results on a plum card with gradient numbers, labelled illustrative.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 4,
+            "file": "units/home-04-stats.html",
+            "slots": 11,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "home-05-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Three featured case-study cards (one wide) with a metric badge on each photo.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 5,
+            "file": "units/home-05-portfolio.html",
+            "images": [
+                "tripod-desk",
+                "food-shoot",
+                "laptop-case"
+            ],
+            "slots": 16,
+            "repeatable": 2,
+            "ksesStable": false
+        },
+        "home-06-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the home page, headed (H2) \"From first call to first results in four steps.\": 5 headings, 2 paragraphs, 4 repeatable items.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 6,
+            "file": "units/home-06-process.html",
+            "slots": 19,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "home-07-testimonials": {
+            "scope": "section",
+            "role": "testimonials",
+            "summary": "Testimonials section from the home page, headed (H2) \"What clients say after the first quarter.\": 2 paragraphs.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 7,
+            "file": "units/home-07-testimonials.html",
+            "slots": 12,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "home-08-about": {
+            "scope": "section",
+            "role": "about",
+            "summary": "About section from the home page, headed (H2) \"Strategist brain, creator hands.\": 3 paragraphs, 1 photo, 2 drawn icons or graphics, 2 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 8,
+            "file": "units/home-08-about.html",
+            "images": [
+                "creator-tripod"
+            ],
+            "slots": 7,
+            "repeatable": 2,
+            "ksesStable": false
+        },
+        "home-09-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the home page, headed (H2) \"Ready for a feed that works as hard as you do?\": 2 paragraphs, 2 buttons.",
+            "pageTypes": [
+                "home",
+                "any",
+                "services"
+            ],
+            "sourcePage": "home",
+            "position": 9,
+            "file": "units/home-09-cta.html",
+            "slots": 6,
+            "repeatable": 0,
+            "ksesStable": true,
+            "alsoOn": [
+                "services"
+            ]
+        },
+        "services-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the services page, headed (H1) \"Social media that grows with your business.\": 2 paragraphs, 1 photo.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 1,
+            "file": "units/services-01-page-header.html",
+            "images": [
+                "pink-desk"
+            ],
+            "slots": 3,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "services-02-gallery": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Six alternating service rows: photo with an icon badge, numbered title, description, deliverables ticks and an outcome callout.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 2,
+            "file": "units/services-02-gallery.html",
+            "images": [
+                "whiteboard",
+                "creator-tripod",
+                "laptop-case",
+                "moodboard-table",
+                "laptop-pair",
+                "phone-coffee"
+            ],
+            "slots": 48,
+            "repeatable": 30,
+            "ksesStable": false
+        },
+        "services-03-pricing": {
+            "scope": "section",
+            "role": "pricing",
+            "summary": "Pricing section from the services page, headed (H2) \"Three ways to work together.\": 4 headings, 3 paragraphs, 3 drawn icons or graphics, 17 repeatable items.",
+            "pageTypes": [
+                "services"
+            ],
+            "sourcePage": "services",
+            "position": 3,
+            "file": "units/services-03-pricing.html",
+            "slots": 32,
+            "repeatable": 17,
+            "ksesStable": false
+        },
+        "services-04-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ from the services page, headed (H2) \"Before you book.\": 7 paragraphs, 5 questions, 5 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "services",
+            "position": 4,
+            "file": "units/services-04-faq.html",
+            "slots": 13,
+            "repeatable": 5,
+            "ksesStable": true
+        },
+        "work-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the work page, headed (H1) \"Campaigns that moved more than the follower count.\": 2 paragraphs, 1 photo.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 1,
+            "file": "units/work-01-page-header.html",
+            "images": [
+                "phone-grid"
+            ],
+            "slots": 3,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "work-02-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the work page, headed (H2) \"Taking a clean-skincare brand from zero to TikTok favourite\": 2 paragraphs, 1 photo, 3 repeatable items.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 2,
+            "file": "units/work-02-portfolio.html",
+            "images": [
+                "tripod-desk"
+            ],
+            "slots": 10,
+            "repeatable": 3,
+            "ksesStable": false
+        },
+        "work-03-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the work page, headed (H2) \"More case studies.\": 2 paragraphs. Lists the site's portfolio projects.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 3,
+            "file": "units/work-03-portfolio.html",
+            "needs": [
+                "projects"
+            ],
+            "slots": 3,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "work-04-logos": {
+            "scope": "section",
+            "role": "logos",
+            "summary": "Logos section from the work page: 2 paragraphs, 8 drawn icons or graphics, 18 repeatable items.",
+            "pageTypes": [
+                "work",
+                "any"
+            ],
+            "sourcePage": "work",
+            "position": 4,
+            "file": "units/work-04-logos.html",
+            "slots": 18,
+            "repeatable": 18,
+            "ksesStable": false
+        },
+        "work-05-testimonials": {
+            "scope": "section",
+            "role": "testimonials",
+            "summary": "Testimonials section from the work page: 1 paragraph.",
+            "pageTypes": [
+                "work",
+                "any"
+            ],
+            "sourcePage": "work",
+            "position": 5,
+            "file": "units/work-05-testimonials.html",
+            "slots": 4,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "work-06-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the work page, headed (H2) \"Want results like these for your brand?\": 2 paragraphs, 2 buttons.",
+            "pageTypes": [
+                "work",
+                "any"
+            ],
+            "sourcePage": "work",
+            "position": 6,
+            "file": "units/work-06-cta.html",
+            "slots": 6,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "about-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the about page, headed (H1) \"Hi, I’m Yasmin. I make brands easy to love online.\": 2 paragraphs, 1 photo, 5 drawn icons or graphics, 5 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 1,
+            "file": "units/about-01-page-header.html",
+            "images": [
+                "yasmin-portrait"
+            ],
+            "slots": 13,
+            "repeatable": 5,
+            "ksesStable": false
+        },
+        "about-02-about": {
+            "scope": "section",
+            "role": "about",
+            "summary": "About section from the about page: 4 paragraphs, 8 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 2,
+            "file": "units/about-02-about.html",
+            "slots": 19,
+            "repeatable": 8,
+            "ksesStable": true
+        },
+        "about-03-features": {
+            "scope": "section",
+            "role": "features",
+            "summary": "Features section from the about page, headed (H2) \"Four promises I make every client.\": 5 headings, 1 paragraph, 4 drawn icons or graphics, 4 repeatable items.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 3,
+            "file": "units/about-03-features.html",
+            "slots": 10,
+            "repeatable": 4,
+            "ksesStable": false
+        },
+        "about-04-skills": {
+            "scope": "section",
+            "role": "skills",
+            "summary": "Skills section from the about page, headed (H2) \"The tools behind the feed.\": 2 paragraphs, 1 photo, 12 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 4,
+            "file": "units/about-04-skills.html",
+            "images": [
+                "pink-keyboard"
+            ],
+            "slots": 16,
+            "repeatable": 12,
+            "ksesStable": false
+        },
+        "about-05-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the about page, headed (H2) \"Let’s see if we’re a good fit.\": 2 paragraphs, 2 buttons.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 5,
+            "file": "units/about-05-cta.html",
+            "slots": 6,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "contact-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the contact page, headed (H1) \"Let’s make your feed your best salesperson.\": 2 paragraphs, 7 drawn icons or graphics, 27 repeatable items. Has a demo form that does not send anything yet.",
+            "pageTypes": [
+                "contact"
+            ],
+            "sourcePage": "contact",
+            "position": 1,
+            "file": "units/contact-01-page-header.html",
+            "needs": [
+                "form"
+            ],
+            "slots": 53,
+            "repeatable": 27,
+            "ksesStable": false
+        },
+        "contact-02-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the contact page, headed (H2) \"Simple, quick and no pressure.\": 4 headings, 1 paragraph, 3 repeatable items.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "contact",
+            "position": 2,
+            "file": "units/contact-02-process.html",
+            "slots": 11,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "contact-03-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ from the contact page, headed (H2) \"The practical bits.\": 4 paragraphs, 3 questions, 3 repeatable items.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "contact",
+            "position": 3,
+            "file": "units/contact-03-faq.html",
+            "slots": 8,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "header": {
+            "scope": "header",
+            "role": "header",
+            "summary": "Header template part.",
+            "file": "units/header.html",
+            "slots": 3,
+            "ksesStable": false
+        },
+        "footer": {
+            "scope": "footer",
+            "role": "footer",
+            "summary": "Footer template part.",
+            "file": "units/footer.html",
+            "slots": 26,
+            "ksesStable": false
+        }
+    },
+    "assets": {
+        "creator-tripod": {
+            "file": "images/creator-tripod.jpg",
+            "alt": "A woman filming herself with a smartphone on a tripod",
+            "title": "Filming content",
+            "width": 1400,
+            "height": 1867,
+            "kind": "photo"
+        },
+        "food-shoot": {
+            "file": "images/food-shoot.jpg",
+            "alt": "Photographing a dish with a smartphone for social media",
+            "title": "Food content shoot",
+            "width": 1400,
+            "height": 2100,
+            "kind": "photo"
+        },
+        "laptop-case": {
+            "file": "images/laptop-case.jpg",
+            "alt": "A laptop and a pink phone on a desk",
+            "title": "Laptop and phone",
+            "width": 1400,
+            "height": 2100,
+            "kind": "photo"
+        },
+        "laptop-pair": {
+            "file": "images/laptop-pair.jpg",
+            "alt": "Two women reviewing results together on a laptop",
+            "title": "Reviewing results",
+            "width": 1600,
+            "height": 1067,
+            "kind": "photo"
+        },
+        "moodboard-table": {
+            "file": "images/moodboard-table.jpg",
+            "alt": "Printed photos and notes spread across a table during a creative planning session",
+            "title": "Creative planning",
+            "width": 1600,
+            "height": 1028,
+            "kind": "photo"
+        },
+        "phone-blush": {
+            "file": "images/phone-blush.jpg",
+            "alt": "A smartphone and a coffee cup on a light pink background",
+            "title": "Phone on blush",
+            "width": 1600,
+            "height": 1067,
+            "kind": "photo"
+        },
+        "phone-coffee": {
+            "file": "images/phone-coffee.jpg",
+            "alt": "A phone showing social apps beside a cup of coffee on a pink table",
+            "title": "Phone and coffee",
+            "width": 1600,
+            "height": 1067,
+            "kind": "photo"
+        },
+        "phone-grid": {
+            "file": "images/phone-grid.jpg",
+            "alt": "Scrolling through a brand’s Instagram grid on a phone",
+            "title": "Instagram grid",
+            "width": 1600,
+            "height": 1067,
+            "kind": "photo"
+        },
+        "pink-desk": {
+            "file": "images/pink-desk.jpg",
+            "alt": "A tidy pink desk with a keyboard, notebook and phone",
+            "title": "Pink desk",
+            "width": 1600,
+            "height": 1067,
+            "kind": "photo"
+        },
+        "pink-keyboard": {
+            "file": "images/pink-keyboard.jpg",
+            "alt": "A pink keyboard and laptop on a bright desk",
+            "title": "Pink keyboard",
+            "width": 1600,
+            "height": 1067,
+            "kind": "photo"
+        },
+        "tripod-desk": {
+            "file": "images/tripod-desk.jpg",
+            "alt": "A smartphone on a tripod filming a styled desk",
+            "title": "Phone on a tripod",
+            "width": 1400,
+            "height": 2100,
+            "kind": "photo"
+        },
+        "whiteboard": {
+            "file": "images/whiteboard.jpg",
+            "alt": "A small team planning a campaign around a whiteboard",
+            "title": "Planning session",
+            "width": 1600,
+            "height": 1067,
+            "kind": "photo"
+        },
+        "yasmin-portrait": {
+            "file": "images/yasmin-portrait.jpg",
+            "alt": "A smiling social media strategist in a pink shirt",
+            "title": "Portrait",
+            "width": 1400,
+            "height": 2100,
+            "kind": "photo"
+        }
+    },
+    "projects": {
+        "titles": [
+            "Taking a clean-skincare brand from zero to TikTok favourite",
+            "Turning a neighbourhood café’s followers into regulars",
+            "Filling new-student intro offers with paid social",
+            "Eighteen creators, three boutique hotels, one summer campaign",
+            "A swimwear launch that sold out its first drop",
+            "Reporting that finally connects social to sales"
+        ],
+        "covers": [
+            "tripod-desk",
+            "food-shoot",
+            "laptop-case",
+            "moodboard-table",
+            "phone-blush",
+            "laptop-pair"
+        ]
+    },
+    "source": {
+        "dir": "seed/sites/marketer",
+        "hash": "2b0798d5ce06b765e442c1284dfca172"
+    }
+}

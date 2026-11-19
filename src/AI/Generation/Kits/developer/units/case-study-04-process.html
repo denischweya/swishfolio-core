@@ -1,0 +1,23 @@
+<!-- wp:group {"tagName":"section","align":"full","className":"mb-sec mb-cs-approach","layout":{"type":"default"}} -->
+<section class="wp-block-group alignfull mb-sec mb-cs-approach">
+<!-- wp:group {"className":"mb-wrap","layout":{"type":"default"}} -->
+<div class="wp-block-group mb-wrap">
+<!-- wp:group {"className":"mb-head","layout":{"type":"default"}} -->
+<div class="wp-block-group mb-head">
+<!-- wp:paragraph {"className":"mb-eyebrow"} -->
+<p class="mb-eyebrow"><span class="mb-eyebrow__n">02</span>The approach</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"className":"mb-h2"} -->
+<h2 class="wp-block-heading mb-h2">Four decisions that <em>did the heavy lifting</em>.</h2>
+<!-- /wp:heading -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:html -->
+<ol class="mb-decisions"><li><span class="mb-decisions__n">01</span><h3>A ledger before features</h3><p>Every cent moves as a pair of ledger entries in Postgres, so balances can be rebuilt from history and audited at any time.</p></li><li><span class="mb-decisions__n">02</span><h3>Idempotent by default</h3><p>Every write carries an idempotency key. Retries, double clicks and replayed webhooks can never pay a seller twice.</p></li><li><span class="mb-decisions__n">03</span><h3>An outbox, not a hope</h3><p>Events are written in the same transaction as the money, then delivered by workers. Nothing is lost when a bank rail is down.</p></li><li><span class="mb-decisions__n">04</span><h3>Migrate in cohorts</h3><p>Sellers moved in small groups behind a flag, with the old batch job running in parallel until every cent matched.</p></li></ol>
+<!-- /wp:html -->
+</div>
+<!-- /wp:group -->
+</section>
+<!-- /wp:group -->

@@ -1,18 +1,24 @@
 {
-    "phones": [],
+    "phones": [
+        "+44 131 496 0582"
+    ],
     "emails": [
-        "hello@elenamarsh.co"
+        "hello@marenlindqvist.example"
     ],
     "domains": [
-        "elenamarsh.co"
+        "marenlindqvist.example"
     ],
-    "addresses": [],
+    "addresses": [
+        "The Quiet Room, 9 Saxe Coburg Lane, Stockbridge, Edinburgh"
+    ],
     "places": [
-        "London"
+        "Edinburgh",
+        "Stockbridge",
+        "Saxe Coburg Lane",
+        "Gothenburg",
+        "Pentland Hills"
     ],
     "people": [
-        "Elena Marsh",
-        "Priya Raman",
-        "Tom Okafor"
+        "Maren Lindqvist"
     ]
 }

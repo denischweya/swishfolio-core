@@ -1,39 +1,43 @@
-<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|90","left":"var:preset|spacing|60","right":"var:preset|spacing|60"}}},"backgroundColor":"base","layout":{"type":"constrained","contentSize":"1200px"}} -->
-<div class="wp-block-group alignfull has-base-background-color has-background" style="padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--60)">
-<!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|70","left":"var:preset|spacing|80"}}}} -->
-<div class="wp-block-columns are-vertically-aligned-center">
-<!-- wp:column {"verticalAlignment":"center","width":"56%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:56%">
-<!-- wp:paragraph {"className":"sf-label","textColor":"accent-1","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|40"}}}} -->
-<p class="sf-label has-accent-1-color has-text-color" style="margin-bottom:var(--wp--preset--spacing--40)">Contact</p>
+<!-- wp:group {"tagName":"section","align":"full","className":"qp-sec qp-contact","layout":{"type":"default"}} -->
+<section class="wp-block-group alignfull qp-sec qp-contact">
+<!-- wp:group {"className":"qp-wrap qp-contact__grid","layout":{"type":"default"}} -->
+<div class="wp-block-group qp-wrap qp-contact__grid">
+<!-- wp:group {"className":"qp-contact__text","layout":{"type":"default"}} -->
+<div class="wp-block-group qp-contact__text">
+<!-- wp:paragraph {"className":"qp-eyebrow"} -->
+<p class="qp-eyebrow">Contact</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":1,"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|50"}}}} -->
-<h1 class="wp-block-heading" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--50)">Let's start with half an hour.</h1>
+<!-- wp:heading {"level":1,"className":"qp-h1 qp-h1\u002d\u002dpage"} -->
+<h1 class="wp-block-heading qp-h1 qp-h1--page">Let’s find a time to <em>talk</em>.</h1>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"textColor":"accent-4","style":{"typography":{"lineHeight":"1.75"},"spacing":{"margin":{"bottom":"var:preset|spacing|60"}}},"fontSize":"large"} -->
-<p class="has-accent-4-color has-text-color has-large-font-size" style="margin-bottom:var(--wp--preset--spacing--60);line-height:1.75">Email me a few lines about you, your role and what you'd like to be different. I read everything myself and reply within two working days with some times for a call.</p>
+<!-- wp:paragraph {"className":"qp-lead"} -->
+<p class="qp-lead">Tell me a little about what is going on. I read every message myself and reply within one working day.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:buttons -->
-<div class="wp-block-buttons">
-<!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="mailto:hello@elenamarsh.co">Email hello@elenamarsh.co</a></div>
-<!-- /wp:button -->
-</div>
-<!-- /wp:buttons -->
-</div>
-<!-- /wp:column -->
-
-<!-- wp:column {"verticalAlignment":"center","width":"44%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:44%">
-<!-- wp:image {"sizeSlug":"large","linkDestination":"none","className":"sf-soft","aspectRatio":"4/3","scale":"cover"} -->
-<figure class="wp-block-image size-large sf-soft"><img src="{{kit-image:calm}}" alt="Warm abstract wash in cream, sage and clay" style="aspect-ratio:4/3;object-fit:cover"/></figure>
+<!-- wp:image {"sizeSlug":"large","linkDestination":"none","className":"qp-photo qp-contact__img"} -->
+<figure class="wp-block-image size-large qp-photo qp-contact__img"><img src="{{kit-image:portrait-bench-smile}}" alt="A smiling coach with long grey hair, sitting on a park bench in autumn sunshine"/></figure>
 <!-- /wp:image -->
+
+<!-- wp:html -->
+<ul class="qp-direct"><li><span class="qp-direct__k">Email</span><a href="mailto:hello@marenlindqvist.example">hello@marenlindqvist.example</a></li><li><span class="qp-direct__k">Phone</span><a href="tel:+441314960582">+44 131 496 0582</a></li><li><span class="qp-direct__k">Studio</span><span>The Quiet Room, 9 Saxe Coburg Lane, Stockbridge, Edinburgh</span></li><li><span class="qp-direct__k">Hours</span><span>Monday to Thursday, 8:30–18:00 · walking sessions on Fridays</span></li></ul>
+<!-- /wp:html -->
 </div>
-<!-- /wp:column -->
+<!-- /wp:group -->
+
+<!-- wp:html -->
+<form class="qp-form" action="#" method="post" onsubmit="event.preventDefault();this.classList.add('is-sent');this.querySelector('.qp-form__done').focus()">
+<p class="qp-form__title">Book a free 30-minute call</p>
+<div class="qp-form__row"><label>Your name<input type="text" name="name" required placeholder="Alex Morgan" autocomplete="name"></label><label>Email<input type="email" name="email" required placeholder="alex@company.example" autocomplete="email"></label></div>
+<fieldset><legend>What would you like to talk about?</legend><div class="qp-opts"><label><input type="radio" name="topic" value="Executive coaching" checked><span>Executive coaching</span></label><label><input type="radio" name="topic" value="Life &amp; career"><span>Life &amp; career</span></label><label><input type="radio" name="topic" value="Clarity Session"><span>Clarity Session</span></label><label><input type="radio" name="topic" value="Team or organisation"><span>Team or organisation</span></label><label><input type="radio" name="topic" value="Speaking"><span>Speaking</span></label></div></fieldset>
+<div class="qp-form__row"><label>Preferred format<select name="format"><option>In person, at the studio</option><option>Walk and talk</option><option>Video call</option><option>Phone</option></select></label><label>Best time<select name="time"><option>Weekday mornings</option><option>Weekday afternoons</option><option>Early evening</option></select></label></div>
+<label>What is going on, in a sentence or two?<textarea name="message" rows="4" required placeholder="I started a new leadership role in September and I am finding it harder than I expected…"></textarea></label>
+<div class="qp-form__foot"><button type="submit" class="qp-form__btn">Request a call <svg class="qp-arrow" viewBox="0 0 22 12" aria-hidden="true"><path d="M0 6h20M15 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><p>I reply personally within one working day. This demo form does not send.</p></div>
+<div class="qp-form__done" tabindex="-1" role="status"><p class="qp-form__done-t">Thank you. Your note is on its way.</p><p>I read every message myself and will reply within one working day with a few times for our call.</p></div>
+</form>
+<!-- /wp:html -->
 </div>
-<!-- /wp:columns -->
-</div>
+<!-- /wp:group -->
+</section>
 <!-- /wp:group -->

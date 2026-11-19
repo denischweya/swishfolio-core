@@ -137,7 +137,7 @@ class AnthropicProvider extends AbstractAIProvider implements ParallelRequestsIn
             'max_tokens' => $request->getMaxTokens(),
             'system'     => $system,
             'messages'   => [
-                ['role' => 'user', 'content' => $request->getUserPrompt()],
+                ['role' => 'user', 'content' => self::userContent($request)],
             ],
             'output_config' => [
                 'format' => [
@@ -159,11 +159,44 @@ class AnthropicProvider extends AbstractAIProvider implements ParallelRequestsIn
          */
         $effort = apply_filters('swishfolio_ai_effort', 'medium');
 
+        // A request that names its own effort (a small vision check) keeps it.
+        if ($request->getEffort() !== '') {
+            $effort = $request->getEffort();
+        }
+
         if (is_string($effort) && $effort !== '' && $this->supportsEffort($request->getModel())) {
             $body['output_config']['effort'] = $effort;
         }
 
         return $body;
+    }
+
+    /**
+     * The user turn: the prompt as a plain string, or, when the request
+     * carries images, URL image blocks followed by the prompt as a text block.
+     *
+     * @param AIRequest $request Request.
+     *
+     * @return string|array
+     */
+    private static function userContent(AIRequest $request)
+    {
+        if ($request->getImages() === []) {
+            return $request->getUserPrompt();
+        }
+
+        $blocks = [];
+        foreach ($request->getImages() as $url) {
+            // A data: URI (a screenshot that has no public URL) goes inline as base64.
+            if (preg_match('#^data:(image/(?:jpeg|png|gif|webp));base64,([A-Za-z0-9+/=]+)$#', $url, $m)) {
+                $blocks[] = ['type' => 'image', 'source' => ['type' => 'base64', 'media_type' => $m[1], 'data' => $m[2]]];
+                continue;
+            }
+            $blocks[] = ['type' => 'image', 'source' => ['type' => 'url', 'url' => $url]];
+        }
+        $blocks[] = ['type' => 'text', 'text' => $request->getUserPrompt()];
+
+        return $blocks;
     }
 
     public function httpRequest(AIRequest $request)

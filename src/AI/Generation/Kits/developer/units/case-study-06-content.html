@@ -1,0 +1,46 @@
+<!-- wp:group {"tagName":"section","align":"full","className":"mb-sec mb-cs-code","layout":{"type":"default"}} -->
+<section class="wp-block-group alignfull mb-sec mb-cs-code">
+<!-- wp:group {"className":"mb-wrap","layout":{"type":"default"}} -->
+<div class="wp-block-group mb-wrap">
+<!-- wp:group {"className":"mb-cs-code__grid","layout":{"type":"default"}} -->
+<div class="wp-block-group mb-cs-code__grid">
+<!-- wp:group {"className":"mb-cs-code__text","layout":{"type":"default"}} -->
+<div class="wp-block-group mb-cs-code__text">
+<!-- wp:paragraph {"className":"mb-eyebrow"} -->
+<p class="mb-eyebrow"><span class="mb-eyebrow__n">04</span>In the code</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"className":"mb-h2 mb-h2\u002d\u002dsm"} -->
+<h2 class="wp-block-heading mb-h2 mb-h2--sm">Retries are a feature, <em>not a risk</em>.</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"mb-lead"} -->
+<p class="mb-lead">The core of the engine is short on purpose. A payout claims its idempotency key, posts a balanced transfer to the ledger and writes an event to the outbox, all in one transaction. Call it twice and the second call does nothing.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:html -->
+<ul class="mb-ticks"><li>94% test coverage on the payouts package</li><li>Property tests: the ledger always balances to zero</li><li>Replayed three weeks of production traffic before launch</li></ul>
+<!-- /wp:html -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:html -->
+<div class="mb-term mb-term--code" aria-label="Go code for an idempotent settle function"><div class="mb-term__bar"><span class="mb-dots"><i></i><i></i><i></i></span><span>payouts/settle.go</span></div><pre class="mb-code"><code><span class="c">// Settle is safe to call any number of times.</span>
+<span class="k">func</span> (s *<span class="t">Service</span>) <span class="f">Settle</span>(ctx context.Context, req <span class="t">Request</span>) <span class="k">error</span> {
+  <span class="k">return</span> s.db.<span class="f">Tx</span>(ctx, <span class="k">func</span>(tx <span class="t">Tx</span>) <span class="k">error</span> {
+    <span class="k">if</span> seen, err := tx.<span class="f">Claim</span>(req.Key); err != <span class="n">nil</span> || seen {
+      <span class="k">return</span> err <span class="c">// replay: already settled</span>
+    }
+    <span class="k">if</span> err := tx.<span class="f">Post</span>(ledger.<span class="f">Transfer</span>(req.Seller, req.Amount)); err != <span class="n">nil</span> {
+      <span class="k">return</span> err
+    }
+    <span class="k">return</span> tx.<span class="f">Outbox</span>(<span class="s">"payout.requested"</span>, req)
+  })
+}</code></pre></div>
+<!-- /wp:html -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:group -->
+</section>
+<!-- /wp:group -->

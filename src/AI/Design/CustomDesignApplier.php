@@ -8,6 +8,7 @@
 namespace SwishfolioCore\AI\Design;
 
 use SwishfolioCore\AI\Generation\Kit;
+use SwishfolioCore\AI\Onboarding\KitArt;
 use SwishfolioCore\Tools\Journal\MutationJournal;
 use SwishfolioCore\Tools\ToolContext;
 use SwishfolioCore\Tools\ToolError;
@@ -23,7 +24,8 @@ use SwishfolioCore\Tools\Write\TrustedMarkup;
  *   (never from what the site has now, so re-running replaces rather than
  *   stacks) and the validated tokens;
  * - the header and footer parts and the given pages: their hard-coded colours
- *   (block attributes, inline SVG) recoloured with the same mapping;
+ *   (block attributes, inline SVG) recoloured with the same mapping, and the
+ *   kit's decorative pictures swapped for copies in this palette (KitArt);
  * - the option swish_custom_design: the tokens, the kit and the prompt.
  *
  * Only bodies this class composed are vouched for with TrustedMarkup: the
@@ -91,13 +93,15 @@ class CustomDesignApplier
         $previous = get_option(self::OPTION);
         $written  = is_array($previous) && isset($previous['written']) && ($previous['tokens'] ?? null) == $tokens ? (array) $previous['written'] : [];
         $hashes   = [];
-        $recolour = function ($postId, $before, $summary) use ($context, $compiler, $written, &$hashes) {
+        // Decorative kit pictures (abstract art, not photos) in this palette too.
+        $art      = KitArt::recolourer($kit, KitArt::palette(isset($doc['settings']['color']['palette']['theme']) ? (array) $doc['settings']['color']['palette']['theme'] : []), $tokens['palette']['accent2']);
+        $recolour = function ($postId, $before, $summary) use ($context, $compiler, $written, &$hashes, $kit, $art) {
             if (isset($written[$postId]) && hash_equals((string) $written[$postId], md5($before))) {
                 $hashes[$postId] = $written[$postId];
 
                 return false;
             }
-            $after           = $compiler->recolourMarkup($before);
+            $after           = KitArt::rewrite($compiler->recolourMarkup($before), $kit, $art);
             $hashes[$postId] = md5($after);
 
             return $this->write($context, $postId, $before, $after, $summary);
@@ -116,6 +120,8 @@ class CustomDesignApplier
             }
             $pages += $recolour($pageId, (string) $post->post_content, __('Recoloured a page for your custom design', 'swishfolio-core')) ? 1 : 0;
         }
+
+        KitArt::covers($kit, $art, $this->journal, $context);
 
         $this->journal->updateOption($context, self::TOOL, self::OPTION, [
             'name'      => $tokens['name'],

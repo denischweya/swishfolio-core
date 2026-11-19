@@ -8,6 +8,7 @@
 namespace SwishfolioCore\AI\Onboarding;
 
 use SwishfolioCore\AI\AIRequest;
+use SwishfolioCore\AI\Generation\SocialProof;
 use SwishfolioCore\AI\AIResponse;
 use SwishfolioCore\AI\Contracts\AIProviderInterface;
 use SwishfolioCore\AI\Prompt\PromptManager;
@@ -290,6 +291,17 @@ class TemplateCustomiser
 
         if (! empty($brief['prompt'])) {
             $lines[] = "\nTheir requests for the site:\n" . $brief['prompt'];
+        }
+
+        // Clients, a testimonial and key numbers from the wizard: real social proof.
+        $proof = SocialProof::asText(SocialProof::fromBusiness($b));
+        if ($proof !== '') {
+            $lines[] = "\nTheir social proof (use it as given):\n" . $proof;
+        }
+
+        // The customisation dropped the template's projects (TemplateProjects).
+        if (! empty($brief['noProjects'])) {
+            $lines[] = "\nThis site does not show projects or past work: do not mention a portfolio, case studies or past projects, and do not point any link or button at a work or projects page.";
         }
 
         // A kit build: the pages the new site really has, so header and footer

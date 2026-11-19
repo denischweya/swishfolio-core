@@ -1,0 +1,643 @@
+{
+    "version": 2,
+    "slug": "designfolio",
+    "name": "Signal",
+    "title": "Freelance Designer Portfolio",
+    "industry": "creative",
+    "description": "A minimal, image-led WordPress portfolio template for freelance graphic designers, with a lightbox gallery, client logos, an experience timeline and testimonials.",
+    "look": "Personal and minimal: near-white paper, ink and one signal red, Familjen Grotesk with Fragment Mono labels, a round portrait avatar and image-led galleries with rounded corners.",
+    "demo": {
+        "business": "Clara Novak",
+        "tagline": "Graphic designer in Vienna. Identity, posters, packaging and books."
+    },
+    "design": {
+        "file": "design.json",
+        "variation": "Default",
+        "classPrefix": "df-",
+        "fingerprint": ".df-sec",
+        "palette": {
+            "base": "Paper #FBFBF9",
+            "contrast": "Ink #111111",
+            "accent-1": "Signal red #D42A12",
+            "accent-2": "Wash #F1F0EC",
+            "accent-3": "Stone #5C5C58",
+            "accent-4": "Hairline #E3E2DD",
+            "accent-5": "Blush #FBE6E1",
+            "accent-6": "Coral on dark #FF7A5C"
+        },
+        "fonts": [
+            "Familjen Grotesk",
+            "Fragment Mono"
+        ],
+        "pageTemplate": "page-landing",
+        "header": "header",
+        "footer": "footer",
+        "assetsPath": "assets/kits/designfolio"
+    },
+    "frontPage": "home",
+    "navigation": [
+        "work",
+        "about",
+        "contact"
+    ],
+    "pages": [
+        {
+            "key": "home",
+            "title": "Home",
+            "slug": "home",
+            "navLabel": "Home",
+            "inNav": false,
+            "type": "home",
+            "template": "page-landing",
+            "sections": [
+                "home-01-hero",
+                "home-02-logos",
+                "home-03-gallery",
+                "home-04-services",
+                "home-05-process",
+                "home-06-testimonials",
+                "home-07-cta"
+            ]
+        },
+        {
+            "key": "work",
+            "title": "Work",
+            "slug": "work",
+            "navLabel": "Work",
+            "inNav": true,
+            "type": "work",
+            "template": "page-landing",
+            "sections": [
+                "work-01-page-header",
+                "work-02-gallery",
+                "work-03-gallery",
+                "work-04-gallery",
+                "work-05-gallery",
+                "home-07-cta"
+            ]
+        },
+        {
+            "key": "about",
+            "title": "About",
+            "slug": "about",
+            "navLabel": "About",
+            "inNav": true,
+            "type": "about",
+            "template": "page-landing",
+            "sections": [
+                "about-01-page-header",
+                "about-02-features",
+                "about-03-services",
+                "about-04-logos",
+                "about-05-testimonials",
+                "home-07-cta"
+            ]
+        },
+        {
+            "key": "contact",
+            "title": "Contact",
+            "slug": "contact",
+            "navLabel": "Contact",
+            "inNav": true,
+            "type": "contact",
+            "template": "page-landing",
+            "sections": [
+                "contact-01-page-header",
+                "contact-02-faq"
+            ]
+        }
+    ],
+    "units": {
+        "home-01-hero": {
+            "scope": "section",
+            "role": "hero",
+            "summary": "Personal hero: eyebrow, H1 intro statement with a red italic phrase, short bio, two buttons, a round portrait avatar with an availability pill, then a four-fact strip.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 1,
+            "file": "units/home-01-hero.html",
+            "images": [
+                "portrait"
+            ],
+            "slots": 14,
+            "repeatable": 4,
+            "ksesStable": false
+        },
+        "home-02-logos": {
+            "scope": "section",
+            "role": "logos",
+            "summary": "Client logo strip: eight brand wordmarks drawn as SVG between hairlines.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 2,
+            "file": "units/home-02-logos.html",
+            "slots": 20,
+            "repeatable": 8,
+            "fixedText": [
+                "OSTRA",
+                "fieldhouse",
+                "Kettle",
+                "Pine",
+                "PARALLEL PRESS",
+                "moss+co",
+                "Lumen",
+                "ATELIER",
+                "Brightwell",
+                "KINOHALLE"
+            ],
+            "ksesStable": false
+        },
+        "home-03-gallery": {
+            "scope": "section",
+            "role": "gallery",
+            "summary": "Selected work: a core Gallery of seven images with lightbox and captions in a crisp three-column grid, first and last image wide, with a link to all work.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 3,
+            "file": "units/home-03-gallery.html",
+            "images": [
+                "id-brochures",
+                "po-pink",
+                "pk-waves",
+                "po-bookfair",
+                "id-blackcard",
+                "ed-book",
+                "pk-coffee"
+            ],
+            "slots": 10,
+            "repeatable": 7,
+            "ksesStable": false
+        },
+        "home-04-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Four numbered services in columns on a warm grey band.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 4,
+            "file": "units/home-04-services.html",
+            "slots": 14,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "home-05-process": {
+            "scope": "section",
+            "role": "experience",
+            "summary": "Experience timeline: sticky intro on the left, rows of years, role, studio and a one-line description on the right.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 5,
+            "file": "units/home-05-process.html",
+            "slots": 20,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "home-06-testimonials": {
+            "scope": "section",
+            "role": "testimonials",
+            "summary": "One large client quote with a red quote mark and attribution.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 6,
+            "file": "units/home-06-testimonials.html",
+            "slots": 2,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "home-07-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Dark rounded call-to-action card: availability, headline, big email link, button and social links.",
+            "pageTypes": [
+                "home",
+                "any",
+                "work",
+                "about"
+            ],
+            "sourcePage": "home",
+            "position": 7,
+            "file": "units/home-07-cta.html",
+            "slots": 5,
+            "repeatable": 0,
+            "ksesStable": true,
+            "alsoOn": [
+                "work",
+                "about"
+            ]
+        },
+        "work-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Work page header with category jump chips.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 1,
+            "file": "units/work-01-page-header.html",
+            "slots": 8,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "work-02-gallery": {
+            "scope": "section",
+            "role": "gallery",
+            "summary": "Work category: numbered heading and line, then a masonry Gallery of six images with lightbox and captions.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 2,
+            "file": "units/work-02-gallery.html",
+            "images": [
+                "id-brochures",
+                "id-blackcard",
+                "id-tote",
+                "id-cards",
+                "id-arch",
+                "id-stationery"
+            ],
+            "slots": 9,
+            "repeatable": 6,
+            "ksesStable": false
+        },
+        "work-03-gallery": {
+            "scope": "section",
+            "role": "gallery",
+            "summary": "Work category: numbered heading and line, then a masonry Gallery of five images with lightbox and captions.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 3,
+            "file": "units/work-03-gallery.html",
+            "images": [
+                "po-pink",
+                "po-series",
+                "po-bookfair",
+                "po-letterpress",
+                "po-type"
+            ],
+            "slots": 8,
+            "repeatable": 5,
+            "ksesStable": false
+        },
+        "work-04-gallery": {
+            "scope": "section",
+            "role": "gallery",
+            "summary": "Work category: numbered heading and line, then a four-column masonry Gallery with lightbox and captions.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 4,
+            "file": "units/work-04-gallery.html",
+            "images": [
+                "pk-coffee",
+                "pk-waves",
+                "pk-boxes",
+                "pk-treats"
+            ],
+            "slots": 7,
+            "repeatable": 4,
+            "ksesStable": false
+        },
+        "work-05-gallery": {
+            "scope": "section",
+            "role": "gallery",
+            "summary": "Work category: numbered heading and line, then a four-column masonry Gallery with lightbox and captions.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 5,
+            "file": "units/work-05-gallery.html",
+            "images": [
+                "ed-book",
+                "ed-brochure",
+                "ed-green",
+                "ed-mockup"
+            ],
+            "slots": 7,
+            "repeatable": 4,
+            "ksesStable": false
+        },
+        "about-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "About intro: H1, three bio paragraphs and a tall portrait.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 1,
+            "file": "units/about-01-page-header.html",
+            "images": [
+                "portrait"
+            ],
+            "slots": 5,
+            "repeatable": 2,
+            "ksesStable": false
+        },
+        "about-02-features": {
+            "scope": "section",
+            "role": "features",
+            "summary": "Three numbered working principles on a warm grey band.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 2,
+            "file": "units/about-02-features.html",
+            "slots": 11,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "about-03-services": {
+            "scope": "section",
+            "role": "experience",
+            "summary": "Experience timeline with a recognition list on the left and roles plus education on the right.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 3,
+            "file": "units/about-03-services.html",
+            "slots": 26,
+            "repeatable": 8,
+            "ksesStable": true
+        },
+        "about-04-logos": {
+            "scope": "section",
+            "role": "logos",
+            "summary": "Client logo strip with a short note: eight brand wordmarks drawn as SVG.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 4,
+            "file": "units/about-04-logos.html",
+            "slots": 21,
+            "repeatable": 8,
+            "fixedText": [
+                "OSTRA",
+                "fieldhouse",
+                "Kettle",
+                "Pine",
+                "PARALLEL PRESS",
+                "moss+co",
+                "Lumen",
+                "ATELIER",
+                "Brightwell",
+                "KINOHALLE"
+            ],
+            "ksesStable": false
+        },
+        "about-05-testimonials": {
+            "scope": "section",
+            "role": "testimonials",
+            "summary": "Three client testimonials as white cards with red quote marks.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 5,
+            "file": "units/about-05-testimonials.html",
+            "slots": 8,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "contact-01-page-header": {
+            "scope": "section",
+            "role": "contact",
+            "summary": "Contact: headline, big email link, phone, studio, hours and availability list, social links, and a project enquiry form card.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "contact",
+            "position": 1,
+            "file": "units/contact-01-page-header.html",
+            "needs": [
+                "form"
+            ],
+            "slots": 24,
+            "repeatable": 12,
+            "ksesStable": false
+        },
+        "contact-02-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ: heading on the left, four questions on the right.",
+            "pageTypes": [
+                "contact",
+                "any"
+            ],
+            "sourcePage": "contact",
+            "position": 2,
+            "file": "units/contact-02-faq.html",
+            "slots": 10,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "header": {
+            "scope": "header",
+            "role": "header",
+            "summary": "Header template part.",
+            "file": "units/header.html",
+            "slots": 3,
+            "ksesStable": true
+        },
+        "footer": {
+            "scope": "footer",
+            "role": "footer",
+            "summary": "Footer template part.",
+            "file": "units/footer.html",
+            "slots": 10,
+            "ksesStable": true
+        }
+    },
+    "assets": {
+        "ed-book": {
+            "file": "images/ed-book.jpg",
+            "alt": "Open book spread with a chair photograph and tightly set text",
+            "title": "Parallel Press, Essay series interior",
+            "width": 1200,
+            "height": 1800,
+            "kind": "photo"
+        },
+        "ed-brochure": {
+            "file": "images/ed-brochure.jpg",
+            "alt": "Open report spread with large type and photographs on a wooden desk",
+            "title": "Lumen Atelier, Annual report",
+            "width": 1600,
+            "height": 1200,
+            "kind": "photo"
+        },
+        "ed-green": {
+            "file": "images/ed-green.jpg",
+            "alt": "Sage green book cover with a small inset photograph, lit by low sun",
+            "title": "Parallel Press, Cover design",
+            "width": 1600,
+            "height": 1251,
+            "kind": "photo"
+        },
+        "ed-mockup": {
+            "file": "images/ed-mockup.jpg",
+            "alt": "Hand holding open a lookbook with a large vertical headline on pink",
+            "title": "Moss & Co, Lookbook",
+            "width": 1600,
+            "height": 1067,
+            "kind": "photo"
+        },
+        "id-arch": {
+            "file": "images/id-arch.jpg",
+            "alt": "Three leaflets on a pale wall, each showing a white modernist building",
+            "title": "Haus am Hang, Exhibition leaflets",
+            "width": 1600,
+            "height": 900,
+            "kind": "photo"
+        },
+        "id-blackcard": {
+            "file": "images/id-blackcard.jpg",
+            "alt": "Hand holding a black member card with a white chevron mark against greenery",
+            "title": "Alto Climbing, Member cards",
+            "width": 1350,
+            "height": 1800,
+            "kind": "photo"
+        },
+        "id-brochures": {
+            "file": "images/id-brochures.jpg",
+            "alt": "Fanned brochures for an architecture firm with bold orange and blue covers",
+            "title": "Castell & Rau, Identity and brochures",
+            "width": 1600,
+            "height": 900,
+            "kind": "photo"
+        },
+        "id-cards": {
+            "file": "images/id-cards.jpg",
+            "alt": "Cards printed with playful geometric letter shapes in primary colours",
+            "title": "Kinder Lab, Identity system",
+            "width": 1600,
+            "height": 897,
+            "kind": "photo"
+        },
+        "id-stationery": {
+            "file": "images/id-stationery.jpg",
+            "alt": "Letterhead and a deep blue folder laid side by side",
+            "title": "Castell & Rau, Stationery",
+            "width": 1600,
+            "height": 900,
+            "kind": "photo"
+        },
+        "id-tote": {
+            "file": "images/id-tote.jpg",
+            "alt": "Pale canvas tote bag with a fine logotype hanging on a wooden chair",
+            "title": "Khial, Tote and labels",
+            "width": 1200,
+            "height": 1800,
+            "kind": "photo"
+        },
+        "pk-boxes": {
+            "file": "images/pk-boxes.jpg",
+            "alt": "Stacked pink and sage green boxes with a cut-out leaf window",
+            "title": "Fieldhouse, Skincare packaging",
+            "width": 1600,
+            "height": 1200,
+            "kind": "photo"
+        },
+        "pk-coffee": {
+            "file": "images/pk-coffee.jpg",
+            "alt": "Two coffee bags in orange and navy beside a striped cup on pink",
+            "title": "Kettle & Pine, Coffee packaging",
+            "width": 1600,
+            "height": 900,
+            "kind": "photo"
+        },
+        "pk-treats": {
+            "file": "images/pk-treats.jpg",
+            "alt": "Two printed treat pouches floating on a bright pink background",
+            "title": "Good Dog Bakery, Treat pouches",
+            "width": 1284,
+            "height": 1800,
+            "kind": "photo"
+        },
+        "pk-waves": {
+            "file": "images/pk-waves.jpg",
+            "alt": "Stack of tea boxes printed with a pastel wave illustration",
+            "title": "Ostra, Tea packaging",
+            "width": 1201,
+            "height": 1800,
+            "kind": "photo"
+        },
+        "po-bookfair": {
+            "file": "images/po-bookfair.jpg",
+            "alt": "Blue poster with drawn hands and paper birds pasted on a street board",
+            "title": "Book fair, Festival poster",
+            "width": 1200,
+            "height": 1800,
+            "kind": "photo"
+        },
+        "po-letterpress": {
+            "file": "images/po-letterpress.jpg",
+            "alt": "Close view of a letterpress poster in magenta and black wood type",
+            "title": "Open Press, Letterpress workshop poster",
+            "width": 1320,
+            "height": 1800,
+            "kind": "photo"
+        },
+        "po-pink": {
+            "file": "images/po-pink.jpg",
+            "alt": "Poster with huge pink condensed lettering over black and white dancers",
+            "title": "Life Is Perfect, Dance festival poster",
+            "width": 1349,
+            "height": 1800,
+            "kind": "photo"
+        },
+        "po-series": {
+            "file": "images/po-series.jpg",
+            "alt": "A row of graphic posters with numbers and geometric patterns on a peach wall",
+            "title": "Kinohalle, Season posters",
+            "width": 1600,
+            "height": 1067,
+            "kind": "photo"
+        },
+        "po-type": {
+            "file": "images/po-type.jpg",
+            "alt": "Framed alphabet type specimen poster hanging on a white wall",
+            "title": "Grotesk, Type specimen poster",
+            "width": 1179,
+            "height": 1800,
+            "kind": "photo"
+        },
+        "portrait": {
+            "file": "images/portrait.jpg",
+            "alt": "Portrait of a woman with a dark fringed bob in a black and white patterned top",
+            "title": "Portrait",
+            "width": 1192,
+            "height": 1800,
+            "kind": "photo"
+        }
+    },
+    "source": {
+        "dir": "seed/sites/designfolio",
+        "hash": "dba414f8ff8a33dbcfc6853906d94c90"
+    }
+}

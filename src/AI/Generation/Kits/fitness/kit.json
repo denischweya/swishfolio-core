@@ -546,7 +546,7 @@
             "sourcePage": "join",
             "position": 2,
             "file": "units/join-02-contact.html",
-            "slots": 17,
+            "slots": 21,
             "repeatable": 12,
             "fixedText": [
                 "SMITH ST",
@@ -579,126 +579,144 @@
             "alt": "Athlete setting up a barbell lift",
             "title": "Athlete setting up a barbell lift",
             "width": 1400,
-            "height": 1280
+            "height": 1280,
+            "kind": "photo"
         },
         "barre": {
             "file": "images/barre.jpg",
             "alt": "Coach guiding a stretch at the barre",
             "title": "Coach guiding a stretch at the barre",
             "width": 1400,
-            "height": 2105
+            "height": 2105,
+            "kind": "photo"
         },
         "coach-marcus": {
             "file": "images/coach-marcus.jpg",
             "alt": "Strength coach portrait",
             "title": "Strength coach portrait",
             "width": 1200,
-            "height": 675
+            "height": 675,
+            "kind": "photo"
         },
         "crunch-window": {
             "file": "images/crunch-window.jpg",
             "alt": "Core work on a mat by the window",
             "title": "Core work on a mat by the window",
             "width": 1400,
-            "height": 933
+            "height": 933,
+            "kind": "photo"
         },
         "deadlift-coach": {
             "file": "images/deadlift-coach.jpg",
             "alt": "Coach watching a deadlift",
             "title": "Coach watching a deadlift",
             "width": 1400,
-            "height": 788
+            "height": 788,
+            "kind": "photo"
         },
         "hero-kettlebell": {
             "file": "images/hero-kettlebell.jpg",
             "alt": "Members pressing kettlebells overhead",
             "title": "Members pressing kettlebells overhead",
             "width": 1600,
-            "height": 900
+            "height": 900,
+            "kind": "photo"
         },
         "high-knee": {
             "file": "images/high-knee.jpg",
             "alt": "High-knee interval drill",
             "title": "High-knee interval drill",
             "width": 1400,
-            "height": 2100
+            "height": 2100,
+            "kind": "photo"
         },
         "ice": {
             "file": "images/ice.jpg",
             "alt": "Ice for the cold plunge",
             "title": "Ice for the cold plunge",
             "width": 1200,
-            "height": 1600
+            "height": 1600,
+            "kind": "photo"
         },
         "pt-plan": {
             "file": "images/pt-plan.jpg",
             "alt": "Coach and member planning",
             "title": "Coach and member planning",
             "width": 1400,
-            "height": 788
+            "height": 788,
+            "kind": "photo"
         },
         "reformer-plank": {
             "file": "images/reformer-plank.jpg",
             "alt": "Reformer plank",
             "title": "Reformer plank",
             "width": 1400,
-            "height": 990
+            "height": 990,
+            "kind": "photo"
         },
         "reformer-room": {
             "file": "images/reformer-room.jpg",
             "alt": "Reformer machines",
             "title": "Reformer machines",
             "width": 1400,
-            "height": 2100
+            "height": 2100,
+            "kind": "photo"
         },
         "reformer-studio": {
             "file": "images/reformer-studio.jpg",
             "alt": "Reformer studio interior",
             "title": "Reformer studio interior",
             "width": 1600,
-            "height": 1032
+            "height": 1032,
+            "kind": "photo"
         },
         "sauna": {
             "file": "images/sauna.jpg",
             "alt": "Modern timber sauna",
             "title": "Modern timber sauna",
             "width": 1400,
-            "height": 875
+            "height": 875,
+            "kind": "photo"
         },
         "sauna-lounge": {
             "file": "images/sauna-lounge.jpg",
             "alt": "Recovery loungers",
             "title": "Recovery loungers",
             "width": 1400,
-            "height": 875
+            "height": 875,
+            "kind": "photo"
         },
         "spot-pushup": {
             "file": "images/spot-pushup.jpg",
             "alt": "Coach spotting push-ups",
             "title": "Coach spotting push-ups",
             "width": 1400,
-            "height": 788
+            "height": 788,
+            "kind": "photo"
         },
         "squat-rack": {
             "file": "images/squat-rack.jpg",
             "alt": "Member squatting in the rack",
             "title": "Member squatting in the rack",
             "width": 1400,
-            "height": 933
+            "height": 933,
+            "kind": "photo"
         },
         "swings": {
             "file": "images/swings.jpg",
             "alt": "Kettlebell swings class",
             "title": "Kettlebell swings class",
             "width": 1400,
-            "height": 788
+            "height": 788,
+            "kind": "photo"
         },
         "yoga-wall": {
             "file": "images/yoga-wall.jpg",
             "alt": "Yoga class stretching",
             "title": "Yoga class stretching",
             "width": 1400,
-            "height": 788
+            "height": 788,
+            "kind": "photo"
         }
     },
     "source": {

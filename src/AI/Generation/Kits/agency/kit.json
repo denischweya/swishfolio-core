@@ -140,7 +140,7 @@
             "images": [
                 "reel"
             ],
-            "slots": 16,
+            "slots": 17,
             "repeatable": 3,
             "fixedText": [
                 "START A PROJECT • SAY HELLO • START A PROJECT • SAY HELLO •"
@@ -589,64 +589,99 @@
             "alt": "Fold Festival identity: colour wheel in pink, violet and orange on yellow",
             "title": "Fold Festival 26",
             "width": 1600,
-            "height": 1200
+            "height": 1200,
+            "kind": "photo"
         },
         "halden": {
             "file": "images/halden.jpg",
             "alt": "Halden Cargo identity: black wordmark and wheel graphic on bright orange",
             "title": "Halden Cargo",
             "width": 1600,
-            "height": 1200
+            "height": 1200,
+            "kind": "photo"
         },
         "kora": {
             "file": "images/kora.jpg",
             "alt": "Three Kora bank cards floating in a stack: black, coral and blue",
             "title": "Kora",
             "width": 1600,
-            "height": 1200
+            "height": 1200,
+            "kind": "photo"
         },
         "mesh": {
             "file": "images/mesh.jpg",
             "alt": "Soft-focus gradient in lime, violet, pink and orange",
             "title": "Colour study",
             "width": 1600,
-            "height": 960
+            "height": 960,
+            "kind": "decorative"
         },
         "nimbus": {
             "file": "images/nimbus.jpg",
             "alt": "Nimbus FM website in a dark browser window on violet with a yellow sun",
             "title": "Nimbus FM",
             "width": 1600,
-            "height": 1200
+            "height": 1200,
+            "kind": "photo"
         },
         "orbs": {
             "file": "images/orbs.jpg",
             "alt": "Glossy lime, silver and violet spheres in orbit on black",
             "title": "Orbit study",
             "width": 1600,
-            "height": 1600
+            "height": 1600,
+            "kind": "decorative"
         },
         "orchard": {
             "file": "images/orchard.jpg",
             "alt": "Pocket Orchard app screens on two phones against pink and deep green",
             "title": "Pocket Orchard",
             "width": 1600,
-            "height": 1200
+            "height": 1200,
+            "kind": "photo"
         },
         "reel": {
             "file": "images/reel.jpg",
             "alt": "Lime circle in motion across a black frame",
             "title": "Studio reel",
             "width": 1600,
-            "height": 1100
+            "height": 1100,
+            "kind": "decorative"
+        },
+        "tidewater": {
+            "file": "images/tidewater.jpg",
+            "alt": "Tidewater Museum posters in cream, coral and navy on a blue ground",
+            "title": "Tidewater Museum",
+            "width": 1600,
+            "height": 1200,
+            "kind": "photo"
         },
         "type": {
             "file": "images/type.jpg",
             "alt": "Type specimen: oversized letters A, g and 9 with a colour palette",
             "title": "Type specimen",
             "width": 1600,
-            "height": 1200
+            "height": 1200,
+            "kind": "decorative"
         }
+    },
+    "projects": {
+        "titles": [
+            "Halden Cargo",
+            "Pocket Orchard",
+            "Nimbus FM",
+            "Tidewater Museum",
+            "Kora",
+            "Fold Festival 26"
+        ],
+        "covers": [
+            "halden",
+            "orchard",
+            "nimbus",
+            "tidewater",
+            "kora",
+            "fold"
+        ]
     },
     "source": {
         "dir": "seed/sites/agency",

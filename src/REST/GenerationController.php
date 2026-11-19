@@ -24,6 +24,11 @@ use SwishfolioCore\AI\Generation\PlanCoverage;
 use SwishfolioCore\AI\Generation\PlanExecutor;
 use SwishfolioCore\AI\Generation\PlanSchema;
 use SwishfolioCore\AI\Generation\PlanValidator;
+use SwishfolioCore\AI\Generation\ProjectsPolicy;
+use SwishfolioCore\AI\Onboarding\SampleProjects;
+use SwishfolioCore\AI\Generation\SocialProof;
+use SwishfolioCore\Tools\Journal\MutationJournal;
+use SwishfolioCore\Tools\Journal\WpdbJournalRepository;
 use SwishfolioCore\AI\Generation\Staged\StagedPlanner;
 use SwishfolioCore\AI\Prompt\PromptManager;
 use SwishfolioCore\AI\ProviderException;
@@ -122,6 +127,8 @@ class GenerationController
                 'kit'         => ['type' => 'string', 'required' => false],
                 // Onboarding custom design: the owner's visual brief, for section choice and tone.
                 'design'      => ['type' => 'string', 'required' => false],
+                // Onboarding: the owner's clients, testimonial and key numbers (see SocialProof).
+                'proof'       => ['type' => 'object', 'required' => false],
                 'async'       => ['type' => 'boolean', 'required' => false],
                 // Plan one page of an earlier staged site plan again: {outline, key}.
                 'retryPage'   => ['type' => 'object', 'required' => false],
@@ -199,6 +206,9 @@ class GenerationController
             'page'        => (array) $request->get_param('page'),
             'kit'         => (string) $request->get_param('kit'),
             'design'      => mb_substr(sanitize_textarea_field((string) $request->get_param('design')), 0, 1500),
+            'proof'       => SocialProof::clean(map_deep((array) $request->get_param('proof'), static function ($v) {
+                return is_scalar($v) ? sanitize_textarea_field((string) $v) : '';
+            })),
         ];
 
         $retry = (array) $request->get_param('retryPage');
@@ -254,6 +264,7 @@ class GenerationController
             'existingSlugs'   => array_keys($facts['slugs']),
             'page'            => (array) $payload['page'],
             'design'          => isset($payload['design']) ? (string) $payload['design'] : '',
+            'proof'           => SocialProof::clean(isset($payload['proof']) ? $payload['proof'] : []),
         ];
         $kit   = $this->library->resolve(isset($payload['kit']) ? (string) $payload['kit'] : '', $brief, $scope);
 
@@ -449,6 +460,7 @@ class GenerationController
                 'outlineId' => $outlineId,
                 'failed'    => $result['failed'],
                 'calls'     => $result['calls'],
+                'warnings'  => isset($result['warnings']) ? $result['warnings'] : [],
                 'seconds'   => round(microtime(true) - $started, 1),
             ],
         ];
@@ -652,6 +664,8 @@ class GenerationController
             );
         }
 
+        $report['projects'] = $this->sampleProjects($plan, $kit, $context);
+
         $progress->done();
 
         // The build is the design-heavy request that counts: only a finished
@@ -676,6 +690,47 @@ class GenerationController
         self::rememberRunMeta($context->getRunId(), $plan, $report, $kit->getSlug());
 
         return $report;
+    }
+
+    /**
+     * Projects for the pages just written (see ProjectsPolicy): sample ones
+     * when a page lists projects and the site has none of its own; when a
+     * planned site lists none, a template's demo projects (and earlier sample
+     * ones) are cleared out. Real projects are never touched. Never fails the build.
+     *
+     * @param array       $plan    Validated plan.
+     * @param Kit         $kit     Its kit.
+     * @param ToolContext $context Run.
+     *
+     * @return array|null What was done, or null when nothing was.
+     */
+    private function sampleProjects(array $plan, Kit $kit, ToolContext $context)
+    {
+        $shows   = ProjectsPolicy::planShowsProjects($plan, $kit);
+        $decided = isset($plan['projects']) && is_array($plan['projects']);
+
+        // No page lists projects: a planned site keeps no demo or sample ones.
+        if (! $shows && ! $decided) {
+            return null;
+        }
+
+        if (! current_user_can('edit_posts')) {
+            return null;
+        }
+
+        try {
+            $journal = new MutationJournal(new WpdbJournalRepository());
+            $journal->resume($context);
+            $samples = new SampleProjects($journal, $context);
+
+            if (! $shows) {
+                return ['action' => 'retired', 'removed' => $samples->retire()];
+            }
+
+            return $samples->ensure($decided ? (array) $plan['projects']['items'] : [], $kit);
+        } catch (\Exception $e) {
+            return ['action' => 'failed', 'detail' => $e->getMessage()];
+        }
     }
 
     /** Transient prefix for a finished run's plan facts (see runMeta()). */

@@ -4,32 +4,30 @@
     "name": "Quiet Practice",
     "title": "Coaching",
     "industry": "wellness",
-    "description": "A calm WordPress template for life, business and executive coaches, with programmes, testimonials and discovery-call booking.",
-    "look": "Type: Literata, Geist, Manrope, JetBrains Mono. Colours: Warm cream #FBF7F1, Warm near-black #241F1B, Sage #5C7C64, Sand #F1E7DA, Terracotta #C2724A, Muted #7A736A.",
+    "description": "A warm, editorial WordPress template for executive, business and life coaches, with programmes and pricing, detailed case studies and discovery-call booking.",
+    "look": "Type: Cormorant Garamond, Karla. Colours: Oat #F4EFE6, Loch #1F3A40, Bracken #A2451E, Bone #FBF8F2, Mist #DEE6E3, Secondary text #53646A.",
     "demo": {
-        "business": "Elena Marsh",
-        "tagline": "Leadership coach & business consultant"
+        "business": "Maren Lindqvist",
+        "tagline": "Executive & life coach · Edinburgh"
     },
     "design": {
         "file": "design.json",
-        "variation": "Sasha",
-        "classPrefix": "sf-",
-        "fingerprint": "",
+        "variation": "Default",
+        "classPrefix": "qp-",
+        "fingerprint": ".qp-foot",
         "palette": {
-            "base": "Warm cream #FBF7F1",
-            "contrast": "Warm near-black #241F1B",
-            "accent-1": "Sage #5C7C64",
-            "accent-2": "Sand #F1E7DA",
-            "accent-3": "Terracotta #C2724A",
-            "accent-4": "Muted #7A736A",
-            "accent-5": "White #FFFFFF",
-            "accent-6": "Deep green #2F3A32"
+            "base": "Oat #F4EFE6",
+            "contrast": "Loch #1F3A40",
+            "accent-1": "Bracken #A2451E",
+            "accent-2": "Bone #FBF8F2",
+            "accent-3": "Mist #DEE6E3",
+            "accent-4": "Secondary text #53646A",
+            "accent-5": "Straw #E7C08A",
+            "accent-6": "Deep loch #152B30"
         },
         "fonts": [
-            "Literata",
-            "Geist",
-            "Manrope",
-            "JetBrains Mono"
+            "Cormorant Garamond",
+            "Karla"
         ],
         "pageTemplate": "page-landing",
         "header": "header",
@@ -39,7 +37,7 @@
     "frontPage": "home",
     "navigation": [
         "coaching",
-        "consulting",
+        "teams",
         "results",
         "about",
         "contact"
@@ -55,12 +53,16 @@
             "template": "page-landing",
             "sections": [
                 "home-01-hero",
-                "home-02-portfolio",
-                "home-03-stats",
-                "home-04-portfolio",
-                "home-05-contact",
-                "home-06-process",
-                "home-07-process"
+                "home-02-content",
+                "home-03-services",
+                "home-04-process",
+                "home-05-pricing",
+                "home-06-team",
+                "home-07-portfolio",
+                "home-08-testimonials",
+                "home-09-team",
+                "home-10-content",
+                "home-11-cta"
             ]
         },
         {
@@ -73,41 +75,67 @@
             "template": "page-landing",
             "sections": [
                 "coaching-01-page-header",
-                "coaching-02-pricing",
-                "coaching-03-services",
-                "coaching-04-faq",
-                "coaching-05-cta"
+                "coaching-02-process",
+                "coaching-03-portfolio",
+                "coaching-04-contact",
+                "coaching-05-testimonials",
+                "coaching-06-faq",
+                "home-11-cta"
             ]
         },
         {
-            "key": "consulting",
-            "title": "Consulting",
-            "slug": "consulting",
-            "navLabel": "Consulting",
+            "key": "teams",
+            "title": "For organisations",
+            "slug": "organisations",
+            "navLabel": "For teams",
             "inNav": true,
-            "type": "services",
+            "type": "teams",
             "template": "page-landing",
             "sections": [
-                "consulting-01-page-header",
-                "consulting-02-services",
-                "consulting-03-process",
-                "consulting-04-logos",
-                "consulting-05-services"
+                "teams-01-page-header",
+                "teams-02-content",
+                "teams-03-services",
+                "teams-04-process",
+                "teams-05-team",
+                "teams-06-cta",
+                "teams-07-testimonials",
+                "teams-08-cta"
             ]
         },
         {
             "key": "results",
-            "title": "Results",
-            "slug": "results",
-            "navLabel": "Results",
+            "title": "Stories",
+            "slug": "stories",
+            "navLabel": "Stories",
             "inNav": true,
             "type": "work",
             "template": "page-landing",
             "sections": [
                 "results-01-page-header",
-                "results-02-portfolio",
-                "results-03-contact",
-                "results-04-services"
+                "results-02-team",
+                "results-03-portfolio",
+                "results-04-stats",
+                "results-05-testimonials",
+                "results-06-cta"
+            ]
+        },
+        {
+            "key": "case-study",
+            "title": "Case study: Harbour & Co",
+            "slug": "case-study",
+            "navLabel": "Case study",
+            "inNav": false,
+            "type": "case-study",
+            "template": "page-landing",
+            "sections": [
+                "case-study-01-page-header",
+                "case-study-02-content",
+                "case-study-03-testimonials",
+                "case-study-04-process",
+                "case-study-05-team",
+                "case-study-06-contact",
+                "case-study-07-process",
+                "case-study-08-cta"
             ]
         },
         {
@@ -120,9 +148,11 @@
             "template": "page-landing",
             "sections": [
                 "about-01-page-header",
-                "about-02-credentials",
-                "about-03-pricing",
-                "about-04-services"
+                "about-02-about",
+                "about-03-content",
+                "about-04-features",
+                "about-05-about",
+                "about-06-cta"
             ]
         },
         {
@@ -136,7 +166,7 @@
             "sections": [
                 "contact-01-page-header",
                 "contact-02-process",
-                "contact-03-process"
+                "contact-03-faq"
             ]
         }
     ],
@@ -144,7 +174,7 @@
         "home-01-hero": {
             "scope": "section",
             "role": "hero",
-            "summary": "Home page hero from the home page, headed (H1) \"Lead with clarity, and take your team with you.\": 4 paragraphs, 1 button, 1 photo, 4 repeatable items.",
+            "summary": "Split hero: availability pill, large serif headline with an italic accent, intro, two buttons and three credentials, beside a framed portrait with an overlapping pull-quote card on a faint contour-line background.",
             "pageTypes": [
                 "home"
             ],
@@ -152,311 +182,640 @@
             "position": 1,
             "file": "units/home-01-hero.html",
             "images": [
-                "portrait"
+                "portrait-bench-smile"
             ],
-            "slots": 6,
-            "repeatable": 4,
+            "slots": 10,
+            "repeatable": 3,
             "ksesStable": false
         },
-        "home-02-portfolio": {
+        "home-02-content": {
             "scope": "section",
-            "role": "portfolio",
-            "summary": "Portfolio or work section from the home page, headed (H2) \"Three ways we can work together\": 4 headings, 11 paragraphs, 3 repeatable items.",
+            "role": "logos",
+            "summary": "Fictional client wordmarks set as live text in one quiet row, with a heading and a small fictional note.",
             "pageTypes": [
-                "home"
+                "home",
+                "any"
             ],
             "sourcePage": "home",
             "position": 2,
-            "file": "units/home-02-portfolio.html",
-            "slots": 15,
-            "repeatable": 3,
+            "file": "units/home-02-content.html",
+            "slots": 8,
+            "repeatable": 0,
             "ksesStable": true
         },
-        "home-03-stats": {
+        "home-03-services": {
             "scope": "section",
-            "role": "stats",
-            "summary": "Stats section from the home page: 9 paragraphs, 3 repeatable items.",
-            "pageTypes": [
-                "home",
-                "any"
-            ],
-            "sourcePage": "home",
-            "position": 3,
-            "file": "units/home-03-stats.html",
-            "slots": 9,
-            "repeatable": 3,
-            "ksesStable": true
-        },
-        "home-04-portfolio": {
-            "scope": "section",
-            "role": "portfolio",
-            "summary": "Portfolio or work section from the home page, headed (H2) \"What changed for them\": 2 paragraphs. Lists the site's portfolio projects.",
+            "role": "services",
+            "summary": "Three audience cards (who I work with): photo, round icon badge, title, italic client quote and description.",
             "pageTypes": [
                 "home"
             ],
             "sourcePage": "home",
-            "position": 4,
-            "file": "units/home-04-portfolio.html",
-            "needs": [
-                "projects"
+            "position": 3,
+            "file": "units/home-03-services.html",
+            "images": [
+                "window-city",
+                "window-seat",
+                "forest-walk"
             ],
-            "slots": 3,
-            "repeatable": 0,
-            "ksesStable": true
+            "slots": 12,
+            "repeatable": 3,
+            "ksesStable": false
         },
-        "home-05-contact": {
+        "home-04-process": {
             "scope": "section",
-            "role": "contact",
-            "summary": "Contact section from the home page: 5 paragraphs.",
+            "role": "process",
+            "summary": "Dark contour-line band: framed photo beside a statement headline, intro and three numbered principles, with a text link.",
             "pageTypes": [
                 "home",
                 "any"
+            ],
+            "sourcePage": "home",
+            "position": 4,
+            "file": "units/home-04-process.html",
+            "images": [
+                "window-conversation"
+            ],
+            "slots": 13,
+            "repeatable": 3,
+            "ksesStable": false
+        },
+        "home-05-pricing": {
+            "scope": "section",
+            "role": "pricing",
+            "summary": "Three programme cards with prices, the middle one dark and featured with a badge; compact tick lists and buttons.",
+            "pageTypes": [
+                "home"
             ],
             "sourcePage": "home",
             "position": 5,
-            "file": "units/home-05-contact.html",
-            "slots": 5,
-            "repeatable": 0,
-            "ksesStable": true
+            "file": "units/home-05-pricing.html",
+            "slots": 26,
+            "repeatable": 11,
+            "ksesStable": false
         },
-        "home-06-process": {
+        "home-06-team": {
             "scope": "section",
-            "role": "process",
-            "summary": "Process section from the home page, headed (H2) \"Four steps, no surprises\": 5 headings, 9 paragraphs, 4 repeatable items.",
+            "role": "portfolio",
+            "summary": "One featured case study card: photo with a metric badge, beside starting point, approach and outcome rows and a link.",
             "pageTypes": [
-                "home",
-                "any"
+                "home"
             ],
             "sourcePage": "home",
             "position": 6,
-            "file": "units/home-06-process.html",
-            "slots": 14,
-            "repeatable": 4,
+            "file": "units/home-06-team.html",
+            "images": [
+                "team-wall"
+            ],
+            "slots": 11,
+            "repeatable": 3,
+            "ksesStable": false
+        },
+        "home-07-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Case-study grid (portfolio block, three cards) under a heading with a link to all stories.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 7,
+            "file": "units/home-07-portfolio.html",
+            "needs": [
+                "projects"
+            ],
+            "slots": 4,
+            "repeatable": 0,
             "ksesStable": true
         },
-        "home-07-process": {
+        "home-08-testimonials": {
             "scope": "section",
-            "role": "process",
-            "summary": "Process section from the home page, headed (H2) \"Ready for your next chapter?\": 3 paragraphs, 1 button, 2 repeatable items.",
+            "role": "testimonials",
+            "summary": "Mist band of three italic serif testimonials with names and roles, marked fictional.",
             "pageTypes": [
                 "home",
                 "any"
             ],
             "sourcePage": "home",
-            "position": 7,
-            "file": "units/home-07-process.html",
-            "slots": 5,
-            "repeatable": 2,
+            "position": 8,
+            "file": "units/home-08-testimonials.html",
+            "slots": 12,
+            "repeatable": 0,
             "ksesStable": true
+        },
+        "home-09-team": {
+            "scope": "section",
+            "role": "about",
+            "summary": "Short about intro: framed portrait, headline, two paragraphs, credential chips and a text link.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 9,
+            "file": "units/home-09-team.html",
+            "images": [
+                "portrait-river"
+            ],
+            "slots": 8,
+            "repeatable": 5,
+            "ksesStable": false
+        },
+        "home-10-content": {
+            "scope": "section",
+            "role": "content",
+            "summary": "Full-bleed landscape photo with a dark overlay headline about walking sessions.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 10,
+            "file": "units/home-10-content.html",
+            "images": [
+                "glen-view"
+            ],
+            "slots": 4,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "home-11-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Dark closing band: framed portrait, headline with straw italic accent, two buttons, email and phone, and an availability note.",
+            "pageTypes": [
+                "home",
+                "any",
+                "services"
+            ],
+            "sourcePage": "home",
+            "position": 11,
+            "file": "units/home-11-cta.html",
+            "images": [
+                "portrait-reflect"
+            ],
+            "slots": 7,
+            "repeatable": 0,
+            "ksesStable": false,
+            "alsoOn": [
+                "coaching"
+            ]
         },
         "coaching-01-page-header": {
             "scope": "section",
             "role": "page-header",
-            "summary": "Page header from the coaching page, headed (H1) \"Become the leader your team already thinks you are.\": 2 paragraphs, 2 repeatable items.",
+            "summary": "Page header from the coaching page, headed (H1) \"Coaching for the moments that matter most.\": 2 paragraphs, 1 photo.",
             "pageTypes": [
                 "services"
             ],
             "sourcePage": "coaching",
             "position": 1,
             "file": "units/coaching-01-page-header.html",
+            "images": [
+                "window-conversation"
+            ],
             "slots": 3,
-            "repeatable": 2,
-            "ksesStable": true
+            "repeatable": 0,
+            "ksesStable": false
         },
-        "coaching-02-pricing": {
+        "coaching-02-process": {
             "scope": "section",
-            "role": "pricing",
-            "summary": "Pricing section from the coaching page, headed (H2) \"Three ways in\": 4 headings, 13 paragraphs, 12 list items, 21 repeatable items.",
+            "role": "process",
+            "summary": "Four numbered steps in columns, each with a small label, title and description.",
             "pageTypes": [
-                "services"
+                "services",
+                "any"
             ],
             "sourcePage": "coaching",
             "position": 2,
-            "file": "units/coaching-02-pricing.html",
-            "slots": 29,
-            "repeatable": 21,
-            "ksesStable": false
+            "file": "units/coaching-02-process.html",
+            "slots": 19,
+            "repeatable": 4,
+            "ksesStable": true
         },
-        "coaching-03-services": {
+        "coaching-03-portfolio": {
             "scope": "section",
-            "role": "services",
-            "summary": "Services section from the coaching page, headed (H2) \"Who this is for\": 3 headings, 1 paragraph, 8 list items, 8 repeatable items.",
+            "role": "pricing",
+            "summary": "Programmes and prices: three detailed pricing cards, the middle one dark and featured, with a payment note.",
             "pageTypes": [
                 "services"
             ],
             "sourcePage": "coaching",
             "position": 3,
-            "file": "units/coaching-03-services.html",
-            "slots": 12,
-            "repeatable": 8,
-            "ksesStable": true
+            "file": "units/coaching-03-portfolio.html",
+            "slots": 30,
+            "repeatable": 15,
+            "ksesStable": false
         },
-        "coaching-04-faq": {
+        "coaching-04-contact": {
             "scope": "section",
-            "role": "faq",
-            "summary": "FAQ from the coaching page, headed (H2) \"Things people ask me first\": 5 paragraphs, 4 questions, 4 repeatable items.",
+            "role": "features",
+            "summary": "Three ways to meet (room, walk, online): photo cards with round icon badges, titles and descriptions.",
             "pageTypes": [
                 "services",
                 "any"
             ],
             "sourcePage": "coaching",
             "position": 4,
-            "file": "units/coaching-04-faq.html",
-            "slots": 10,
-            "repeatable": 4,
-            "ksesStable": true
+            "file": "units/coaching-04-contact.html",
+            "images": [
+                "tea-window",
+                "hills-walk",
+                "notebook-coffee"
+            ],
+            "slots": 9,
+            "repeatable": 3,
+            "ksesStable": false
         },
-        "coaching-05-cta": {
+        "coaching-05-testimonials": {
             "scope": "section",
-            "role": "cta",
-            "summary": "Call-to-action band from the coaching page, headed (H2) \"The first conversation is free\": 2 paragraphs, 1 button.",
+            "role": "testimonials",
+            "summary": "Testimonials section from the coaching page: 1 paragraph.",
             "pageTypes": [
                 "services",
                 "any"
             ],
             "sourcePage": "coaching",
             "position": 5,
-            "file": "units/coaching-05-cta.html",
+            "file": "units/coaching-05-testimonials.html",
             "slots": 4,
             "repeatable": 0,
             "ksesStable": true
         },
-        "consulting-01-page-header": {
+        "coaching-06-faq": {
+            "scope": "section",
+            "role": "faq",
+            "summary": "FAQ from the coaching page, headed (H2) \"Good questions to ask a coach.\": 7 paragraphs, 5 questions, 5 repeatable items.",
+            "pageTypes": [
+                "services",
+                "any"
+            ],
+            "sourcePage": "coaching",
+            "position": 6,
+            "file": "units/coaching-06-faq.html",
+            "slots": 13,
+            "repeatable": 5,
+            "ksesStable": true
+        },
+        "teams-01-page-header": {
             "scope": "section",
             "role": "page-header",
-            "summary": "Page header from the consulting page, headed (H1) \"Practical work on the things that are actually slowing you down.\": 2 paragraphs, 2 repeatable items.",
+            "summary": "Page header from the for organisations page, headed (H1) \"Leadership development that sticks.\": 2 paragraphs, 1 photo.",
             "pageTypes": [
-                "services"
+                "teams"
             ],
-            "sourcePage": "consulting",
+            "sourcePage": "teams",
             "position": 1,
-            "file": "units/consulting-01-page-header.html",
+            "file": "units/teams-01-page-header.html",
+            "images": [
+                "workshop-flipchart"
+            ],
             "slots": 3,
-            "repeatable": 2,
-            "ksesStable": true
+            "repeatable": 0,
+            "ksesStable": false
         },
-        "consulting-02-services": {
-            "scope": "section",
-            "role": "services",
-            "summary": "Services section from the consulting page, headed (H2) \"Where I add the most\": 4 headings, 7 paragraphs, 9 list items, 12 repeatable items.",
-            "pageTypes": [
-                "services"
-            ],
-            "sourcePage": "consulting",
-            "position": 2,
-            "file": "units/consulting-02-services.html",
-            "slots": 20,
-            "repeatable": 12,
-            "ksesStable": true
-        },
-        "consulting-03-process": {
-            "scope": "section",
-            "role": "process",
-            "summary": "Process section from the consulting page, headed (H2) \"Diagnose, design, deliver\": 4 headings, 8 paragraphs, 3 repeatable items.",
-            "pageTypes": [
-                "services",
-                "any"
-            ],
-            "sourcePage": "consulting",
-            "position": 3,
-            "file": "units/consulting-03-process.html",
-            "slots": 12,
-            "repeatable": 3,
-            "ksesStable": true
-        },
-        "consulting-04-logos": {
+        "teams-02-content": {
             "scope": "section",
             "role": "logos",
-            "summary": "Logos section from the consulting page, headed (H2) \"What clients have measured afterwards\": 10 paragraphs, 4 repeatable items.",
+            "summary": "Fictional partner organisation wordmarks set as live text in one row.",
             "pageTypes": [
-                "services",
+                "teams",
                 "any"
             ],
-            "sourcePage": "consulting",
-            "position": 4,
-            "file": "units/consulting-04-logos.html",
-            "slots": 11,
+            "sourcePage": "teams",
+            "position": 2,
+            "file": "units/teams-02-content.html",
+            "slots": 8,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "teams-03-services": {
+            "scope": "section",
+            "role": "services",
+            "summary": "Four numbered offer cards in a two by two grid, each with a description and a starting price.",
+            "pageTypes": [
+                "teams"
+            ],
+            "sourcePage": "teams",
+            "position": 3,
+            "file": "units/teams-03-services.html",
+            "slots": 19,
             "repeatable": 4,
             "ksesStable": true
         },
-        "consulting-05-services": {
+        "teams-04-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Dark contour band: four engagement phases in columns, then three large headline figures marked illustrative.",
+            "pageTypes": [
+                "teams",
+                "any"
+            ],
+            "sourcePage": "teams",
+            "position": 4,
+            "file": "units/teams-04-process.html",
+            "slots": 22,
+            "repeatable": 7,
+            "ksesStable": true
+        },
+        "teams-05-team": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Three case cards for organisations: photo, client and sector label, title, excerpt and an inline metric.",
+            "pageTypes": [
+                "teams"
+            ],
+            "sourcePage": "teams",
+            "position": 5,
+            "file": "units/teams-05-team.html",
+            "images": [
+                "workshop-flipchart",
+                "leader-desk",
+                "hills-walk"
+            ],
+            "slots": 16,
+            "repeatable": 3,
+            "ksesStable": false
+        },
+        "teams-06-cta": {
             "scope": "section",
             "role": "services",
-            "summary": "Services section from the consulting page, headed (H2) \"Tell me what's holding you back\": 3 paragraphs, 1 button, 2 repeatable items.",
+            "summary": "Speaking section: photo beside a headline, intro, a list of italic talk titles and a text link.",
             "pageTypes": [
-                "services"
+                "teams"
             ],
-            "sourcePage": "consulting",
-            "position": 5,
-            "file": "units/consulting-05-services.html",
-            "slots": 5,
-            "repeatable": 2,
+            "sourcePage": "teams",
+            "position": 6,
+            "file": "units/teams-06-cta.html",
+            "images": [
+                "speaking-room"
+            ],
+            "slots": 9,
+            "repeatable": 5,
+            "ksesStable": false
+        },
+        "teams-07-testimonials": {
+            "scope": "section",
+            "role": "testimonials",
+            "summary": "Testimonials section from the for organisations page: 1 paragraph.",
+            "pageTypes": [
+                "teams",
+                "any"
+            ],
+            "sourcePage": "teams",
+            "position": 7,
+            "file": "units/teams-07-testimonials.html",
+            "slots": 4,
+            "repeatable": 0,
             "ksesStable": true
+        },
+        "teams-08-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the for organisations page, headed (H2) \"Planning leadership development for next year?\": 3 paragraphs, 2 buttons, 1 photo.",
+            "pageTypes": [
+                "teams",
+                "any"
+            ],
+            "sourcePage": "teams",
+            "position": 8,
+            "file": "units/teams-08-cta.html",
+            "images": [
+                "portrait-reflect"
+            ],
+            "slots": 7,
+            "repeatable": 0,
+            "ksesStable": false
         },
         "results-01-page-header": {
             "scope": "section",
             "role": "page-header",
-            "summary": "Page header from the results page, headed (H1) \"What the work looked like, and what changed.\": 2 paragraphs, 2 repeatable items.",
+            "summary": "Page header from the stories page, headed (H1) \"Real change is quiet, then obvious.\": 2 paragraphs, 1 photo.",
             "pageTypes": [
                 "work"
             ],
             "sourcePage": "results",
             "position": 1,
             "file": "units/results-01-page-header.html",
+            "images": [
+                "sticky-notes"
+            ],
             "slots": 3,
-            "repeatable": 2,
-            "ksesStable": true
+            "repeatable": 0,
+            "ksesStable": false
         },
-        "results-02-portfolio": {
+        "results-02-team": {
             "scope": "section",
             "role": "portfolio",
-            "summary": "Portfolio or work section from the results page. Lists the site's portfolio projects.",
+            "summary": "Wide featured case study card: photo with a metric badge beside a headline, summary and button.",
             "pageTypes": [
                 "work"
             ],
             "sourcePage": "results",
             "position": 2,
-            "file": "units/results-02-portfolio.html",
+            "file": "units/results-02-team.html",
+            "images": [
+                "team-wall"
+            ],
+            "slots": 6,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "results-03-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Filterable case-study grid (portfolio block with category filters) under a split heading.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "results",
+            "position": 3,
+            "file": "units/results-03-portfolio.html",
             "needs": [
                 "projects"
             ],
-            "slots": 0,
+            "slots": 3,
             "repeatable": 0,
             "ksesStable": true
         },
-        "results-03-contact": {
+        "results-04-stats": {
             "scope": "section",
-            "role": "contact",
-            "summary": "Contact section from the results page: 4 paragraphs, 2 repeatable items.",
+            "role": "stats",
+            "summary": "Four headline figures in columns with dividers, marked illustrative.",
             "pageTypes": [
                 "work",
                 "any"
             ],
             "sourcePage": "results",
+            "position": 4,
+            "file": "units/results-04-stats.html",
+            "slots": 9,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "results-05-testimonials": {
+            "scope": "section",
+            "role": "testimonials",
+            "summary": "Testimonials section from the stories page, headed (H2) \"From boardrooms, studios and kitchen tables.\": 2 paragraphs.",
+            "pageTypes": [
+                "work",
+                "any"
+            ],
+            "sourcePage": "results",
+            "position": 5,
+            "file": "units/results-05-testimonials.html",
+            "slots": 12,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "results-06-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the stories page, headed (H2) \"Ready to write your next chapter?\": 3 paragraphs, 2 buttons, 1 photo.",
+            "pageTypes": [
+                "work",
+                "any"
+            ],
+            "sourcePage": "results",
+            "position": 6,
+            "file": "units/results-06-cta.html",
+            "images": [
+                "portrait-reflect"
+            ],
+            "slots": 7,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "case-study-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Case study header: breadcrumb, eyebrow, large headline and intro beside a client fact list, then a wide photo with a caption.",
+            "pageTypes": [
+                "case-study"
+            ],
+            "sourcePage": "case-study",
+            "position": 1,
+            "file": "units/case-study-01-page-header.html",
+            "images": [
+                "team-wall"
+            ],
+            "slots": 13,
+            "repeatable": 4,
+            "ksesStable": false
+        },
+        "case-study-02-content": {
+            "scope": "section",
+            "role": "stats",
+            "summary": "Dark strip of three outcome figures with short labels.",
+            "pageTypes": [
+                "case-study",
+                "any"
+            ],
+            "sourcePage": "case-study",
+            "position": 2,
+            "file": "units/case-study-02-content.html",
+            "slots": 6,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "case-study-03-testimonials": {
+            "scope": "section",
+            "role": "content",
+            "summary": "Numbered case study chapter (the starting point): headline, two paragraphs and a bordered pull quote.",
+            "pageTypes": [
+                "case-study"
+            ],
+            "sourcePage": "case-study",
             "position": 3,
-            "file": "units/results-03-contact.html",
-            "slots": 4,
+            "file": "units/case-study-03-testimonials.html",
+            "slots": 7,
             "repeatable": 2,
             "ksesStable": true
         },
-        "results-04-services": {
+        "case-study-04-process": {
             "scope": "section",
-            "role": "services",
-            "summary": "Services section from the results page, headed (H2) \"What would you like to be different in a year?\": 3 paragraphs, 1 button, 2 repeatable items.",
+            "role": "process",
+            "summary": "Numbered chapter (the approach): intro, then four phase cards with photo, numbered month label, title and text.",
             "pageTypes": [
-                "work"
+                "case-study",
+                "any"
             ],
-            "sourcePage": "results",
+            "sourcePage": "case-study",
             "position": 4,
-            "file": "units/results-04-services.html",
-            "slots": 5,
-            "repeatable": 2,
+            "file": "units/case-study-04-process.html",
+            "images": [
+                "session-table",
+                "hills-walk",
+                "team-wall",
+                "sticky-notes"
+            ],
+            "slots": 16,
+            "repeatable": 4,
+            "ksesStable": false
+        },
+        "case-study-05-team": {
+            "scope": "section",
+            "role": "content",
+            "summary": "Numbered chapter (the outcome): headline, two paragraphs and a two-column tick list of results.",
+            "pageTypes": [
+                "case-study"
+            ],
+            "sourcePage": "case-study",
+            "position": 5,
+            "file": "units/case-study-05-team.html",
+            "slots": 9,
+            "repeatable": 6,
             "ksesStable": true
+        },
+        "case-study-06-contact": {
+            "scope": "section",
+            "role": "testimonials",
+            "summary": "Dark contour band with one large centred italic client quote, name, role and a fictional note.",
+            "pageTypes": [
+                "case-study",
+                "any"
+            ],
+            "sourcePage": "case-study",
+            "position": 6,
+            "file": "units/case-study-06-contact.html",
+            "slots": 4,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "case-study-07-process": {
+            "scope": "section",
+            "role": "content",
+            "summary": "Three columns of short notes (what made the difference, good fit if, keep reading links).",
+            "pageTypes": [
+                "case-study"
+            ],
+            "sourcePage": "case-study",
+            "position": 7,
+            "file": "units/case-study-07-process.html",
+            "slots": 6,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "case-study-08-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the case study: harbour & co page, headed (H2) \"Does your team need this conversation?\": 3 paragraphs, 2 buttons, 1 photo.",
+            "pageTypes": [
+                "case-study",
+                "any"
+            ],
+            "sourcePage": "case-study",
+            "position": 8,
+            "file": "units/case-study-08-cta.html",
+            "images": [
+                "portrait-reflect"
+            ],
+            "slots": 7,
+            "repeatable": 0,
+            "ksesStable": false
         },
         "about-01-page-header": {
             "scope": "section",
             "role": "page-header",
-            "summary": "Page header from the about page, headed (H1) \"I ran the job before I started coaching people who do it.\": 6 paragraphs, 1 photo, 4 repeatable items.",
+            "summary": "Page header from the about page, headed (H1) \"Hello, I’m Maren. I help capable people find their own way forward.\": 2 paragraphs, 1 photo, 3 drawn icons or graphics, 3 repeatable items.",
             "pageTypes": [
                 "about"
             ],
@@ -464,62 +823,97 @@
             "position": 1,
             "file": "units/about-01-page-header.html",
             "images": [
-                "portrait"
+                "portrait-river"
             ],
-            "slots": 7,
-            "repeatable": 4,
+            "slots": 9,
+            "repeatable": 3,
             "ksesStable": false
         },
-        "about-02-credentials": {
+        "about-02-about": {
             "scope": "section",
-            "role": "credentials",
-            "summary": "Credentials section from the about page, headed (H2) \"Trained, supervised, insured\": 2 paragraphs, 6 list items, 6 repeatable items.",
+            "role": "about",
+            "summary": "Personal story: italic serif lead, three paragraphs, beside a year-by-year timeline.",
             "pageTypes": [
-                "about",
-                "any"
+                "about"
             ],
             "sourcePage": "about",
             "position": 2,
-            "file": "units/about-02-credentials.html",
-            "slots": 9,
-            "repeatable": 6,
-            "ksesStable": false
+            "file": "units/about-02-about.html",
+            "slots": 19,
+            "repeatable": 8,
+            "ksesStable": true
         },
-        "about-03-pricing": {
+        "about-03-content": {
             "scope": "section",
-            "role": "pricing",
-            "summary": "Pricing section from the about page, headed (H3) \"Kindness and candour are the same thing\": 3 headings, 5 paragraphs, 3 repeatable items.",
+            "role": "gallery",
+            "summary": "Full-bleed three-photo strip: portrait, wide landscape and a still life.",
             "pageTypes": [
                 "about"
             ],
             "sourcePage": "about",
             "position": 3,
-            "file": "units/about-03-pricing.html",
-            "slots": 8,
-            "repeatable": 3,
-            "ksesStable": true
+            "file": "units/about-03-content.html",
+            "images": [
+                "portrait-bench-smile",
+                "glen-view",
+                "tea-window"
+            ],
+            "slots": 0,
+            "repeatable": 2,
+            "ksesStable": false
         },
-        "about-04-services": {
+        "about-04-features": {
             "scope": "section",
-            "role": "services",
-            "summary": "Services section from the about page, headed (H2) \"Sea swimming, slow bread, one opinionated spaniel\": 2 headings, 4 paragraphs, 1 button, 1 photo, 2 repeatable items.",
+            "role": "features",
+            "summary": "Four numbered promise cards in a row.",
             "pageTypes": [
-                "about"
+                "about",
+                "any"
             ],
             "sourcePage": "about",
             "position": 4,
-            "file": "units/about-04-services.html",
+            "file": "units/about-04-features.html",
+            "slots": 14,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "about-05-about": {
+            "scope": "section",
+            "role": "credentials",
+            "summary": "Training and accreditation: headline and paragraph beside a ruled list of qualifications with dot markers.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 5,
+            "file": "units/about-05-about.html",
+            "slots": 10,
+            "repeatable": 6,
+            "ksesStable": true
+        },
+        "about-06-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the about page, headed (H2) \"Let’s see if we’re a good fit.\": 3 paragraphs, 2 buttons, 1 photo.",
+            "pageTypes": [
+                "about",
+                "any"
+            ],
+            "sourcePage": "about",
+            "position": 6,
+            "file": "units/about-06-cta.html",
             "images": [
-                "detail"
+                "portrait-reflect"
             ],
             "slots": 7,
-            "repeatable": 2,
+            "repeatable": 0,
             "ksesStable": false
         },
         "contact-01-page-header": {
             "scope": "section",
             "role": "page-header",
-            "summary": "Page header from the contact page, headed (H1) \"Let's start with half an hour.\": 2 paragraphs, 1 button, 1 photo, 2 repeatable items.",
+            "summary": "Contact header: headline, intro, portrait and a ruled list of email, phone, studio and hours, beside a booking form card with topic chips.",
             "pageTypes": [
                 "contact"
             ],
@@ -527,16 +921,19 @@
             "position": 1,
             "file": "units/contact-01-page-header.html",
             "images": [
-                "calm"
+                "portrait-bench-smile"
             ],
-            "slots": 4,
-            "repeatable": 2,
+            "needs": [
+                "form"
+            ],
+            "slots": 30,
+            "repeatable": 15,
             "ksesStable": false
         },
         "contact-02-process": {
             "scope": "section",
             "role": "process",
-            "summary": "Process section from the contact page, headed (H2) \"What actually happens on it\": 4 headings, 7 paragraphs, 3 repeatable items.",
+            "summary": "Three numbered next steps in columns.",
             "pageTypes": [
                 "contact",
                 "any"
@@ -548,17 +945,17 @@
             "repeatable": 3,
             "ksesStable": true
         },
-        "contact-03-process": {
+        "contact-03-faq": {
             "scope": "section",
-            "role": "process",
-            "summary": "Process section from the contact page: 8 paragraphs, 3 repeatable items.",
+            "role": "faq",
+            "summary": "Split FAQ: headline on the left, expandable questions on the right.",
             "pageTypes": [
                 "contact",
                 "any"
             ],
             "sourcePage": "contact",
             "position": 3,
-            "file": "units/contact-03-process.html",
+            "file": "units/contact-03-faq.html",
             "slots": 8,
             "repeatable": 3,
             "ksesStable": true
@@ -568,43 +965,192 @@
             "role": "header",
             "summary": "Header template part.",
             "file": "units/header.html",
-            "slots": 2,
-            "ksesStable": true
+            "slots": 3,
+            "ksesStable": false
         },
         "footer": {
             "scope": "footer",
             "role": "footer",
             "summary": "Footer template part.",
             "file": "units/footer.html",
-            "slots": 11,
+            "slots": 21,
             "ksesStable": false
         }
     },
     "assets": {
-        "calm": {
-            "file": "images/calm.jpg",
-            "alt": "Warm abstract wash in cream, sage and clay",
-            "title": "Quiet room",
+        "forest-walk": {
+            "file": "images/forest-walk.jpg",
+            "alt": "A lone walker on a path through a tall autumn forest",
+            "title": "Forest walk",
+            "width": 1200,
+            "height": 1800,
+            "kind": "photo"
+        },
+        "glen-view": {
+            "file": "images/glen-view.jpg",
+            "alt": "A wide view over a glen of rolling hills in autumn colours under a cloudy sky",
+            "title": "View over a glen",
             "width": 1600,
-            "height": 1100
+            "height": 1066,
+            "kind": "photo"
         },
-        "detail": {
-            "file": "images/detail.jpg",
-            "alt": "Close abstract wash in sand and deep green",
-            "title": "Detail",
-            "width": 1200,
-            "height": 1200
+        "golden-path": {
+            "file": "images/golden-path.jpg",
+            "alt": "A tree-lined path in golden autumn light, scattered with fallen leaves",
+            "title": "Autumn path",
+            "width": 1199,
+            "height": 1800,
+            "kind": "photo"
         },
-        "portrait": {
-            "file": "images/portrait.jpg",
-            "alt": "Soft organic wash in sage and sand tones",
-            "title": "Elena Marsh",
-            "width": 1200,
-            "height": 1500
+        "hills-walk": {
+            "file": "images/hills-walk.jpg",
+            "alt": "Two people walking side by side across green hills under a misty sky",
+            "title": "Walking in the hills",
+            "width": 1199,
+            "height": 1800,
+            "kind": "photo"
+        },
+        "leader-desk": {
+            "file": "images/leader-desk.jpg",
+            "alt": "A leader in a white shirt sitting at a desk, deep in thought",
+            "title": "A leader thinking",
+            "width": 1199,
+            "height": 1800,
+            "kind": "photo"
+        },
+        "notebook-coffee": {
+            "file": "images/notebook-coffee.jpg",
+            "alt": "An open notebook and pen beside a cup of black coffee on a wooden table",
+            "title": "Notebook and coffee",
+            "width": 1600,
+            "height": 1066,
+            "kind": "photo"
+        },
+        "portrait-bench-smile": {
+            "file": "images/portrait-bench-smile.jpg",
+            "alt": "A smiling coach with long grey hair, sitting on a park bench in autumn sunshine",
+            "title": "Portrait on a bench",
+            "width": 1199,
+            "height": 1800,
+            "kind": "photo"
+        },
+        "portrait-reflect": {
+            "file": "images/portrait-reflect.jpg",
+            "alt": "A coach with long grey hair sitting on a park bench, looking out thoughtfully",
+            "title": "Thinking on a bench",
+            "width": 1199,
+            "height": 1800,
+            "kind": "photo"
+        },
+        "portrait-river": {
+            "file": "images/portrait-river.jpg",
+            "alt": "A coach with long grey hair and a scarf, holding a coffee by a river in autumn light",
+            "title": "Portrait by the river",
+            "width": 1199,
+            "height": 1800,
+            "kind": "photo"
+        },
+        "session-table": {
+            "file": "images/session-table.jpg",
+            "alt": "A woman in a navy shirt talking during a one-to-one interview at a table by a bright window",
+            "title": "One-to-one interview",
+            "width": 1600,
+            "height": 1068,
+            "kind": "photo"
+        },
+        "speaking-room": {
+            "file": "images/speaking-room.jpg",
+            "alt": "A speaker with a microphone talking to a room of seated delegates",
+            "title": "Speaking to a room",
+            "width": 1600,
+            "height": 1065,
+            "kind": "photo"
+        },
+        "sticky-notes": {
+            "file": "images/sticky-notes.jpg",
+            "alt": "Workshop participants writing on sticky notes around a table covered in papers",
+            "title": "Workshop notes",
+            "width": 1600,
+            "height": 1085,
+            "kind": "photo"
+        },
+        "tea-window": {
+            "file": "images/tea-window.jpg",
+            "alt": "Steam rising from a cup of tea on a sunny window sill beside an open book",
+            "title": "Tea by the window",
+            "width": 1354,
+            "height": 1800,
+            "kind": "photo"
+        },
+        "team-table": {
+            "file": "images/team-table.jpg",
+            "alt": "Three colleagues laughing together around a laptop at a round table",
+            "title": "Founders at work",
+            "width": 1600,
+            "height": 1236,
+            "kind": "photo"
+        },
+        "team-wall": {
+            "file": "images/team-wall.jpg",
+            "alt": "A facilitator pointing to notes on a board while a team looks on",
+            "title": "Team workshop",
+            "width": 1600,
+            "height": 1067,
+            "kind": "photo"
+        },
+        "window-city": {
+            "file": "images/window-city.jpg",
+            "alt": "A woman in a dark coat looking out over the city from a high office window",
+            "title": "City window",
+            "width": 1600,
+            "height": 1067,
+            "kind": "photo"
+        },
+        "window-conversation": {
+            "file": "images/window-conversation.jpg",
+            "alt": "Two people in silhouette talking at a table by tall windows, autumn trees outside",
+            "title": "Conversation by the window",
+            "width": 1012,
+            "height": 1800,
+            "kind": "photo"
+        },
+        "window-seat": {
+            "file": "images/window-seat.jpg",
+            "alt": "A woman sitting at a window ledge, looking out and thinking",
+            "title": "Window seat",
+            "width": 1600,
+            "height": 900,
+            "kind": "photo"
+        },
+        "workshop-flipchart": {
+            "file": "images/workshop-flipchart.jpg",
+            "alt": "A facilitator writing on a flip chart in front of a group during a leadership workshop",
+            "title": "Leadership workshop",
+            "width": 1600,
+            "height": 1065,
+            "kind": "photo"
         }
+    },
+    "projects": {
+        "titles": [
+            "From safe pair of hands to chief operating officer",
+            "A founder, a four-day week and a calmer company",
+            "From law partner to landscape designer",
+            "A leadership team that learnt to disagree well",
+            "A first-year programme for twenty-four new managers",
+            "Three days in the hills for a charity board"
+        ],
+        "covers": [
+            "leader-desk",
+            "team-table",
+            "golden-path",
+            "team-wall",
+            "workshop-flipchart",
+            "hills-walk"
+        ]
     },
     "source": {
         "dir": "seed/sites/coaching",
-        "hash": "e91fab90f22594f119a93396c87857d2"
+        "hash": "de5049d71c4d5ec8d331d49fc5271ff9"
     }
 }

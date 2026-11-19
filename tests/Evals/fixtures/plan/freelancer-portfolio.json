@@ -52,12 +52,16 @@
               {
                 "id": "t3",
                 "html": "I take two clients at a time, so each project gets my full attention from first call to launch."
+              },
+              {
+                "id": "t4",
+                "html": "<span class=\"eb-fig\"><b>Fig. 01</b>The desk, on a quiet Tuesday</span>"
               }
             ],
             "attrs": []
           },
           {
-            "pattern": "home-03-portfolio",
+            "pattern": "work-04-portfolio",
             "texts": [
               {
                 "id": "t0",
@@ -65,7 +69,11 @@
               },
               {
                 "id": "t1",
-                "html": "<a href=\"{{link:work}}\">All projects →</a>"
+                "html": "Recent <em>projects</em>."
+              },
+              {
+                "id": "t2",
+                "html": "A few of the interfaces I designed lately, each with the problem it set out to solve."
               }
             ],
             "attrs": []
@@ -95,7 +103,7 @@
             }
           },
           {
-            "pattern": "work-03-cta",
+            "pattern": "work-06-cta",
             "texts": [
               {
                 "id": "t0",
@@ -103,7 +111,7 @@
               },
               {
                 "id": "t1",
-                "html": "Two clients at a time."
+                "html": "Two clients <em>at a time</em>."
               },
               {
                 "id": "t2",
@@ -111,10 +119,23 @@
               },
               {
                 "id": "t3",
-                "html": "<a href=\"{{link:contact}}\">Start a project →</a>"
+                "html": "hello@tobiasreeve.example"
+              },
+              {
+                "id": "t4",
+                "html": "<a class=\"wp-block-button__link wp-element-button\" href=\"{{link:contact}}\">Start a project</a>"
+              },
+              {
+                "id": "t5",
+                "html": "<a class=\"wp-block-button__link wp-element-button\" href=\"{{link:work}}\">See the work</a>"
               }
             ],
-            "attrs": []
+            "attrs": [
+              {
+                "id": "a0",
+                "value": "mailto:hello@tobiasreeve.example"
+              }
+            ]
           }
         ]
       },
@@ -150,7 +171,7 @@
         "status": "draft",
         "sections": [
           {
-            "pattern": "contact-02-cta",
+            "pattern": "contact-02-process",
             "texts": [
               {
                 "id": "t0",
@@ -158,15 +179,31 @@
               },
               {
                 "id": "t1",
-                "html": "That is fine. Send the half-formed version and we can shape it together."
-              },
-              {
-                "id": "t2",
-                "html": "Availability"
+                "html": "That is fine, <em>start small</em>."
               },
               {
                 "id": "t3",
-                "html": "Two client slots.<br>Write to ask when the next one opens."
+                "html": "Send a note"
+              },
+              {
+                "id": "t4",
+                "html": "Send the half-formed version and we can shape it together."
+              },
+              {
+                "id": "t6",
+                "html": "Availability"
+              },
+              {
+                "id": "t7",
+                "html": "Two client slots. Write to ask when the next one opens."
+              },
+              {
+                "id": "t9",
+                "html": "A first call"
+              },
+              {
+                "id": "t10",
+                "html": "Thirty minutes on what you are building and who it is for."
               }
             ],
             "attrs": []

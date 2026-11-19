@@ -34,7 +34,7 @@
         "status": "draft",
         "sections": [
           {
-            "pattern": "work-03-cta",
+            "pattern": "work-06-cta",
             "texts": [
               {
                 "id": "t0",
@@ -42,7 +42,7 @@
               },
               {
                 "id": "t1",
-                "html": "Taking new work this spring."
+                "html": "Taking new work <em>this spring</em>."
               },
               {
                 "id": "t2",
@@ -50,7 +50,21 @@
               },
               {
                 "id": "t3",
-                "html": "<a href=\"{{link:pricing}}\">Start a project →</a>"
+                "html": "hello@baseline.example"
+              },
+              {
+                "id": "t4",
+                "html": "<a class=\"wp-block-button__link wp-element-button\" href=\"{{link:pricing}}\">Start a project</a>"
+              },
+              {
+                "id": "t5",
+                "html": "<a class=\"wp-block-button__link wp-element-button\" href=\"{{link:work}}\">See the work</a>"
+              }
+            ],
+            "attrs": [
+              {
+                "id": "a0",
+                "value": "mailto:hello@baseline.example"
               }
             ]
           }

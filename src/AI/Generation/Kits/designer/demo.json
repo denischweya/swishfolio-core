@@ -1,22 +1,23 @@
 {
     "phones": [
-        "+46 70 123 45 67"
+        "+64 21 555 0147"
     ],
     "emails": [
-        "studio@maralindqvist.se"
+        "studio@eliasbrandt.example"
     ],
     "domains": [
-        "maralindqvist.se"
+        "eliasbrandt.example"
     ],
     "addresses": [
-        "Åsögatan 140"
+        "Level 1, 212 Cuba Street, Te Aro, Wellington"
     ],
     "places": [
-        "Stockholm",
-        "Södermalm"
+        "Wellington",
+        "Cuba Street",
+        "Te Aro"
     ],
     "people": [
-        "Ingrid Sørensen",
-        "Mara Lindqvist"
+        "Ben Tofan",
+        "Elias Brandt"
     ]
 }

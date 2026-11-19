@@ -29,6 +29,8 @@ class KitImages
     const KIND      = 'onboarding-images';
     const MAX_SLOTS = 60;
     const MAX_USES  = 2;
+    /** Most slots that get a stock photo search in one build (time and cost bound). */
+    const MAX_STOCK = 8;
 
     /** @var AIProviderInterface|null */
     private $provider;
@@ -103,7 +105,7 @@ class KitImages
      *
      * @return array {placements, response}
      */
-    public function plan(array $slots, array $photos, $business, $model, array $catalogue = [])
+    public function plan(array $slots, array $photos, $business, $model, array $catalogue = [], $stock = false)
     {
         $photoLines = [];
         foreach ($photos as $photo) {
@@ -126,13 +128,20 @@ class KitImages
             'kit'      => $kitLines ? implode("\n", $kitLines) : '(none)',
         ]);
 
-        $response   = $this->provider->generate(new AIRequest('You place a site owner\'s photos on their new website and check that every other photo suits their business. You answer only with the structured result.', $user, self::schema(), $model, 3000));
+        // Photo sourcing on (a stock library key is configured): the same call
+        // also proposes a search query per spot. Off: the request is unchanged.
+        if ($stock) {
+            $user = preg_replace('/\n*Return the placements and the unfit photos\.\s*$/', '', $user) . "\n\n" . $this->prompts->task('place-images-stock', []) . "\n\nReturn the placements, the unfit photos and the stock queries.";
+        }
+
+        $response   = $this->provider->generate(new AIRequest('You place a site owner\'s photos on their new website and check that every other photo suits their business. You answer only with the structured result.', $user, self::schema($stock), $model, $stock ? 4000 : 3000));
         $decoded    = (array) $response->getDecoded();
         $placements = self::placements($decoded, $slots, $photos);
 
         return [
             'placements' => $placements,
             'recasts'    => self::recasts($decoded, $slots, $catalogue, $placements),
+            'stock'      => $stock ? self::stockQueries($decoded, $slots, $placements) : [],
             'response'   => $response,
         ];
     }
@@ -334,11 +343,91 @@ class KitImages
     }
 
     /**
+     * Pure: the stock photo queries for slots no owner's photo went into,
+     * each slot once, at most MAX_STOCK, in the model's order.
+     *
+     * @param array   $decoded    Model answer.
+     * @param array[] $slots      slots().
+     * @param array[] $placements placements().
+     *
+     * @return array[] {ref, postId, slot, page, position, alt, query, orientation}
+     */
+    public static function stockQueries(array $decoded, array $slots, array $placements)
+    {
+        $refs = [];
+        foreach ($slots as $slot) {
+            $refs[$slot['ref']] = $slot;
+        }
+        $taken = [];
+        foreach ($placements as $p) {
+            $taken[$p['postId'] . ':' . $p['slot']] = true;
+        }
+
+        $out = [];
+        foreach ((array) (isset($decoded['stock']) ? $decoded['stock'] : []) as $q) {
+            $ref   = is_array($q) && isset($q['slot']) ? trim((string) $q['slot']) : '';
+            $query = is_array($q) && isset($q['query']) ? trim(preg_replace('/\s+/', ' ', sanitize_text_field((string) $q['query']))) : '';
+            if (! isset($refs[$ref]) || isset($taken[$ref]) || $query === '' || count($out) >= self::MAX_STOCK) {
+                continue;
+            }
+            $taken[$ref] = true;
+            $orientation = isset($q['orientation']) && in_array($q['orientation'], ['landscape', 'portrait', 'square'], true) ? $q['orientation'] : 'landscape';
+            $out[] = array_merge($refs[$ref], ['query' => mb_substr($query, 0, 60), 'orientation' => $orientation]);
+        }
+
+        return $out;
+    }
+
+    /**
+     * Pure: slots showing the kit's demo persona (a "portrait" photo, or one
+     * whose description names a person from the demo business). A stranger's
+     * face must not stand in for the owner.
+     *
+     * @param array[] $slots  slots().
+     * @param array   $assets Kit image name => {file, alt}.
+     * @param array   $people Demo people's names.
+     *
+     * @return array[] The matching slots.
+     */
+    public static function portraitSlots(array $slots, array $assets, array $people)
+    {
+        $names = [];
+        foreach ($assets as $name => $asset) {
+            $alt      = isset($asset['alt']) ? (string) $asset['alt'] : '';
+            $isPerson = (bool) preg_match('/(^|-)portrait(-|$)/', (string) $name);
+            foreach ($people as $person) {
+                $person = trim((string) $person);
+                if ($person !== '' && stripos($alt . ' ' . (isset($asset['title']) ? $asset['title'] : ''), $person) !== false) {
+                    $isPerson = true;
+                }
+            }
+            if ($isPerson) {
+                $names[] = (string) $name;
+            }
+        }
+
+        $out = [];
+        foreach ($slots as $slot) {
+            foreach ($names as $name) {
+                // "portrait-river.jpg", or a media library copy "portrait-river-1024x1536.jpg".
+                if (preg_match('/^' . preg_quote($name, '/') . '[.-]/', $slot['file'])) {
+                    $out[] = $slot;
+                    break;
+                }
+            }
+        }
+
+        return $out;
+    }
+
+    /**
+     * @param bool $stock Also ask for stock photo queries.
+     *
      * @return array
      */
-    public static function schema()
+    public static function schema($stock = false)
     {
-        return [
+        $schema = [
             'type'       => 'object',
             'required'   => ['placements', 'unfit'],
             'properties' => [
@@ -361,6 +450,21 @@ class KitImages
                 ]],
             ],
         ];
+
+        if ($stock) {
+            $schema['required'][]          = 'stock';
+            $schema['properties']['stock'] = ['type' => 'array', 'items' => [
+                'type'       => 'object',
+                'required'   => ['slot', 'query', 'orientation'],
+                'properties' => [
+                    'slot'        => ['type' => 'string'],
+                    'query'       => ['type' => 'string'],
+                    'orientation' => ['type' => 'string', 'enum' => ['landscape', 'portrait', 'square']],
+                ],
+            ]];
+        }
+
+        return $schema;
     }
 
     /**

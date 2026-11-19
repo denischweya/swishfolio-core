@@ -4,28 +4,31 @@
     "name": "Midnight Build",
     "title": "Developer Portfolio",
     "industry": "tech",
-    "description": "A dark WordPress portfolio template for software engineers and freelance developers, with case studies, stat tiles and a bento grid.",
-    "look": "Colours: Canvas #0A0B0D, Text #F2F4F5, Lime #7CFF5B, Surface #14161A, Cyan #4ADEDE, Muted #8A9199.",
+    "description": "A dark WordPress portfolio template for freelance software engineers, with case studies, an architecture diagram, project mockups and a commit-log process.",
+    "look": "Type: Mona Sans, Geist Mono. Colours: Midnight #080B15, Moonlight #E8EBF4, Ember #FF7A50, Night panel #111830, Iris #A5B0FF, Secondary text #A2ABC4.",
     "demo": {
-        "business": "Kai Okafor",
-        "tagline": "Full-stack engineer building systems that stay fast in production"
+        "business": "Ezra Beaulieu",
+        "tagline": "Independent full-stack engineer building web platforms, APIs and apps · Montréal"
     },
     "design": {
         "file": "design.json",
-        "variation": "Terminal",
-        "classPrefix": "sf-",
-        "fingerprint": "",
+        "variation": "Default",
+        "classPrefix": "mb-",
+        "fingerprint": ".mb-foot",
         "palette": {
-            "base": "Canvas #0A0B0D",
-            "contrast": "Text #F2F4F5",
-            "accent-1": "Lime #7CFF5B",
-            "accent-2": "Surface #14161A",
-            "accent-3": "Cyan #4ADEDE",
-            "accent-4": "Muted #8A9199",
-            "accent-5": "Hairline #1F242B",
-            "accent-6": "Deep black #050607"
+            "base": "Midnight #080B15",
+            "contrast": "Moonlight #E8EBF4",
+            "accent-1": "Ember #FF7A50",
+            "accent-2": "Night panel #111830",
+            "accent-3": "Iris #A5B0FF",
+            "accent-4": "Secondary text #A2ABC4",
+            "accent-5": "Mint #7EE0C3",
+            "accent-6": "Deep navy #0C1122"
         },
-        "fonts": [],
+        "fonts": [
+            "Mona Sans",
+            "Geist Mono"
+        ],
         "pageTemplate": "page-landing",
         "header": "header",
         "footer": "footer",
@@ -49,11 +52,14 @@
             "template": "page-landing",
             "sections": [
                 "home-01-hero",
-                "home-02-team",
+                "home-02-logos",
                 "home-03-portfolio",
-                "home-04-skills",
-                "home-05-skills",
-                "home-06-cta"
+                "home-04-services",
+                "home-05-stats",
+                "home-06-process",
+                "home-07-testimonials",
+                "home-08-about",
+                "home-09-cta"
             ]
         },
         {
@@ -66,8 +72,33 @@
             "template": "page-landing",
             "sections": [
                 "work-01-page-header",
-                "work-02-portfolio",
-                "work-03-cta"
+                "work-02-skills",
+                "work-03-portfolio",
+                "work-04-skills",
+                "work-05-logos",
+                "work-06-cta"
+            ]
+        },
+        {
+            "key": "case-study",
+            "title": "Tallo case study",
+            "slug": "tallo-case-study",
+            "navLabel": "Case study",
+            "inNav": false,
+            "type": "case-study",
+            "template": "page-landing",
+            "sections": [
+                "case-study-01-page-header",
+                "case-study-02-content",
+                "case-study-03-content",
+                "case-study-04-process",
+                "case-study-05-content",
+                "case-study-06-content",
+                "case-study-07-gallery",
+                "case-study-08-process",
+                "case-study-09-contact",
+                "case-study-10-process",
+                "case-study-11-cta"
             ]
         },
         {
@@ -80,10 +111,11 @@
             "template": "page-landing",
             "sections": [
                 "services-01-page-header",
-                "services-02-stats",
-                "services-03-process",
-                "services-04-faq",
-                "services-05-cta"
+                "services-02-gallery",
+                "services-03-pricing",
+                "services-04-skills",
+                "services-05-faq",
+                "home-09-cta"
             ]
         },
         {
@@ -96,9 +128,11 @@
             "template": "page-landing",
             "sections": [
                 "about-01-page-header",
-                "about-02-process",
+                "about-02-about",
                 "about-03-features",
-                "about-04-cta"
+                "about-04-content",
+                "about-05-portfolio",
+                "about-06-cta"
             ]
         },
         {
@@ -111,8 +145,8 @@
             "template": "page-landing",
             "sections": [
                 "contact-01-page-header",
-                "contact-02-cta",
-                "contact-03-content"
+                "contact-02-process",
+                "contact-03-faq"
             ]
         }
     ],
@@ -120,218 +154,505 @@
         "home-01-hero": {
             "scope": "section",
             "role": "hero",
-            "summary": "Home page hero from the home page, headed (H1) \"Systems that stay fast when the traffic arrives.\": 10 paragraphs, 2 buttons, 4 repeatable items.",
+            "summary": "Home page hero from the home page, headed (H1) \"Software that ships fast and sleeps through the night.\": 1 paragraph, 2 buttons, 1 photo, 1 drawn icon or graphic, 33 repeatable items.",
             "pageTypes": [
                 "home"
             ],
             "sourcePage": "home",
             "position": 1,
             "file": "units/home-01-hero.html",
-            "slots": 13,
-            "repeatable": 4,
-            "ksesStable": true
+            "images": [
+                "desk-warm"
+            ],
+            "slots": 42,
+            "repeatable": 33,
+            "ksesStable": false
         },
-        "home-02-team": {
+        "home-02-logos": {
             "scope": "section",
-            "role": "team",
-            "summary": "Team section from the home page, headed (H2) \"Five things teams hire me for.\": 6 headings, 12 paragraphs, 9 repeatable items.",
+            "role": "logos",
+            "summary": "Logos section from the home page: 2 paragraphs, 5 drawn icons or graphics, 8 repeatable items.",
             "pageTypes": [
-                "home"
+                "home",
+                "any"
             ],
             "sourcePage": "home",
             "position": 2,
-            "file": "units/home-02-team.html",
-            "slots": 18,
-            "repeatable": 9,
-            "ksesStable": true
+            "file": "units/home-02-logos.html",
+            "slots": 10,
+            "repeatable": 8,
+            "ksesStable": false
         },
         "home-03-portfolio": {
             "scope": "section",
             "role": "portfolio",
-            "summary": "Portfolio or work section from the home page, headed (H2) \"Four systems, all in production.\": 2 paragraphs. Lists the site's portfolio projects.",
+            "summary": "Portfolio or work section from the home page, headed (H2) \"Recent builds, still running in production.\": 4 headings, 5 paragraphs, 1 button, 3 photos, 3 drawn icons or graphics, 14 repeatable items.",
             "pageTypes": [
                 "home"
             ],
             "sourcePage": "home",
             "position": 3,
             "file": "units/home-03-portfolio.html",
-            "needs": [
-                "projects"
+            "images": [
+                "cover-tallo",
+                "cover-copperline",
+                "cover-gridwalk"
             ],
-            "slots": 3,
-            "repeatable": 0,
-            "ksesStable": true
+            "slots": 28,
+            "repeatable": 14,
+            "ksesStable": false
         },
-        "home-04-skills": {
+        "home-04-services": {
             "scope": "section",
-            "role": "skills",
-            "summary": "Skills section from the home page, headed (H2) \"The stack I reach for.\": 10 paragraphs, 6 repeatable items.",
+            "role": "services",
+            "summary": "Services section from the home page, headed (H2) \"One engineer, the whole stack.\": 5 headings, 2 paragraphs, 8 drawn icons or graphics, 12 repeatable items.",
             "pageTypes": [
                 "home"
             ],
             "sourcePage": "home",
             "position": 4,
-            "file": "units/home-04-skills.html",
-            "slots": 7,
-            "repeatable": 6,
-            "ksesStable": true
+            "file": "units/home-04-services.html",
+            "slots": 31,
+            "repeatable": 12,
+            "ksesStable": false
         },
-        "home-05-skills": {
+        "home-05-stats": {
             "scope": "section",
-            "role": "skills",
-            "summary": "Skills section from the home page, headed (H2) \"Orbit CLI: 4,200 stars, 61 contributors.\": 3 paragraphs, 1 button, 1 photo, 2 repeatable items.",
+            "role": "stats",
+            "summary": "Stats section from the home page, headed (H2) \"Numbers I’m proud of.\": 2 paragraphs, 4 repeatable items.",
             "pageTypes": [
-                "home"
+                "home",
+                "any"
             ],
             "sourcePage": "home",
             "position": 5,
-            "file": "units/home-05-skills.html",
-            "images": [
-                "stack"
-            ],
-            "slots": 4,
-            "repeatable": 2,
-            "ksesStable": false
+            "file": "units/home-05-stats.html",
+            "slots": 11,
+            "repeatable": 4,
+            "ksesStable": true
         },
-        "home-06-cta": {
+        "home-06-process": {
             "scope": "section",
-            "role": "cta",
-            "summary": "Call-to-action band from the home page, headed (H2) \"Got something that has to hold up?\": 8 paragraphs, 2 buttons, 3 repeatable items.",
+            "role": "process",
+            "summary": "Process section from the home page, headed (H2) \"A calm, visible process.\": 5 headings, 2 paragraphs, 4 repeatable items.",
             "pageTypes": [
                 "home",
                 "any"
             ],
             "sourcePage": "home",
             "position": 6,
-            "file": "units/home-06-cta.html",
-            "slots": 11,
-            "repeatable": 3,
+            "file": "units/home-06-process.html",
+            "slots": 16,
+            "repeatable": 4,
             "ksesStable": true
+        },
+        "home-07-testimonials": {
+            "scope": "section",
+            "role": "testimonials",
+            "summary": "Testimonials section from the home page, headed (H2) \"What teams say after handover.\": 2 paragraphs.",
+            "pageTypes": [
+                "home",
+                "any"
+            ],
+            "sourcePage": "home",
+            "position": 7,
+            "file": "units/home-07-testimonials.html",
+            "slots": 12,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "home-08-about": {
+            "scope": "section",
+            "role": "about",
+            "summary": "About section from the home page, headed (H2) \"I care about the boring parts, so you don’t have to.\": 3 paragraphs, 1 photo, 1 drawn icon or graphic, 8 repeatable items.",
+            "pageTypes": [
+                "home"
+            ],
+            "sourcePage": "home",
+            "position": 8,
+            "file": "units/home-08-about.html",
+            "images": [
+                "portrait"
+            ],
+            "slots": 12,
+            "repeatable": 8,
+            "ksesStable": false
+        },
+        "home-09-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the home page, headed (H2) \"Got something that needs to ship?\": 1 paragraph, 2 buttons, 1 photo.",
+            "pageTypes": [
+                "home",
+                "any",
+                "services"
+            ],
+            "sourcePage": "home",
+            "position": 9,
+            "file": "units/home-09-cta.html",
+            "images": [
+                "desk-night"
+            ],
+            "slots": 6,
+            "repeatable": 0,
+            "ksesStable": false,
+            "alsoOn": [
+                "services"
+            ]
         },
         "work-01-page-header": {
             "scope": "section",
             "role": "page-header",
-            "summary": "Page header from the work page, headed (H1) \"Six systems, all still running.\": 3 paragraphs, 2 repeatable items.",
+            "summary": "Page header from the work page, headed (H1) \"Selected work, shipped and still running.\": 2 paragraphs, 3 repeatable items.",
             "pageTypes": [
                 "work"
             ],
             "sourcePage": "work",
             "position": 1,
             "file": "units/work-01-page-header.html",
-            "slots": 4,
-            "repeatable": 2,
+            "slots": 9,
+            "repeatable": 3,
             "ksesStable": true
         },
-        "work-02-portfolio": {
+        "work-02-skills": {
             "scope": "section",
-            "role": "portfolio",
-            "summary": "Portfolio or work section from the work page. Lists the site's portfolio projects.",
+            "role": "skills",
+            "summary": "Skills section from the work page, headed (H2) \"Rebuilding marketplace payouts so sellers get paid in minutes\": 2 paragraphs, 1 button, 1 photo, 7 repeatable items.",
             "pageTypes": [
                 "work"
             ],
             "sourcePage": "work",
             "position": 2,
-            "file": "units/work-02-portfolio.html",
+            "file": "units/work-02-skills.html",
+            "images": [
+                "cover-tallo"
+            ],
+            "slots": 14,
+            "repeatable": 7,
+            "ksesStable": false
+        },
+        "work-03-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the work page, headed (H2) \"Every build, by the problem it solved.\": 2 paragraphs. Lists the site's portfolio projects.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 3,
+            "file": "units/work-03-portfolio.html",
             "needs": [
                 "projects"
             ],
-            "slots": 0,
+            "slots": 3,
             "repeatable": 0,
             "ksesStable": true
         },
-        "work-03-cta": {
+        "work-04-skills": {
             "scope": "section",
-            "role": "cta",
-            "summary": "Call-to-action band from the work page, headed (H2) \"Two build slots open from February 2027.\": 2 paragraphs, 2 buttons, 2 repeatable items.",
+            "role": "skills",
+            "summary": "Skills section from the work page, headed (H2) \"Tools I build in public.\": 2 paragraphs, 1 photo, 1 drawn icon or graphic, 4 repeatable items.",
+            "pageTypes": [
+                "work"
+            ],
+            "sourcePage": "work",
+            "position": 4,
+            "file": "units/work-04-skills.html",
+            "images": [
+                "cover-kiln"
+            ],
+            "slots": 8,
+            "repeatable": 4,
+            "ksesStable": false
+        },
+        "work-05-logos": {
+            "scope": "section",
+            "role": "logos",
+            "summary": "Logos section from the work page: 2 paragraphs, 5 drawn icons or graphics, 8 repeatable items.",
             "pageTypes": [
                 "work",
                 "any"
             ],
             "sourcePage": "work",
-            "position": 3,
-            "file": "units/work-03-cta.html",
-            "slots": 5,
-            "repeatable": 2,
+            "position": 5,
+            "file": "units/work-05-logos.html",
+            "slots": 10,
+            "repeatable": 8,
+            "ksesStable": false
+        },
+        "work-06-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the work page, headed (H2) \"Want results like these for your product?\": 1 paragraph, 2 buttons, 1 photo.",
+            "pageTypes": [
+                "work",
+                "any"
+            ],
+            "sourcePage": "work",
+            "position": 6,
+            "file": "units/work-06-cta.html",
+            "images": [
+                "desk-night"
+            ],
+            "slots": 6,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "case-study-01-page-header": {
+            "scope": "section",
+            "role": "page-header",
+            "summary": "Page header from the tallo case study page, headed (H1) \"Rebuilding payouts so sellers get paid in minutes, not days.\": 2 paragraphs, 1 photo, 5 repeatable items.",
+            "pageTypes": [
+                "case-study"
+            ],
+            "sourcePage": "case-study",
+            "position": 1,
+            "file": "units/case-study-01-page-header.html",
+            "images": [
+                "cover-tallo"
+            ],
+            "slots": 14,
+            "repeatable": 5,
+            "ksesStable": false
+        },
+        "case-study-02-content": {
+            "scope": "section",
+            "role": "content",
+            "summary": "Content section from the tallo case study page: 1 paragraph, 4 repeatable items.",
+            "pageTypes": [
+                "case-study"
+            ],
+            "sourcePage": "case-study",
+            "position": 2,
+            "file": "units/case-study-02-content.html",
+            "slots": 9,
+            "repeatable": 4,
             "ksesStable": true
+        },
+        "case-study-03-content": {
+            "scope": "section",
+            "role": "content",
+            "summary": "Content section from the tallo case study page, headed (H2) \"A nightly file, and a lot of hoping.\": 3 paragraphs, 5 repeatable items.",
+            "pageTypes": [
+                "case-study"
+            ],
+            "sourcePage": "case-study",
+            "position": 3,
+            "file": "units/case-study-03-content.html",
+            "slots": 7,
+            "repeatable": 5,
+            "ksesStable": true
+        },
+        "case-study-04-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the tallo case study page, headed (H2) \"Four decisions that did the heavy lifting.\": 5 headings, 1 paragraph, 4 repeatable items.",
+            "pageTypes": [
+                "case-study",
+                "any"
+            ],
+            "sourcePage": "case-study",
+            "position": 4,
+            "file": "units/case-study-04-process.html",
+            "slots": 14,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "case-study-05-content": {
+            "scope": "section",
+            "role": "content",
+            "summary": "Content section from the tallo case study page, headed (H2) \"Boring, observable, correct.\": 2 paragraphs, 10 repeatable items.",
+            "pageTypes": [
+                "case-study"
+            ],
+            "sourcePage": "case-study",
+            "position": 5,
+            "file": "units/case-study-05-content.html",
+            "slots": 20,
+            "repeatable": 10,
+            "ksesStable": true
+        },
+        "case-study-06-content": {
+            "scope": "section",
+            "role": "content",
+            "summary": "Content section from the tallo case study page, headed (H2) \"Retries are a feature, not a risk.\": 2 paragraphs, 3 repeatable items.",
+            "pageTypes": [
+                "case-study"
+            ],
+            "sourcePage": "case-study",
+            "position": 6,
+            "file": "units/case-study-06-content.html",
+            "slots": 8,
+            "repeatable": 3,
+            "ksesStable": true
+        },
+        "case-study-07-gallery": {
+            "scope": "section",
+            "role": "gallery",
+            "summary": "Gallery section from the tallo case study page: 1 paragraph, 1 photo, 23 repeatable items.",
+            "pageTypes": [
+                "case-study"
+            ],
+            "sourcePage": "case-study",
+            "position": 7,
+            "file": "units/case-study-07-gallery.html",
+            "images": [
+                "cover-tallo-detail"
+            ],
+            "slots": 24,
+            "repeatable": 23,
+            "ksesStable": false
+        },
+        "case-study-08-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the tallo case study page, headed (H2) \"Fourteen weeks, zero downtime.\": 1 paragraph, 4 repeatable items.",
+            "pageTypes": [
+                "case-study",
+                "any"
+            ],
+            "sourcePage": "case-study",
+            "position": 8,
+            "file": "units/case-study-08-process.html",
+            "slots": 10,
+            "repeatable": 4,
+            "ksesStable": true
+        },
+        "case-study-09-contact": {
+            "scope": "section",
+            "role": "contact",
+            "summary": "Contact section from the tallo case study page: 1 paragraph.",
+            "pageTypes": [
+                "case-study",
+                "any"
+            ],
+            "sourcePage": "case-study",
+            "position": 9,
+            "file": "units/case-study-09-contact.html",
+            "slots": 4,
+            "repeatable": 0,
+            "ksesStable": true
+        },
+        "case-study-10-process": {
+            "scope": "section",
+            "role": "process",
+            "summary": "Process section from the tallo case study page, headed (H2) \"A real-time analytics pipeline that answers in milliseconds\": 1 paragraph, 1 photo, 1 drawn icon or graphic.",
+            "pageTypes": [
+                "case-study",
+                "any"
+            ],
+            "sourcePage": "case-study",
+            "position": 10,
+            "file": "units/case-study-10-process.html",
+            "images": [
+                "cover-copperline"
+            ],
+            "slots": 3,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "case-study-11-cta": {
+            "scope": "section",
+            "role": "cta",
+            "summary": "Call-to-action band from the tallo case study page, headed (H2) \"Have a system that has to be right?\": 1 paragraph, 2 buttons, 1 photo.",
+            "pageTypes": [
+                "case-study",
+                "any"
+            ],
+            "sourcePage": "case-study",
+            "position": 11,
+            "file": "units/case-study-11-cta.html",
+            "images": [
+                "desk-night"
+            ],
+            "slots": 6,
+            "repeatable": 0,
+            "ksesStable": false
         },
         "services-01-page-header": {
             "scope": "section",
             "role": "page-header",
-            "summary": "Page header from the services page, headed (H1) \"Three ways to put a senior engineer on it.\": 2 paragraphs.",
+            "summary": "Page header from the services page, headed (H1) \"Senior engineering, without the agency.\": 2 paragraphs, 1 photo.",
             "pageTypes": [
                 "services"
             ],
             "sourcePage": "services",
             "position": 1,
             "file": "units/services-01-page-header.html",
+            "images": [
+                "overhead"
+            ],
             "slots": 3,
             "repeatable": 0,
-            "ksesStable": true
+            "ksesStable": false
         },
-        "services-02-stats": {
+        "services-02-gallery": {
             "scope": "section",
-            "role": "stats",
-            "summary": "Stats section from the services page, headed (H3) \"Product build\": 3 headings, 12 paragraphs, 15 list items, 18 repeatable items.",
+            "role": "gallery",
+            "summary": "Gallery section from the services page, headed (H2) \"Product engineering\": 4 headings, 4 paragraphs, 4 photos, 4 drawn icons or graphics, 20 repeatable items.",
             "pageTypes": [
-                "services",
-                "any"
+                "services"
             ],
             "sourcePage": "services",
             "position": 2,
-            "file": "units/services-02-stats.html",
-            "slots": 30,
-            "repeatable": 18,
-            "ksesStable": true
+            "file": "units/services-02-gallery.html",
+            "images": [
+                "code-laptop",
+                "whiteboard",
+                "neon-screens",
+                "working"
+            ],
+            "slots": 32,
+            "repeatable": 20,
+            "ksesStable": false
         },
-        "services-03-process": {
+        "services-03-pricing": {
             "scope": "section",
-            "role": "process",
-            "summary": "Process section from the services page, headed (H2) \"Three steps, no black boxes.\": 4 headings, 7 paragraphs, 3 repeatable items.",
+            "role": "pricing",
+            "summary": "Pricing section from the services page, headed (H2) \"Clear scope, clear price.\": 4 headings, 3 paragraphs, 3 drawn icons or graphics, 14 repeatable items.",
             "pageTypes": [
-                "services",
-                "any"
+                "services"
             ],
             "sourcePage": "services",
             "position": 3,
-            "file": "units/services-03-process.html",
-            "slots": 11,
-            "repeatable": 3,
-            "ksesStable": true
+            "file": "units/services-03-pricing.html",
+            "slots": 29,
+            "repeatable": 14,
+            "ksesStable": false
         },
-        "services-04-faq": {
+        "services-04-skills": {
             "scope": "section",
-            "role": "faq",
-            "summary": "FAQ from the services page, headed (H2) \"The questions I always get.\": 6 paragraphs, 4 questions, 6 repeatable items.",
+            "role": "skills",
+            "summary": "Skills section from the services page, headed (H2) \"Tools I reach for, not a religion.\": 2 paragraphs, 6 repeatable items.",
             "pageTypes": [
-                "services",
-                "any"
+                "services"
             ],
             "sourcePage": "services",
             "position": 4,
-            "file": "units/services-04-faq.html",
-            "slots": 11,
+            "file": "units/services-04-skills.html",
+            "slots": 15,
             "repeatable": 6,
             "ksesStable": true
         },
-        "services-05-cta": {
+        "services-05-faq": {
             "scope": "section",
-            "role": "cta",
-            "summary": "Call-to-action band from the services page, headed (H2) \"Let's work out which one you need.\": 2 paragraphs, 2 buttons, 2 repeatable items.",
+            "role": "faq",
+            "summary": "FAQ from the services page, headed (H2) \"Before you book.\": 7 paragraphs, 5 questions, 5 repeatable items.",
             "pageTypes": [
                 "services",
                 "any"
             ],
             "sourcePage": "services",
             "position": 5,
-            "file": "units/services-05-cta.html",
-            "slots": 5,
-            "repeatable": 2,
+            "file": "units/services-05-faq.html",
+            "slots": 13,
+            "repeatable": 5,
             "ksesStable": true
         },
         "about-01-page-header": {
             "scope": "section",
             "role": "page-header",
-            "summary": "Page header from the about page, headed (H1) \"Kai Okafor\": 7 paragraphs, 1 photo, 4 repeatable items.",
+            "summary": "Page header from the about page, headed (H1) \"Hi, I’m Ezra. I build software that lasts.\": 2 paragraphs, 1 photo, 4 drawn icons or graphics, 4 repeatable items.",
             "pageTypes": [
                 "about"
             ],
@@ -341,29 +662,28 @@
             "images": [
                 "portrait"
             ],
-            "slots": 7,
+            "slots": 12,
             "repeatable": 4,
             "ksesStable": false
         },
-        "about-02-process": {
+        "about-02-about": {
             "scope": "section",
-            "role": "process",
-            "summary": "Process section from the about page, headed (H2) \"Nine years, five rooms.\": 6 headings, 16 paragraphs, 20 repeatable items.",
+            "role": "about",
+            "summary": "About section from the about page, headed (H3) \"First production deploy\": 5 headings, 4 paragraphs, 8 repeatable items.",
             "pageTypes": [
-                "about",
-                "any"
+                "about"
             ],
             "sourcePage": "about",
             "position": 2,
-            "file": "units/about-02-process.html",
-            "slots": 22,
-            "repeatable": 20,
+            "file": "units/about-02-about.html",
+            "slots": 15,
+            "repeatable": 8,
             "ksesStable": true
         },
         "about-03-features": {
             "scope": "section",
             "role": "features",
-            "summary": "Features section from the about page, headed (H2) \"Four things I will not compromise on.\": 5 headings, 9 paragraphs, 4 repeatable items.",
+            "summary": "Features section from the about page, headed (H2) \"How I like to work.\": 5 headings, 1 paragraph, 4 repeatable items.",
             "pageTypes": [
                 "about",
                 "any"
@@ -375,109 +695,279 @@
             "repeatable": 4,
             "ksesStable": true
         },
-        "about-04-cta": {
+        "about-04-content": {
+            "scope": "section",
+            "role": "content",
+            "summary": "Content section from the about page: 3 paragraphs, 3 photos.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 4,
+            "file": "units/about-04-content.html",
+            "images": [
+                "city-night",
+                "whiteboard",
+                "keyboard-glow"
+            ],
+            "slots": 3,
+            "repeatable": 0,
+            "ksesStable": false
+        },
+        "about-05-portfolio": {
+            "scope": "section",
+            "role": "portfolio",
+            "summary": "Portfolio or work section from the about page, headed (H2) \"The setup behind the work.\": 2 paragraphs, 6 repeatable items.",
+            "pageTypes": [
+                "about"
+            ],
+            "sourcePage": "about",
+            "position": 5,
+            "file": "units/about-05-portfolio.html",
+            "slots": 16,
+            "repeatable": 6,
+            "ksesStable": true
+        },
+        "about-06-cta": {
             "scope": "section",
             "role": "cta",
-            "summary": "Call-to-action band from the about page, headed (H2) \"Questions about a stack are free.\": 2 paragraphs, 2 buttons, 2 repeatable items.",
+            "summary": "Call-to-action band from the about page, headed (H2) \"Let’s see if we’re a good fit.\": 1 paragraph, 2 buttons, 1 photo.",
             "pageTypes": [
                 "about",
                 "any"
             ],
             "sourcePage": "about",
-            "position": 4,
-            "file": "units/about-04-cta.html",
-            "slots": 5,
-            "repeatable": 2,
-            "ksesStable": true
+            "position": 6,
+            "file": "units/about-06-cta.html",
+            "images": [
+                "desk-night"
+            ],
+            "slots": 6,
+            "repeatable": 0,
+            "ksesStable": false
         },
         "contact-01-page-header": {
             "scope": "section",
             "role": "page-header",
-            "summary": "Page header from the contact page, headed (H1) \"Tell me what you're building.\": 8 paragraphs, 2 buttons, 3 repeatable items.",
+            "summary": "Page header from the contact page, headed (H1) \"Tell me what you’re building.\": 2 paragraphs, 6 drawn icons or graphics, 25 repeatable items. Has a demo form that does not send anything yet.",
             "pageTypes": [
                 "contact"
             ],
             "sourcePage": "contact",
             "position": 1,
             "file": "units/contact-01-page-header.html",
-            "slots": 11,
-            "repeatable": 3,
-            "ksesStable": true
+            "needs": [
+                "form"
+            ],
+            "slots": 49,
+            "repeatable": 25,
+            "ksesStable": false
         },
-        "contact-02-cta": {
+        "contact-02-process": {
             "scope": "section",
-            "role": "cta",
-            "summary": "Call-to-action band from the contact page, headed (H2) \"Four lines are enough.\": 8 paragraphs, 5 list items, 12 repeatable items.",
+            "role": "process",
+            "summary": "Process section from the contact page, headed (H2) \"Quick, clear and no pressure.\": 4 headings, 1 paragraph, 3 repeatable items.",
             "pageTypes": [
                 "contact",
                 "any"
             ],
             "sourcePage": "contact",
             "position": 2,
-            "file": "units/contact-02-cta.html",
-            "slots": 14,
-            "repeatable": 12,
-            "ksesStable": false
+            "file": "units/contact-02-process.html",
+            "slots": 11,
+            "repeatable": 3,
+            "ksesStable": true
         },
-        "contact-03-content": {
+        "contact-03-faq": {
             "scope": "section",
-            "role": "content",
-            "summary": "Content section from the contact page: 1 paragraph, 1 photo.",
+            "role": "faq",
+            "summary": "FAQ from the contact page, headed (H2) \"The practical bits.\": 4 paragraphs, 3 questions, 3 repeatable items.",
             "pageTypes": [
-                "contact"
+                "contact",
+                "any"
             ],
             "sourcePage": "contact",
             "position": 3,
-            "file": "units/contact-03-content.html",
-            "images": [
-                "signal"
-            ],
-            "slots": 1,
-            "repeatable": 0,
-            "ksesStable": false
+            "file": "units/contact-03-faq.html",
+            "slots": 8,
+            "repeatable": 3,
+            "ksesStable": true
         },
         "header": {
             "scope": "header",
             "role": "header",
             "summary": "Header template part.",
             "file": "units/header.html",
-            "slots": 4,
-            "ksesStable": true
+            "slots": 3,
+            "ksesStable": false
         },
         "footer": {
             "scope": "footer",
             "role": "footer",
             "summary": "Footer template part.",
             "file": "units/footer.html",
-            "slots": 11,
-            "ksesStable": true
+            "slots": 23,
+            "ksesStable": false
         }
     },
     "assets": {
+        "city-night": {
+            "file": "images/city-night.jpg",
+            "alt": "A city skyline at dusk seen from above, lights coming on",
+            "title": "City at dusk",
+            "width": 1600,
+            "height": 1199,
+            "kind": "photo"
+        },
+        "code-laptop": {
+            "file": "images/code-laptop.jpg",
+            "alt": "A laptop screen showing colourful code in a dark room",
+            "title": "Code on a laptop",
+            "width": 1600,
+            "height": 1066,
+            "kind": "photo"
+        },
+        "cover-bramble": {
+            "file": "images/cover-bramble.jpg",
+            "alt": "A clinic booking calendar with a new appointment panel and a text reminder",
+            "title": "Clinic booking",
+            "width": 1600,
+            "height": 1200,
+            "kind": "photo"
+        },
+        "cover-copperline": {
+            "file": "images/cover-copperline.jpg",
+            "alt": "A real-time analytics dashboard with an hourly events chart and a query panel",
+            "title": "Analytics dashboard",
+            "width": 1600,
+            "height": 1200,
+            "kind": "photo"
+        },
+        "cover-gridwalk": {
+            "file": "images/cover-gridwalk.jpg",
+            "alt": "Two phones showing an offline inspection checklist and a sync confirmation on a map",
+            "title": "Field inspection app",
+            "width": 1600,
+            "height": 1200,
+            "kind": "photo"
+        },
+        "cover-kiln": {
+            "file": "images/cover-kiln.jpg",
+            "alt": "A terminal starting a preview environment next to repository statistics",
+            "title": "Command-line tool",
+            "width": 1600,
+            "height": 1200,
+            "kind": "photo"
+        },
+        "cover-pantry": {
+            "file": "images/cover-pantry.jpg",
+            "alt": "A grocery storefront with fresh produce and a perfect performance score",
+            "title": "Grocery storefront",
+            "width": 1600,
+            "height": 1200,
+            "kind": "photo"
+        },
+        "cover-tallo": {
+            "file": "images/cover-tallo.jpg",
+            "alt": "A payouts dashboard with settlement metrics, a volume chart and a live payout table",
+            "title": "Payouts dashboard",
+            "width": 1600,
+            "height": 1200,
+            "kind": "photo"
+        },
+        "cover-tallo-detail": {
+            "file": "images/cover-tallo-detail.jpg",
+            "alt": "A seller app showing a completed payout timeline beside test results in an editor",
+            "title": "Seller app and tests",
+            "width": 1600,
+            "height": 1200,
+            "kind": "photo"
+        },
+        "desk-night": {
+            "file": "images/desk-night.jpg",
+            "alt": "A dark desk with a monitor glowing in a quiet room at night",
+            "title": "Desk at night",
+            "width": 1600,
+            "height": 1096,
+            "kind": "photo"
+        },
+        "desk-warm": {
+            "file": "images/desk-warm.jpg",
+            "alt": "A warmly lit home office with two monitors showing code",
+            "title": "Home office",
+            "width": 1600,
+            "height": 1066,
+            "kind": "photo"
+        },
+        "keyboard-glow": {
+            "file": "images/keyboard-glow.jpg",
+            "alt": "A mechanical keyboard and code on two monitors lit in warm colours",
+            "title": "Keyboard and monitors",
+            "width": 1600,
+            "height": 1066,
+            "kind": "photo"
+        },
+        "neon-screens": {
+            "file": "images/neon-screens.jpg",
+            "alt": "Several monitors showing code under coloured light",
+            "title": "Monitors with code",
+            "width": 1600,
+            "height": 900,
+            "kind": "photo"
+        },
+        "overhead": {
+            "file": "images/overhead.jpg",
+            "alt": "Overhead view of an engineer working at a desk between three bright monitors",
+            "title": "Three monitors",
+            "width": 1600,
+            "height": 1066,
+            "kind": "photo"
+        },
         "portrait": {
             "file": "images/portrait.jpg",
-            "alt": "Abstract technical plate: node graph in lime and cyan on near-black",
-            "title": "Kai Okafor",
-            "width": 1200,
-            "height": 1400
-        },
-        "signal": {
-            "file": "images/signal.jpg",
-            "alt": "Abstract technical plate: a waveform traced in lime over a dark grid",
-            "title": "Signal",
+            "alt": "Portrait of a software engineer in glasses and a black shirt",
+            "title": "Portrait",
             "width": 1600,
-            "height": 900
+            "height": 1969,
+            "kind": "photo"
         },
-        "stack": {
-            "file": "images/stack.jpg",
-            "alt": "Abstract technical plate: stacked signal bars on a fine grid",
-            "title": "Orbit CLI",
+        "whiteboard": {
+            "file": "images/whiteboard.jpg",
+            "alt": "Two people sketching a system diagram on a whiteboard",
+            "title": "Whiteboard session",
             "width": 1600,
-            "height": 1100
+            "height": 1066,
+            "kind": "photo"
+        },
+        "working": {
+            "file": "images/working.jpg",
+            "alt": "An engineer working at two monitors in a dark office",
+            "title": "Engineer at work",
+            "width": 1600,
+            "height": 1066,
+            "kind": "photo"
         }
+    },
+    "projects": {
+        "titles": [
+            "Rebuilding marketplace payouts so sellers get paid in minutes",
+            "A real-time analytics pipeline that answers in milliseconds",
+            "An offline-first inspection app for crews beyond the cell towers",
+            "A headless storefront for a grocery co-op that loads before you blink",
+            "Online booking for a group of physiotherapy clinics",
+            "kiln: a preview environment for every pull request"
+        ],
+        "covers": [
+            "cover-tallo",
+            "cover-copperline",
+            "cover-gridwalk",
+            "cover-pantry",
+            "cover-bramble",
+            "cover-kiln"
+        ]
     },
     "source": {
         "dir": "seed/sites/developer",
-        "hash": "689298cbe2d8e342d8ab4f3d0777a324"
+        "hash": "e1ccd360966b2935bef7c46b63c460d4"
     }
 }

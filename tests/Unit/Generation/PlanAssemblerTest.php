@@ -66,6 +66,18 @@ class PlanAssemblerTest extends GenerationTestCase
         $this->assertSame(0, preg_match('/\{\{[a-z0-9_]+\}\}/i', $user));
     }
 
+    public function test_the_site_facts_carry_the_owner_social_proof_and_its_placeholders()
+    {
+        $facts = json_decode($this->assembler()->siteFactsJson($this->brief(['proof' => ['clients' => 'Glow, Bloom']])), true);
+
+        $this->assertSame(['Glow', 'Bloom'], $facts['ownerProof']['clients']);
+        $this->assertSame('Client name', $facts['ownerProof']['placeholders']['clientName']);
+
+        $none = json_decode($this->assembler()->siteFactsJson($this->brief()), true);
+        $this->assertSame([], $none['ownerProof']['clients'], 'Without proof the facts say so; the sections get placeholders.');
+        $this->assertStringContainsString('never dropped for lack of real material', $this->assembler()->siteSystemPrompt($this->brief()));
+    }
+
     public function test_the_site_schema_pins_the_kit()
     {
         $schema = $this->assembler()->forSitePlan($this->brief(), 'gpt-4o')->getSchema();

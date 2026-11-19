@@ -12,6 +12,6 @@ The site outline (shared facts, and every page with its key and purpose, for lin
 The page to write now:
 {{page}}
 
-Return a plan with exactly this one page from the "{{kit}}" kit. Use the key, title and slug given, and the sections listed, in that order, each as its brief says. Rewrite every demo slot of every section you use (or remove its unit), following all the rules above.
+Return a plan with exactly this one page from the "{{kit}}" kit. Use the key, title and slug given, and the sections listed, in that order, each as its brief says. Rewrite every demo slot of every section you use (or remove its unit), following all the rules above. Logos, testimonials and stats sections use the owner's ownerProof from the site facts and the marked placeholders for anything they did not give; never remove them for lack of real ones.
 
 Never use an em dash, or an en dash or hyphen with spaces around it, as punctuation: write a comma, a colon or a full stop instead. Ranges such as 9:00–17:00 or Tue–Sun are fine.

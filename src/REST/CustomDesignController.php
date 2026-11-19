@@ -236,7 +236,7 @@ class CustomDesignController
 
         try {
             $preset = isset($payload['preset']) ? (string) $payload['preset'] : '';
-            $result = $designer->design((string) $payload['prompt'], (string) $payload['business'], array_values($this->library->kits()), $router->modelFor(self::KIND), StylePresets::seed($preset));
+            $result = $designer->design((string) $payload['prompt'], (string) $payload['business'], array_values($this->library->kits()), $router->modelFor(self::KIND), StylePresets::seed($preset), $this->library->kit((string) $payload['kit']));
         } catch (ProviderException $e) {
             return new \WP_Error('sfcore_ai_provider_error', __('AI could not design that look. Nothing was changed.', 'swishfolio-core'), ['status' => 502, 'detail' => $e->getMessage()]);
         } finally {

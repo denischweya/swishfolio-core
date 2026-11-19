@@ -26,6 +26,12 @@ class TemplateMatcher
     const ALTERNATIVES = 3;
     const DOC_CHARS    = 3000;
 
+    /**
+     * Below this fit (0 to 100) no design is a close match, and the wizard
+     * recommends a custom design instead (see lowFit()).
+     */
+    const LOW_FIT = 60;
+
     /** @var AIProviderInterface|null */
     private $provider;
 
@@ -47,12 +53,12 @@ class TemplateMatcher
      * @param array[] $templates slug => SiteTemplates entry.
      * @param string  $model     Model id for the classification.
      *
-     * @return array {slug, alternatives, reason, designWishes, source ('ai'|'keywords'), response (AIResponse|null)}
+     * @return array {slug, alternatives, reason, designWishes, fit (0-100), lowFit, business, source ('ai'|'keywords'), response (AIResponse|null)}
      */
     public function match(array $brief, array $templates, $model = '')
     {
         if (! $templates) {
-            return ['slug' => '', 'alternatives' => [], 'reason' => '', 'designWishes' => '', 'source' => 'none', 'response' => null];
+            return ['slug' => '', 'alternatives' => [], 'reason' => '', 'designWishes' => '', 'fit' => 0, 'lowFit' => false, 'business' => '', 'source' => 'none', 'response' => null];
         }
 
         $text   = self::briefText($brief);
@@ -224,12 +230,16 @@ class TemplateMatcher
         }
 
         $style = isset($brief['design']['designStyle']) && is_scalar($brief['design']['designStyle']) ? trim((string) $brief['design']['designStyle']) : '';
+        $fit   = self::keywordFit($scores ? (int) reset($scores) : 0);
 
         return [
             'slug'         => $best,
             'alternatives' => self::alternatives($best, [], $templates, $ranked),
             'reason'       => '',
             'designWishes' => $style !== '' ? 'Style: ' . $style : '',
+            'fit'          => $fit,
+            'lowFit'       => self::lowFit($fit),
+            'business'     => '',
             'source'       => 'keywords',
             'response'     => null,
         ];
@@ -260,14 +270,45 @@ class TemplateMatcher
             return mb_substr($value, 0, $max);
         };
 
+        // A reply without a fit (an older schema) is treated as a good one: no nudge.
+        $fit = isset($decoded['fit']) && is_numeric($decoded['fit']) ? max(0, min(100, (int) round((float) $decoded['fit']))) : 100;
+
         return [
             'slug'         => $slug,
             'alternatives' => self::alternatives($slug, isset($decoded['alternatives']) ? (array) $decoded['alternatives'] : [], $templates, $ranked),
             'reason'       => $clean(isset($decoded['reason']) ? $decoded['reason'] : '', 240),
             'designWishes' => $clean(isset($decoded['designWishes']) ? $decoded['designWishes'] : '', 500),
+            'fit'          => $fit,
+            'lowFit'       => self::lowFit($fit),
+            'business'     => $clean(isset($decoded['business']) ? $decoded['business'] : '', 80),
             'source'       => 'ai',
             'response'     => null,
         ];
+    }
+
+    /**
+     * Pure: whether a fit score means no design is a close match.
+     *
+     * @param int $fit 0 to 100.
+     *
+     * @return bool
+     */
+    public static function lowFit($fit)
+    {
+        return (int) $fit < self::LOW_FIT;
+    }
+
+    /**
+     * Pure: a fit score from the best keyword score, for the no-provider path.
+     * No keyword at all is a poor fit; one phrase or two words a fair one.
+     *
+     * @param int $score Best scores() value.
+     *
+     * @return int 0 to 100.
+     */
+    public static function keywordFit($score)
+    {
+        return (int) $score <= 0 ? 30 : min(90, 50 + 10 * (int) $score);
     }
 
     /**
@@ -345,12 +386,14 @@ class TemplateMatcher
 
         return [
             'type'       => 'object',
-            'required'   => ['slug', 'alternatives', 'reason', 'designWishes'],
+            'required'   => ['slug', 'alternatives', 'reason', 'designWishes', 'fit', 'business'],
             'properties' => [
                 'slug'         => ['type' => 'string', 'enum' => $slugs, 'description' => 'The closest template.'],
                 'alternatives' => ['type' => 'array', 'items' => ['type' => 'string', 'enum' => $slugs], 'description' => 'The next best three, best first.'],
                 'reason'       => ['type' => 'string', 'description' => 'One short sentence to the owner on why this design fits.'],
                 'designWishes' => ['type' => 'string', 'description' => 'Only concrete visual instructions they stated (colours, light or dark, fonts, a named style). Empty when none.'],
+                'fit'          => ['type' => 'integer', 'description' => 'How closely the picked design fits this business, 0 to 100. 80 or more: made for this kind of business. Below 60: no design is a close match.'],
+                'business'     => ['type' => 'string', 'description' => 'What the business is, in a few plain words (for example "a dog grooming salon").'],
             ],
         ];
     }

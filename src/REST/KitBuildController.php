@@ -9,6 +9,7 @@ namespace SwishfolioCore\REST;
 
 use SwishfolioCore\AI\Generation\Kit;
 use SwishfolioCore\AI\Generation\PatternLibrary;
+use SwishfolioCore\AI\Generation\SocialProof;
 use SwishfolioCore\AI\ModelRouter;
 use SwishfolioCore\AI\Onboarding\DemoScan;
 use SwishfolioCore\AI\Onboarding\KitBranding;
@@ -16,6 +17,11 @@ use SwishfolioCore\AI\Onboarding\KitForms;
 use SwishfolioCore\AI\Onboarding\KitDesign;
 use SwishfolioCore\AI\Onboarding\KitImages;
 use SwishfolioCore\AI\Onboarding\KitLinks;
+use SwishfolioCore\AI\Onboarding\CopySlots;
+use SwishfolioCore\AI\Onboarding\NeutralImage;
+use SwishfolioCore\AI\Photos\PhotoSideloader;
+use SwishfolioCore\AI\Photos\PhotoSourcer;
+use SwishfolioCore\AI\Photos\StockPhotos;
 use SwishfolioCore\AI\Onboarding\SiteTemplates;
 use SwishfolioCore\AI\Onboarding\TemplateCustomiser;
 use SwishfolioCore\AI\Onboarding\WordmarkFit;
@@ -27,6 +33,7 @@ use SwishfolioCore\AI\UsageLogger;
 use SwishfolioCore\Jobs\BackgroundJobs;
 use SwishfolioCore\Jobs\JobProgress;
 use SwishfolioCore\Tools\ConfirmToken;
+use SwishfolioCore\Tools\Journal\JournalEntry;
 use SwishfolioCore\Tools\Journal\MutationJournal;
 use SwishfolioCore\Tools\Journal\WpdbJournalRepository;
 use SwishfolioCore\Tools\ToolContext;
@@ -60,6 +67,8 @@ class KitBuildController
     const NAMESPACE_V1 = 'swishfolio/v1';
     const TOOL         = 'swishfolio/kit-build';
     const KIND         = ModelRouter::KIND_TEMPLATE_CUSTOMISE;
+    /** Transient prefix: the demo portraits the images stage replaced, for finish's "left to check". */
+    const PORTRAITS    = 'swish_kit_portraits_';
 
     /** @var Settings */
     private $settings;
@@ -376,13 +385,21 @@ class KitBuildController
             }
         }
 
+        // Photos of the demo persona: never left as a stranger's face, never a stock face either.
+        $demo      = $kit !== null ? $kit->getDemo() : [];
+        $portraits = $kit !== null ? KitImages::portraitSlots($slots, $kit->getAssets(), isset($demo['people']) ? (array) $demo['people'] : []) : [];
+        // Photo sourcing is on only when the network configured a stock library key.
+        $libraries = StockPhotos::providers();
+
         $recasts = [];
+        $wants   = [];
         try {
             $business = trim((isset($brief['business']['name']) ? $brief['business']['name'] : '') . '. ' . (isset($brief['business']['brief']) ? mb_substr($brief['business']['brief'], 0, 600) : ''));
-            $planned  = $placer->plan($slots, $photos, $business, (new ModelRouter($this->settings))->modelFor(KitImages::KIND), $catalogue);
+            $planned  = $placer->plan($slots, $photos, $business, (new ModelRouter($this->settings))->modelFor(KitImages::KIND), $catalogue, (bool) $libraries);
             $response = $planned['response'];
             $placements = $planned['placements'];
             $recasts    = $planned['recasts'];
+            $wants      = $planned['stock'];
         } catch (ProviderException $e) {
             $placements = [];
         }
@@ -392,6 +409,34 @@ class KitBuildController
         }
 
         $changed = $placements ? $placer->apply($placements, $context) : 0;
+
+        // Portraits no owner's photo went into become the neutral stand-in.
+        $placed = [];
+        foreach ($placements as $p) {
+            $placed[$p['postId'] . ':' . $p['slot']] = true;
+        }
+        $portraitRefs = [];
+        foreach ($portraits as $slot) {
+            if (! isset($placed[$slot['ref']])) {
+                $portraitRefs[$slot['ref']] = $slot;
+            }
+        }
+        $wants = array_values(array_filter($wants, static function ($w) use ($portraits) {
+            return ! in_array($w['ref'], array_column($portraits, 'ref'), true);
+        }));
+
+        $stock = [];
+        if ($wants && $libraries) {
+            $stock = $this->stockPhotos($wants, $libraries, $provider, $prompts, $business, $journal, $context);
+        }
+        $stocked = [];
+        foreach ($stock as $p) {
+            $stocked[$p['postId'] . ':' . $p['slot']] = true;
+        }
+        $recasts = array_values(array_filter($recasts, static function ($r) use ($stocked, $portraitRefs) {
+            return ! isset($stocked[$r['postId'] . ':' . $r['slot']]) && ! isset($portraitRefs[$r['postId'] . ':' . $r['slot']]);
+        }));
+
         $swapped = 0;
         if ($recasts && $kit !== null) {
             $swapped = KitImages::recast($recasts, [$kit, 'assetUrl'], $catalogue, function ($postId, $before, $after) use ($journal, $context) {
@@ -399,14 +444,119 @@ class KitBuildController
             });
         }
 
+        $extra = $this->writeStockAndPortraits($stock, $portraitRefs, $context->getRunId(), $journal, $context);
+
+        /* translators: 1: photos placed, 2: template photos swapped. */
+        $summary = sprintf(__('%1$d of your photos placed, %2$d template photos swapped for ones that suit you', 'swishfolio-core'), count($placements), $swapped ? count($recasts) : 0);
+        if ($extra['stock'] > 0) {
+            /* translators: %d: stock photos added. */
+            $summary .= sprintf(_n(', %d stock photo added', ', %d stock photos added', $extra['stock'], 'swishfolio-core'), $extra['stock']);
+        }
+
         return [
             'placed'   => count($placements),
             'recast'   => $swapped ? count($recasts) : 0,
-            'pages'    => $changed + $swapped,
-            /* translators: 1: photos placed, 2: template photos swapped. */
-            'summary'  => sprintf(__('%1$d of your photos placed, %2$d template photos swapped for ones that suit you', 'swishfolio-core'), count($placements), $swapped ? count($recasts) : 0),
+            'stock'    => $extra['stock'],
+            'portraits' => $extra['portraits'],
+            'pages'    => $changed + $swapped + $extra['pages'],
+            'summary'  => $summary,
             'response' => $response,
         ];
+    }
+
+    /**
+     * Stock photos for the spots that have a query; never throws.
+     *
+     * @return array[] PhotoSourcer placements.
+     */
+    private function stockPhotos(array $wants, array $libraries, $provider, PromptManager $prompts, $business, MutationJournal $journal, ToolContext $context)
+    {
+        $startedAt = microtime(true);
+        try {
+            $sourcer = new PhotoSourcer($libraries, $provider, $prompts, [new PhotoSideloader(), 'sideload']);
+            $result  = $sourcer->source($wants, $business, (new ModelRouter($this->settings))->modelFor(ModelRouter::KIND_PHOTO_CHECK));
+        } catch (\Throwable $e) {
+            $result = ['placements' => [], 'responses' => [], 'notes' => ['Photo sourcing failed: ' . $e->getMessage()]];
+        }
+
+        $ms = (int) round((microtime(true) - $startedAt) * 1000);
+        foreach ($result['responses'] as $r) {
+            $this->logger->record($r, 0, $ms, 'photo-check');
+        }
+        foreach ($result['notes'] as $note) {
+            $this->note($journal, $context, $note);
+        }
+
+        return $result['placements'];
+    }
+
+    /**
+     * Write the stock photos and the portrait stand-ins, each page once.
+     *
+     * @return array {stock, portraits, pages}
+     */
+    private function writeStockAndPortraits(array $stock, array $portraitRefs, $runId, MutationJournal $journal, ToolContext $context)
+    {
+        $byPage  = [];
+        $credits = [];
+        foreach ($stock as $p) {
+            // A hotlinked photo (Unsplash) has no attachment: only the file changes.
+            $byPage[$p['postId']][$p['slot']] = $p['id'] > 0
+                ? ['id' => $p['id'], 'url' => $p['url'], 'alt' => $p['alt']]
+                : ['id' => 0, 'kitAsset' => true, 'url' => $p['url'], 'alt' => $p['alt']];
+            if (! empty($p['credit'])) {
+                $credits[$p['postId']][$p['credit']['provider'] . ':' . $p['credit']['id']] = $p['credit'];
+            }
+        }
+
+        $neutral   = $portraitRefs ? NeutralImage::attachment() : null;
+        $portraits = [];
+        foreach ($neutral ? $portraitRefs : [] as $slot) {
+            $byPage[$slot['postId']][$slot['slot']] = ['id' => $neutral['id'], 'url' => $neutral['url'], 'alt' => '', 'clearAlt' => true];
+            $portraits[] = ['postId' => $slot['postId'], 'slot' => $slot['slot'], 'id' => $neutral['id']];
+        }
+        if ($portraitRefs && ! $neutral) {
+            $this->note($journal, $context, 'The demo portrait could not be replaced: no placeholder image could be made.');
+        }
+
+        $pages = 0;
+        foreach ($byPage as $postId => $images) {
+            $before = (string) get_post_field('post_content', (int) $postId);
+            $after  = (new CopySlots($before))->apply(['images' => $images]);
+            $pages += $this->write($journal, $context, (int) $postId, $before, $after, __('Added photos that suit your business', 'swishfolio-core')) ? 1 : 0;
+        }
+
+        // The credit for hotlinked photos lives on the page (PhotoCredits prints it).
+        foreach ($credits as $postId => $list) {
+            $stored = get_post_meta((int) $postId, \SwishfolioCore\AI\Photos\PhotoCredits::META, true);
+            $journal->updateMeta($context, self::TOOL, (int) $postId, \SwishfolioCore\AI\Photos\PhotoCredits::META, array_merge(is_array($stored) ? $stored : [], $list), __('Credited the photographers', 'swishfolio-core'));
+        }
+
+        if ($portraits) {
+            set_transient(self::PORTRAITS . $runId, $portraits, DAY_IN_SECONDS);
+        }
+
+        return ['stock' => count($stock), 'portraits' => count($portraits), 'pages' => $pages];
+    }
+
+    /**
+     * Journal a photo sourcing problem (an audit row, nothing to undo).
+     *
+     * @return void
+     */
+    private function note(MutationJournal $journal, ToolContext $context, $message)
+    {
+        $journal->repository()->append(new JournalEntry([
+            'run_id'      => $context->getRunId(),
+            'seq'         => $context->nextSeq(),
+            'user_id'     => $context->getUserId(),
+            'tool'        => self::TOOL,
+            'summary'     => mb_substr((string) $message, 0, 300),
+            'target_type' => JournalEntry::TARGET_CALL,
+            'result'      => JournalEntry::RESULT_ERROR,
+            'error_code'  => 'photo_sourcing',
+            'created_at'  => current_time('mysql', true),
+        ]));
     }
 
     /**
@@ -443,7 +593,7 @@ class KitBuildController
         $context = ToolContext::forUser(get_current_user_id(), $runId);
         $journal->resume($context);
         $kit     = $this->library->kit($meta['kit']);
-        $out     = ['logo' => false, 'relinked' => 0, 'samplePage' => false, 'scan' => null, 'runId' => $runId];
+        $out     = ['logo' => false, 'relinked' => 0, 'samplePage' => false, 'scan' => null, 'placeholders' => [], 'runId' => $runId];
 
         // Logo: the site logo, and in the header where the kit draws its wordmark.
         $logo = 0;
@@ -487,6 +637,14 @@ class KitBuildController
         if ($kit !== null) {
             $out['scan'] = $this->scan($kit, $meta, $brief, $journal, $context);
 
+            // A demo portrait the images stage replaced with the stand-in: the owner's photo goes there.
+            foreach ((array) get_transient(self::PORTRAITS . $runId) as $p) {
+                $content = (string) get_post_field('post_content', (int) $p['postId']);
+                if (is_array($p) && in_array((int) $p['id'], \SwishfolioCore\AI\Photos\PhotoCredits::attachmentIds($content), true)) {
+                    $out['scan']['remaining'][] = ['text' => __('Your photo', 'swishfolio-core'), 'kind' => 'photo', 'count' => 1, 'postId' => (int) $p['postId'], 'where' => 'page', 'title' => (string) get_the_title((int) $p['postId'])];
+                }
+            }
+
             // The footer's giant wordmark sized for the owner's name, whatever its length.
             $design = $kit->getDesignFile();
             $sizes  = WordmarkFit::sizes(isset($design['globalStyles']['styles']['css']) ? (string) $design['globalStyles']['styles']['css'] : '');
@@ -494,8 +652,65 @@ class KitBuildController
                 $content = (string) get_post_field('post_content', $part['postId']);
                 $this->write($journal, $context, $part['postId'], $content, WordmarkFit::apply($content, $sizes), __('Sized the footer wordmark to your business name', 'swishfolio-core'));
             }
+
+            // Decorative kit art (not photos) in the site's palette, after the
+            // custom design or the colour wishes changed it (KitArt).
+            $out['art'] = 0;
+            $art        = \SwishfolioCore\AI\Onboarding\KitArt::recolourer($kit);
+            $artPosts   = wp_list_pluck(self::parts(), 'postId');
+            foreach ((array) $meta['pages'] as $page) {
+                if (! empty($page['created'])) {
+                    $artPosts[] = (int) $page['postId'];
+                }
+            }
+            foreach (array_unique(array_map('intval', $artPosts)) as $postId) {
+                $content = (string) get_post_field('post_content', $postId);
+                if (current_user_can('edit_post', $postId) && $this->write($journal, $context, $postId, $content, \SwishfolioCore\AI\Onboarding\KitArt::rewrite($content, $kit, $art), __('Recoloured the template artwork to your palette', 'swishfolio-core'))) {
+                    $out['art']++;
+                }
+            }
+            $out['art'] += \SwishfolioCore\AI\Onboarding\KitArt::covers($kit, $art, $journal, $context);
         }
 
+        // Social-proof placeholders the pages were written with: the owner replaces them.
+        $out['placeholders'] = self::placeholders($meta);
+
+        /**
+         * Fires after the finish step, so the onboarding record keeps what is
+         * left to check (swishfolio-extra shows it again after a reload).
+         *
+         * @param array $left {runId, remaining: array[], placeholders: array[]}
+         */
+        do_action('swishfolio_ai_kit_finished', [
+            'runId'        => $runId,
+            'remaining'    => isset($out['scan']['remaining']) ? $out['scan']['remaining'] : [],
+            'placeholders' => $out['placeholders'],
+        ]);
+
+        return $out;
+    }
+
+    /**
+     * Every marked social-proof placeholder on the built pages (SocialProof),
+     * one entry per page and kind, for the wizard's "left to check" list.
+     *
+     * @param array $meta Run facts.
+     *
+     * @return array[] {kind, count, postId, title, label}
+     */
+    private static function placeholders(array $meta)
+    {
+        $out = [];
+        foreach ($meta['pages'] as $page) {
+            $post = get_post((int) $page['postId']);
+            if (! $post || 'trash' === $post->post_status) {
+                continue;
+            }
+            $title = $post->post_title !== '' ? $post->post_title : $post->post_name;
+            foreach (SocialProof::find(DemoScan::visible((string) $post->post_content)) as $kind => $count) {
+                $out[] = ['kind' => $kind, 'count' => $count, 'postId' => (int) $post->ID, 'title' => $title, 'label' => SocialProof::label($kind, $title)];
+            }
+        }
         return $out;
     }
 

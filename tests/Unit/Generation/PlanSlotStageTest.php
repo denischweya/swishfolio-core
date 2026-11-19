@@ -38,20 +38,40 @@ class PlanSlotStageTest extends GenerationTestCase
         $this->assertSame('Call Oak and Iron', $result['pages'][0]['sections'][0]['attrs']['a1']);
     }
 
-    public function test_an_unknown_text_slot_is_rejected_rather_than_silently_dropped()
+    private function warnings()
     {
-        $this->assertRejected(
-            $this->patternSection(['texts' => [['id' => 't99', 'html' => 'Nope']]]),
-            'pages.0.sections.0.texts.t99'
-        );
+        return array_values(array_filter(isset($GLOBALS['sfcore_test_actions']) ? $GLOBALS['sfcore_test_actions'] : [], static function ($a) {
+            return $a[0] === 'swishfolio_ai_plan_warning';
+        }));
+    }
+
+    public function test_an_unknown_text_slot_is_dropped_with_a_warning_and_the_page_kept()
+    {
+        $GLOBALS['sfcore_test_actions'] = [];
+        $result  = $this->apply($this->patternSection(['texts' => [['id' => 't0', 'html' => 'Built to last'], ['id' => 't99', 'html' => 'Nope']]]));
+        $section = $result['pages'][0]['sections'][0];
+
+        $this->assertSame('Built to last', $section['texts']['t0'], 'The real edits stay.');
+        $this->assertArrayNotHasKey('t99', $section['texts']);
+        $this->assertCount(1, $this->warnings());
+        $this->assertSame('plan-slot', $this->warnings()[0][1][0]);
+        $this->assertSame('pages.0.sections.0.texts.t99', $this->warnings()[0][1][2]);
+    }
+
+    public function test_an_unknown_attribute_slot_is_dropped_like_the_one_that_lost_a_page()
+    {
+        // A built page was refused for: Section "work-06-cta" has no attribute slot "a0".
+        $result = $this->apply($this->patternSection(['attrs' => array_merge($this->heroAttrs(), [['id' => 'a77', 'value' => 'tel:+447700900123']])]));
+
+        $this->assertArrayNotHasKey('a77', $result['pages'][0]['sections'][0]['attrs']);
+        $this->assertSame('Call Oak and Iron', $result['pages'][0]['sections'][0]['attrs']['a1']);
     }
 
     public function test_an_attribute_slot_cannot_take_text_edits()
     {
-        $this->assertRejected(
-            $this->patternSection(['texts' => [['id' => 'a0', 'html' => 'Nope']]]),
-            'pages.0.sections.0.texts.a0'
-        );
+        $result = $this->apply($this->patternSection(['texts' => [['id' => 'a0', 'html' => 'Nope']]]));
+
+        $this->assertArrayNotHasKey('a0', $result['pages'][0]['sections'][0]['texts'], 'A text written into an attribute slot is dropped.');
     }
 
     public function test_removing_an_unknown_unit_is_rejected()
@@ -71,10 +91,8 @@ class PlanSlotStageTest extends GenerationTestCase
     {
         $this->apply($this->patternSection(['clones' => [['unit' => 'u1', 'texts' => [['id' => 't2', 'html' => 'Doors']]]]]));
 
-        $this->assertRejected(
-            $this->patternSection(['clones' => [['unit' => 'u1', 'texts' => [['id' => 't0', 'html' => 'x']]]]]),
-            'pages.0.sections.0.clones.0.texts.t0'
-        );
+        $result = $this->apply($this->patternSection(['clones' => [['unit' => 'u1', 'texts' => [['id' => 't0', 'html' => 'x']]]]]));
+        $this->assertSame([], $result['pages'][0]['sections'][0]['clones'][0]['texts'], 'An edit outside the copied unit is dropped.');
     }
 
     public function test_block_sections_are_left_alone()

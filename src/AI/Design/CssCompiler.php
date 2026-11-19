@@ -83,7 +83,11 @@ class CssCompiler
         $css = self::MARKER . "\n"
             . FontCatalogue::fontFaces([$f['display'], $f['body'], $f['label']], $this->pluginBase, $this->themeBase)
             . $this->transform((string) $kitCss) . "\n"
-            . $this->overrides();
+            . $this->overrides()
+            . $this->polish();
+
+        // Last: whatever the kit put together that does not read gets nudged.
+        $css .= ContrastGuard::css($css, $this->tokens);
 
         return $this->sanitize($css);
     }
@@ -765,7 +769,8 @@ class CssCompiler
         $img     = 'body main :is(.wp-block-image,.wp-block-cover,.wp-block-media-text,figure) img';
         $filters = ['grayscale' => 'grayscale(1) contrast(1.08)', 'warm' => 'sepia(.25) saturate(1.1)', 'cool' => 'saturate(.85) hue-rotate(-8deg) brightness(1.02)', 'high-contrast' => 'contrast(1.25) saturate(1.15)'];
         if (isset($filters[$t['imageStyle']])) {
-            $c[] = $img . '{filter:' . $filters[$t['imageStyle']] . '}';
+            // Not the kit art already recoloured to this palette (KitArt).
+            $c[] = $img . ':not([src*="/swish-art/"]){filter:' . $filters[$t['imageStyle']] . '}';
         }
         $frame = 'body main .wp-block-image img';
         if ($t['imageFrame'] === 'border') {
@@ -816,6 +821,19 @@ class CssCompiler
         }
 
         return implode("\n", $c) . "\n" . HeadingSafety::css();
+    }
+
+    /**
+     * The design's own polish rules, held to PolishCss's subset and scoped
+     * to this kit's classes. Last, so they refine the overrides.
+     *
+     * @return string
+     */
+    public function polish()
+    {
+        $css = PolishCss::clean(isset($this->tokens['css']) ? $this->tokens['css'] : '', $this->prefix);
+
+        return $css === '' ? '' : "\n/* polish */\n" . $css . "\n";
     }
 
     /* ------------------------------------------------------------------

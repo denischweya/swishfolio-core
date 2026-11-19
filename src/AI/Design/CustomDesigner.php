@@ -45,12 +45,13 @@ class CustomDesigner
      * @param Kit[]  $kits     Every template kit (for their looks).
      * @param string $model    Model id.
      * @param array|null $seed   Starting tokens (StylePresets::seed()), or null.
+     * @param Kit|null   $layout The structural kit (its classes for polish CSS), or null.
      *
      * @throws \SwishfolioCore\AI\ProviderException On provider failure.
      *
      * @return array {tokens, response}
      */
-    public function design($prompt, $business, array $kits, $model, array $seed = null)
+    public function design($prompt, $business, array $kits, $model, array $seed = null, Kit $layout = null)
     {
         $looks = [];
         foreach ($kits as $kit) {
@@ -67,6 +68,7 @@ class CustomDesigner
                 'templates' => implode("\n", $looks),
                 'fonts'     => FontCatalogue::describe(),
                 'start'     => $seed === null ? '' : self::startFrom($seed),
+                'polish'    => self::polishBrief($layout),
             ]),
             DesignTokens::schema(),
             (string) $model,
@@ -79,6 +81,38 @@ class CustomDesigner
             && $tokens['fonts']['display'] === $seed['fonts']['display'] && $tokens['fonts']['body'] === $seed['fonts']['body'];
 
         return ['tokens' => $keptSeedFonts ? $tokens : self::avoidKitPairs($tokens, $kits), 'response' => $response];
+    }
+
+    /**
+     * The prompt block on the optional polish CSS: what it may touch and how.
+     *
+     * @param Kit|null $layout Structural kit.
+     *
+     * @return string
+     */
+    public static function polishBrief(Kit $layout = null)
+    {
+        $prefix = $layout !== null && isset($layout->getDesign()['classPrefix']) ? preg_replace('/[^a-z0-9-]/', '', strtolower((string) $layout->getDesign()['classPrefix'])) : '';
+        if ($prefix === '') {
+            return "\ncss: answer an empty string.\n";
+        }
+
+        $design  = $layout->getDesignFile();
+        $classes = [];
+        if (preg_match_all('/\.(' . preg_quote($prefix, '/') . '[a-z0-9_-]+)/i', isset($design['globalStyles']['styles']['css']) ? (string) $design['globalStyles']['styles']['css'] : '', $m)) {
+            $classes = array_count_values($m[1]);
+            arsort($classes);
+            $classes = array_slice(array_keys($classes), 0, 40);
+        }
+
+        return "\ncss (optional): a few plain CSS rules of polish that the options above cannot express, for example section rhythm, button shape or a heading treatment. Leave it empty when the options already say it. Rules:\n"
+            . "- Every selector must use one of the template's classes (they start with ." . $prefix . "). Rules are scoped under body for you.\n"
+            . "- Properties only from: margin, padding, gap, border (and its sides, width, style, radius), outline, font-size, font-weight, font-style, letter-spacing, line-height, text-transform, text-align, text-decoration, text-underline-offset, max-width, min-height, aspect-ratio, object-fit, color, background-color, box-shadow, opacity, transition.\n"
+            . "- Colours only as the design's variables: var(--sf-bg), var(--sf-surface), var(--sf-text), var(--sf-muted), var(--sf-accent), var(--sf-accent-2), var(--sf-soft), var(--sf-inverse), var(--sf-on-accent), var(--sf-on-inverse), var(--sf-line), or currentColor. Never a hex, rgb() or colour name.\n"
+            . "- No @ rules, no url(), no comments, no position, no display, at most 4 KB. Anything else is thrown away.\n"
+            . ($classes ? "The template's most used classes: " . implode(', ', array_map(static function ($c) {
+                return '.' . $c;
+            }, $classes)) . "\n" : '');
     }
 
     /**

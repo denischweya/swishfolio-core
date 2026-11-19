@@ -190,7 +190,7 @@
             "sourcePage": "home",
             "position": 4,
             "file": "units/home-04-map.html",
-            "slots": 20,
+            "slots": 32,
             "repeatable": 14,
             "fixedText": [
                 "RTM·HQ",
@@ -523,7 +523,7 @@
             "sourcePage": "about",
             "position": 3,
             "file": "units/about-03-map.html",
-            "slots": 10,
+            "slots": 22,
             "repeatable": 4,
             "fixedText": [
                 "RTM·HQ",
@@ -671,92 +671,123 @@
             "alt": "Freighter aircraft on the apron",
             "title": "Freighter aircraft on the apron",
             "width": 1365,
-            "height": 910
+            "height": 910,
+            "kind": "photo"
         },
         "air-dusk": {
             "file": "images/air-dusk.jpg",
             "alt": "Aircraft against an orange sky",
             "title": "Aircraft against an orange sky",
             "width": 1600,
-            "height": 1068
+            "height": 1068,
+            "kind": "photo"
         },
         "port-cranes": {
             "file": "images/port-cranes.jpg",
             "alt": "Port cranes over a container yard",
             "title": "Port cranes over a container yard",
             "width": 1600,
-            "height": 1067
+            "height": 1067,
+            "kind": "photo"
         },
         "port-sea": {
             "file": "images/port-sea.jpg",
             "alt": "Port by the sea",
             "title": "Port by the sea",
             "width": 1600,
-            "height": 1200
+            "height": 1200,
+            "kind": "photo"
         },
         "port-ship": {
             "file": "images/port-ship.jpg",
             "alt": "Container ship at a terminal",
             "title": "Container ship at a terminal",
             "width": 1600,
-            "height": 900
+            "height": 900,
+            "kind": "photo"
         },
         "truck-road": {
             "file": "images/truck-road.jpg",
             "alt": "Trailer on a mountain highway",
             "title": "Trailer on a mountain highway",
             "width": 1600,
-            "height": 1067
+            "height": 1067,
+            "kind": "photo"
         },
         "truck-snow": {
             "file": "images/truck-snow.jpg",
             "alt": "Truck on a snowy highway",
             "title": "Truck on a snowy highway",
             "width": 1600,
-            "height": 1200
+            "height": 1200,
+            "kind": "photo"
         },
         "wh-aisle": {
             "file": "images/wh-aisle.jpg",
             "alt": "Warehouse aisle with racking",
             "title": "Warehouse aisle with racking",
             "width": 1600,
-            "height": 1067
+            "height": 1067,
+            "kind": "photo"
         },
         "wh-forklift": {
             "file": "images/wh-forklift.jpg",
             "alt": "Reach truck in a warehouse aisle",
             "title": "Reach truck in a warehouse aisle",
             "width": 1600,
-            "height": 1507
+            "height": 1507,
+            "kind": "photo"
         },
         "wh-racks": {
             "file": "images/wh-racks.jpg",
             "alt": "High-bay warehouse racking",
             "title": "High-bay warehouse racking",
             "width": 1600,
-            "height": 1067
+            "height": 1067,
+            "kind": "photo"
         },
         "yard-grid": {
             "file": "images/yard-grid.jpg",
             "alt": "Rows of containers in a port",
             "title": "Rows of containers in a port",
             "width": 1600,
-            "height": 1067
+            "height": 1067,
+            "kind": "photo"
         },
         "yard-lanes": {
             "file": "images/yard-lanes.jpg",
             "alt": "Aerial view of container lanes",
             "title": "Aerial view of container lanes",
             "width": 1600,
-            "height": 1067
+            "height": 1067,
+            "kind": "photo"
         },
         "yard-top": {
             "file": "images/yard-top.jpg",
             "alt": "Container yard seen from above",
             "title": "Container yard seen from above",
             "width": 1600,
-            "height": 1067
+            "height": 1067,
+            "kind": "photo"
         }
+    },
+    "projects": {
+        "titles": [
+            "Cutting a fashion retailer’s returns loop from 21 days to 6",
+            "Just-in-sequence parts for an electric-vehicle line",
+            "A 2–8 °C cold chain from Basel to Johannesburg",
+            "Moving a drinks brand’s distribution centre in one weekend",
+            "Ocean consolidation that halved a toolmaker’s landed cost",
+            "Launch-day logistics for 40,000 games consoles"
+        ],
+        "covers": [
+            "wh-aisle",
+            "truck-road",
+            "air-cargo",
+            "wh-forklift",
+            "port-ship",
+            "air-dusk"
+        ]
     },
     "source": {
         "dir": "seed/sites/logistics",

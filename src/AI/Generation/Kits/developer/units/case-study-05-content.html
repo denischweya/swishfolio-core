@@ -1,0 +1,31 @@
+<!-- wp:group {"tagName":"section","align":"full","className":"mb-sec mb-cs-arch","layout":{"type":"default"}} -->
+<section class="wp-block-group alignfull mb-sec mb-cs-arch">
+<!-- wp:group {"className":"mb-wrap","layout":{"type":"default"}} -->
+<div class="wp-block-group mb-wrap">
+<!-- wp:group {"className":"mb-head mb-head\u002d\u002dsplit","layout":{"type":"default"}} -->
+<div class="wp-block-group mb-head mb-head--split">
+<!-- wp:group {"className":"mb-head__main","layout":{"type":"default"}} -->
+<div class="wp-block-group mb-head__main">
+<!-- wp:paragraph {"className":"mb-eyebrow"} -->
+<p class="mb-eyebrow"><span class="mb-eyebrow__n">03</span>Architecture</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"className":"mb-h2"} -->
+<h2 class="wp-block-heading mb-h2">Boring, observable, <em>correct</em>.</h2>
+<!-- /wp:heading -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:paragraph {"className":"mb-lead"} -->
+<p class="mb-lead">Money only moves inside a database transaction. Everything that talks to the outside world happens afterwards, from the outbox, where it can be retried safely.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:html -->
+<div class="mb-arch" role="img" aria-label="Architecture: client apps call a Go API gateway, which calls the payouts service and a double-entry ledger in PostgreSQL; an outbox feeds workers for bank rails, webhooks and nightly reconciliation."><div class="mb-arch__col mb-arch__col--1"><p class="mb-arch__label">Clients</p><div class="mb-arch__node"><b>Seller app</b><span>Next.js</span></div><div class="mb-arch__node"><b>Ops dashboard</b><span>Next.js</span></div><div class="mb-arch__node"><b>Partner API</b><span>REST + webhooks</span></div></div><div class="mb-arch__col mb-arch__col--2"><p class="mb-arch__label">Edge</p><div class="mb-arch__node"><b>API gateway</b><span>Go · auth, rate limits</span></div><div class="mb-arch__node"><b>Idempotency</b><span>keys stored 30 days</span></div></div><div class="mb-arch__col mb-arch__col--3"><p class="mb-arch__label">Core</p><div class="mb-arch__node is-core"><b>Payouts service</b><span>Go</span></div><div class="mb-arch__node is-core"><b>Ledger</b><span>PostgreSQL · double entry</span></div><div class="mb-arch__node"><b>Outbox</b><span>same transaction</span></div></div><div class="mb-arch__col mb-arch__col--4"><p class="mb-arch__label">Async</p><div class="mb-arch__node"><b>Rail workers</b><span>EFT · Interac · wire</span></div><div class="mb-arch__node"><b>Webhooks out</b><span>signed, retried</span></div><div class="mb-arch__node"><b>Reconciliation</b><span>nightly, automatic</span></div></div><div class="mb-arch__obs"><b>Observability</b><span>OpenTelemetry traces on every request · Grafana dashboards · alerts on ledger drift and rail latency</span></div></div>
+<!-- /wp:html -->
+</div>
+<!-- /wp:group -->
+</section>
+<!-- /wp:group -->

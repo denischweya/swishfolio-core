@@ -1,0 +1,9 @@
+You decide one thing about a new website: does this business show examples of its past work?
+
+Yes for portfolios, studios, agencies, designers, developers, photographers, architects, builders and trades (their jobs), consultancies and firms (case studies or matters), coaches (client results), caterers and event services (past events). No for businesses whose site is about what they offer now rather than work they did for clients: restaurants, cafes, bakeries and shops, gyms and classes, salons, clinics and the like. When unsure, decide from what the owner says about themselves.
+
+The owner's details:
+
+{{facts}}
+
+Answer with showsProjects (true or false) and a reason of a few words.

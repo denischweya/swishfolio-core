@@ -36,7 +36,7 @@
         "status": "draft",
         "sections": [
           {
-            "pattern": "contact-02-cta",
+            "pattern": "contact-02-process",
             "texts": [
               {
                 "id": "t0",
@@ -44,15 +44,31 @@
               },
               {
                 "id": "t1",
-                "html": "Send the short version and we can shape it together."
-              },
-              {
-                "id": "t2",
-                "html": "Availability"
+                "html": "Send the <em>short version</em>."
               },
               {
                 "id": "t3",
+                "html": "A reply"
+              },
+              {
+                "id": "t4",
+                "html": "Send the short version and we can shape it together."
+              },
+              {
+                "id": "t6",
+                "html": "Availability"
+              },
+              {
+                "id": "t7",
                 "html": "Taking new work this spring."
+              },
+              {
+                "id": "t9",
+                "html": "A proposal"
+              },
+              {
+                "id": "t10",
+                "html": "A written scope and a fixed fee within a week."
               }
             ]
           }

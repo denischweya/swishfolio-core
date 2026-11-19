@@ -66,6 +66,7 @@ class DesignTokens
         'imageStyle'      => 'natural',
         'imageFrame'      => 'none',
         'decor'           => 'none',
+        'css'             => '',
     ];
 
     /**
@@ -95,6 +96,7 @@ class DesignTokens
             'headingWeight' => ['type' => 'integer', 'description' => '100 to 900.'],
             'headingScale'  => ['type' => 'number', 'description' => '0.8 (restrained) to 1.4 (huge headings). 1 is the layout default.'],
             'borderWidth'   => ['type' => 'integer', 'description' => '0 to 4 (pixels) for card, section and button borders.'],
+            'css'           => ['type' => 'string', 'description' => 'Optional polish CSS (PolishCss): plain rules on the template\'s own classes, colours only as var(--sf-*). Empty string for none.'],
         ];
         foreach (self::ENUMS as $key => $values) {
             $props[$key] = ['type' => 'string', 'enum' => $values];
@@ -152,6 +154,11 @@ class DesignTokens
             $value     = isset($raw[$key]) ? (string) $raw[$key] : '';
             $out[$key] = in_array($value, $values, true) ? $value : $d[$key];
         }
+
+        // Polish CSS is kept as given (bounded) and cleaned against the
+        // structural kit when compiled (PolishCss::clean()).
+        $css        = isset($raw['css']) && is_string($raw['css']) ? trim($raw['css']) : '';
+        $out['css'] = strlen($css) <= PolishCss::MAX_BYTES ? $css : '';
 
         $out['palette'] = self::enforceContrast($out['palette']);
         $out['derived'] = self::derive($out['palette']);
