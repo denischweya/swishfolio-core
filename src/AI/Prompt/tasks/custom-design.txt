@@ -1,0 +1,29 @@
+Design a new visual identity for this business's website.
+
+The business:
+{{business}}
+
+The look the owner asked for, in their words (this is the brief; follow it closely):
+{{prompt}}
+
+The site's page layouts come from an existing template, but its look is being replaced completely. These are the looks of every template we already have. Your design must not resemble any of them: do not reuse any of their font pairings or their palettes.
+{{templates}}
+{{start}}
+Fonts you may use (exact names; each is self-hosted and only these exist):
+{{fonts}}
+
+Palette roles (hex #rrggbb each):
+- background: the page background.
+- surface: alternate band and panel background, a clear step from background.
+- text: body and heading text (7:1 or better on background).
+- muted: secondary text (4.5:1 or better on background and surface).
+- accent: the main brand colour, used for buttons, links and highlighted words (4.5:1 or better on background).
+- accent2: a second colour for small highlights and decoration (3:1 or better on background).
+- soft: a gentle tint for filled cards and decorative shapes (text must read on it).
+- inverse: background of the bold contrasting bands; the page background colour is the text on it (4.5:1 or better).
+
+Choose:
+- fonts.display for headings, fonts.body for running text (never a monospace), fonts.label for small labels, buttons and kickers (may equal body, or be a mono for a technical feel).
+- headingWeight 100 to 900 (within the display font's weights), headingCase, headingTracking, headingScale (0.8 restrained to 1.4 huge).
+- labelStyle, radius (none for hard edges, pill for very round), borderWidth 0 to 4 px, shadow (hard = offset solid shadows), buttons, links, cards, sections (alternate bands, bordered rules between bands, or flat), spacing, imageStyle, imageFrame, decor (the one decorative motif the site uses, or none).
+- name: one or two words. summary: one sentence for the owner about the look, plain words, no dashes.
