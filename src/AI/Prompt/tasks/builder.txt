@@ -1,0 +1,15 @@
+The user's request:
+{{instruction}}
+
+What the request applies to: {{scope}}.
+
+Page:
+{{page}}
+
+Target sections:
+{{sections}}
+
+Reference markup from this site (style guide only; do not return it, and do not copy it wholesale):
+{{reference}}
+
+Return the operations that fulfil the request.

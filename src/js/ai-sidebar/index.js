@@ -12,6 +12,7 @@ import { PLUGIN_NAME } from '../ai/constants';
 import AgentSidebar from './agent-sidebar';
 import AiIcon from './icon';
 import AiSidebar from './sidebar';
+import BuilderBar from './builder-bar';
 import { registerAskAiToolbarButton } from './ask-ai-button';
 
 let initialised = false;
@@ -37,6 +38,12 @@ export function initAiEditor() {
 	registerPlugin( PLUGIN_NAME + '-agent', {
 		render: AgentSidebar,
 		icon: <AiIcon />,
+	} );
+
+	// The floating prompt bar at the bottom of the canvas. No icon: it is not a
+	// sidebar, so it never appears in the plugin menus.
+	registerPlugin( PLUGIN_NAME + '-builder', {
+		render: BuilderBar,
 	} );
 
 	registerAskAiToolbarButton();
