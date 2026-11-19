@@ -352,6 +352,7 @@ for free; override the single `post()` seam if you need different transport.
    | Model | When |
    |---|---|
    | `claude-opus-5` | Best judgement. Default. |
+   | `claude-sonnet-5-5` | The network's follow-up model: copy, edits, chat. |
    | `claude-sonnet-5` | Faster and cheaper, still strong. |
    | `claude-haiku-4-5` | Cheapest — good for a first smoke test. |
 
@@ -362,7 +363,7 @@ Notes specific to this provider:
 - Structured output uses `output_config.format` with a JSON Schema. The older `output_format` key is deprecated and `response_format` is OpenAI's.
 - Auth is `x-api-key` plus `anthropic-version`, not a bearer token.
 - The system prompt is a top-level field, which is also what keeps the cache prefix stable.
-- `output_config.effort` is sent only for `claude-opus-5` and `claude-sonnet-5`; **Haiku 4.5 rejects it**, so it is omitted there. Tune with the `swishfolio_ai_effort` filter (default `medium`, chosen for editor latency).
+- `output_config.effort` is sent only for the models in `AnthropicProvider::EFFORT_MODELS` (Opus 5 / 5.5, Sonnet 5 / 5.5, Haiku 5.5); **Haiku 4.5 rejects it**, so it is omitted there. Tune with the `swishfolio_ai_effort` filter (default `medium`, chosen for editor latency).
 - Adaptive thinking is on by default, so a thinking block can precede the text block. The JSON is read from the first *text* block.
 - HTTP timeout defaults to 120s (`swishfolio_ai_http_timeout`), because reasoning models routinely exceed 60s.
 

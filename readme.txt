@@ -4,7 +4,7 @@ Tags: ai, blocks, block-editor, portfolio, forms
 Requires at least: 6.7
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.3.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -259,6 +259,22 @@ multisite install to walk every subsite.
 
 == Changelog ==
 
+= 1.3.0 =
+* AI site builder: build a whole site from one of the Swishfolio site templates
+  ("kits", with their images and OFL fonts bundled), in stages (an outline,
+  then each page), with live progress and background jobs.
+* Onboarding: match a brief to the closest template, customise its copy,
+  colours and fonts, or start from a custom design system or preset.
+* Builder bar in the editor for page and selection rewrites.
+* Mutation journal and rollback that work across requests, with run access
+  checks.
+* Security hardening of the AI routes, tools and trusted markup.
+* Prompt caching for shared prefixes and parallel requests on Anthropic.
+* Font and image credits in `assets/kits/CREDITS.md`.
+
+= 1.2.0 =
+* AI agent, background jobs, CV import and seven BYOK AI providers.
+
 = 1.1.0 =
 * Add AI block editing: per-block `ai.json` capability manifests for 23
   Swishfolio blocks plus five core blocks, design-token resolution from
@@ -293,6 +309,10 @@ multisite install to walk every subsite.
 * Initial public release.
 
 == Upgrade Notice ==
+
+= 1.3.0 =
+Adds the AI site builder and template onboarding. AI features still only run
+with a provider you configure.
 
 = 1.0.3 =
 Adds AI block editing, which sends the block you select and your instruction to
