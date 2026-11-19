@@ -105,7 +105,7 @@ class ConnectionsController
 
         return rest_ensure_response([
             'connected' => true,
-            'settings'  => $this->settings->get(),
+            'settings'  => $this->settings->publicView(),
         ]);
     }
 
@@ -177,7 +177,7 @@ class ConnectionsController
 
         return rest_ensure_response([
             'disconnected' => true,
-            'settings'     => $this->settings->get(),
+            'settings'     => $this->settings->publicView(),
         ]);
     }
 

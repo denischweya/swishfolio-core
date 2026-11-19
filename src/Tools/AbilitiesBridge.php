@@ -7,6 +7,9 @@
 
 namespace SwishfolioCore\Tools;
 
+use SwishfolioCore\AI\Settings;
+use SwishfolioCore\REST\AIController;
+
 /**
  * Registers every tool, and exposes none of them.
  *
@@ -35,10 +38,14 @@ class AbilitiesBridge
      * @param ToolRegistry $registry Tools to register.
      * @param ToolRunner   $runner   Pipeline every ability call goes through.
      */
-    public function __construct(ToolRegistry $registry, ToolRunner $runner)
+    /** @var Settings|null */
+    private $settings;
+
+    public function __construct(ToolRegistry $registry, ToolRunner $runner, ?Settings $settings = null)
     {
         $this->registry = $registry;
         $this->runner   = $runner;
+        $this->settings = $settings;
     }
 
     /**
@@ -83,14 +90,21 @@ class AbilitiesBridge
      */
     public function definitionFor(ToolInterface $tool)
     {
-        $runner = $this->runner;
+        $runner   = $this->runner;
+        $settings = $this->settings;
 
         return [
             'label'               => $tool->getTitle(),
             'description'         => $tool->getDescription(),
             'input_schema'        => $tool->getInputSchema(),
             'output_schema'       => ['type' => 'object'],
-            'permission_callback' => static function ($input = []) use ($tool) {
+            'permission_callback' => static function ($input = []) use ($tool, $settings) {
+                // Same gate as the REST routes: AI switched on for the site
+                // and the user allowed to use it, before any tool check.
+                if (! current_user_can(AIController::CAPABILITY) || (null !== $settings && ! $settings->get()['enabled'])) {
+                    return new \WP_Error('sfcore_ai_forbidden', __('AI is not available to you on this site.', 'swishfolio-core'), ['status' => 403]);
+                }
+
                 try {
                     $tool->authorize(is_array($input) ? $input : [], ToolContext::current());
                 } catch (ToolException $e) {

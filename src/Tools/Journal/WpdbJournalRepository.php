@@ -83,14 +83,16 @@ class WpdbJournalRepository implements JournalRepositoryInterface
     /**
      * @param int $limit  Maximum runs.
      * @param int $offset Runs to skip.
+     * @param int $userId Only runs by this user; 0 for every user.
      *
      * @return array[]
      */
-    public function recentRuns($limit = 20, $offset = 0)
+    public function recentRuns($limit = 20, $offset = 0, $userId = 0)
     {
         global $wpdb;
 
         $table = JournalTable::name();
+        $where = (int) $userId > 0 ? $wpdb->prepare('WHERE user_id = %d', (int) $userId) : '';
 
         // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- table name is prefix-derived.
         $rows = $wpdb->get_results(
@@ -103,6 +105,7 @@ class WpdbJournalRepository implements JournalRepositoryInterface
                         SUM(CASE WHEN target_type <> 'call' AND reverted_at IS NOT NULL THEN 1 ELSE 0 END) AS reverted,
                         SUM(CASE WHEN result = 'error' THEN 1 ELSE 0 END) AS errors
                    FROM {$table}
+                  {$where}
                   GROUP BY run_id
                   ORDER BY started_at DESC
                   LIMIT %d OFFSET %d",

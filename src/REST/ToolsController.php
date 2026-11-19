@@ -10,6 +10,7 @@ namespace SwishfolioCore\REST;
 use SwishfolioCore\AI\Settings;
 use SwishfolioCore\Tools\Journal\JournalEntry;
 use SwishfolioCore\Tools\Journal\JournalRepositoryInterface;
+use SwishfolioCore\Tools\Journal\RunAccess;
 use SwishfolioCore\Tools\ToolContext;
 use SwishfolioCore\Tools\ToolError;
 use SwishfolioCore\Tools\ToolException;
@@ -219,7 +220,7 @@ class ToolsController
         $limit = (int) $request->get_param('limit');
 
         return rest_ensure_response(
-            ['runs' => $this->journal->recentRuns($limit > 0 ? min($limit, 50) : 20)]
+            ['runs' => $this->journal->recentRuns($limit > 0 ? min($limit, 50) : 20, 0, RunAccess::scopeUserId())]
         );
     }
 
@@ -232,7 +233,7 @@ class ToolsController
     {
         $entries = [];
 
-        foreach ($this->journal->findRun((string) $request->get_param('runId')) as $entry) {
+        foreach (RunAccess::filter($this->journal->findRun((string) $request->get_param('runId'))) as $entry) {
             $entries[] = [
                 'seq'         => $entry->getSeq(),
                 'tool'        => $entry->getTool(),

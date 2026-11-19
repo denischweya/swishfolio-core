@@ -71,6 +71,36 @@ class RollbackTest extends ToolsTestCase
         $this->assertSame('Original', $this->post(50)['post_title']);
     }
 
+    public function test_a_published_draft_goes_back_to_draft()
+    {
+        // A revision restores content and title only, so publishing a draft
+        // would otherwise be the one post write an undo leaves live.
+        $this->givenPost(50, ['post_content' => 'body', 'post_title' => 'Home', 'post_status' => 'draft']);
+
+        $context = $this->context();
+
+        $this->journal->updatePost($context, 'test/tool', ['ID' => 50, 'post_status' => 'publish'], 'Published it');
+
+        $this->assertSame('publish', $this->post(50)['post_status']);
+
+        $result = $this->rollback()->revertRun($context->getRunId());
+
+        $this->assertTrue($result['complete']);
+        $this->assertSame('draft', $this->post(50)['post_status']);
+        $this->assertSame('body', $this->post(50)['post_content']);
+    }
+
+    public function test_a_content_rewrite_records_no_status()
+    {
+        $this->givenPost(50, ['post_content' => 'original', 'post_status' => 'publish']);
+
+        $this->journal->updatePost($this->context(), 'test/tool', ['ID' => 50, 'post_content' => 'replaced'], 'Rewrote it');
+
+        $prior = $this->repository->ofType(JournalEntry::TARGET_POST)[0]->getPrior();
+
+        $this->assertArrayNotHasKey('status', $prior);
+    }
+
     public function test_a_created_post_is_trashed_rather_than_deleted()
     {
         $context = $this->context();

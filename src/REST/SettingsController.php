@@ -83,7 +83,7 @@ class SettingsController
         }
 
         return rest_ensure_response([
-            'settings'  => $this->settings->get(),
+            'settings'  => $this->settings->publicView(),
             'providers' => $providers,
         ]);
     }
@@ -159,6 +159,6 @@ class SettingsController
             $this->settings->setEnabled((bool) $enabled);
         }
 
-        return rest_ensure_response(['settings' => $this->settings->get()]);
+        return rest_ensure_response(['settings' => $this->settings->publicView()]);
     }
 }

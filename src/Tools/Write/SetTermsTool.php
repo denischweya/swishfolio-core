@@ -94,6 +94,13 @@ class SetTermsTool extends AbstractWriteTool
             $this->forbid(__('You cannot edit that content.', 'swishfolio-core'));
         }
 
+        // Content only. Templates, global styles and navigation are posts too,
+        // and their internal taxonomies (wp_theme, wp_template_part_area)
+        // decide which theme they belong to; re-tagging them breaks the design.
+        if (! in_array((string) get_post_type($postId), CreateContentTool::POST_TYPES, true)) {
+            $this->forbid(__('Only pages, posts and projects can be categorised.', 'swishfolio-core'));
+        }
+
         $object = $this->taxonomyObject($taxonomy);
 
         if (null === $object) {
@@ -107,6 +114,10 @@ class SetTermsTool extends AbstractWriteTool
                 ),
                 ['field' => 'taxonomy']
             );
+        }
+
+        if (empty($object->show_ui)) {
+            $this->forbid(__('That is an internal taxonomy, so it cannot be changed here.', 'swishfolio-core'));
         }
 
         // The taxonomy's own capability, read from the registered object, so a

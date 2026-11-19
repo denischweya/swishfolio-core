@@ -70,11 +70,15 @@ class InMemoryJournalRepository implements JournalRepositoryInterface
         return $found;
     }
 
-    public function recentRuns($limit = 20, $offset = 0)
+    public function recentRuns($limit = 20, $offset = 0, $userId = 0)
     {
         $runs = [];
 
         foreach ($this->rows as $row) {
+            if ((int) $userId > 0 && (int) $row->get('user_id') !== (int) $userId) {
+                continue;
+            }
+
             $runs[$row->getRunId()] = ($runs[$row->getRunId()] ?? 0) + 1;
         }
 

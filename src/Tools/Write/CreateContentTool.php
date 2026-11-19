@@ -130,7 +130,12 @@ class CreateContentTool extends AbstractWriteTool
                     'post_status'  => 'draft',
                     'post_title'   => $title,
                     'post_name'    => isset($input['slug']) ? (string) $input['slug'] : '',
-                    'post_content' => (string) $input['content'],
+                    // Always filtered: core skips kses for users with
+                    // unfiltered_html (super admins), and AI copy can carry
+                    // injected script from pages or CVs it has read. The one
+                    // exception is a body server code vouched for (a page
+                    // composed from a generation kit), see TrustedMarkup.
+                    'post_content' => TrustedMarkup::isVouched((string) $input['content']) ? (string) $input['content'] : wp_kses_post((string) $input['content']),
                     'post_author'  => $context->getUserId(),
                 ]
             ),
@@ -142,6 +147,12 @@ class CreateContentTool extends AbstractWriteTool
         );
 
         $context->setPageId($key, $postId);
+
+        // A vouched body stays trusted on this post, so publishing the draft
+        // (another save, which runs kses for an owner) keeps its inline SVG.
+        if (TrustedMarkup::isVouched((string) $input['content'])) {
+            TrustedMarkup::allow($postId, (string) $input['content']);
+        }
 
         // Templates are a page concept; writing one onto a post or a project
         // would store meta the theme never reads.

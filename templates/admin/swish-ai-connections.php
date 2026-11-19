@@ -27,8 +27,45 @@ $notice_text = SwishAiMenu::noticeText($notice);
 		</div>
 	<?php endif; ?>
 
+	<?php if (! empty($settings['managed'])) : ?>
+		<?php
+		/**
+		 * Filters the text shown on Connections when the network supplies the AI
+		 * provider (a managed credential). No key or toggle is shown in that case.
+		 *
+		 * @param string $message Plain text.
+		 */
+		$managed_message = (string) apply_filters(
+			'swishfolio_ai_managed_message',
+			__('AI is provided by Swishfolio on your plan. There is nothing to connect and no key to manage: AI editing and generation are already switched on for this site.', 'swishfolio-core')
+		);
+		?>
+		<div class="sfcore-ai-card is-active sfcore-ai-managed">
+			<div class="sfcore-ai-card__head">
+				<h2><?php esc_html_e('AI by Swishfolio', 'swishfolio-core'); ?></h2>
+				<span class="sfcore-ai-badge sfcore-ai-badge--ok"><?php esc_html_e('On', 'swishfolio-core'); ?></span>
+			</div>
+			<p><?php echo esc_html($managed_message); ?></p>
+		</div>
+
+		<div class="notice notice-info sfcore-ai__disclosure">
+			<p><strong><?php esc_html_e('What leaves your site', 'swishfolio-core'); ?></strong></p>
+			<ul>
+				<li><?php esc_html_e('The attributes and text of the blocks you select.', 'swishfolio-core'); ?></li>
+				<li><?php esc_html_e('Neighbouring block names, not their content.', 'swishfolio-core'); ?></li>
+				<li><?php esc_html_e('Your theme\'s design token names, and your brand context.', 'swishfolio-core'); ?></li>
+				<li><?php esc_html_e('The instruction you type.', 'swishfolio-core'); ?></li>
+			</ul>
+			<p><strong><?php esc_html_e('Nothing is sent unless you ask for it.', 'swishfolio-core'); ?></strong></p>
+		</div>
+	</div>
+		<?php
+		return;
+	endif;
+	?>
+
 	<p class="sfcore-ai__lede">
-		<?php esc_html_e('Connect your own AI account. Swishfolio sells no AI credits — you pay OpenAI or Anthropic directly for what you use, and your key never leaves this site except to reach the provider you chose.', 'swishfolio-core'); ?>
+		<?php esc_html_e('Connect your own AI account. Swishfolio sells no AI credits here: you pay OpenAI or Anthropic directly for what you use, and your key never leaves this site except to reach the provider you chose.', 'swishfolio-core'); ?>
 	</p>
 
 	<div class="sfcore-ai__cards">
@@ -171,7 +208,7 @@ $notice_text = SwishAiMenu::noticeText($notice);
 			<p><strong><?php esc_html_e('What leaves your site', 'swishfolio-core'); ?></strong></p>
 			<ul>
 				<li><?php esc_html_e('The attributes and text of the blocks you select.', 'swishfolio-core'); ?></li>
-				<li><?php esc_html_e('Neighbouring block names — not their content.', 'swishfolio-core'); ?></li>
+				<li><?php esc_html_e('Neighbouring block names, not their content.', 'swishfolio-core'); ?></li>
 				<li><?php esc_html_e('Your theme\'s design token names, and your brand context.', 'swishfolio-core'); ?></li>
 				<li><?php esc_html_e('The instruction you type.', 'swishfolio-core'); ?></li>
 			</ul>

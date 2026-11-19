@@ -124,7 +124,7 @@ class SwishAiMenu
         // from this map rather than hardcoded in the template.
         wp_localize_script('sfcore-swish-ai-admin', 'sfcoreSwishAi', [
             'models'   => $this->modelMap(),
-            'settings' => $this->settings->get(),
+            'settings' => $this->settings->publicView(),
             'i18n'     => [
                 'chooseModel'  => __('— Select a model —', 'swishfolio-core'),
                 'customModel'  => __('This endpoint decides its own model names — type one.', 'swishfolio-core'),
@@ -290,7 +290,7 @@ class SwishAiMenu
             return;
         }
 
-        $settings  = $this->settings->get();
+        $settings  = $this->settings->publicView();
         $providers = $this->providers->available();
         $models    = $this->modelMap();
         $notice    = $this->notice();

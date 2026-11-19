@@ -40,6 +40,25 @@ class MutationJournal
     }
 
     /**
+     * Point a context for an existing run past the rows the run already has
+     * (a build spans several requests, each with its own context).
+     *
+     * @param ToolContext $context Context carrying the run ID.
+     *
+     * @return ToolContext
+     */
+    public function resume(ToolContext $context)
+    {
+        $max = 0;
+        foreach ($this->repository->findRun($context->getRunId()) as $entry) {
+            $max = max($max, $entry->getSeq());
+        }
+        $context->continueFrom($max);
+
+        return $context;
+    }
+
+    /**
      * @return JournalRepositoryInterface
      */
     public function repository()
@@ -148,6 +167,14 @@ class MutationJournal
         }
 
         $prior = $this->capturePost($postId);
+
+        // A revision restores content and title, never status, so a status
+        // change (publishing a draft) carries the old status alongside it.
+        $status = (string) get_post_status($postId);
+
+        if (isset($postarr['post_status']) && '' !== $status && $postarr['post_status'] !== $status) {
+            $prior['status'] = $status;
+        }
 
         $result = wp_update_post($postarr, true);
 

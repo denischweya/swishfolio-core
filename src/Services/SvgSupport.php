@@ -19,8 +19,10 @@ class SvgSupport {
 		add_filter( 'upload_mimes', [ $this, 'allow_svg_upload' ] );
 		add_filter( 'wp_check_filetype_and_ext', [ $this, 'fix_svg_mime_type' ], 10, 4 );
 
-		// Sanitize SVG on upload.
+		// Sanitize SVG on upload. Sideloads (media fetched from a URL, which
+		// is how the AI adds images) fire their own prefilter, not the upload one.
 		add_filter( 'wp_handle_upload_prefilter', [ $this, 'sanitize_svg' ] );
+		add_filter( 'wp_handle_sideload_prefilter', [ $this, 'sanitize_svg' ] );
 
 		// Fix admin display issues.
 		add_filter( 'wp_prepare_attachment_for_js', [ $this, 'fix_admin_preview' ], 10, 3 );
@@ -119,46 +121,108 @@ class SvgSupport {
 		return $file;
 	}
 
+	/** Elements an SVG image may contain. Everything else is removed with its children. */
+	const ALLOWED_ELEMENTS = [
+		'svg', 'g', 'defs', 'symbol', 'use', 'title', 'desc', 'metadata', 'style', 'switch',
+		'path', 'rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'image', 'marker',
+		'text', 'tspan', 'textpath', 'lineargradient', 'radialgradient', 'stop', 'pattern',
+		'clippath', 'mask', 'filter', 'animate', 'animatetransform',
+		'feblend', 'fecolormatrix', 'fecomponenttransfer', 'fecomposite', 'feconvolvematrix',
+		'fediffuselighting', 'fedisplacementmap', 'fedistantlight', 'fedropshadow', 'feflood',
+		'fefunca', 'fefuncb', 'fefuncg', 'fefuncr', 'fegaussianblur', 'femerge', 'femergenode',
+		'femorphology', 'feoffset', 'fepointlight', 'fespecularlighting', 'fespotlight', 'fetile',
+		'feturbulence',
+	];
+
+	/** CSS that can load or run something; a style holding any of it is dropped. */
+	const DANGEROUS_CSS = '/@import|javascript:|expression\s*\(|behavior\s*:|-moz-binding|url\s*\(\s*[\'"]?\s*(?!#)/i';
+
 	/**
-	 * Sanitize SVG content.
+	 * Sanitize SVG content by parsing it and keeping only an allowlist of
+	 * elements, with event handlers, script URLs and external references
+	 * removed. Regex stripping is bypassable (`<svg/onload>`, entity-encoded
+	 * `javascript:`, animated hrefs); a parsed tree is not, because the parser
+	 * has already decoded everything the browser would.
 	 *
 	 * @param string $content SVG content.
 	 * @return string|false
 	 */
 	private function sanitize_svg_content( $content ) {
-		// Remove XML declaration processing instructions that could be harmful.
-		$content = preg_replace( '/<\?xml.*\?>/i', '', $content );
-
-		// Remove DOCTYPE declarations.
-		$content = preg_replace( '/<!DOCTYPE[^>]*>/i', '', $content );
-
-		// Remove script tags.
-		$content = preg_replace( '/<script[^>]*>.*?<\/script>/is', '', $content );
-
-		// Remove on* event attributes.
-		$content = preg_replace( '/\s+on\w+\s*=\s*["\'][^"\']*["\']/i', '', $content );
-		$content = preg_replace( '/\s+on\w+\s*=\s*[^\s>]+/i', '', $content );
-
-		// Remove javascript: URLs.
-		$content = preg_replace( '/href\s*=\s*["\']?\s*javascript:[^"\'>\s]*/i', '', $content );
-		$content = preg_replace( '/xlink:href\s*=\s*["\']?\s*javascript:[^"\'>\s]*/i', '', $content );
-
-		// Remove data: URLs (can contain scripts).
-		$content = preg_replace( '/href\s*=\s*["\']?\s*data:[^"\'>\s]*/i', '', $content );
-		$content = preg_replace( '/xlink:href\s*=\s*["\']?\s*data:[^"\'>\s]*/i', '', $content );
-
-		// Remove foreignObject elements (can embed HTML).
-		$content = preg_replace( '/<foreignObject[^>]*>.*?<\/foreignObject>/is', '', $content );
-
-		// Remove set and animate elements with dangerous attributes.
-		$content = preg_replace( '/<set[^>]*attributeName\s*=\s*["\']?on\w+[^>]*>/i', '', $content );
-
-		// Check if it's still valid SVG.
-		if ( stripos( $content, '<svg' ) === false ) {
+		// A DOCTYPE is the only way to declare entities (XXE, billion laughs);
+		// a real-world SVG image never needs one.
+		if ( '' === trim( (string) $content ) || preg_match( '/<!DOCTYPE|<!ENTITY/i', $content ) ) {
 			return false;
 		}
 
-		return trim( $content );
+		$previous = libxml_use_internal_errors( true );
+		$doc      = new \DOMDocument();
+		$loaded   = $doc->loadXML( $content, LIBXML_NONET | LIBXML_COMPACT );
+		libxml_clear_errors();
+		libxml_use_internal_errors( $previous );
+
+		if ( ! $loaded || null === $doc->documentElement || 'svg' !== strtolower( $doc->documentElement->localName ) ) {
+			return false;
+		}
+
+		$this->clean_node( $doc->documentElement );
+
+		return trim( (string) $doc->saveXML( $doc->documentElement ) );
+	}
+
+	/**
+	 * @param \DOMElement $element Element whose attributes and descendants are cleaned.
+	 * @return void
+	 */
+	private function clean_node( \DOMElement $element ) {
+		$name = strtolower( $element->localName );
+
+		foreach ( iterator_to_array( $element->attributes ) as $attr ) {
+			$attrName = strtolower( $attr->localName );
+			$value    = preg_replace( '/[\x00-\x20]+/', '', strtolower( $attr->value ) );
+
+			$drop = 0 === strpos( $attrName, 'on' )
+				|| ( 'href' === $attrName && ! $this->is_safe_href( $name, $attr->value ) )
+				|| ( 'style' === $attrName && preg_match( self::DANGEROUS_CSS, $attr->value ) )
+				|| ( in_array( $name, [ 'animate', 'animatetransform' ], true )
+					&& 'attributename' === $attrName && preg_match( '/href|^on/', $value ) )
+				|| false !== strpos( $value, 'javascript:' );
+
+			if ( $drop ) {
+				$element->removeAttributeNode( $attr );
+			}
+		}
+
+		foreach ( iterator_to_array( $element->childNodes ) as $child ) {
+			if ( $child instanceof \DOMElement ) {
+				if ( ! in_array( strtolower( $child->localName ), self::ALLOWED_ELEMENTS, true ) ) {
+					$element->removeChild( $child );
+					continue;
+				}
+
+				$this->clean_node( $child );
+			} elseif ( $child instanceof \DOMComment || $child instanceof \DOMProcessingInstruction ) {
+				$element->removeChild( $child );
+			} elseif ( 'style' === $name && preg_match( self::DANGEROUS_CSS, (string) $child->textContent ) ) {
+				$element->removeChild( $child );
+			}
+		}
+	}
+
+	/**
+	 * Only in-document references, plus inline raster data on <image>.
+	 *
+	 * @param string $element Lower-cased element name.
+	 * @param string $href    Attribute value.
+	 * @return bool
+	 */
+	private function is_safe_href( $element, $href ) {
+		$href = trim( (string) $href );
+
+		if ( 0 === strpos( $href, '#' ) ) {
+			return true;
+		}
+
+		return 'image' === $element && 1 === preg_match( '#^data:image/(png|jpe?g|gif|webp);base64,[a-z0-9+/=\s]+$#i', $href );
 	}
 
 	/**

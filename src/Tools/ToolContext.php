@@ -127,4 +127,17 @@ class ToolContext extends ExecutionContext
     {
         return ++$this->seq;
     }
+
+    /**
+     * Carry on after rows an earlier request already wrote under this run,
+     * so the run's rows keep one order (an undo replays them newest first).
+     *
+     * @param int $seq Highest seq already used by the run.
+     *
+     * @return void
+     */
+    public function continueFrom($seq)
+    {
+        $this->seq = max($this->seq, (int) $seq);
+    }
 }

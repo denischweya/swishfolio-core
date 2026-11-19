@@ -32,7 +32,35 @@ if (! function_exists('esc_url_raw')) {
 if (! function_exists('wp_kses_post')) {
     function wp_kses_post($html)
     {
-        return strip_tags((string) $html, '<a><b><strong><em><i><br><span><code><mark><s><sub><sup>');
+        // Real kses keeps HTML comments, and block markup lives in them;
+        // strip_tags() would delete every block delimiter.
+        $comments = [];
+        $html     = preg_replace_callback(
+            '/<!--.*?-->/s',
+            static function ($match) use (&$comments) {
+                $comments[] = $match[0];
+
+                return '%%sfcomment' . (count($comments) - 1) . '%%';
+            },
+            (string) $html
+        );
+
+        $html = strip_tags($html, '<a><b><strong><em><i><br><span><code><mark><s><sub><sup>');
+
+        return preg_replace_callback(
+            '/%%sfcomment(\d+)%%/',
+            static function ($match) use ($comments) {
+                return $comments[(int) $match[1]];
+            },
+            $html
+        );
+    }
+}
+
+if (! function_exists('do_action')) {
+    function do_action($tag, ...$args)
+    {
+        $GLOBALS['sfcore_test_actions'][] = [$tag, $args];
     }
 }
 

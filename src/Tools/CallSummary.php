@@ -87,7 +87,10 @@ class CallSummary
             return (string) $postId;
         }
 
-        $title = function_exists('get_the_title') ? (string) get_the_title($postId) : '';
+        // A call can name a post its user may not read (the tool then refuses
+        // it); the summary must not quote that post's title regardless.
+        $readable = function_exists('current_user_can') && current_user_can('read_post', $postId);
+        $title    = $readable && function_exists('get_the_title') ? (string) get_the_title($postId) : '';
 
         return '' === $title ? '#' . $postId : sprintf('"%s" (#%d)', $title, $postId);
     }

@@ -146,6 +146,12 @@ class Settings
     {
         $this->migrate();
 
+        $shared = $this->shared();
+
+        if ($shared !== null && $this->assertProvider($provider) === $shared['provider']) {
+            return true;
+        }
+
         return $this->credentials->has($this->assertProvider($provider));
     }
 
@@ -180,6 +186,12 @@ class Settings
      */
     public function getActive()
     {
+        $shared = $this->shared();
+
+        if ($shared !== null) {
+            return $shared['provider'];
+        }
+
         $stored = $this->raw();
         $active = isset($stored['active']) ? (string) $stored['active'] : '';
 
@@ -202,6 +214,24 @@ class Settings
     }
 
     /**
+     * get() for showing to the site (REST, admin screens). On the network key
+     * the network's base URL is not the tenant's business: a gateway URL can
+     * carry an account id or token.
+     *
+     * @return array
+     */
+    public function publicView()
+    {
+        $view = $this->get();
+
+        if (! empty($view['managed'])) {
+            $view['base_url'] = '';
+        }
+
+        return $view;
+    }
+
+    /**
      * @param string|null $provider Provider slug, or null for the active one.
      *
      * @return string
@@ -210,9 +240,35 @@ class Settings
     {
         $provider = $provider === null ? $this->getActive() : $this->assertProvider($provider);
         $stored   = $this->raw();
+        $shared   = $this->shared();
+
+        // On the network key the network picks the model; a tenant-stored
+        // model would let a site run the most expensive one on shared credit.
+        // An empty network model means the provider's default, not the tenant's.
+        if ($shared !== null && $provider === $shared['provider']) {
+            return $shared['model'];
+        }
 
         if ($provider !== '' && ! empty($stored['providers'][$provider]['model'])) {
             return (string) $stored['providers'][$provider]['model'];
+        }
+
+        return '';
+    }
+
+    /**
+     * The cheaper model for requests after a site's first design-heavy one
+     * (see ModelRouter). Only the network key has one, set by the network
+     * operator; a site's own key never downgrades, so this is '' there.
+     *
+     * @return string Model id, or '' for no downgrade.
+     */
+    public function getFollowupModel()
+    {
+        $shared = $this->shared();
+
+        if ($shared !== null && $this->getActive() === $shared['provider']) {
+            return $shared['followup_model'];
         }
 
         return '';
@@ -247,6 +303,11 @@ class Settings
     {
         $provider = $provider === null ? $this->getActive() : $this->assertProvider($provider);
         $stored   = $this->raw();
+        $shared   = $this->shared();
+
+        if ($shared !== null && $provider === $shared['provider']) {
+            return $shared['base_url'];
+        }
 
         return $provider !== '' && ! empty($stored['providers'][$provider]['base_url'])
             ? (string) $stored['providers'][$provider]['base_url']
@@ -263,6 +324,12 @@ class Settings
     public function setEnabled($enabled)
     {
         $stored = $this->raw();
+
+        // A managed (shared) credential keeps AI on; the owner cannot switch
+        // it off or on, the network operator decides.
+        if ($this->shared() !== null) {
+            return;
+        }
 
         // Enabling with no credential would produce a toggle that promises
         // something the site cannot deliver.
@@ -353,9 +420,12 @@ class Settings
             ];
         }
 
+        $shared = $this->shared();
+
         return [
             'active'    => $active,
-            'enabled'   => ! empty($stored['enabled']),
+            'enabled'   => $shared !== null || ! empty($stored['enabled']),
+            'managed'   => $shared !== null,
             'providers' => $providers,
             'brand'     => $this->getBrand(),
 
@@ -363,7 +433,7 @@ class Settings
             'provider'  => $active,
             'model'     => $this->getModel(),
             'base_url'  => $this->getBaseUrl(),
-            'hasKey'    => $active !== '' && $this->credentials->has($active),
+            'hasKey'    => $shared !== null || ($active !== '' && $this->credentials->has($active)),
         ];
     }
 
@@ -379,6 +449,11 @@ class Settings
         $this->migrate();
 
         $provider = $provider === null ? $this->getActive() : $this->assertProvider($provider);
+        $shared   = $this->shared();
+
+        if ($shared !== null && $provider === $shared['provider']) {
+            return $shared['api_key'];
+        }
 
         return $provider === '' ? null : $this->credentials->get($provider);
     }
@@ -392,6 +467,44 @@ class Settings
     }
 
     // ------------------------------------------------------------------ Internals
+
+    /**
+     * A network-managed credential, when a hosting layer supplies one.
+     *
+     * The swishfolio_ai_shared_credential filter lets a network plugin (hosted
+     * Swishfolio) answer with ['provider', 'api_key', 'model', 'base_url', 'followup_model'] so
+     * every tenant site uses one operator-held key. Anything else, including
+     * the default null, leaves bring-your-own-key behaviour untouched. The key
+     * is only ever returned by getKey(); get() reports `managed` and never a key.
+     *
+     * @return array|null Normalised credential, or null.
+     */
+    private function shared()
+    {
+        if (! function_exists('apply_filters')) {
+            return null;
+        }
+
+        /**
+         * Filters the managed AI credential for the current site.
+         *
+         * @param array|null $credential provider, api_key, model, base_url; or null.
+         */
+        $credential = apply_filters('swishfolio_ai_shared_credential', null);
+
+        if (! is_array($credential) || empty($credential['api_key']) || empty($credential['provider'])
+            || ! ProviderCatalogue::has((string) $credential['provider'])) {
+            return null;
+        }
+
+        return [
+            'provider' => (string) $credential['provider'],
+            'api_key'  => (string) $credential['api_key'],
+            'model'    => isset($credential['model']) ? (string) $credential['model'] : '',
+            'base_url' => isset($credential['base_url']) ? (string) $credential['base_url'] : '',
+            'followup_model' => isset($credential['followup_model']) ? (string) $credential['followup_model'] : '',
+        ];
+    }
 
     /**
      * Move a pre-BYOK single-provider option into the new shape.

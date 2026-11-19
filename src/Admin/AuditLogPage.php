@@ -9,6 +9,7 @@ namespace SwishfolioCore\Admin;
 
 use SwishfolioCore\Tools\Journal\JournalEntry;
 use SwishfolioCore\Tools\Journal\JournalRepositoryInterface;
+use SwishfolioCore\Tools\Journal\RunAccess;
 use SwishfolioCore\Tools\ToolContext;
 use SwishfolioCore\Tools\ToolException;
 use SwishfolioCore\Tools\ToolRunner;
@@ -133,7 +134,7 @@ class AuditLogPage
             wp_die(esc_html__('You cannot view the AI audit log.', 'swishfolio-core'));
         }
 
-        $runs   = $this->journal->recentRuns(25);
+        $runs   = $this->journal->recentRuns(25, 0, RunAccess::scopeUserId());
         $notice = isset($_GET['sfcore_notice']) ? sanitize_key(wp_unslash($_GET['sfcore_notice'])) : '';
 
         echo '<div class="wrap"><h1>' . esc_html__('AI Audit Log', 'swishfolio-core') . '</h1>';
@@ -187,7 +188,7 @@ class AuditLogPage
      */
     private function renderRun($runId)
     {
-        $entries = $this->journal->findRun($runId);
+        $entries = RunAccess::filter($this->journal->findRun($runId));
 
         if ($entries === []) {
             return;

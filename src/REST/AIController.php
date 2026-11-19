@@ -16,6 +16,7 @@ use SwishfolioCore\AI\Context\TokenResolver;
 use SwishfolioCore\AI\Prompt\PromptManager;
 use SwishfolioCore\AI\ProviderException;
 use SwishfolioCore\AI\ProviderRegistry;
+use SwishfolioCore\AI\ModelRouter;
 use SwishfolioCore\AI\Settings;
 use SwishfolioCore\AI\UsageLogger;
 use SwishfolioCore\Blocks\BlockRegistry;
@@ -216,7 +217,7 @@ class AIController
                 $selection,
                 (string) $request->get_param('instruction'),
                 $context,
-                $this->settings->get()['model']
+                (new ModelRouter($this->settings))->modelFor(ModelRouter::KIND_EDIT)
             );
         } catch (ValidationException $e) {
             return new \WP_Error(

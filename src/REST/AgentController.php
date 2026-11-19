@@ -13,9 +13,11 @@ use SwishfolioCore\AI\Conversation\Message;
 use SwishfolioCore\AI\Prompt\PromptManager;
 use SwishfolioCore\AI\ProviderException;
 use SwishfolioCore\AI\ProviderRegistry;
+use SwishfolioCore\AI\ModelRouter;
 use SwishfolioCore\AI\Settings;
 use SwishfolioCore\AI\UsageLogger;
 use SwishfolioCore\Jobs\AgentJobRunner;
+use SwishfolioCore\Jobs\BackgroundJobs;
 use SwishfolioCore\Jobs\JobStoreInterface;
 use SwishfolioCore\Tools\ToolContext;
 use SwishfolioCore\Tools\ToolRunner;
@@ -35,6 +37,9 @@ class AgentController
     const NAMESPACE_V1 = 'swishfolio/v1';
     const RATE_LIMIT   = 30;
     const RATE_WINDOW  = 3600;
+    /** Upper bound on the serialised history the client may send back. */
+    const MAX_HISTORY_BYTES = 200000;
+
     const MAX_HISTORY  = 60;
 
     /** @var ToolRunner */
@@ -148,6 +153,10 @@ class AgentController
             );
         }
 
+        // A worker that died (fatal, killed, cron never ran) leaves the job
+        // queued or running forever; settle it so the client can offer Retry.
+        $job = BackgroundJobs::reapIfStalled($this->jobStore, $job);
+
         return rest_ensure_response($job->toStatusArray());
     }
 
@@ -211,16 +220,26 @@ class AgentController
         // Queued before the loop runs, not after, so a turn that would outlast
         // PHP's execution limit never starts inside this request.
         if ($request->get_param('async') && null !== $this->jobs) {
-            $job = $this->jobs->queue($instruction, (array) $request->get_param('history'), $token, get_current_user_id());
+            // The capped, parsed history, not the raw param: a queued turn is
+            // billed and bounded exactly like a synchronous one.
+            $serialised = array_map(
+                static function (Message $message) {
+                    return $message->toArray();
+                },
+                $history
+            );
+
+            $job = $this->jobs->queue($instruction, $serialised, $token, get_current_user_id());
 
             return rest_ensure_response(array_merge($job->toStatusArray(), ['queued' => true]));
         }
 
-        $loop = new AgentLoop(
+        $model = (new ModelRouter($this->settings))->modelFor(ModelRouter::KIND_AGENT);
+        $loop  = new AgentLoop(
             $provider,
             $this->runner,
             new PromptManager(SFCORE_PLUGIN_DIR . 'src/AI/Prompt'),
-            $this->settings->get()['model'],
+            $model,
             $this->brandParagraph()
         );
 
@@ -238,7 +257,7 @@ class AgentController
         }
 
         $this->logger->record(
-            new AIResponse([], $run->getInputTokens(), $run->getOutputTokens(), $this->settings->get()['model'], $provider->getSlug()),
+            new AIResponse([], $run->getInputTokens(), $run->getOutputTokens(), $model, $provider->getSlug()),
             count($run->getSteps()),
             (int) round((microtime(true) - $startedAt) * 1000),
             'agent'
@@ -271,6 +290,12 @@ class AgentController
 
         if (count($raw) > $max) {
             $raw = array_slice($raw, -$max);
+        }
+
+        // Count alone does not bound cost: one message can be megabytes and is
+        // resent on every iteration. Drop the oldest until the rest fits.
+        while (count($raw) > 1 && strlen((string) wp_json_encode($raw)) > self::MAX_HISTORY_BYTES) {
+            array_shift($raw);
         }
 
         $messages = [];

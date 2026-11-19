@@ -115,11 +115,17 @@ class UpdateContentTool extends AbstractWriteTool
         $postId  = (int) $input['postId'];
         $changes = [
             'ID'           => $postId,
-            'post_content' => (string) $input['content'],
+            // Always filtered unless vouched for; see CreateContentTool.
+            'post_content' => TrustedMarkup::isVouched((string) $input['content']) ? (string) $input['content'] : wp_kses_post((string) $input['content']),
         ];
 
         if (! empty($input['title'])) {
             $changes['post_title'] = (string) $input['title'];
+        }
+
+        // A vouched body stays trusted on this post for later saves (publishing).
+        if (TrustedMarkup::isVouched((string) $input['content'])) {
+            TrustedMarkup::allow($postId, (string) $input['content']);
         }
 
         // Slashed, for the same reason CreateContentTool slashes: wp_update_post()

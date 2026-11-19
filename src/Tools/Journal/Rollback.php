@@ -49,7 +49,8 @@ class Rollback
         usort(
             $targets,
             static function (JournalEntry $a, JournalEntry $b) {
-                return $b->getSeq() - $a->getSeq();
+                // Newest first; rows that share a seq go by when they were written.
+                return ($b->getSeq() - $a->getSeq()) ?: ($b->getId() - $a->getId());
             }
         );
 
@@ -231,6 +232,27 @@ class Rollback
             return 'The journal row names no post.';
         }
 
+        $error = $this->restorePostContent($postId, $prior);
+
+        if ('' === $error && isset($prior['status']) && '' !== (string) $prior['status']) {
+            $result = wp_update_post(['ID' => $postId, 'post_status' => (string) $prior['status']], true);
+
+            if (is_wp_error($result) || (int) $result <= 0) {
+                return is_wp_error($result) ? $result->get_error_message() : 'The post status could not be restored.';
+            }
+        }
+
+        return $error;
+    }
+
+    /**
+     * @param int   $postId Post being restored.
+     * @param array $prior  Prior-state payload.
+     *
+     * @return string '' on success, otherwise the failure message.
+     */
+    private function restorePostContent($postId, array $prior)
+    {
         if (isset($prior['revision'])) {
             $restored = wp_restore_post_revision((int) $prior['revision']);
 

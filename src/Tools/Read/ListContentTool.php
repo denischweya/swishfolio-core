@@ -104,6 +104,13 @@ class ListContentTool extends AbstractReadTool
         $items = [];
 
         foreach ($query->posts as $post) {
+            // WP_Query does not apply read permissions to an explicit status,
+            // so a contributor would otherwise see others' drafts and private
+            // posts. Hidden items still count toward paging so offsets hold.
+            if (! current_user_can('read_post', $post->ID)) {
+                continue;
+            }
+
             $items[] = [
                 'id'       => (int) $post->ID,
                 'title'    => (string) $post->post_title,
@@ -121,7 +128,7 @@ class ListContentTool extends AbstractReadTool
             'items'      => $items,
             'total'      => $total,
             'offset'     => $offset,
-            'nextOffset' => ($offset + count($items)) < $total ? $offset + count($items) : null,
+            'nextOffset' => ($offset + count($query->posts)) < $total ? $offset + count($query->posts) : null,
         ];
     }
 

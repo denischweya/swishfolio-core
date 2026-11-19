@@ -46,10 +46,11 @@ interface JournalRepositoryInterface
     /**
      * @param int $limit  Maximum runs.
      * @param int $offset Runs to skip.
+     * @param int $userId Only runs by this user; 0 for every user.
      *
      * @return array[] One row per run: run_id, started_at, calls, tools, user_id, reverted.
      */
-    public function recentRuns($limit = 20, $offset = 0);
+    public function recentRuns($limit = 20, $offset = 0, $userId = 0);
 
     /**
      * @param string $before MySQL datetime; rows created before it are removed.

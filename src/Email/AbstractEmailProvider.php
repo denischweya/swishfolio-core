@@ -87,7 +87,10 @@ abstract class AbstractEmailProvider implements EmailProviderInterface {
 
 		$args = wp_parse_args( $args, $defaults );
 
-		$response = wp_remote_request( $url, $args );
+		// Safe variant: the API URL (ActiveCampaign) and host (Mailchimp's
+		// datacenter suffix) come from site settings and must not reach
+		// loopback, private or cloud-metadata addresses.
+		$response = wp_safe_remote_request( $url, $args );
 
 		if ( is_wp_error( $response ) ) {
 			$this->lastError = $response->get_error_message();

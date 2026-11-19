@@ -220,6 +220,9 @@ if (! function_exists('get_taxonomy')) {
         return (object) [
             'name'        => $taxonomy,
             'object_type' => $GLOBALS['sfcore_test_wp']['taxonomies'][$taxonomy],
+            // Real registered taxonomies carry show_ui; internal ones
+            // (wp_theme, wp_template_part_area) have it false.
+            'show_ui'     => 0 !== strpos($taxonomy, 'wp_'),
             'cap'         => (object) [
                 'assign_terms' => 'edit_posts',
                 'edit_terms'   => 'manage_categories',

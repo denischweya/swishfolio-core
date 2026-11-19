@@ -53,10 +53,14 @@ use SwishfolioCore\REST\SettingsController;
 use SwishfolioCore\REST\ToolsController;
 use SwishfolioCore\REST\AgentController;
 use SwishfolioCore\REST\OnboardingController;
+use SwishfolioCore\REST\CustomiseController;
+use SwishfolioCore\REST\KitController;
+use SwishfolioCore\REST\KitBuildController;
 use SwishfolioCore\Admin\AuditLogPage;
 use SwishfolioCore\Tools\AbilitiesBridge;
 use SwishfolioCore\Jobs\AgentJobRunner;
 use SwishfolioCore\Jobs\TransientJobStore;
+use SwishfolioCore\Jobs\BackgroundJobs;
 use SwishfolioCore\Tools\Journal\JournalTable;
 use SwishfolioCore\Tools\Journal\MutationJournal;
 use SwishfolioCore\Tools\Journal\WpdbJournalRepository;
@@ -64,6 +68,7 @@ use SwishfolioCore\Tools\ToolRegistry;
 use SwishfolioCore\Tools\ToolRunner;
 use SwishfolioCore\REST\ConnectionsController;
 use SwishfolioCore\REST\GenerationController;
+use SwishfolioCore\REST\BuilderController;
 use SwishfolioCore\AI\Generation\PatternLibrary;
 use SwishfolioCore\Admin\SwishAiMenu;
 
@@ -185,6 +190,13 @@ class Plugin
     private ?GenerationController $aiGenerationController = null;
 
     /**
+     * Floating prompt bar backend.
+     *
+     * @var BuilderController|null
+     */
+    private ?BuilderController $aiBuilderController = null;
+
+    /**
      * Tool pipeline: every server-side site operation goes through it.
      *
      * @var ToolRunner|null
@@ -220,11 +232,44 @@ class Plugin
     private ?AgentJobRunner $agentJobRunner = null;
 
     /**
+     * Background runner for long AI requests (builder bar, plans, generation).
+     *
+     * @var BackgroundJobs|null
+     */
+    private ?BackgroundJobs $backgroundJobs = null;
+
+    /**
      * CV and profile import REST controller.
      *
      * @var OnboardingController|null
      */
     private ?OnboardingController $onboardingController = null;
+
+    /**
+     * Onboarding template customisation and image placement.
+     *
+     * @var CustomiseController|null
+     */
+    private ?CustomiseController $customiseController = null;
+
+    /**
+     * Onboarding: match a brief to a site template.
+     *
+     * @var KitController|null
+     */
+    private ?KitController $kitController = null;
+
+    /**
+     * @var KitBuildController|null
+     */
+    private ?KitBuildController $kitBuildController = null;
+
+    /**
+     * Onboarding: a custom design system instead of a template's look.
+     *
+     * @var \SwishfolioCore\REST\CustomDesignController|null
+     */
+    private ?\SwishfolioCore\REST\CustomDesignController $customDesignController = null;
 
     /**
      * Abilities API bridge. Registers the tools; exposes none of them.
@@ -301,16 +346,23 @@ class Plugin
         $this->aiSettingsController = new SettingsController($aiSettings, $aiProviders);
         $this->aiConnectionsController = new ConnectionsController($aiSettings, $aiProviders);
 
-        $this->aiPatternLibrary = new PatternLibrary([
-            SFCORE_PLUGIN_DIR . 'src/AI/Generation/Patterns',
-        ]);
+        // Long AI requests (builder bar, site plans) run as background jobs
+        // that the browser polls; the agent's turns share the same store.
+        $jobStore             = new TransientJobStore();
+        $this->backgroundJobs = new BackgroundJobs($jobStore);
+
+        $this->aiBuilderController = new BuilderController($aiSettings, $aiProviders, $aiLogger, $this->backgroundJobs);
+
+        // One kit per template site, written by seed/extract-patterns.php.
+        $this->aiPatternLibrary = PatternLibrary::shipped();
 
         $this->aiGenerationController = new GenerationController(
             $this->aiBlockRegistry,
             $this->aiPatternLibrary,
             $aiSettings,
             $aiProviders,
-            $aiLogger
+            $aiLogger,
+            $this->backgroundJobs
         );
 
         // The tool layer. One registry, one runner, one journal: the REST
@@ -330,7 +382,6 @@ class Plugin
         // for one at boot would throw on every request of a site that has not
         // connected an account yet.
         $toolRunner           = $this->toolRunner;
-        $jobStore             = new TransientJobStore();
         $this->agentJobRunner = new AgentJobRunner(
             $jobStore,
             static function () use ($toolRunner, $aiSettings, $aiProviders) {
@@ -338,12 +389,17 @@ class Plugin
                     $aiProviders->configured(),
                     $toolRunner,
                     new \SwishfolioCore\AI\Prompt\PromptManager(SFCORE_PLUGIN_DIR . 'src/AI/Prompt'),
-                    $aiSettings->get()['model']
+                    // Same rule as the synchronous /ai/agent route.
+                    (new \SwishfolioCore\AI\ModelRouter($aiSettings))->modelFor(\SwishfolioCore\AI\ModelRouter::KIND_AGENT)
                 );
             }
         );
 
         $this->onboardingController = new OnboardingController($aiSettings, $aiProviders, $aiLogger);
+        $this->customiseController  = new CustomiseController($aiSettings, $aiProviders, $aiLogger, $this->backgroundJobs, $this->aiBuilderController);
+        $this->kitController        = new KitController($aiSettings, $aiProviders, $aiLogger);
+        $this->kitBuildController   = new KitBuildController($aiSettings, $aiProviders, $aiLogger, $this->aiPatternLibrary, $this->backgroundJobs);
+        $this->customDesignController = new \SwishfolioCore\REST\CustomDesignController($aiSettings, $aiProviders, $aiLogger, $this->aiPatternLibrary, $this->backgroundJobs);
 
         $this->agentController = new AgentController(
             $this->toolRunner,
@@ -353,7 +409,7 @@ class Plugin
             $this->agentJobRunner,
             $jobStore
         );
-        $this->abilitiesBridge = new AbilitiesBridge($this->toolRunner->registry(), $this->toolRunner);
+        $this->abilitiesBridge = new AbilitiesBridge($this->toolRunner->registry(), $this->toolRunner, $aiSettings);
 
         if (is_admin()) {
             $this->swishAiMenu  = new SwishAiMenu($aiSettings, $aiProviders, $aiLogger);
@@ -428,6 +484,9 @@ class Plugin
      */
     public function boot(): void
     {
+        // Front-end login and registration forms (main site /login/ and /register/).
+        (new \SwishfolioCore\Auth\AuthHandler())->boot();
+
         // Load text domain.
         add_action('init', [ $this, 'loadTextDomain' ]);
 
@@ -483,11 +542,19 @@ class Plugin
             $this->agentJobRunner->boot();
         }
 
+        if ($this->backgroundJobs !== null) {
+            $this->backgroundJobs->boot();
+        }
+
         // The journal table is created on activation, but an update from a
         // version without it never runs activation, so the version-guarded
         // installer runs on admin_init too. It is one get_option when current.
         add_action('admin_init', [ self::class, 'installJournalTable' ]);
         add_action('admin_init', [ self::class, 'scheduleJournalPrune' ]);
+
+        // Core only drops its own tables when a site is deleted; without this
+        // the journal (AI inputs and prior content) outlives the tenant.
+        add_filter('wpmu_drop_tables', [ self::class, 'dropJournalTable' ], 10, 2);
 
         // Register WP-CLI commands.
         if (defined('WP_CLI') && \WP_CLI) {
@@ -769,7 +836,7 @@ class Plugin
             'sfcore-ai-sidebar',
             SFCORE_PLUGIN_URL . 'assets/css/ai-sidebar.css',
             [],
-            SFCORE_VERSION
+            SFCORE_VERSION . '.' . filemtime(SFCORE_PLUGIN_DIR . 'assets/css/ai-sidebar.css')
         );
     }
 
@@ -859,6 +926,10 @@ class Plugin
             $this->aiGenerationController->registerRoutes();
         }
 
+        if ($this->aiBuilderController !== null) {
+            $this->aiBuilderController->registerRoutes();
+        }
+
         if ($this->toolsController !== null) {
             $this->toolsController->registerRoutes();
         }
@@ -867,8 +938,24 @@ class Plugin
             $this->agentController->registerRoutes();
         }
 
+        if ($this->customiseController !== null) {
+            $this->customiseController->registerRoutes();
+        }
+
         if ($this->onboardingController !== null) {
             $this->onboardingController->registerRoutes();
+        }
+
+        if ($this->kitController !== null) {
+            $this->kitController->registerRoutes();
+        }
+
+        if ($this->kitBuildController !== null) {
+            $this->kitBuildController->registerRoutes();
+        }
+
+        if ($this->customDesignController !== null) {
+            $this->customDesignController->registerRoutes();
         }
     }
 
@@ -890,6 +977,21 @@ class Plugin
     public static function installJournalTable(): void
     {
         JournalTable::install();
+    }
+
+    /**
+     * @param string[] $tables Tables core will drop for the deleted site.
+     * @param int      $siteId Site being deleted.
+     *
+     * @return string[]
+     */
+    public static function dropJournalTable($tables, $siteId)
+    {
+        global $wpdb;
+
+        $tables[] = $wpdb->get_blog_prefix((int) $siteId) . 'swishfolio_ai_journal';
+
+        return $tables;
     }
 
     /**

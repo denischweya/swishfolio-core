@@ -80,7 +80,12 @@ class ConfirmToken
             $canonical[] = [$name, self::sortDeep($input)];
         }
 
-        return wp_hash(wp_json_encode([$canonical, (int) $userId, (int) $issuedAt]));
+        // The site is part of what was approved: wp_hash() is network-wide, so
+        // without it a token from one site would approve the same calls on
+        // another site the same user belongs to.
+        $siteId = function_exists('get_current_blog_id') ? (int) get_current_blog_id() : 0;
+
+        return wp_hash(wp_json_encode([$canonical, (int) $userId, (int) $issuedAt, $siteId]));
     }
 
     /**

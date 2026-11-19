@@ -8,6 +8,7 @@
 namespace SwishfolioCore\Tools\Write;
 
 use SwishfolioCore\Tools\Journal\JournalEntry;
+use SwishfolioCore\Tools\Journal\RunAccess;
 use SwishfolioCore\Tools\Journal\JournalRepositoryInterface;
 use SwishfolioCore\Tools\Journal\Rollback;
 use SwishfolioCore\Tools\ToolContext;
@@ -89,12 +90,18 @@ class RollbackRunTool implements ToolInterface
         $runId   = isset($input['runId']) ? (string) $input['runId'] : '';
         $entries = null === $this->repository ? [] : $this->repository->findRun($runId);
 
+        // Same rule as the audit log: only site managers see, and so undo,
+        // other people's runs.
+        if ($entries !== [] && RunAccess::filter($entries) === []) {
+            $this->forbid(__('That run was made by someone else, so you cannot undo it.', 'swishfolio-core'));
+        }
+
         foreach ($entries as $entry) {
             if (JournalEntry::TARGET_OPTION === $entry->getTargetType() && ! current_user_can('manage_options')) {
                 $this->forbid(__('This run changed site settings, which you cannot undo.', 'swishfolio-core'));
             }
 
-            if (JournalEntry::TARGET_POST === $entry->getTargetType()) {
+            if (in_array($entry->getTargetType(), [JournalEntry::TARGET_POST, JournalEntry::TARGET_META, JournalEntry::TARGET_TERMS], true)) {
                 $postId = $this->postIdOf($entry);
 
                 if ($postId > 0 && ! current_user_can('edit_post', $postId)) {
@@ -143,6 +150,11 @@ class RollbackRunTool implements ToolInterface
 
         if (isset($prior['created'])) {
             return (int) $prior['created'];
+        }
+
+        // Meta and term rows are keyed "postId:key" and carry the post id.
+        if (isset($prior['postId'])) {
+            return (int) $prior['postId'];
         }
 
         return (int) $entry->getTargetId();

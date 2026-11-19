@@ -171,6 +171,33 @@ class UploadMediaTool extends AbstractWriteTool
         return $url;
     }
 
+    /** Ceiling for one fetched image, before the network's own limits. */
+    const MAX_BYTES = 10485760;
+
+    /**
+     * Sideloads skip core's check_upload_size(), which only hooks browser
+     * uploads, so the network's per-file limit and the site's quota are
+     * applied here.
+     *
+     * @return int Largest file this fetch may store, in bytes.
+     */
+    private function maxBytes()
+    {
+        $max = self::MAX_BYTES;
+
+        if (! is_multisite()) {
+            return $max;
+        }
+
+        $max = min($max, (int) get_site_option('fileupload_maxk', 1500) * KB_IN_BYTES);
+
+        if (! get_site_option('upload_space_check_disabled')) {
+            $max = min($max, (int) get_upload_space_available());
+        }
+
+        return $max;
+    }
+
     /**
      * @param string $url   Validated URL.
      * @param string $title Optional attachment title.
@@ -187,12 +214,38 @@ class UploadMediaTool extends AbstractWriteTool
         require_once ABSPATH . 'wp-admin/includes/media.php';
         require_once ABSPATH . 'wp-admin/includes/image.php';
 
-        // Uses wp_safe_remote_get(), so wp_http_validate_url() refuses
-        // loopback, link-local and private addresses before anything is fetched.
-        $temp = download_url($url);
+        $maxBytes = $this->maxBytes();
 
-        if (is_wp_error($temp)) {
-            return ['error' => $temp->get_error_message()];
+        if ($maxBytes <= 0) {
+            return ['error' => __('This site has used all of its storage space.', 'swishfolio-core')];
+        }
+
+        // wp_safe_remote_get() refuses loopback, link-local and private
+        // addresses. Unlike download_url() it is given a short timeout and a
+        // size cap, so a prompt cannot make the server pull gigabytes, and a
+        // failed fetch reports nothing about what answered (no port oracle).
+        $temp     = wp_tempnam('swish-ai-media');
+        $response = wp_safe_remote_get(
+            $url,
+            [
+                'timeout'             => 15,
+                'redirection'         => 3,
+                'stream'              => true,
+                'filename'            => $temp,
+                'limit_response_size' => $maxBytes + 1,
+            ]
+        );
+
+        if (is_wp_error($response) || 200 !== (int) wp_remote_retrieve_response_code($response)) {
+            wp_delete_file($temp);
+
+            return ['error' => __('That image could not be downloaded.', 'swishfolio-core')];
+        }
+
+        if ((int) filesize($temp) > $maxBytes) {
+            wp_delete_file($temp);
+
+            return ['error' => __('That image is too large for this site.', 'swishfolio-core')];
         }
 
         $file = [
@@ -208,6 +261,14 @@ class UploadMediaTool extends AbstractWriteTool
             wp_delete_file($temp);
 
             return ['error' => (string) $sideloaded['error']];
+        }
+
+        // The tool adds images; anything else the site happens to allow
+        // (PDFs, documents, archives) has no business arriving from a prompt.
+        if (0 !== strpos((string) $sideloaded['type'], 'image/')) {
+            wp_delete_file($sideloaded['file']);
+
+            return ['error' => __('Only images can be added this way.', 'swishfolio-core')];
         }
 
         $attachmentId = wp_insert_attachment(
