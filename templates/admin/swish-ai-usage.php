@@ -21,6 +21,14 @@ $counters = $usage['counters'];
 		<?php esc_html_e('Token counts are recorded so you can see what your provider is charging you for. No prompt text and no content is ever stored.', 'swishfolio-core'); ?>
 	</p>
 
+	<?php
+	/**
+	 * Fires above the usage counters. A host that supplies AI to this site
+	 * (e.g. a credit system) can print its balance here.
+	 */
+	do_action('swishfolio_ai_usage_before_counters');
+	?>
+
 	<?php if ((int) $counters['requests'] === 0) : ?>
 		<p><?php esc_html_e('No AI requests yet.', 'swishfolio-core'); ?></p>
 	<?php else : ?>

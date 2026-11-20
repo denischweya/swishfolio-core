@@ -4,7 +4,7 @@ Tags: ai, blocks, block-editor, portfolio, forms
 Requires at least: 6.7
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -258,6 +258,10 @@ posts would change, then run without `--dry-run` to apply. Use `--network` on a
 multisite install to walk every subsite.
 
 == Changelog ==
+
+= 1.4.1 =
+* Swish AI Usage page: hook for showing the site's credit balance.
+* Template customisation: colour pass has room to finish (8000 tokens).
 
 = 1.4.0 =
 * AI site builder: social proof sections (client logos, testimonials, stats)

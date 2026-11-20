@@ -216,7 +216,7 @@ class TemplateCustomiser
             'fonts'    => implode(', ', array_keys($fonts)) ?: '(none)',
         ]);
 
-        $response = $this->provider->generate(new AIRequest($this->prompts->system('agent'), $user, self::designSchema(), $model, 2000));
+        $response = $this->provider->generate(new AIRequest($this->prompts->system('agent'), $user, self::designSchema(), $model, 8000));
         $decoded  = $response->getDecoded();
 
         $input = [
